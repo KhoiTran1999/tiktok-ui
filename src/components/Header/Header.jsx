@@ -1,11 +1,19 @@
-import React from 'react';
-import images from '../../assets/images';
+import React, { useEffect, useState } from 'react';
+import Tippy, { tippy } from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+import images from '../../assets/images';
 import { Link } from 'react-router-dom';
 import style from './style.module.scss';
+import SubnavWrapper from '../SubnavWrapper';
 
 const cx = classNames.bind(style);
 const Header = () => {
+    const [accoutList, setAccountList] = useState([]);
+    useEffect(() => {
+        setTimeout(() => {
+            setAccountList([1, 2, 3]);
+        }, 1000);
+    }, []);
     return (
         <header>
             <div className="container">
@@ -16,12 +24,29 @@ const Header = () => {
                         </Link>
                     </h1>
                     <form action="search">
-                        <div className={cx('form-group')}>
-                            <input id={cx('search')} type="search" placeholder="Tìm kiếm tài khoản và video" />
-                            <label htmlFor={cx('search')}>
-                                <i className="fa-solid fa-magnifying-glass"></i>
-                            </label>
-                        </div>
+                        <Tippy
+                            placement="bottom-start"
+                            interactive={true}
+                            visible={accoutList.length > 0}
+                            render={(attrs) => (
+                                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                                    <SubnavWrapper>
+                                        <p>khoitran</p>
+                                    </SubnavWrapper>
+                                </div>
+                            )}
+                        >
+                            <input
+                                id={cx('search')}
+                                autoComplete={'off'}
+                                type="search"
+                                required
+                                placeholder="Tìm kiếm tài khoản và video"
+                            />
+                        </Tippy>
+                        <button type="submit">
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                        </button>
                     </form>
                     <div className={cx('group')}>
                         <div className={cx('upload')}>
@@ -29,51 +54,59 @@ const Header = () => {
                                 <i className="fa-solid fa-plus"></i> Tải lên
                             </button>
                         </div>
-                        <div className={cx('message')}>
-                            <img src={images.logoMessage} alt="" />
-                            <div className={cx('title')}>
-                                <p>Tin nhắn</p>
+                        <Tippy content="Tin nhắn">
+                            <div className={cx('message')}>
+                                <img src={images.logoMessage} alt="" />
                             </div>
-                        </div>
-                        <div className={cx('message-box')}>
-                            <img src={images.logoMessageBox} alt="" />
-                            <div className={cx('title')}>
-                                <p>Hộp thư</p>
+                        </Tippy>
+                        <Tippy content="Hộp thư">
+                            <div className={cx('message-box')}>
+                                <img src={images.logoMessageBox} alt="" />
                             </div>
-                        </div>
+                        </Tippy>
+
                         <div className={cx('menu')}>
-                            <img src={images.imgGaiXinh} alt="" />
-                            <div className={cx('sub-nav')}>
-                                <ul>
-                                    <li>
-                                        <i class="fa-regular fa-user"></i>Xem hồ sơ
-                                    </li>
-                                    <li>
-                                        <i class="fa-brands fa-tiktok"></i>Nhận xu
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-video"></i>LIVE Studio
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-gear"></i>Cài đặt
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-font"></i>Tiếng Việt
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-circle-question"></i>Phản hồi và trợ giúp
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-keyboard"></i>Phím tắt trên bàn phím
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-moon"></i>Chế độ tối
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-arrow-right-from-bracket"></i>Đăng xuất
-                                    </li>
-                                </ul>
-                            </div>
+                            <Tippy
+                                interactive
+                                render={(attrs) => (
+                                    <div className={cx('sub-nav')} tabIndex="-1" {...attrs}>
+                                        <SubnavWrapper>
+                                            <ul>
+                                                <li>
+                                                    <i className="fa-regular fa-user"></i>Xem hồ sơ
+                                                </li>
+                                                <li>
+                                                    <i className="fa-brands fa-tiktok"></i>Nhận xu
+                                                </li>
+                                                <li>
+                                                    <i className="fa-solid fa-video"></i>LIVE Studio
+                                                </li>
+                                                <li>
+                                                    <i className="fa-solid fa-gear"></i>Cài đặt
+                                                </li>
+                                                <li>
+                                                    <i className="fa-solid fa-font"></i>Tiếng Việt
+                                                </li>
+                                                <li>
+                                                    <i className="fa-regular fa-circle-question"></i>Phản hồi và trợ
+                                                    giúp
+                                                </li>
+                                                <li>
+                                                    <i className="fa-regular fa-keyboard"></i>Phím tắt trên bàn phím
+                                                </li>
+                                                <li>
+                                                    <i className="fa-regular fa-moon"></i>Chế độ tối
+                                                </li>
+                                                <li>
+                                                    <i className="fa-solid fa-arrow-right-from-bracket"></i>Đăng xuất
+                                                </li>
+                                            </ul>
+                                        </SubnavWrapper>
+                                    </div>
+                                )}
+                            >
+                                <img src={images.imgGaiXinh} width="100px" alt="" />
+                            </Tippy>
                         </div>
                     </div>
                 </div>

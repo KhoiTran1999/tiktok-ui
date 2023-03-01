@@ -10,34 +10,40 @@ header {
         }
         form {
             width: 35%;
-            .form-group {
-                background-color: #f1f1f2;
-                border-radius: 30px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                #search {
-                    border: none;
-                    outline: none;
-                    background-color: transparent;
-                    font-size: 15px;
-                    width: 90%;
-                    padding: 5px 15px;
-                    border-right: 1px solid rgb(207, 205, 205);
+            background-color: #f1f1f2;
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            #search {
+                border: none;
+                outline: none;
+                background-color: transparent;
+                font-size: 15px;
+                width: 90%;
+                padding: 5px 15px;
+                border-right: 1px solid rgb(207, 205, 205);
+            }
+            button {
+                border: none;
+                padding: 11px 16px 11px 12px;
+                border-top-right-radius: 30px;
+                border-bottom-right-radius: 30px;
+                cursor: pointer;
+                &:hover {
+                    background-color: #eceaea;
                 }
-                label {
-                    padding: 11px 16px 11px 12px;
-                    cursor: pointer;
-                    &:hover {
-                        background-color: #eceaea;
-                        border-top-right-radius: 30px;
-                        border-bottom-right-radius: 30px;
-                    }
-                    i {
-                        font-size: 20px;
-                        color: rgb(187, 184, 184);
-                    }
+                &:active {
+                    background-color: #dedcdc;
                 }
+                i {
+                    font-size: 20px;
+                    color: rgb(187, 184, 184);
+                }
+            }
+            .search-result {
+                margin-top: 10px;
+                width: 393px;
             }
         }
         .group {
@@ -62,103 +68,30 @@ header {
                 }
             }
             .message {
-                position: relative;
                 margin-left: 20px;
                 img {
                     width: 27px;
                     cursor: pointer;
                 }
-                .title {
-                    width: 85px;
-                    padding: 5px 10px;
-                    background-color: rgba(29, 28, 28, 0.681);
-                    border-radius: 8px;
-                    position: absolute;
-                    top: 45px;
-                    right: -25px;
-                    display: none;
-                    &::before {
-                        position: absolute;
-                        top: -20px;
-                        left: 35px;
-                        content: '';
-                        border: 10px solid rgba(29, 28, 28, 0.681);
-                        border-top-color: transparent;
-                        border-left-color: transparent;
-                        border-right-color: transparent;
-                    }
-                    p {
-                        font-weight: 500;
-                        color: white;
-                        text-align: center;
-                    }
-                }
-                &:hover .title {
-                    display: block;
-                }
             }
             .message-box {
-                position: relative;
                 margin-left: 20px;
                 cursor: pointer;
-                .title {
-                    width: 85px;
-                    padding: 5px 10px;
-                    background-color: rgba(29, 28, 28, 0.681);
-                    border-radius: 8px;
-                    position: absolute;
-                    top: 45px;
-                    right: -25px;
-                    display: none;
-                    &::before {
-                        position: absolute;
-                        top: -20px;
-                        left: 35px;
-                        content: '';
-                        border: 10px solid rgba(29, 28, 28, 0.681);
-                        border-top-color: transparent;
-                        border-left-color: transparent;
-                        border-right-color: transparent;
-                    }
-                    p {
-                        font-weight: 500;
-                        color: white;
-                        text-align: center;
-                    }
-                }
-                &:hover .title {
-                    display: block;
-                }
             }
             .menu {
                 width: 35px;
                 height: 35px;
                 cursor: pointer;
                 margin-left: 20px;
-                position: relative;
                 img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                     border-radius: 50%;
                 }
-                &:hover .sub-nav {
-                    opacity: 100;
-                    visibility: visible;
-                }
                 .sub-nav {
-                    position: absolute;
-                    top: 47px;
-                    right: -10px;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: 0.1s all;
+                    width: 230px;
                     ul {
-                        width: 230px;
-                        background-color: white;
-                        padding: 5px 0px;
-                        border-radius: 10px;
-                        box-shadow: 0px 9px 20px 2px rgba(155, 155, 155, 0.364);
                         li {
                             i {
                                 font-size: 18px;
@@ -173,16 +106,6 @@ header {
                             &:last-child {
                                 border-top: 1px rgb(212, 211, 211) solid;
                             }
-                        }
-                        &::before {
-                            content: '';
-                            border: 10px solid white;
-                            border-top-color: transparent;
-                            border-right-color: transparent;
-                            border-left-color: transparent;
-                            position: absolute;
-                            top: -20px;
-                            right: 20px;
                         }
                     }
                 }
