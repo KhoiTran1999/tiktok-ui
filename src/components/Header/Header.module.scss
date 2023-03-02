@@ -9,7 +9,7 @@ header {
             padding-top: 10px;
         }
         form {
-            width: 35%;
+            width: 32%;
             background-color: #f1f1f2;
             border-radius: 30px;
             display: flex;
@@ -19,7 +19,7 @@ header {
                 border: none;
                 outline: none;
                 background-color: transparent;
-                font-size: 15px;
+                font-size: 16px;
                 width: 90%;
                 padding: 5px 15px;
                 border-right: 1px solid rgb(207, 205, 205);
@@ -58,67 +58,23 @@ header {
             justify-content: space-between;
             align-items: center;
             .upload {
+                span {
+                    padding-right: 5px;
+                }
                 i {
-                    margin-right: 5px;
-                    margin-left: -5px;
+                    padding: 0px 10px;
                 }
             }
-            .message {
-                margin-left: 20px;
-                img {
-                    width: 27px;
-                    cursor: pointer;
-                }
-            }
-            .message-box {
-                margin-left: 20px;
-                cursor: pointer;
-            }
-            // .wrapper {
-            //     position: relative;
-            //     padding: 8px;
-            //     color: white;
-            //     background-color: rgba(84, 84, 84, 0.92);
-            //     font-size: 16px;
-            //     font-weight: 600;
-            //     border-radius: 8px;
-            //     &::before {
-            //         content: '';
-            //         border: 10px rgba(84, 84, 84, 0.92) solid;
-            //         border-top-color: transparent;
-            //         border-right-color: transparent;
-            //         border-left-color: transparent;
-            //         position: absolute;
-            //         right: 50%;
-            //         top: -20px;
-            //         transform: translate(50%);
-            //     }
-            // }
             .menu {
-                width: 35px;
-                height: 35px;
                 cursor: pointer;
                 margin-left: 20px;
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 50%;
+                i {
+                    padding: 4px 7px;
+                    font-size: 20px;
                 }
-                .sub-nav {
-                    width: 230px;
+                .subnav-menu {
                     ul {
                         li {
-                            i {
-                                font-size: 18px;
-                                margin: 0px 15px;
-                            }
-                            font-size: 16px;
-                            font-weight: 500;
-                            padding: 10px 0px;
-                            &:hover {
-                                background-color: rgba(22, 24, 35, 0.03);
-                            }
                             &:last-child {
                                 border-top: 1px rgb(212, 211, 211) solid;
                             }

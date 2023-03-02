@@ -1,0 +1,35 @@
+.sub-nav {
+    width: 240px;
+    ul {
+        li {
+            font-size: 16px;
+            font-weight: 500;
+            padding: 10px 0px;
+            cursor: pointer;
+            a {
+                display: inline-block;
+                width: 100%;
+                padding: 10px 0px;
+                margin: -10px 0px;
+            }
+            i {
+                font-size: 18px;
+                margin: 0px 15px;
+            }
+
+            &:hover {
+                background-color: rgba(22, 24, 35, 0.03);
+            }
+        }
+    }
+    &::before {
+        content: '';
+        border: 10px white solid;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        position: absolute;
+        right: 20px;
+        top: -20px;
+    }
+}
