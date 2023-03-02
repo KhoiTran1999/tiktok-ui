@@ -80,6 +80,16 @@ header {
                             }
                         }
                     }
+                    &::before {
+                        content: '';
+                        border: 10px white solid;
+                        border-top-color: transparent;
+                        border-right-color: transparent;
+                        border-left-color: transparent;
+                        position: absolute;
+                        right: 20px;
+                        top: -20px;
+                    }
                 }
             }
         }
