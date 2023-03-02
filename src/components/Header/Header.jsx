@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import Tippy, { tippy } from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react/headless';
+// import 'tippy.js/dist/tippy.css';
+// import 'tippy.js/animations/perspective.css';
 import classNames from 'classnames/bind';
-import images from '../../assets/images';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import style from './style.module.scss';
+import images from '../../assets/images';
+import AccountSearch from '../AccountSearch';
+import Button from '../Button';
 import SubnavWrapper from '../SubnavWrapper';
+import Wrapper from '../Wrapper';
+import style from './style.module.scss';
 
 const cx = classNames.bind(style);
 const Header = () => {
     const [accoutList, setAccountList] = useState([]);
-    useEffect(() => {
-        setTimeout(() => {
-            setAccountList([1, 2, 3]);
-        }, 1000);
-    }, []);
+
     return (
         <header>
             <div className="container">
@@ -31,7 +32,12 @@ const Header = () => {
                             render={(attrs) => (
                                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                                     <SubnavWrapper>
-                                        <p>khoitran</p>
+                                        <span className={cx('account-title')}>Tài khoản</span>
+                                        <AccountSearch />
+                                        <AccountSearch />
+                                        <AccountSearch />
+                                        <AccountSearch />
+                                        <AccountSearch />
                                     </SubnavWrapper>
                                 </div>
                             )}
@@ -50,16 +56,30 @@ const Header = () => {
                     </form>
                     <div className={cx('group')}>
                         <div className={cx('upload')}>
-                            <button>
+                            <Button basic medium>
                                 <i className="fa-solid fa-plus"></i> Tải lên
-                            </button>
+                            </Button>
                         </div>
-                        <Tippy content="Tin nhắn">
+                        <Tippy
+                            interactive
+                            render={(attrs) => (
+                                <Wrapper>
+                                    <span>Tin nhắn</span>
+                                </Wrapper>
+                            )}
+                        >
                             <div className={cx('message')}>
                                 <img src={images.logoMessage} alt="" />
                             </div>
                         </Tippy>
-                        <Tippy content="Hộp thư">
+                        <Tippy
+                            interactive
+                            render={(attrs) => (
+                                <Wrapper>
+                                    <span>Hộp thư</span>
+                                </Wrapper>
+                            )}
+                        >
                             <div className={cx('message-box')}>
                                 <img src={images.logoMessageBox} alt="" />
                             </div>

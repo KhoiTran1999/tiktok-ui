@@ -1,0 +1,51 @@
+.wrapper {
+    border-radius: 4px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    + .wrapper {
+        margin-left: 8px;
+    }
+}
+
+.primary {
+    color: rgba(255, 255, 255, 1);
+    background-color: var(--primary);
+    &:hover {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
+    }
+}
+
+.basic {
+    border-color: rgb(218, 216, 216);
+    background-color: white;
+    &:hover {
+        background-color: #f1f1f2;
+    }
+}
+
+.outline {
+    color: var(--primary);
+    background-color: white;
+    border-color: #fe2c55;
+    &:hover {
+        background-color: rgba(254, 44, 85, 0.06);
+    }
+}
+
+.large {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 134px;
+}
+
+.medium {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 17px;
+}
+
+.small {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 3px 19px;
+}

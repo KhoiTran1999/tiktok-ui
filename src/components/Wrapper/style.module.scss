@@ -1,0 +1,20 @@
+.wrapper {
+    position: relative;
+    padding: 8px;
+    color: white;
+    background-color: rgba(84, 84, 84, 0.92);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    &::before {
+        content: '';
+        border: 10px rgba(84, 84, 84, 0.92) solid;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        position: absolute;
+        right: 50%;
+        top: -20px;
+        transform: translate(50%);
+    }
+}
