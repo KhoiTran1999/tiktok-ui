@@ -31,4 +31,17 @@
             }
         }
     }
+    .childrenTitle {
+        position: relative;
+        i {
+            position: absolute;
+            left: 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        h4 {
+            text-align: center;
+            margin: 10px 0px;
+        }
+    }
 }

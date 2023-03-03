@@ -32,17 +32,20 @@ const Header = () => {
         {
             icon: <i className="fa-solid fa-font"></i>,
             title: 'Tiếng Việt',
-            subMenu: [
-                {
-                    title: 'Tiếng Việt (Việt Nam)',
-                },
-                {
-                    title: 'English',
-                },
-                {
-                    title: 'Deutsh',
-                },
-            ],
+            children: {
+                childrenTitle: 'Ngôn ngữ',
+                list: [
+                    {
+                        title: 'Tiếng Việt (Việt Nam)',
+                    },
+                    {
+                        title: 'English',
+                    },
+                    {
+                        title: 'Deutsh',
+                    },
+                ],
+            },
         },
         {
             icon: <i className="fa-regular fa-circle-question"></i>,
@@ -77,8 +80,7 @@ const Header = () => {
                         <Tippy
                             placement="bottom-start"
                             interactive={true}
-                            // visible={accoutList.length > 0}
-                            visible
+                            visible={accoutList.length > 0}
                             render={(attrs) => (
                                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                                     <SubnavWrapper>
@@ -119,7 +121,7 @@ const Header = () => {
                         </Tippy>
                         <div className={cx('menu')}>
                             <Tippy
-                                visible
+                                // visible
                                 delay={[0, 700]}
                                 offset={[18, 10]}
                                 placement="bottom-end"

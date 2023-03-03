@@ -74,13 +74,6 @@ header {
                     cursor: pointer;
                 }
                 .subnav-menu {
-                    ul {
-                        li {
-                            &:last-child {
-                                border-top: 1px rgb(212, 211, 211) solid;
-                            }
-                        }
-                    }
                     &::before {
                         content: '';
                         border: 10px white solid;
