@@ -1,6 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import images from '../../assets/images';
 import { AccountSearch } from '../DetailComponent';
@@ -65,7 +65,9 @@ const Header = () => {
             title: 'Đăng xuất',
         },
     ];
+
     const [accoutList, setAccountList] = useState([]);
+    const [isHide, setIsHide] = useState(false);
 
     return (
         <header>
@@ -126,7 +128,15 @@ const Header = () => {
                                 offset={[18, 10]}
                                 placement="bottom-end"
                                 interactive
-                                render={(attrs) => <Menu data={dataMainMenu} className={cx('subnav-menu')} />}
+                                render={(attrs) => (
+                                    <Menu data={dataMainMenu} className={cx('subnav-menu')} isHide={isHide} />
+                                )}
+                                onHide={() => {
+                                    setIsHide(true);
+                                }}
+                                onShow={() => {
+                                    setIsHide(false);
+                                }}
                             >
                                 <i className="fa-solid fa-ellipsis-vertical"></i>
                             </Tippy>

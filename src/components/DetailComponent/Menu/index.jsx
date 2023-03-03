@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { forwardRef, memo, useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './Menu.module.scss';
 import SubnavWrapper from '../SubnavWrapper';
@@ -6,7 +6,7 @@ import MenuItem from './MenuItem';
 import HeaderChildren from './HeaderChildren';
 
 const cx = classNames.bind(style);
-const Menu = ({ className, data }) => {
+const Menu = ({ className, data, isHide }) => {
     const [history, setHistory] = useState([]);
     const [directing, setDirecting] = useState(data);
     const [childTitle, setChildTitle] = useState('');
@@ -36,6 +36,14 @@ const Menu = ({ className, data }) => {
     const classes = cx('sub-nav', {
         [className]: className,
     });
+
+    useEffect(() => {
+        if (isHide) {
+            setDirecting(data);
+            setHistory([]);
+            setChildTitle('');
+        }
+    }, [isHide]);
 
     return (
         <div className={classes}>
