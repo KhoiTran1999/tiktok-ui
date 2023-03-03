@@ -7,7 +7,8 @@ import LogoMessage from '../../assets/icon/LogoMessage';
 import LogoMessageBox from '../../assets/icon/LogoMessageBox';
 import LogoTiktok from '../../assets/icon/LogoTiktok';
 import images from '../../assets/images';
-import { AccountSearch, Button, Image, Menu, SubnavWrapper, Wrapper } from '../DetailComponent';
+import { Button, Image, Menu, Wrapper } from '../DetailComponent';
+import FormSearch from '../DetailComponent/FormSearch';
 import style from './Header.module.scss';
 
 const cx = classNames.bind(style);
@@ -67,7 +68,6 @@ const Header = () => {
     ];
     const isLogin = true;
 
-    const [accoutList, setAccountList] = useState([]);
     const [isHide, setIsHide] = useState(false);
 
     return (
@@ -79,34 +79,7 @@ const Header = () => {
                             <LogoTiktok />
                         </Link>
                     </h1>
-                    <form action="search">
-                        <Tippy
-                            placement="bottom-start"
-                            interactive={true}
-                            visible={accoutList.length > 0}
-                            render={(attrs) => (
-                                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                                    <SubnavWrapper>
-                                        <span className={cx('account-title')}>Tài khoản</span>
-                                        <AccountSearch />
-                                        <AccountSearch />
-                                        <AccountSearch />
-                                    </SubnavWrapper>
-                                </div>
-                            )}
-                        >
-                            <input
-                                id={cx('search')}
-                                autoComplete={'off'}
-                                type="search"
-                                required
-                                placeholder="Tìm kiếm tài khoản và video"
-                            />
-                        </Tippy>
-                        <button type="submit">
-                            <i className="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </form>
+                    <FormSearch />
                     {isLogin ? (
                         <div className={cx('group')}>
                             <ul>

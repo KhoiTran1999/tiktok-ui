@@ -9,52 +9,6 @@ header {
             padding-top: 10px;
             margin-bottom: -5px;
         }
-        form {
-            width: 33%;
-            padding: 2px;
-            background-color: #f1f1f2;
-            border-radius: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            #search {
-                border: none;
-                outline: none;
-                background-color: transparent;
-                font-size: 16px;
-                width: 85%;
-                padding: 5px 15px;
-                border-right: 0.5px solid rgb(207, 205, 205);
-                caret-color: #fe2c55;
-            }
-            button {
-                border: none;
-                padding: 11px 16px 11px 12px;
-                border-top-right-radius: 30px;
-                border-bottom-right-radius: 30px;
-                cursor: pointer;
-                &:hover {
-                    background-color: #eceaea;
-                }
-                &:active {
-                    background-color: #dedcdc;
-                }
-                i {
-                    font-size: 20px;
-                    color: rgb(187, 184, 184);
-                }
-            }
-            .search-result {
-                margin-top: 10px;
-                width: 393px;
-                .account-title {
-                    padding: 5px 12px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: rgba(22, 24, 35, 0.5);
-                }
-            }
-        }
         .group {
             > ul {
                 display: flex;
