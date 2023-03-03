@@ -65,7 +65,7 @@ const Header = () => {
                         <div className={cx('menu')}>
                             <Tippy
                                 delay={[0, 700]}
-                                offset={[20, 10]}
+                                offset={[18, 10]}
                                 placement="bottom-end"
                                 interactive
                                 render={(attrs) => <Menu className={cx('subnav-menu')} />}

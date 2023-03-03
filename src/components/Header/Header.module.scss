@@ -66,8 +66,11 @@ header {
                 }
             }
             .menu {
-                cursor: pointer;
                 margin-left: 20px;
+                > i {
+                    padding: 10px;
+                    cursor: pointer;
+                }
                 .subnav-menu {
                     ul {
                         li {
