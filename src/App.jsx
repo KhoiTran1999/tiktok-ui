@@ -1,6 +1,5 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import './GlobalStyle.scss';
-import Following from './pages/Following';
 import { publicRoutes } from './routes';
 
 function App() {
@@ -9,7 +8,7 @@ function App() {
             <Routes>
                 {publicRoutes.map((val, idx) => {
                     let Layout = val.layout;
-                    let Component = val.component;
+                    let Component = val.page;
                     return (
                         <Route
                             path={val.path}

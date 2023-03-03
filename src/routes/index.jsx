@@ -6,10 +6,10 @@ import Home from '../pages/Home';
 import Live from '../pages/Live';
 
 const publicRoutes = [
-    { path: '/', component: Home, layout: DefaultLayout },
-    { path: '/foryou', component: Home, layout: DefaultLayout },
-    { path: '/Following', component: Following, layout: HeaderAndSidebarLayout },
-    { path: '/Live', component: Live, layout: HeaderOnlyLayout },
+    { path: '/', page: Home, layout: DefaultLayout },
+    { path: '/foryou', page: Home, layout: DefaultLayout },
+    { path: '/Following', page: Following, layout: HeaderAndSidebarLayout },
+    { path: '/Live', page: Live, layout: HeaderOnlyLayout },
 ];
 
 const privateRoutes = [];

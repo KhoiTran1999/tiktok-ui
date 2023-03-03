@@ -3,15 +3,65 @@ import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import images from '../../assets/images';
-import AccountSearch from '../AccountSearch';
-import Button from '../Button';
-import Menu from '../Menu';
-import SubnavWrapper from '../SubnavWrapper';
-import Wrapper from '../Wrapper';
+import { AccountSearch } from '../DetailComponent';
+import { Button } from '../DetailComponent';
+import { Menu } from '../DetailComponent';
+import { SubnavWrapper } from '../DetailComponent';
+import { Wrapper } from '../DetailComponent';
 import style from './Header.module.scss';
 
 const cx = classNames.bind(style);
 const Header = () => {
+    const dataMainMenu = [
+        {
+            icon: <i className="fa-regular fa-user"></i>,
+            title: 'Xem hồ sơ',
+        },
+        {
+            icon: <i className="fa-brands fa-tiktok"></i>,
+            title: 'Nhận xu',
+        },
+        {
+            icon: <i className="fa-solid fa-video"></i>,
+            title: 'LIVE Studio',
+        },
+        {
+            icon: <i className="fa-solid fa-gear"></i>,
+            title: 'Cài đặt',
+        },
+        {
+            icon: <i className="fa-solid fa-font"></i>,
+            title: 'Tiếng Việt',
+            subMenu: [
+                {
+                    title: 'Tiếng Việt (Việt Nam)',
+                },
+                {
+                    title: 'English',
+                },
+                {
+                    title: 'Deutsh',
+                },
+            ],
+        },
+        {
+            icon: <i className="fa-regular fa-circle-question"></i>,
+            title: 'Phản hồi và trợ giúp',
+            to: '/feedback',
+        },
+        {
+            icon: <i className="fa-regular fa-keyboard"></i>,
+            title: 'Phím tắt trên bàn phím',
+        },
+        {
+            icon: <i className="fa-regular fa-moon"></i>,
+            title: 'Chế độ tối',
+        },
+        {
+            icon: <i className="fa-solid fa-arrow-right-from-bracket"></i>,
+            title: 'Đăng xuất',
+        },
+    ];
     const [accoutList, setAccountList] = useState([]);
 
     return (
@@ -27,13 +77,12 @@ const Header = () => {
                         <Tippy
                             placement="bottom-start"
                             interactive={true}
-                            visible={accoutList.length > 0}
+                            // visible={accoutList.length > 0}
+                            visible
                             render={(attrs) => (
                                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                                     <SubnavWrapper>
                                         <span className={cx('account-title')}>Tài khoản</span>
-                                        <AccountSearch />
-                                        <AccountSearch />
                                         <AccountSearch />
                                         <AccountSearch />
                                         <AccountSearch />
@@ -61,14 +110,21 @@ const Header = () => {
                         <Button primary medium>
                             <span>Đăng nhập</span>
                         </Button>
-
+                        <Tippy render={(attrs) => <Wrapper>Tạo hiệu ứng</Wrapper>}>
+                            <img
+                                style={{ cursor: 'pointer', marginLeft: '20px' }}
+                                src={images.createEffectLogo}
+                                alt=""
+                            />
+                        </Tippy>
                         <div className={cx('menu')}>
                             <Tippy
+                                visible
                                 delay={[0, 700]}
                                 offset={[18, 10]}
                                 placement="bottom-end"
                                 interactive
-                                render={(attrs) => <Menu className={cx('subnav-menu')} />}
+                                render={(attrs) => <Menu data={dataMainMenu} className={cx('subnav-menu')} />}
                             >
                                 <i className="fa-solid fa-ellipsis-vertical"></i>
                             </Tippy>
