@@ -4,7 +4,20 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
-const Button = ({ className, primary, outline, basic, large, medium, small, to, href, children, ...ListProps }) => {
+const Button = ({
+    className,
+    primary,
+    outline,
+    basic,
+    text,
+    large,
+    medium,
+    small,
+    to,
+    href,
+    children,
+    ...ListProps
+}) => {
     let Comp = 'button';
     const props = {
         ...ListProps,
@@ -22,6 +35,7 @@ const Button = ({ className, primary, outline, basic, large, medium, small, to, 
         primary,
         outline,
         basic,
+        text,
         large,
         medium,
         small,

@@ -64,6 +64,7 @@ const Header = () => {
 
                         <div className={cx('menu')}>
                             <Tippy
+                                delay={[0, 700]}
                                 offset={[20, 10]}
                                 placement="bottom-end"
                                 interactive

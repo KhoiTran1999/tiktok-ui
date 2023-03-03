@@ -4,7 +4,7 @@
         li {
             font-size: 16px;
             font-weight: 500;
-            padding: 10px 0px;
+            padding: 10px 10px;
             cursor: pointer;
             a {
                 display: inline-block;
@@ -13,8 +13,10 @@
                 margin: -10px 0px;
             }
             i {
-                font-size: 18px;
-                margin: 0px 15px;
+                text-align: center;
+                font-size: 20px;
+                width: 50px;
+                margin-left: -5px;
             }
 
             &:hover {
