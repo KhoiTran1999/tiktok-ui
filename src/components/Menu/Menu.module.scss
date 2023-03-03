@@ -6,6 +6,7 @@
             font-weight: 500;
             padding: 10px 10px;
             cursor: pointer;
+            display: flex;
             a {
                 display: inline-block;
                 width: 100%;
@@ -18,7 +19,13 @@
                 width: 50px;
                 margin-left: -5px;
             }
-
+            span {
+                display: flex;
+                span {
+                    display: inline-block;
+                    text-align: start;
+                }
+            }
             &:hover {
                 background-color: rgba(22, 24, 35, 0.03);
             }
