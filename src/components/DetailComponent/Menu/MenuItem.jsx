@@ -4,9 +4,10 @@ import Button from '../Button';
 import style from './Menu.module.scss';
 import { useTranslation } from 'react-i18next';
 
-const cx = classNames(style);
+const cx = classNames.bind(style);
 const MenuItem = ({ data, onAccess, onLogout }) => {
     const { i18n } = useTranslation();
+
     const handleOnclick = (idx, action, code) => {
         //handle entry and go back from menu
         onAccess(idx);

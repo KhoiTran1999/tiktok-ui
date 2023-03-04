@@ -7,6 +7,7 @@ import SubnavWrapper from '../SubnavWrapper';
 import AccountSearch from '../AccountSearch';
 import '../../../translation/i18n';
 import { useTranslation } from 'react-i18next';
+import { useDebounce } from '../../../hooks';
 
 const cx = classNames.bind(style);
 const FormSearch = () => {
@@ -17,8 +18,10 @@ const FormSearch = () => {
 
     const { t } = useTranslation();
 
+    const deBoundValue = useDebounce(searchValue, 700);
+
     useEffect(() => {
-        if (!searchValue) return;
+        if (!deBoundValue) return;
         setIsLoading(true);
         fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
             .then((response) => response.json())
@@ -26,7 +29,7 @@ const FormSearch = () => {
                 setAccountList(res.data);
                 setIsLoading(false);
             });
-    }, [searchValue]);
+    }, [deBoundValue]);
 
     const refFocus = useRef(null);
 
