@@ -4,11 +4,13 @@ import HeaderAndSidebarLayout from '../Layouts/HeaderAndSidebarLayout';
 import Following from '../pages/Following';
 import Home from '../pages/Home';
 import Live from '../pages/Live';
+import Profile from '../pages/Profile';
 
 const publicRoutes = [
     { path: '/', page: Home, layout: DefaultLayout },
     { path: '/foryou', page: Home, layout: DefaultLayout },
     { path: '/Following', page: Following, layout: HeaderAndSidebarLayout },
+    { path: '/Profile/:nickname', page: Profile, layout: HeaderAndSidebarLayout },
     { path: '/Live', page: Live, layout: HeaderOnlyLayout },
 ];
 

@@ -1,19 +1,54 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import LogoEffect from '../../assets/icon/LogoEffect';
 import LogoMessage from '../../assets/icon/LogoMessage';
 import LogoMessageBox from '../../assets/icon/LogoMessageBox';
 import LogoTiktok from '../../assets/icon/LogoTiktok';
 import images from '../../assets/images';
-import { Button, Image, Menu, Wrapper } from '../DetailComponent';
+import { Button, ImageCustom, Menu, Wrapper } from '../DetailComponent';
 import FormSearch from '../DetailComponent/FormSearch';
 import style from './Header.module.scss';
 
 const cx = classNames.bind(style);
 const Header = () => {
-    const dataMainMenu = [
+    const dataMainMenuUnLogin = [
+        {
+            icon: <i className="fa-solid fa-font"></i>,
+            title: 'Tiếng Việt',
+            children: {
+                childrenTitle: 'Ngôn ngữ',
+                list: [
+                    {
+                        title: 'Tiếng Việt (Việt Nam)',
+                        code: 'vi',
+                    },
+                    {
+                        title: 'English',
+                        code: 'en',
+                    },
+                    {
+                        title: 'Deutsh',
+                    },
+                ],
+            },
+        },
+        {
+            icon: <i className="fa-regular fa-circle-question"></i>,
+            title: 'Phản hồi và trợ giúp',
+            to: '/feedback',
+        },
+        {
+            icon: <i className="fa-regular fa-keyboard"></i>,
+            title: 'Phím tắt trên bàn phím',
+        },
+        {
+            icon: <i className="fa-regular fa-moon"></i>,
+            title: 'Chế độ tối',
+        },
+    ];
+    const dataMainMenuLogin = [
         {
             icon: <i className="fa-regular fa-user"></i>,
             title: 'Xem hồ sơ',
@@ -38,9 +73,11 @@ const Header = () => {
                 list: [
                     {
                         title: 'Tiếng Việt (Việt Nam)',
+                        code: 'vi',
                     },
                     {
                         title: 'English',
+                        code: 'en',
                     },
                     {
                         title: 'Deutsh',
@@ -64,11 +101,16 @@ const Header = () => {
         {
             icon: <i className="fa-solid fa-arrow-right-from-bracket"></i>,
             title: 'Đăng xuất',
+            action: 'logout',
         },
     ];
-    const isLogin = true;
 
-    const [isHide, setIsHide] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
+    const [isResetMenu, setIsResetMenu] = useState(false);
+
+    const onLogout = useCallback(() => {
+        setIsLogin(false);
+    }, []);
 
     return (
         <header>
@@ -117,19 +159,20 @@ const Header = () => {
                                             interactive
                                             render={(attrs) => (
                                                 <Menu
-                                                    data={dataMainMenu}
+                                                    data={dataMainMenuLogin}
                                                     className={cx('subnav-menu')}
-                                                    isHide={isHide}
+                                                    isResetMenu={isResetMenu}
+                                                    onLogout={onLogout}
                                                 />
                                             )}
                                             onHide={() => {
-                                                setIsHide(true);
+                                                setIsResetMenu(true);
                                             }}
                                             onShow={() => {
-                                                setIsHide(false);
+                                                setIsResetMenu(false);
                                             }}
                                         >
-                                            <Image src={images.imgGaiXinh} alt="avatar" />
+                                            <ImageCustom src={images.imgGaiXinh} alt="avatar" />
                                         </Tippy>
                                     </div>
                                 </li>
@@ -145,7 +188,13 @@ const Header = () => {
                                 </li>
 
                                 <li>
-                                    <Button primary medium>
+                                    <Button
+                                        primary
+                                        medium
+                                        onClick={() => {
+                                            setIsLogin(true);
+                                        }}
+                                    >
                                         <span>Đăng nhập</span>
                                     </Button>
                                 </li>
@@ -165,16 +214,16 @@ const Header = () => {
                                             interactive
                                             render={(attrs) => (
                                                 <Menu
-                                                    data={dataMainMenu}
+                                                    data={dataMainMenuUnLogin}
                                                     className={cx('subnav-menu')}
-                                                    isHide={isHide}
+                                                    isResetMenu={isResetMenu}
                                                 />
                                             )}
                                             onHide={() => {
-                                                setIsHide(true);
+                                                setIsResetMenu(true);
                                             }}
                                             onShow={() => {
-                                                setIsHide(false);
+                                                setIsResetMenu(false);
                                             }}
                                         >
                                             <i className="fa-solid fa-ellipsis-vertical"></i>

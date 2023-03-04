@@ -3,4 +3,4 @@ export { default as Button } from './Button';
 export { default as Menu } from './Menu';
 export { default as SubnavWrapper } from './SubnavWrapper';
 export { default as Wrapper } from './Wrapper';
-export { default as Image } from './ImageCustom';
+export { default as ImageCustom } from './ImageCustom';

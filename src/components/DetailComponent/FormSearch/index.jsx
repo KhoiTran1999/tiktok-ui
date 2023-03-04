@@ -10,14 +10,21 @@ const cx = classNames.bind(style);
 const FormSearch = () => {
     const [accoutList, setAccountList] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const [isClear, setIsClear] = useState(false);
     const [isFocus, setIsFocus] = useState(false);
-
-    const refFocus = useRef(null);
+    const [isloading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        console.log(searchValue);
+        if (!searchValue) return;
+        setIsLoading(true);
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then((response) => response.json())
+            .then((res) => {
+                setAccountList(res.data);
+                setIsLoading(false);
+            });
     }, [searchValue]);
+
+    const refFocus = useRef(null);
 
     const handleOnfocus = () => {
         const form = document.querySelector('form');
@@ -41,8 +48,7 @@ const FormSearch = () => {
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <SubnavWrapper>
                             <span className={cx('account-title')}>Tài khoản</span>
-                            <AccountSearch />
-                            <AccountSearch />
+                            <AccountSearch data={accoutList} />
                         </SubnavWrapper>
                     </div>
                 )}
@@ -60,15 +66,21 @@ const FormSearch = () => {
                     placeholder="Tìm kiếm tài khoản và video"
                 />
             </Tippy>
-            {!!searchValue && (
+            {!!searchValue && !isloading && (
                 <div className={cx('clear')}>
                     <i
                         className="fa-solid fa-circle-xmark"
                         onClick={() => {
                             setSearchValue('');
+                            setAccountList([]);
                             refFocus.current.focus();
                         }}
                     ></i>
+                </div>
+            )}
+            {!!isloading && (
+                <div className={cx('loading')}>
+                    <i className="fa-solid fa-rotate"></i>
                 </div>
             )}
             <button type="submit">

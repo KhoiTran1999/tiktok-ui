@@ -46,6 +46,23 @@ form {
             cursor: pointer;
         }
     }
+    .loading {
+        position: absolute;
+        right: 60px;
+        i {
+            color: rgb(187, 184, 184);
+            cursor: pointer;
+            animation: loading 2s linear infinite;
+        }
+    }
+    @keyframes loading {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
     .search-result {
         margin-top: 10px;
         width: 370px;

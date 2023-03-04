@@ -4,12 +4,17 @@ import Button from '../Button';
 import style from './Menu.module.scss';
 
 const cx = classNames(style);
-const MenuItem = ({ data, onAccess }) => {
+const MenuItem = ({ data, onAccess, onLogout }) => {
+    const handleOnclick = (idx, action) => {
+        onAccess(idx);
+        //------------------------------
+        if (action === 'logout') onLogout();
+    };
     return (
         <>
             {data.map((val, idx) => {
                 return (
-                    <li key={idx} onClick={() => onAccess(idx)}>
+                    <li key={idx} onClick={() => handleOnclick(idx, val.action)}>
                         <Button text to={val.to}>
                             <span>{val.icon}</span>
                             <span>{val.title}</span>

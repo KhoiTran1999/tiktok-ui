@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import Profile from '../../pages/Profile';
 
 const HeaderAndSidebarLayout = () => {
     return (
@@ -8,6 +9,7 @@ const HeaderAndSidebarLayout = () => {
             <h1>HeaderAndSidebarLayout</h1>
             <Header />
             <Sidebar />
+            <Profile />
         </div>
     );
 };
