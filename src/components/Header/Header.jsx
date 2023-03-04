@@ -1,6 +1,7 @@
-import Tippy from '@tippyjs/react/headless';
-import classNames from 'classnames/bind';
 import React, { useCallback, useState } from 'react';
+import Tippy from '@tippyjs/react/headless';
+import '../../translation/i18n.js';
+import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import LogoEffect from '../../assets/icon/LogoEffect';
 import LogoMessage from '../../assets/icon/LogoMessage';
@@ -10,15 +11,18 @@ import images from '../../assets/images';
 import { Button, ImageCustom, Menu, Wrapper } from '../DetailComponent';
 import FormSearch from '../DetailComponent/FormSearch';
 import style from './Header.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
+
 const Header = () => {
+    const { t } = useTranslation();
     const dataMainMenuUnLogin = [
         {
             icon: <i className="fa-solid fa-font"></i>,
-            title: 'Tiếng Việt',
+            title: t('header.Menu.language'),
             children: {
-                childrenTitle: 'Ngôn ngữ',
+                childrenTitle: t('header.Menu.children Title Language'),
                 list: [
                     {
                         title: 'Tiếng Việt (Việt Nam)',
@@ -28,48 +32,41 @@ const Header = () => {
                         title: 'English',
                         code: 'en',
                     },
-                    {
-                        title: 'Deutsh',
-                    },
                 ],
             },
         },
         {
             icon: <i className="fa-regular fa-circle-question"></i>,
-            title: 'Phản hồi và trợ giúp',
+            title: t('header.Menu.feedBackAndHelp'),
             to: '/feedback',
         },
         {
             icon: <i className="fa-regular fa-keyboard"></i>,
-            title: 'Phím tắt trên bàn phím',
+            title: t('header.Menu.keyboard'),
         },
         {
             icon: <i className="fa-regular fa-moon"></i>,
-            title: 'Chế độ tối',
+            title: t('header.Menu.darkMode'),
         },
     ];
     const dataMainMenuLogin = [
         {
             icon: <i className="fa-regular fa-user"></i>,
-            title: 'Xem hồ sơ',
+            title: t('header.Menu.viewProfile'),
         },
         {
             icon: <i className="fa-brands fa-tiktok"></i>,
-            title: 'Nhận xu',
-        },
-        {
-            icon: <i className="fa-solid fa-video"></i>,
-            title: 'LIVE Studio',
+            title: t('header.Menu.getCoin'),
         },
         {
             icon: <i className="fa-solid fa-gear"></i>,
-            title: 'Cài đặt',
+            title: t('header.Menu.setting'),
         },
         {
             icon: <i className="fa-solid fa-font"></i>,
-            title: 'Tiếng Việt',
+            title: t('header.Menu.language'),
             children: {
-                childrenTitle: 'Ngôn ngữ',
+                childrenTitle: t('header.Menu.children Title Language'),
                 list: [
                     {
                         title: 'Tiếng Việt (Việt Nam)',
@@ -79,28 +76,25 @@ const Header = () => {
                         title: 'English',
                         code: 'en',
                     },
-                    {
-                        title: 'Deutsh',
-                    },
                 ],
             },
         },
         {
             icon: <i className="fa-regular fa-circle-question"></i>,
-            title: 'Phản hồi và trợ giúp',
+            title: t('header.Menu.feedBackAndHelp'),
             to: '/feedback',
         },
         {
             icon: <i className="fa-regular fa-keyboard"></i>,
-            title: 'Phím tắt trên bàn phím',
+            title: t('header.Menu.keyboard'),
         },
         {
             icon: <i className="fa-regular fa-moon"></i>,
-            title: 'Chế độ tối',
+            title: t('header.Menu.darkMode'),
         },
         {
             icon: <i className="fa-solid fa-arrow-right-from-bracket"></i>,
-            title: 'Đăng xuất',
+            title: t('header.Menu.logout'),
             action: 'logout',
         },
     ];
@@ -109,6 +103,7 @@ const Header = () => {
     const [isResetMenu, setIsResetMenu] = useState(false);
 
     const onLogout = useCallback(() => {
+        console.log('logout');
         setIsLogin(false);
     }, []);
 
@@ -127,24 +122,33 @@ const Header = () => {
                             <ul>
                                 <li>
                                     <Button basic medium className={cx('upload')}>
-                                        <i className="fa-solid fa-plus"></i> Tải lên
+                                        <i className="fa-solid fa-plus"></i> {t('header.upload')}
                                     </Button>
                                 </li>
 
                                 <li>
-                                    <Tippy placement="bottom" render={(attrs) => <Wrapper>Tạo hiệu ứng</Wrapper>}>
+                                    <Tippy
+                                        placement="bottom"
+                                        render={(attrs) => <Wrapper>{t('header.logoEffect')}</Wrapper>}
+                                    >
                                         <LogoEffect className={cx('effectLogo')} width="2.3rem" />
                                     </Tippy>
                                 </li>
 
                                 <li>
-                                    <Tippy placement="bottom" render={(attrs) => <Wrapper>Tin nhắn</Wrapper>}>
+                                    <Tippy
+                                        placement="bottom"
+                                        render={(attrs) => <Wrapper>{t('header.logoMessage')}</Wrapper>}
+                                    >
                                         <LogoMessage className={cx('message')} />
                                     </Tippy>
                                 </li>
 
                                 <li>
-                                    <Tippy placement="bottom" render={(attrs) => <Wrapper>Hộp thư</Wrapper>}>
+                                    <Tippy
+                                        placement="bottom"
+                                        render={(attrs) => <Wrapper>{t('header.logoInbox')}</Wrapper>}
+                                    >
                                         <LogoMessageBox className={cx('messageBox')} />
                                     </Tippy>
                                 </li>
@@ -152,7 +156,6 @@ const Header = () => {
                                 <li>
                                     <div className={cx('menu')}>
                                         <Tippy
-                                            // visible
                                             delay={[0, 700]}
                                             offset={[18, 10]}
                                             placement="bottom-end"
@@ -183,7 +186,7 @@ const Header = () => {
                             <ul>
                                 <li>
                                     <Button basic medium className={cx('upload')}>
-                                        <i className="fa-solid fa-plus"></i> Tải lên
+                                        <i className="fa-solid fa-plus"></i> {t('header.upload')}
                                     </Button>
                                 </li>
 
@@ -195,12 +198,12 @@ const Header = () => {
                                             setIsLogin(true);
                                         }}
                                     >
-                                        <span>Đăng nhập</span>
+                                        <span style={{ padding: '0px 15px' }}>{t('header.login')}</span>
                                     </Button>
                                 </li>
 
                                 <li>
-                                    <Tippy render={(attrs) => <Wrapper>Tạo hiệu ứng</Wrapper>}>
+                                    <Tippy render={(attrs) => <Wrapper>{t('header.logoEffect')}</Wrapper>}>
                                         <LogoEffect className={cx('effectLogo')} width="2.3rem" />
                                     </Tippy>
                                 </li>

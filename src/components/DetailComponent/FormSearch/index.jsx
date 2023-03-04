@@ -5,6 +5,8 @@ import style from './FormSearch.module.scss';
 import classNames from 'classnames/bind';
 import SubnavWrapper from '../SubnavWrapper';
 import AccountSearch from '../AccountSearch';
+import '../../../translation/i18n';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const FormSearch = () => {
@@ -12,6 +14,8 @@ const FormSearch = () => {
     const [searchValue, setSearchValue] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [isloading, setIsLoading] = useState(false);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (!searchValue) return;
@@ -47,8 +51,14 @@ const FormSearch = () => {
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <SubnavWrapper>
-                            <span className={cx('account-title')}>Tài khoản</span>
-                            <AccountSearch data={accoutList} />
+                            {accoutList.length > 0 ? (
+                                <>
+                                    <span className={cx('account-title')}>{t('header.accountSearch')}</span>
+                                    <AccountSearch data={accoutList} />
+                                </>
+                            ) : (
+                                <h4 style={{ textAlign: 'center', padding: '20px 0px' }}>{t('header.no result')}</h4>
+                            )}
                         </SubnavWrapper>
                     </div>
                 )}
@@ -63,7 +73,7 @@ const FormSearch = () => {
                     autoComplete={'off'}
                     type="text"
                     required
-                    placeholder="Tìm kiếm tài khoản và video"
+                    placeholder={t('header.placeHolder')}
                 />
             </Tippy>
             {!!searchValue && !isloading && (

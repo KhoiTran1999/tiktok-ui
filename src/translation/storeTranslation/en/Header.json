@@ -1,0 +1,23 @@
+{
+    "header": {
+        "placeHolder": "Search accounts and videos",
+        "accountSearch": "Accounts",
+        "no result": "No result",
+        "upload": "Upload",
+        "login": "Login",
+        "logoEffect": "Create effect",
+        "logoMessage": "Messages",
+        "logoInbox": "Inbox",
+        "Menu": {
+            "viewProfile": "View Profile",
+            "getCoin": "Get Coint",
+            "setting": "Setting",
+            "children Title Language": "Language",
+            "language": "English",
+            "feedBackAndHelp": "Feedback and help",
+            "keyboard": "Keyboard shortcuts",
+            "darkMode": "Darkmode",
+            "logout": "Log out"
+        }
+    }
+}

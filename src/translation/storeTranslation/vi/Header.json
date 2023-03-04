@@ -1,0 +1,23 @@
+{
+    "header": {
+        "placeHolder": "Tìm kiếm tài khoản và video",
+        "accountSearch": "Tài khoản",
+        "no result": "Không có kết quả",
+        "upload": "Tải lên",
+        "login": "Đăng nhập",
+        "logoEffect": "Tạo hiệu ứng",
+        "logoMessage": "Tin nhắn",
+        "logoInbox": "Hộp thư",
+        "Menu": {
+            "viewProfile": "Xem hồ sơ",
+            "getCoin": "Nhận Xu",
+            "setting": "Cài đặt",
+            "children Title Language": "Ngôn ngữ",
+            "language": "Tiếng Việt",
+            "feedBackAndHelp": "Phản hồi và trợ giúp",
+            "keyboard": "Phím tắt trên bàn phím",
+            "darkMode": "Chế độ tối",
+            "logout": "Đăng xuất"
+        }
+    }
+}
