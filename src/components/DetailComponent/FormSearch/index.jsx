@@ -23,7 +23,7 @@ const FormSearch = () => {
     useEffect(() => {
         if (!deBoundValue) return;
         setIsLoading(true);
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(deBoundValue)}&type=less`)
             .then((response) => response.json())
             .then((res) => {
                 setAccountList(res.data);
