@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
-import '../../translation/i18n.js';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+
+import '../../translation/i18n.js';
 import LogoEffect from '../../assets/icon/LogoEffect';
 import LogoMessage from '../../assets/icon/LogoMessage';
 import LogoMessageBox from '../../assets/icon/LogoMessageBox';
@@ -11,7 +13,7 @@ import images from '../../assets/images';
 import { Button, ImageCustom, Menu, Wrapper } from '../DetailComponent';
 import FormSearch from '../DetailComponent/FormSearch';
 import style from './Header.module.scss';
-import { useTranslation } from 'react-i18next';
+import routes from '../../config/routes.js';
 
 const cx = classNames.bind(style);
 
@@ -111,7 +113,7 @@ const Header = () => {
             <div className="container">
                 <div className={cx('row')}>
                     <h1 className={cx('logo')}>
-                        <Link to="/">
+                        <Link to={routes.home}>
                             <LogoTiktok />
                         </Link>
                     </h1>

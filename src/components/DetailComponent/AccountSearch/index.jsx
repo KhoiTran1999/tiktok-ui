@@ -4,6 +4,7 @@ import style from './style.module.scss';
 import images from '../../../assets/images';
 import ImageCustom from '../ImageCustom';
 import { Link } from 'react-router-dom';
+import routes from '../../../config/routes';
 
 const cx = classNames.bind(style);
 const AccountSearch = ({ data = [] }) => {
@@ -13,7 +14,7 @@ const AccountSearch = ({ data = [] }) => {
                 {data.map((val, idx) => {
                     return (
                         <li key={val.id}>
-                            <Link to={`/Profile/${val.nickname}`}>
+                            <Link to={`${routes.profile}${val.nickname}`}>
                                 <ImageCustom src={val.avatar} alt="avatar" />
                                 <div className={cx('information')}>
                                     <span className={cx('userName')}>{val.nickname}</span>
