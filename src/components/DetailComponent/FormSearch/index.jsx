@@ -1,13 +1,14 @@
 import Tippy from '@tippyjs/react/headless';
-import React, { useRef } from 'react';
-import { useState, useEffect } from 'react';
-import style from './FormSearch.module.scss';
 import classNames from 'classnames/bind';
-import SubnavWrapper from '../SubnavWrapper';
-import AccountSearch from '../AccountSearch';
-import '../../../translation/i18n';
+import React, { useEffect, useRef, useState } from 'react';
+
+import getUser from '../../../services/searchService';
 import { useTranslation } from 'react-i18next';
 import useDebounce from '../../../hooks/useDebounce';
+import '../../../translation/i18n';
+import AccountSearch from '../AccountSearch';
+import SubnavWrapper from '../SubnavWrapper';
+import style from './FormSearch.module.scss';
 
 const cx = classNames.bind(style);
 const FormSearch = () => {
@@ -26,12 +27,14 @@ const FormSearch = () => {
             return;
         }
         setIsLoading(true);
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(Debounce)}&type=less`)
-            .then((response) => response.json())
-            .then((res) => {
-                setAccountList(res.data);
-                setIsLoading(false);
-            });
+
+        //{Call Api using Axios}
+        const getData = async () => {
+            const response = await getUser(Debounce);
+            setAccountList(response.data);
+            setIsLoading(false);
+        };
+        getData();
     }, [Debounce]);
 
     const refFocus = useRef(null);

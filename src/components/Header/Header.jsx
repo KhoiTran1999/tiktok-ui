@@ -103,7 +103,6 @@ const Header = () => {
     const [isResetMenu, setIsResetMenu] = useState(false);
 
     const onLogout = useCallback(() => {
-        console.log('logout');
         setIsLogin(false);
     }, []);
 
