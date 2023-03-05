@@ -7,7 +7,7 @@ import SubnavWrapper from '../SubnavWrapper';
 import AccountSearch from '../AccountSearch';
 import '../../../translation/i18n';
 import { useTranslation } from 'react-i18next';
-import { useDebounce } from '../../../hooks';
+import useDebounce from '../../../hooks/useDebounce';
 
 const cx = classNames.bind(style);
 const FormSearch = () => {
@@ -18,18 +18,21 @@ const FormSearch = () => {
 
     const { t } = useTranslation();
 
-    const deBoundValue = useDebounce(searchValue, 700);
+    const Debounce = useDebounce(searchValue, 700);
 
     useEffect(() => {
-        if (!deBoundValue) return;
+        if (!Debounce.trim()) {
+            setSearchValue('');
+            return;
+        }
         setIsLoading(true);
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(deBoundValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(Debounce)}&type=less`)
             .then((response) => response.json())
             .then((res) => {
                 setAccountList(res.data);
                 setIsLoading(false);
             });
-    }, [deBoundValue]);
+    }, [Debounce]);
 
     const refFocus = useRef(null);
 
@@ -42,6 +45,11 @@ const FormSearch = () => {
     const handleOnblur = () => {
         const form = document.querySelector('form');
         form.style.border = 'none';
+    };
+
+    const handleOnchange = (value) => {
+        if (value.length === 1 && value === ' ') return;
+        else setSearchValue(value);
     };
 
     return (
@@ -69,7 +77,7 @@ const FormSearch = () => {
                 <input
                     value={searchValue}
                     ref={refFocus}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={(e) => handleOnchange(e.target.value)}
                     onBlur={handleOnblur}
                     onFocus={handleOnfocus}
                     id={cx('search')}
