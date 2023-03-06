@@ -17,7 +17,7 @@ const defaultNS = 'header';
 // initialize i18next with catalog and language to use
 i18n.use(initReactI18next).init({
     resources,
-    lng: 'vi',
+    lng: 'en',
     ns: ['header'],
     defaultNS,
     fallbackLng: 'vi',

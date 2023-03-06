@@ -1,4 +1,4 @@
-form {
+.search {
     width: 33%;
     padding: 2px;
     margin-left: 20px;
@@ -12,13 +12,18 @@ form {
         border: none;
         outline: none;
         background-color: transparent;
-        font-size: 16px;
+        font-size: 15px;
+        letter-spacing: 0.2px;
+        color: rgb(108, 107, 107);
         width: 90%;
         padding: 5px 15px;
         border-right: 0.5px solid rgb(207, 205, 205);
         caret-color: #fe2c55;
         &:not(:placeholder-shown) ~ button i {
             color: rgba(22, 24, 35, 0.75);
+        }
+        &::placeholder {
+            color: rgb(133, 131, 131);
         }
     }
     button {

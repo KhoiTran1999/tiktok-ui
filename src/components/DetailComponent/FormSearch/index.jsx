@@ -40,23 +40,23 @@ const FormSearch = () => {
     const refFocus = useRef(null);
 
     const handleOnfocus = () => {
-        const form = document.querySelector('form');
+        const form = document.querySelector(`.${cx('search')}`);
         form.style.border = '1px solid rgb(187, 184, 184)';
         setIsFocus(true);
     };
 
     const handleOnblur = () => {
-        const form = document.querySelector('form');
+        const form = document.querySelector(`.${cx('search')}`);
         form.style.border = 'none';
     };
 
     const handleOnchange = (value) => {
-        if (value.length === 1 && value === ' ') return;
+        if (value.startsWith(' ')) return;
         else setSearchValue(value);
     };
 
     return (
-        <form action="search">
+        <div className={cx('search')}>
             <Tippy
                 placement="bottom-start"
                 interactive={true}
@@ -110,7 +110,7 @@ const FormSearch = () => {
             <button type="submit">
                 <i className="fa-solid fa-magnifying-glass"></i>
             </button>
-        </form>
+        </div>
     );
 };
 

@@ -17,7 +17,7 @@ const AccountSearch = ({ data = [] }) => {
                             <Link to={`${routes.profile}${val.nickname}`}>
                                 <ImageCustom src={val.avatar} alt="avatar" />
                                 <div className={cx('information')}>
-                                    <span className={cx('userName')}>{val.nickname}</span>
+                                    <span className={cx('nickname')}>{val.nickname}</span>
                                     {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
                                     <div className={cx('name')}>{val.full_name}</div>
                                 </div>

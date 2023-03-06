@@ -161,6 +161,7 @@ const Header = () => {
                                             offset={[18, 10]}
                                             placement="bottom-end"
                                             interactive
+                                            hideOnClick={false}
                                             render={(attrs) => (
                                                 <Menu
                                                     data={dataMainMenuLogin}
@@ -214,6 +215,7 @@ const Header = () => {
                                             // visible
                                             delay={[0, 700]}
                                             offset={[18, 10]}
+                                            hideOnClick={false}
                                             placement="bottom-end"
                                             interactive
                                             render={(attrs) => (
