@@ -1,7 +1,7 @@
 import React, { forwardRef, memo, useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './Menu.module.scss';
-import SubnavWrapper from '../SubnavWrapper';
+import SubnavWrapper from '../SubnavWrapper/SubnavWrapper';
 import MenuItem from './MenuItem';
 import HeaderChildren from './HeaderChildren';
 

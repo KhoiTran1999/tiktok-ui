@@ -1,10 +1,9 @@
-import React from 'react';
 import classNames from 'classnames/bind';
-import style from './style.module.scss';
-import images from '../../../assets/images';
-import ImageCustom from '../ImageCustom';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../../../config/routes';
+import ImageCustom from '../ImageCustom';
+import style from './style.module.scss';
 
 const cx = classNames.bind(style);
 const AccountSearch = ({ data = [] }) => {

@@ -6,8 +6,8 @@ import getUser from '../../../services/searchService';
 import { useTranslation } from 'react-i18next';
 import useDebounce from '../../../hooks/useDebounce';
 import '../../../translation/i18n';
-import AccountSearch from '../AccountSearch';
-import SubnavWrapper from '../SubnavWrapper';
+import AccountSearch from '../AccountSearch/';
+import SubnavWrapper from '../SubnavWrapper/SubnavWrapper';
 import style from './FormSearch.module.scss';
 
 const cx = classNames.bind(style);
@@ -58,6 +58,7 @@ const FormSearch = () => {
     return (
         <div className={cx('search')}>
             <Tippy
+                appendTo={document.querySelector(`.${cx('search')}`)}
                 placement="bottom-start"
                 interactive={true}
                 onClickOutside={() => setIsFocus(false)}

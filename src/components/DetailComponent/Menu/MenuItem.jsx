@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import Button from '../Button';
+import Button from '../Button/Button';
 import style from './Menu.module.scss';
 import { useTranslation } from 'react-i18next';
 
