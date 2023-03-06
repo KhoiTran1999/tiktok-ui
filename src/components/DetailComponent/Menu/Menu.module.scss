@@ -1,6 +1,7 @@
 .sub-nav {
     width: 240px;
     ul {
+        overflow-y: auto;
         li {
             font-size: 16px;
             font-weight: 500;
@@ -27,7 +28,7 @@
                 }
             }
             &:hover {
-                background-color: rgba(22, 24, 35, 0.03);
+                background-color: rgba(22, 24, 35, 0.06);
             }
         }
     }
@@ -37,6 +38,7 @@
             padding: 10px;
             margin: -10px;
             position: absolute;
+            top: 13px;
             left: 30px;
             font-size: 18px;
             cursor: pointer;
