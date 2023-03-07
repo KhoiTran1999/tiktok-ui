@@ -19,13 +19,13 @@ const NavMenu = () => {
         {
             icon: <HomeLogo />,
             activeIcon: <HomeLogoActive />,
-            title: 'Dành cho bạn',
+            title: 'For You',
             to: config.routes.home,
         },
         {
             icon: <UserGroupLogo />,
             activeIcon: <UserGroupLogoActive />,
-            title: 'Đang Follow',
+            title: 'Following',
             to: config.routes.following,
         },
         {
