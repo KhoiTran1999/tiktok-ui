@@ -1,18 +1,17 @@
-import DefaultLayout from '../Layouts/DefaultLayout';
-import HeaderOnlyLayout from '../Layouts/HeaderOnlyLayout';
-import HeaderAndSidebarLayout from '../Layouts/HeaderAndSidebarLayout';
+import routes from '../config/routes';
+import FollowingLayout from '../Layouts/FollowingLayout';
+import LiveLayout from '../Layouts/LiveLayout';
+import MainLayout from '../Layouts/MainLayout/MainLayout';
 import Following from '../pages/Following';
 import Home from '../pages/Home';
 import Live from '../pages/Live';
 import Profile from '../pages/Profile';
-import routes from '../config/routes';
 
 const publicRoutes = [
-    { path: routes.home, page: Home, layout: DefaultLayout },
-    { path: routes.foryou, page: Home, layout: DefaultLayout },
-    { path: routes.following, page: Following, layout: HeaderAndSidebarLayout },
-    { path: routes.profile, page: Profile, layout: HeaderAndSidebarLayout },
-    { path: routes.live, page: Live, layout: HeaderOnlyLayout },
+    { path: routes.home, page: Home, layout: MainLayout },
+    { path: routes.following, page: Following, layout: FollowingLayout },
+    { path: routes.profile, page: Profile, layout: MainLayout },
+    { path: routes.live, page: Live, layout: LiveLayout },
 ];
 
 const privateRoutes = [];

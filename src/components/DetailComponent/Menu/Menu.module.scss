@@ -22,9 +22,18 @@
             }
             span {
                 display: flex;
+                align-items: center;
+                justify-content: flex-start;
                 span {
                     display: inline-block;
-                    text-align: start;
+                    &.active {
+                        color: var(--primary);
+                    }
+                }
+                h4 {
+                    &.active {
+                        color: var(--primary);
+                    }
                 }
             }
             &:hover {

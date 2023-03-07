@@ -8,7 +8,7 @@ const cx = classNames.bind(style);
 const MenuItem = ({ data, onAccess, onLogout }) => {
     const { i18n } = useTranslation();
 
-    const handleOnclick = (idx, action, code) => {
+    const handleOnclick = (idx, action, code, to) => {
         //handle entry and go back from menu
         onAccess(idx);
 
@@ -26,10 +26,19 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
         <>
             {data.map((val, idx) => {
                 return (
-                    <li key={idx} onClick={() => handleOnclick(idx, val.action, val.code)}>
+                    <li key={idx} onClick={() => handleOnclick(idx, val.action, val.code, val.to)}>
                         <Button text to={val.to}>
-                            <span>{val.icon}</span>
-                            <span>{val.title}</span>
+                            {val.to === window.location.pathname ? (
+                                <>
+                                    <span className={`${cx('active')}`}>{val.activeIcon}</span>
+                                    <h4 className={`${cx('active')}`}>{val.title}</h4>
+                                </>
+                            ) : (
+                                <>
+                                    <span>{val.icon}</span>
+                                    <h4>{val.title}</h4>
+                                </>
+                            )}
                         </Button>
                     </li>
                 );
