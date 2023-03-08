@@ -14,7 +14,7 @@ const Sidebar = () => {
             </div>
 
             <div className={cx('wrapper')}>
-                <AccountList title={'Suggested accounts'} />
+                <AccountList title={'Suggested Accounts'}/>
             </div>
         </aside>
     );

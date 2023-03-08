@@ -18,7 +18,7 @@ const AccountList = ({ title }) => {
     return (
         <div className={cx('account-list')}>
             <div className={cx('suggested-accounts')}>
-                <p>{title}</p>
+                <p className={cx('title')}>{title}</p>
                 <AccountSearch data={accountList} />
             </div>
         </div>

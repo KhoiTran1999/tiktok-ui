@@ -1,7 +1,25 @@
 .account-list {
     padding: 16px 0px;
     .suggested-accounts {
-        > p {
+        .title {
+            font-size: 13px;
+            color: #161823bf;
+            font-weight: 500;
+        }
+        ul {
+            li {
+                a {
+                    padding: 8px;
+                    img {
+                        width: 32px;
+                        height: 32px;
+                    }
+                    span {
+                        color: rgb(22, 24, 35);
+                        font-weight: 300;
+                    }
+                }
+            }
         }
     }
 }
