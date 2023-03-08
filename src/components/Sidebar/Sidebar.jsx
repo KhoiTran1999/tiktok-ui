@@ -14,7 +14,11 @@ const Sidebar = () => {
             </div>
 
             <div className={cx('wrapper')}>
-                <AccountList title={'Suggested Accounts'}/>
+                <AccountList title={'Suggested accounts'} />
+            </div>
+
+            <div className={cx('wrapper')}>
+                <AccountList title={'Following accounts'} />
             </div>
         </aside>
     );
