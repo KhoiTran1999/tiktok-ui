@@ -4,6 +4,7 @@ import style from './AccountList.module.scss';
 import classNames from 'classnames/bind';
 import getUser from '../../../services/searchService';
 import AccountSearch from '../../DetailComponent/AccountSearch/AccountSearch';
+import TippyAccountItem from '../TippyAccountItem';
 
 const cx = classNames.bind(style);
 const AccountList = ({ title }) => {
@@ -19,7 +20,7 @@ const AccountList = ({ title }) => {
         <div className={cx('account-list')}>
             <div className={cx('suggested-accounts')}>
                 <p className={cx('title')}>{title}</p>
-                <AccountSearch data={accountList} />
+                <TippyAccountItem data={accountList} />
             </div>
         </div>
     );
