@@ -14,15 +14,11 @@ const Sidebar = () => {
             </div>
 
             <div className={cx('wrapper')}>
-<<<<<<< HEAD
-                <AccountList title={'Suggested Accounts'} />
-=======
                 <AccountList title={'Suggested accounts'} />
             </div>
 
             <div className={cx('wrapper')}>
                 <AccountList title={'Following accounts'} />
->>>>>>> 6cc0c19312974473bc1d071c783ddd429180598a
             </div>
         </aside>
     );
