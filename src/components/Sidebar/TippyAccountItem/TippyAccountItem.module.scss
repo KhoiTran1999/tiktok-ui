@@ -22,7 +22,6 @@
                         font-size: 15px;
                         font-weight: 500;
                         margin-top: 2px;
-                        margin-bottom: -3px;
                     }
                     .check {
                         font-size: 13px;
@@ -32,6 +31,7 @@
                     .name {
                         font-size: 13px;
                         color: rgb(136, 133, 133);
+                        margin-top: -5px;
                     }
                 }
             }
@@ -45,6 +45,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 12px;
             img {
                 width: 44px;
                 height: 44px;
@@ -77,6 +78,14 @@
                 color: rgb(22, 24, 35);
                 font-size: 13px;
                 line-height: 20px;
+            }
+            .status {
+                color: rgba(22, 24, 35, 0.75);
+                font-size: 17px;
+                margin-top: 8px;
+                b {
+                    color: rgb(22, 24, 35);
+                }
             }
         }
     }
