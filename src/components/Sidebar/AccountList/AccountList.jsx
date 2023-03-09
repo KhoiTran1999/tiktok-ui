@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import style from './AccountList.module.scss';
 import classNames from 'classnames/bind';
+import React, { useEffect, useState } from 'react';
 import getUser from '../../../services/searchService';
-import AccountSearch from '../../DetailComponent/AccountSearch/AccountSearch';
 import TippyAccountItem from '../TippyAccountItem';
+import style from './AccountList.module.scss';
 
 const cx = classNames.bind(style);
 const AccountList = ({ title }) => {
@@ -20,12 +18,7 @@ const AccountList = ({ title }) => {
         <div className={cx('account-list')}>
             <div className={cx('suggested-accounts')}>
                 <p className={cx('title')}>{title}</p>
-<<<<<<< HEAD
                 <TippyAccountItem data={accountList} />
-=======
-                <AccountSearch data={accountList} />
-                <button className={cx('see-all')}>See all</button>
->>>>>>> 6cc0c19312974473bc1d071c783ddd429180598a
             </div>
         </div>
     );

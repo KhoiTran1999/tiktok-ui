@@ -1,4 +1,4 @@
-.Account-list {
+.Account-list-sidebar {
     ul {
         li {
             a {
@@ -34,6 +34,49 @@
                         color: rgb(136, 133, 133);
                     }
                 }
+            }
+        }
+    }
+    .wrapper {
+        // background-color: red;
+        width: 320px;
+        padding: 20px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            img {
+                width: 44px;
+                height: 44px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+            button {
+                padding: 7px 28px;
+            }
+        }
+        .content {
+            .wrap {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                h4 {
+                    font-weight: 700;
+                    font-size: 18px;
+                    line-height: 22px;
+                    color: rgb(22, 24, 35);
+                }
+                .check {
+                    font-size: 13px;
+                    color: rgb(32, 213, 236);
+                    margin-left: 10px;
+                }
+            }
+            .name {
+                font-weight: 500;
+                color: rgb(22, 24, 35);
+                font-size: 13px;
+                line-height: 20px;
             }
         }
     }
