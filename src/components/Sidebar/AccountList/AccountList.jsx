@@ -2,10 +2,11 @@ import classNames from 'classnames/bind';
 import React, { useEffect, useState } from 'react';
 import getUser from '../../../services/searchService';
 import TippyAccountItem from '../TippyAccountItem';
+import { AccountSearch } from '../../DetailComponent';
 import style from './AccountList.module.scss';
 
 const cx = classNames.bind(style);
-const AccountList = ({ title }) => {
+const AccountList = ({ title, tippyVisible }) => {
     const [accountList, setAccountList] = useState([]);
     useEffect(() => {
         const getData = async () => {
@@ -18,7 +19,7 @@ const AccountList = ({ title }) => {
         <div className={cx('account-list')}>
             <div className={cx('suggested-accounts')}>
                 <p className={cx('title')}>{title}</p>
-                <TippyAccountItem data={accountList} />
+                {tippyVisible ? <TippyAccountItem data={accountList} /> : <AccountSearch data={accountList} />}
             </div>
         </div>
     );
