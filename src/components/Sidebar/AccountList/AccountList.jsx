@@ -20,6 +20,7 @@ const AccountList = ({ title, tippyVisible }) => {
             <div className={cx('suggested-accounts')}>
                 <p className={cx('title')}>{title}</p>
                 {tippyVisible ? <TippyAccountItem data={accountList} /> : <AccountSearch data={accountList} />}
+                <button className={cx('see-all')}>See all</button>
             </div>
         </div>
     );
