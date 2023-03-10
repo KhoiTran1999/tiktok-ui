@@ -5,6 +5,9 @@
     + .wrapper {
         margin-left: 20px;
     }
+    + .hashTag {
+        margin-left: 0px;
+    }
 }
 
 .primary {
@@ -36,6 +39,18 @@
     font-size: 16px;
     font-weight: 500;
     background-color: transparent;
+}
+
+.hashTag {
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 30px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .large {

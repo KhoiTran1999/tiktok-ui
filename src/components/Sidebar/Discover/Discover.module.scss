@@ -1,0 +1,23 @@
+.discover {
+    padding: 16px 0px 10px 0px;
+    .title {
+        font-size: 13px;
+        color: #161823bf;
+        font-weight: 500;
+    }
+    .hash-tags {
+        margin-top: 16px;
+        button {
+            transition: background 200ms ease-in-out 0s;
+            max-width: 335px;
+            width: fit-content;
+            span {
+                i {
+                    margin-right: 10px;
+                    font-size: 15px;
+                    color: var(--text);
+                }
+            }
+        }
+    }
+}
