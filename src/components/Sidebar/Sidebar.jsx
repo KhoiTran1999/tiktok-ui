@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import React from 'react';
 import AccountList from './AccountList/AccountList';
+import Discover from './Discover/Discover';
+import Footer from './Footer/Footer';
 import NavMenu from './NavMenu/NavMenu';
 
 import style from './Sidebar.module.scss';
@@ -20,6 +22,12 @@ const Sidebar = () => {
             <div className={cx('wrapper')}>
                 <AccountList title={'Following accounts'} />
             </div>
+
+            <div className={cx('wrapper')}>
+                <Discover />
+            </div>
+
+            <Footer />
         </aside>
     );
 };

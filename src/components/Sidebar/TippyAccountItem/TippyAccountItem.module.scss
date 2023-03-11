@@ -5,7 +5,6 @@
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                padding: 9px 16px;
                 cursor: pointer;
                 &:hover {
                     background-color: rgba(22, 24, 35, 0.03);
@@ -20,8 +19,9 @@
                     margin-left: 16px;
                     .nickname {
                         font-size: 15px;
-                        font-weight: 500;
+                        font-weight: 600;
                         margin-top: 2px;
+                        letter-spacing: 0.5px;
                     }
                     .check {
                         font-size: 13px;

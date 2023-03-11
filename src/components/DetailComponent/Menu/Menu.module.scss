@@ -4,7 +4,6 @@
         overflow-y: auto;
         li {
             font-size: 16px;
-            font-weight: 500;
             padding: 9.5px 10px;
             cursor: pointer;
             a {
@@ -23,12 +22,14 @@
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
+
                 span {
                     &.active {
                         color: var(--primary);
                     }
                 }
                 h4 {
+                    font-weight: 500;
                     &.active {
                         color: var(--primary);
                     }

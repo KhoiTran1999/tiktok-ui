@@ -1,6 +1,20 @@
 .side-bar {
     width: 30%;
+    overflow-y: overlay;
+    max-height: 630px;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        -webkit-transition: background-color 2s ease;
+        transition: background-color 2s ease;
+    }
+    &:hover::-webkit-scrollbar-thumb {
+        background-color: rgba(22, 24, 35, 0.06);
+    }
     .wrapper {
+        margin: 0px 10px;
         border-bottom: 1px solid rgb(220, 218, 218);
     }
 }

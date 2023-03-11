@@ -2,6 +2,7 @@
 
 :root {
     --primary: rgba(254, 44, 85, 1);
+    --text: rgba(22, 24, 35, 1);
 }
 
 * {
@@ -50,12 +51,11 @@ body {
     letter-spacing: 0.2px;
     font-size: 1.6rem;
     text-rendering: optimizeSpeed;
-    height: 5000px;
     overflow-y: overlay;
 }
 
 .container {
-    max-width: 1150px;
+    max-width: 1145px;
     width: 100%;
     margin: 0 auto;
     padding: 0px 5px;
