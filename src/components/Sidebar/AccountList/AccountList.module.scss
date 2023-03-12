@@ -2,7 +2,7 @@
     padding: 16px 0px;
     .suggested-accounts {
         .title {
-            font-size: 13px;
+            font-size: 14px;
             color: #161823bf;
             font-weight: 500;
             margin-bottom: 8px;
@@ -12,6 +12,7 @@
                 a {
                     padding: 5px 8px;
                     margin: 0px -10px;
+                    transition: 0.5s all;
                     img {
                         width: 32px;
                         height: 32px;

@@ -1,20 +1,30 @@
 .side-bar {
-    width: 30%;
+    width: 24.5%;
     overflow-y: overlay;
+    overflow-x: hidden;
     max-height: 630px;
+    position: fixed;
     &::-webkit-scrollbar {
         width: 6px;
     }
     &::-webkit-scrollbar-thumb {
-        background-color: transparent;
-        -webkit-transition: background-color 2s ease;
-        transition: background-color 2s ease;
+        // background-color: rgba(22, 24, 35, 0.06);
+        opacity: 0;
+        visibility: hidden;
+        transition: 3s all;
     }
     &:hover::-webkit-scrollbar-thumb {
-        background-color: rgba(22, 24, 35, 0.06);
+        opacity: 1;
+        visibility: visible;
     }
+    // &::-webkit-scrollbar-thumb {
+    //     background-color: transparent;
+    // }
+    // &:hover::-webkit-scrollbar-thumb {
+    //     background-color: rgba(22, 24, 35, 0.06);
+    // }
     .wrapper {
-        margin: 0px 10px;
-        border-bottom: 1px solid rgb(220, 218, 218);
+        margin: 0px 10px 0px 7px;
+        border-bottom: 1px solid rgb(235, 234, 234);
     }
 }
