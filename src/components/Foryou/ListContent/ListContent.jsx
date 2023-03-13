@@ -8,16 +8,52 @@ import images from '../../../assets/images';
 const cx = classNames.bind(style);
 const ListContent = () => {
     const [play, setPlay] = useState(false);
-    const playRef = useRef(null);
+    const [muted, setMuted] = useState(false);
+    const [volume, setVolume] = useState(0.8);
+
+    const fillVolumeRef = useRef('40px');
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        fillVolumeRef.current.style.height = '40px';
+    }, []);
 
     const handlePlay = () => {
-        console.log(playRef.current.buffered[0]);
         if (play) {
             setPlay(false);
-            playRef.current.pause();
+            videoRef.current.pause();
         } else {
             setPlay(true);
-            playRef.current.play();
+            videoRef.current.play();
+        }
+    };
+
+    const handleVolume = () => {
+        if (muted) {
+            setMuted(false);
+            videoRef.current.muted = false;
+        } else {
+            setMuted(true);
+            videoRef.current.muted = true;
+        }
+    };
+
+    const handleSetVolume = (e) => {
+        setVolume(e.target.value);
+        videoRef.current.volume = e.target.value;
+
+        //Hanlde fill bar volume
+        const WIDTH_FILL_BAR = 50 * e.target.value; //50px
+        fillVolumeRef.current.style.height = `${WIDTH_FILL_BAR}px`;
+
+        //muted icon when muted
+        if (+e.target.value === 0) {
+            setMuted(true);
+            videoRef.current.muted = muted;
+            return;
+        } else {
+            setMuted(false);
+            videoRef.current.muted = muted;
         }
     };
 
@@ -48,8 +84,8 @@ const ListContent = () => {
                             </Button>
                         </div>
                         <div className={cx('video-wrapper')}>
-                            <video loop ref={playRef} poster={images.imgGaiXinh}>
-                                <source src={videos.video12} type={'video/mp4'} />
+                            <video loop ref={videoRef} poster={images.imgGaiXinh}>
+                                <source src={videos.video2} type={'video/mp4'} />
                                 Your browser does not support the video tag.
                             </video>
                             <i
@@ -59,7 +95,25 @@ const ListContent = () => {
                                     'fa-solid fa-pause': play,
                                 })}
                             ></i>
-                            <i className={cx('fa-solid fa-volume-high', 'volume-button')}></i>
+                            <div className={cx('volume-wrapper')}>
+                                <input
+                                    className={cx('volume-bar')}
+                                    onChange={(e) => handleSetVolume(e)}
+                                    type="range"
+                                    value={volume}
+                                    min="0"
+                                    max="1"
+                                    step="0.1"
+                                />
+                                <div ref={fillVolumeRef} className={cx('fill-bar')}></div>
+                                <i
+                                    onClick={handleVolume}
+                                    className={cx('volume-button', {
+                                        'fa-solid fa-volume-high': !muted,
+                                        'fa-solid fa-volume-xmark': muted,
+                                    })}
+                                ></i>
+                            </div>
                         </div>
                     </div>
                 </li>
