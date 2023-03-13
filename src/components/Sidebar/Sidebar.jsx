@@ -10,25 +10,28 @@ import style from './Sidebar.module.scss';
 const cx = classNames.bind(style);
 const Sidebar = () => {
     return (
-        <aside className={cx('side-bar')}>
-            <div className={cx('wrapper')}>
-                <NavMenu />
-            </div>
+        <>
+            <div className={cx('fake-width')}></div>
+            <aside className={cx('side-bar')}>
+                <div className={cx('wrapper')}>
+                    <NavMenu />
+                </div>
 
-            <div className={cx('wrapper')}>
-                <AccountList title={'Suggested accounts'} tippyVisible={true} />
-            </div>
+                <div className={cx('wrapper')}>
+                    <AccountList title={'Suggested accounts'} tippyVisible={true} />
+                </div>
 
-            <div className={cx('wrapper')}>
-                <AccountList title={'Following accounts'} />
-            </div>
+                <div className={cx('wrapper')}>
+                    <AccountList title={'Following accounts'} />
+                </div>
 
-            <div className={cx('wrapper')}>
-                <Discover />
-            </div>
+                <div className={cx('wrapper')}>
+                    <Discover />
+                </div>
 
-            <Footer />
-        </aside>
+                <Footer />
+            </aside>
+        </>
     );
 };
 
