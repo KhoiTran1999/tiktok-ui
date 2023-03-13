@@ -48,7 +48,7 @@ const ListContent = () => {
                             </Button>
                         </div>
                         <div className={cx('video-wrapper')}>
-                            <video loop ref={playRef}>
+                            <video loop ref={playRef} poster={images.imgGaiXinh}>
                                 <source src={videos.video12} type={'video/mp4'} />
                                 Your browser does not support the video tag.
                             </video>
