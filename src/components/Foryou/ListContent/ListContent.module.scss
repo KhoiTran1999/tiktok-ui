@@ -1,0 +1,97 @@
+.list-content {
+    ul {
+        li {
+            width: 100%;
+            padding: 20px 0px;
+            display: flex;
+            .avatar {
+                img {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+            .content-container {
+                width: 100%;
+                margin-left: 12px;
+                .header-container {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    .info-container {
+                        .wrap {
+                            cursor: pointer;
+                            .nickname {
+                                font-weight: 700;
+                                font-size: 17px;
+                                line-height: 25px;
+                                margin-right: 4px;
+                            }
+                            .name {
+                                font-size: 13px;
+                            }
+                            &:hover .nickname {
+                                text-decoration: underline;
+                            }
+                        }
+                        .status {
+                            font-weight: 300;
+                            font-size: 15px;
+                            .hash-tag {
+                                font-weight: 500;
+                                cursor: pointer;
+                                &:hover {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                        .music {
+                            display: inline-block;
+                            margin: 4px 0px 12px;
+                            font-size: 15px;
+                            font-weight: 500;
+                            cursor: pointer;
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                            i {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                    button {
+                        margin-top: 9px;
+                        margin-right: -5px;
+                    }
+                }
+                .video-wrapper {
+                    margin-top: 5px;
+                    width: 280px;
+                    height: 500px;
+                    position: relative;
+                    video {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 8px;
+                    }
+                    .play-button {
+                        color: white;
+                        position: absolute;
+                        bottom: 7.5%;
+                        left: 9%;
+                        cursor: pointer;
+                    }
+                    .volume-button {
+                        color: white;
+                        position: absolute;
+                        bottom: 7.5%;
+                        right: 9%;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
