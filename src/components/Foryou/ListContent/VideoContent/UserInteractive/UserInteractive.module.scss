@@ -1,0 +1,67 @@
+.user-interactive {
+    i {
+        font-size: 23px;
+        color: rgb(22, 24, 35);
+    }
+    .icon-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: rgba(22, 24, 35, 0.06);
+        margin: 8px 0px 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .heart-active {
+        color: rgb(254, 44, 85);
+        position: relative;
+        // animation: heart-beat 0.5s linear;
+        &::after {
+            content: '';
+            width: 0;
+            height: 0;
+            position: absolute;
+            background-color: rgba(254, 44, 86, 0.198);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            animation: heart-circle 0.5s linear;
+        }
+    }
+    p {
+        color: rgba(22, 24, 35, 0.814);
+        font-size: 12px;
+        line-height: 17px;
+        text-align: center;
+        font-weight: 900;
+    }
+}
+@keyframes heart-beat {
+    0% {
+        font-size: 23px;
+    }
+    10% {
+        font-size: 30px;
+    }
+    50% {
+        font-size: 16px;
+    }
+    100% {
+        font-size: 23px;
+    }
+}
+
+@keyframes heart-circle {
+    from {
+        width: 70px;
+        height: 70px;
+    }
+    to {
+        width: 0;
+        height: 0;
+    }
+}
