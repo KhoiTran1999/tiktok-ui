@@ -29,7 +29,7 @@ const UserInteractive = () => {
             title: 'Copy link',
         },
         {
-            dropDown: <i class="fa-solid fa-angle-down"></i>,
+            dropDown: <i className="fa-solid fa-angle-down"></i>,
             children: {
                 list: [
                     {
@@ -112,6 +112,7 @@ const UserInteractive = () => {
             </div>
             <p>7789</p>
             <Tippy
+                // visible
                 delay={[0, 500]}
                 interactive
                 placement="top-start"
