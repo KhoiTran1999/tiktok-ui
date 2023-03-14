@@ -29,7 +29,7 @@ const UserInteractive = () => {
             title: 'Copy link',
         },
         {
-            dropDown: <i class="fa-solid fa-angle-down"></i>,
+            dropDown: <i className="fa-solid fa-angle-down"></i>,
             children: {
                 list: [
                     {
