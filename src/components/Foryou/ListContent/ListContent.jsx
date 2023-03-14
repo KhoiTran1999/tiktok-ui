@@ -1,93 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import style from './ListContent.module.scss';
-import videos from '../../../assets/videos';
-import { Button, ImageCustom } from '../../DetailComponent';
+import React from 'react';
 import images from '../../../assets/images';
+import { ImageCustom } from '../../DetailComponent';
+import style from './ListContent.module.scss';
+import HeaderContainer from './HeaderContainer/HeaderContainer';
+import VideoContent from './VideoContent/VideoContent';
 
 const cx = classNames.bind(style);
 const ListContent = () => {
-    const [play, setPlay] = useState(false);
-    const [muted, setMuted] = useState(false);
-    const [volume, setVolume] = useState(0.8);
-    const [time, setTime] = useState(0);
-
-    const fillVolumeRef = useRef('40px');
-    const fillBarTimeLineRef = useRef('0px');
-    const videoRef = useRef(null);
-    const duration = useRef(null);
-
-    useEffect(() => {
-        fillVolumeRef.current.style.height = '40px';
-    }, []);
-
-    useEffect(() => {
-        videoRef.current.oncanplay = () => {
-            duration.current = videoRef.current.duration;
-        };
-    });
-
-    useEffect(() => {
-        fillBarTimeLineRef.current.style.width = `${(185 * time) / duration.current}px`;
-    }, [time]);
-
-    const handlePlay = () => {
-        if (play) {
-            setPlay(false);
-            videoRef.current.pause();
-        } else {
-            setPlay(true);
-            videoRef.current.play();
-        }
-    };
-
-    const handleMutedVolume = () => {
-        if (muted) {
-            setMuted(false);
-            videoRef.current.muted = false;
-        } else {
-            setMuted(true);
-            videoRef.current.muted = true;
-        }
-    };
-
-    const handleSetVolume = (e) => {
-        setVolume(e.target.value);
-        videoRef.current.volume = e.target.value;
-
-        //Hanlde fill bar volume
-        const WIDTH_FILL_BAR = 50 * e.target.value; //50px
-        fillVolumeRef.current.style.height = `${WIDTH_FILL_BAR}px`;
-
-        //muted icon when muted
-        if (+e.target.value === 0) {
-            setMuted(true);
-            videoRef.current.muted = muted;
-            return;
-        } else {
-            setMuted(false);
-            videoRef.current.muted = muted;
-        }
-    };
-
-    const handleTimeupdate = () => {
-        setTime(Math.floor(videoRef.current.currentTime));
-    };
-
-    const formatTime = (time) => {
-        const minutes = Math.floor((time / 60) % 10).toString();
-        const dozenMinutes = Math.floor(time / 60 / 10).toString();
-        const seconds = Math.floor((time % 60) % 10).toString();
-        const dozenSeconds = Math.floor((time % 60) / 10).toString();
-
-        return `${dozenMinutes}${minutes}:${dozenSeconds}${seconds}`;
-    };
-
-    const handleForwardVideo = (e) => {
-        setTime(e.target.value);
-        videoRef.current.currentTime = e.target.value;
-    };
-
     return (
         <div className={cx('list-content')}>
             <ul>
@@ -96,71 +16,8 @@ const ListContent = () => {
                         <ImageCustom src={images.imgGaiXinh} alt="avatar" />
                     </div>
                     <div className={cx('content-container')}>
-                        <div className={cx('header-container')}>
-                            <div className={cx('info-container')}>
-                                <span className={cx('wrap')}>
-                                    <span className={cx('nickname')}>Nickname</span>
-                                    <span className={cx('name')}>Full-Name</span>
-                                </span>
-                                <p className={cx('status')}>
-                                    đúng nhận sai cãi...{' '}
-                                    <b className={cx('hash-tag')}>#story #tamtrang # duongthaithuyy</b>
-                                </p>
-                                <span className={cx('music')}>
-                                    <i className="fa-solid fa-music"></i> Flop nhất link nhạc - Hayato_shiro
-                                </span>
-                            </div>
-                            <Button outline small>
-                                Follow
-                            </Button>
-                        </div>
-                        <div className={cx('video-wrapper')}>
-                            <video loop ref={videoRef} poster={images.imgGaiXinh} onTimeUpdate={handleTimeupdate}>
-                                <source src={videos.video11} type={'video/mp4'} />
-                                Your browser does not support the video tag.
-                            </video>
-                            <i
-                                onClick={handlePlay}
-                                className={cx('play-button', {
-                                    'fa-solid fa-play': !play,
-                                    'fa-solid fa-pause': play,
-                                })}
-                            ></i>
-                            <div className={cx('volume-wrapper')}>
-                                <input
-                                    className={cx('volume-bar')}
-                                    onChange={(e) => handleSetVolume(e)}
-                                    type="range"
-                                    value={volume}
-                                    min="0"
-                                    max="1"
-                                    step="0.1"
-                                />
-                                <div ref={fillVolumeRef} className={cx('fill-bar')}></div>
-                                <i
-                                    onClick={handleMutedVolume}
-                                    className={cx('volume-button', {
-                                        'fa-solid fa-volume-high': !muted,
-                                        'fa-solid fa-volume-xmark': muted,
-                                    })}
-                                ></i>
-                            </div>
-                            <div className={cx('timeline-wrapper')}>
-                                <input
-                                    type="range"
-                                    className={cx('timeline')}
-                                    value={time}
-                                    onChange={(e) => handleForwardVideo(e)}
-                                    min="0"
-                                    max={duration.current}
-                                    step="1"
-                                />
-                                <span className={cx('running-time')}>
-                                    {formatTime(time)}/{formatTime(duration.current)}
-                                </span>
-                                <div className={cx('fill-bar-timeline')} ref={fillBarTimeLineRef}></div>
-                            </div>
-                        </div>
+                        <HeaderContainer />
+                        <VideoContent />
                     </div>
                 </li>
             </ul>

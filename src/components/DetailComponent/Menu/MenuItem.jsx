@@ -35,6 +35,7 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
                                 </>
                             ) : (
                                 <>
+                                    {val.dropDown && <h2>{val.dropDown}</h2>}
                                     <span>{val.icon}</span>
                                     <h4>{val.title}</h4>
                                 </>
