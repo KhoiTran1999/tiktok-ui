@@ -1,9 +1,17 @@
 .list-content {
-    ul {
-        li {
+    > ul {
+        scroll-snap-type: block;
+        scroll-padding: 20px;
+        max-height: 6000px;
+        > li {
+            scroll-snap-align: start;
             width: 100%;
             padding: 20px 0px;
+            border-bottom: 1px solid rgb(235, 234, 234);
             display: flex;
+            &:last-child {
+                border-bottom: none;
+            }
             .avatar {
                 img {
                     width: 56px;

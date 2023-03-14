@@ -1,25 +1,21 @@
+import React, { useEffect, useRef } from 'react';
+import useScrollSnap from 'react-use-scroll-snap';
 import classNames from 'classnames/bind';
-import React from 'react';
-import images from '../../../assets/images';
-import { ImageCustom } from '../../DetailComponent';
+import ItemContent from './ItemContent';
 import style from './ListContent.module.scss';
-import HeaderContainer from './HeaderContainer/HeaderContainer';
-import VideoContent from './VideoContent/VideoContent';
+import videos from '../../../assets/videos';
 
 const cx = classNames.bind(style);
 const ListContent = () => {
+    const scrollRef = useRef(null);
+    useScrollSnap({ ref: scrollRef, duration: 100, delay: 50 });
+
     return (
         <div className={cx('list-content')}>
-            <ul>
-                <li>
-                    <div className={cx('avatar')}>
-                        <ImageCustom src={images.imgGaiXinh} alt="avatar" />
-                    </div>
-                    <div className={cx('content-container')}>
-                        <HeaderContainer />
-                        <VideoContent />
-                    </div>
-                </li>
+            <ul ref={scrollRef}>
+                {Object.keys(videos).map((key, idx) => {
+                    return <ItemContent key={idx} dataVideo={videos[key]} />;
+                })}
             </ul>
         </div>
     );

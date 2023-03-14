@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import style from './VideoContent.module.scss';
-import videos from '../../../../assets/videos';
-import images from '../../../../assets/images';
+import React, { useEffect, useRef, useState } from 'react';
+import { useElementOnScreen } from '../../../../hooks';
 import UserInteractive from './UserInteractive/UserInteractive';
+import style from './VideoContent.module.scss';
 
 const cx = classNames.bind(style);
-const VideoContent = () => {
+const VideoContent = ({ dataVideo }) => {
     const [play, setPlay] = useState(false);
     const [muted, setMuted] = useState(false);
-    const [volume, setVolume] = useState(0.8);
+    const [volume, setVolume] = useState(0.2);
     const [time, setTime] = useState(0);
 
     const fillVolumeRef = useRef('40px');
@@ -17,8 +16,30 @@ const VideoContent = () => {
     const videoRef = useRef(null);
     const duration = useRef(null);
 
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3,
+    };
+    const isVisible = useElementOnScreen(options, videoRef);
+
     useEffect(() => {
-        fillVolumeRef.current.style.height = '40px';
+        if (isVisible) {
+            if (!play) {
+                videoRef.current.play();
+                setPlay(true);
+            }
+        } else {
+            if (play) {
+                videoRef.current.pause();
+                setPlay(false);
+            }
+        }
+    }, [isVisible]);
+
+    useEffect(() => {
+        videoRef.current.volume = volume;
+        fillVolumeRef.current.style.height = '13px';
     }, []);
 
     useEffect(() => {
@@ -87,11 +108,12 @@ const VideoContent = () => {
         setTime(e.target.value);
         videoRef.current.currentTime = e.target.value;
     };
+
     return (
         <div className={cx('video-wrapper')}>
             <div className={cx('wrapper')}>
-                <video loop ref={videoRef} poster={images.imgGaiXinh} onTimeUpdate={handleTimeupdate}>
-                    <source src={videos.video11} type={'video/mp4'} />
+                <video loop ref={videoRef} onTimeUpdate={handleTimeupdate}>
+                    <source src={dataVideo} type={'video/mp4'} />
                     Your browser does not support the video tag.
                 </video>
                 <i

@@ -112,6 +112,7 @@ const UserInteractive = () => {
             </div>
             <p>7789</p>
             <Tippy
+                // visible
                 delay={[0, 500]}
                 interactive
                 placement="top-start"
