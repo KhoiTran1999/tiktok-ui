@@ -196,9 +196,9 @@ const Header = () => {
                                     <Button
                                         primary
                                         medium
-                                        onClick={() => {
-                                            setIsLogin(true);
-                                        }}
+                                        // onClick={() => {
+                                        //     setIsLogin(true);
+                                        // }}
                                     >
                                         <span style={{ padding: '0px 15px' }}>{t('header.login')}</span>
                                     </Button>

@@ -14,6 +14,11 @@ const publicRoutes = [
     { path: routes.live, page: Live, layout: LiveLayout },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+    { path: routes.home, page: Home, layout: MainLayout },
+    { path: routes.following, page: Following, layout: FollowingLayout },
+    { path: routes.profile, page: Profile, layout: MainLayout },
+    { path: routes.live, page: Live, layout: LiveLayout },
+];
 
 export { publicRoutes, privateRoutes };
