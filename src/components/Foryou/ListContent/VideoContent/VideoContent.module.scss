@@ -8,6 +8,10 @@
         width: 280px;
         height: 500px;
         position: relative;
+        @media screen and (min-width: 1700px) {
+            width: 340px;
+            height: 600px;
+        }
         &:hover {
             .play-button,
             .volume-wrapper,

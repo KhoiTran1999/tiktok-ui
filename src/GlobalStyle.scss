@@ -59,6 +59,9 @@ body {
     width: 100%;
     margin: 0 auto;
     padding: 0px 5px;
+    @media screen and (min-width: 1700px) {
+        max-width: 1300px;
+    }
 }
 
 a {
