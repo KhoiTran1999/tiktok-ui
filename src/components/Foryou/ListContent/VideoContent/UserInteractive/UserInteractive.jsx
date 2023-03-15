@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import 'animate.css';
-import style from './UserInteractive.module.scss';
 import classNames from 'classnames/bind';
+import React, { useState } from 'react';
 import { Menu } from '../../../../DetailComponent';
+import style from './UserInteractive.module.scss';
 
 const cx = classNames.bind(style);
 const UserInteractive = () => {
@@ -69,15 +69,15 @@ const UserInteractive = () => {
                         title: 'Share to Telegram',
                     },
                     {
-                        icon: <i class="fa-solid fa-envelope"></i>,
+                        icon: <i className="fa-solid fa-envelope"></i>,
                         title: 'Share to Email',
                     },
                     {
-                        icon: <i class="fa-brands fa-line"></i>,
+                        icon: <i className="fa-brands fa-line"></i>,
                         title: 'Share to Line',
                     },
                     {
-                        icon: <i class="fa-brands fa-pinterest"></i>,
+                        icon: <i className="fa-brands fa-pinterest"></i>,
                         title: 'Share to Pinterest',
                     },
                 ],
@@ -86,6 +86,7 @@ const UserInteractive = () => {
     ];
     const [heart, setHeart] = useState(false);
     const [isResetMenu, setIsResetMenu] = useState(false);
+    const [isHideMenu, setIsHideMenu] = useState(true);
 
     const handleHeartActive = () => {
         if (heart) {
@@ -112,7 +113,6 @@ const UserInteractive = () => {
             </div>
             <p>7789</p>
             <Tippy
-                // visible
                 delay={[0, 500]}
                 interactive
                 placement="top-start"
