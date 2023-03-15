@@ -2,8 +2,14 @@
     width: 24.5%;
     overflow-y: overlay;
     overflow-x: hidden;
-    max-height: 630px;
+    max-height: 650px;
     position: fixed;
+    @media screen and (min-width: 1700px) {
+        max-height: 100%;
+    }
+    @media screen and (min-width: 2200px) {
+        width: 15.5%;
+    }
     &::-webkit-scrollbar {
         width: 6px;
     }
