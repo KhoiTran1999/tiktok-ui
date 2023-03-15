@@ -109,6 +109,9 @@
             position: absolute;
             bottom: 2px;
             left: 3%;
+            @media screen and (min-width: 1700px) {
+                left: 12%;
+            }
 
             display: flex;
             justify-content: space-between;
