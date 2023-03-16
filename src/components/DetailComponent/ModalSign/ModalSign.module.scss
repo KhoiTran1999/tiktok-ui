@@ -74,7 +74,20 @@
             }
             ul {
                 li {
+                    position: relative;
                     margin-bottom: 20px;
+                    button {
+                        font-size: 15px;
+                        color: rgb(22, 24, 35);
+                        span {
+                            font-weight: 500;
+                            .google {
+                                position: absolute;
+                                font-size: 20px;
+                                left: 10px;
+                            }
+                        }
+                    }
                 }
             }
         }

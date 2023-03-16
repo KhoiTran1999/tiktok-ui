@@ -10,7 +10,7 @@ import LogoMessage from '../../assets/icon/LogoMessage';
 import LogoMessageBox from '../../assets/icon/LogoMessageBox';
 import LogoTiktok from '../../assets/icon/LogoTiktok';
 import images from '../../assets/images';
-import { Button, ImageCustom, Menu, Wrapper } from '../DetailComponent';
+import { Button, ImageCustom, Menu, ModalSign, Wrapper } from '../DetailComponent';
 import FormSearch from '../DetailComponent/FormSearch';
 import style from './Header.module.scss';
 import routes from '../../config/routes.js';
@@ -103,6 +103,11 @@ const Header = () => {
 
     const [isLogin, setIsLogin] = useState(false);
     const [isResetMenu, setIsResetMenu] = useState(false);
+    const [isActiveLogin, setIsActiveLogin] = useState(false);
+
+    const handleLogin = () => {
+        setIsActiveLogin(true);
+    };
 
     const onLogout = useCallback(() => {
         setIsLogin(false);
@@ -196,9 +201,9 @@ const Header = () => {
                                     <Button
                                         primary
                                         medium
-                                        // onClick={() => {
-                                        //     setIsLogin(true);
-                                        // }}
+                                        onClick={() => {
+                                            handleLogin();
+                                        }}
                                     >
                                         <span style={{ padding: '0px 15px' }}>{t('header.login')}</span>
                                     </Button>
@@ -241,6 +246,7 @@ const Header = () => {
                     )}
                 </div>
             </div>
+            <ModalSign isActiveLogin={isActiveLogin} setIsActiveLogin={setIsActiveLogin} />
         </header>
     );
 };
