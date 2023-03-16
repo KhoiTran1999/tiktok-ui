@@ -1,7 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
-
 import getUser from '../../../services/searchService';
 import { useTranslation } from 'react-i18next';
 import useDebounce from '../../../hooks/useDebounce';

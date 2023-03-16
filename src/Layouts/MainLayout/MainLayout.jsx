@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import Following from '../../components/Following/Following';
 import Foryou from '../../components/Foryou/Foryou';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';

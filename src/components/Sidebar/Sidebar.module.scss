@@ -4,6 +4,7 @@
     overflow-x: hidden;
     max-height: 650px;
     position: fixed;
+    z-index: 9;
     @media screen and (min-width: 1700px) {
         max-height: 100%;
     }
@@ -25,5 +26,14 @@
     .wrapper {
         margin: 0px 10px 0px 7px;
         border-bottom: 1px solid rgb(235, 234, 234);
+        .signText {
+            padding-top: 20px;
+            color: rgba(22, 24, 35, 0.5);
+            font-size: 15px;
+            line-height: 22px;
+        }
+        .sign {
+            margin: 20px 0px;
+        }
     }
 }

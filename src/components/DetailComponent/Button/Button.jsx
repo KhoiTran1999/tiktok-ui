@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './style.module.scss';
+import style from './Button.module.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
