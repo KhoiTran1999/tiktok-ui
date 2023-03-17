@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import React from 'react';
+import { ModalSign } from '../../components/DetailComponent';
 import Foryou from '../../components/Foryou/Foryou';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -18,6 +19,7 @@ const MainLayout = () => {
                     </div>
                 </div>
             </main>
+            <ModalSign />
         </div>
     );
 };

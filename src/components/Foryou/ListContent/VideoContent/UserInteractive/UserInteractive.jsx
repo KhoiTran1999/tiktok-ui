@@ -2,7 +2,9 @@ import Tippy from '@tippyjs/react/headless';
 import 'animate.css';
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Menu } from '../../../../DetailComponent';
+import ModalSignSlice from '../../../../DetailComponent/ModalSign/ModalSignSlice';
 import style from './UserInteractive.module.scss';
 
 const cx = classNames.bind(style);
@@ -86,15 +88,22 @@ const UserInteractive = () => {
     ];
     const [heart, setHeart] = useState(false);
     const [isResetMenu, setIsResetMenu] = useState(false);
-    const [isHideMenu, setIsHideMenu] = useState(true);
+
+    const dispatch = useDispatch();
 
     const handleHeartActive = () => {
-        if (heart) {
-            setHeart(false);
-            return;
-        } else {
-            setHeart(true);
-        }
+        // if (heart) {
+        //     setHeart(false);
+        //     return;
+        // } else {
+        //     setHeart(true);
+        // }
+
+        dispatch(ModalSignSlice.actions.changeModalSign(true));
+    };
+
+    const handleClickComment = () => {
+        dispatch(ModalSignSlice.actions.changeModalSign(true));
     };
 
     return (
@@ -108,7 +117,7 @@ const UserInteractive = () => {
                 ></i>
             </div>
             <p>1.4M</p>
-            <div className={cx('icon-wrapper')}>
+            <div className={cx('icon-wrapper')} onClick={handleClickComment}>
                 <i className="fa-solid fa-comment-dots"></i>
             </div>
             <p>7789</p>

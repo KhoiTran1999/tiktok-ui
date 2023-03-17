@@ -1,0 +1,33 @@
+{ "dataMainMenuUnLogin": [
+    {
+        "icon": "<i className="fa-solid fa-font"></i>",
+        "title": t('header.Menu.language'),
+        children: {
+            childrenTitle: t('header.Menu.children Title Language'),
+            list: [
+                {
+                    "title": 'Tiếng Việt (Việt Nam)',
+                    code: 'vi',
+                },
+                {
+                    "title": 'English',
+                    code: 'en',
+                },
+            ],
+        },
+    },
+    {
+        "icon": <i className="fa-regular fa-circle-question"></i>,
+        "title": t('header.Menu.feedBackAndHelp'),
+        to: '/feedback',
+    },
+    {
+        "icon": <i className="fa-regular fa-keyboard"></i>,
+        "title": t('header.Menu.keyboard'),
+    },
+    {
+        "icon": <i className="fa-regular fa-moon"></i>,
+        "title": t('header.Menu.darkMode'),
+    },
+]
+};

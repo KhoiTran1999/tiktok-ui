@@ -5,8 +5,8 @@ import getUser from '../../../services/searchService';
 import { useTranslation } from 'react-i18next';
 import useDebounce from '../../../hooks/useDebounce';
 import '../../../translation/i18n';
-import AccountSearch from '../AccountSearch/';
-import SubnavWrapper from '../SubnavWrapper/SubnavWrapper';
+import AccountSearch from '../../DetailComponent/AccountSearch';
+import SubnavWrapper from '../../DetailComponent/SubnavWrapper';
 import style from './FormSearch.module.scss';
 
 const cx = classNames.bind(style);
