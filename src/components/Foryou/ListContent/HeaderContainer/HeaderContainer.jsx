@@ -2,9 +2,16 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import style from './HeaderContainer.module.scss';
 import { Button } from '../../../DetailComponent';
+import { useDispatch } from 'react-redux';
+import ModalSignSlice from '../../../DetailComponent/ModalSign/ModalSignSlice';
 
 const cx = classNames.bind(style);
 const HeaderContainer = () => {
+    const dispatch = useDispatch();
+
+    const handleSign = () => {
+        dispatch(ModalSignSlice.actions.changeModalSign(true));
+    };
     return (
         <div className={cx('header-container')}>
             <div className={cx('info-container')}>
@@ -19,7 +26,7 @@ const HeaderContainer = () => {
                     <i className="fa-solid fa-music"></i> Flop nhất link nhạc - Hayato_shiro
                 </span>
             </div>
-            <Button outline small>
+            <Button outline small onClick={handleSign}>
                 Follow
             </Button>
         </div>
