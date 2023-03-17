@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import style from './ModalSign.module.scss';
-import { Button } from '../index';
-import firebase, { auth } from '../../../firebase/config';
-import routes from '../../../config/routes';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogo from '../../../assets/icon/GoogleLogo';
-import { changeModal, changeModalSelector } from '../../../redux/selector';
+import routes from '../../../config/routes';
+import firebase, { auth } from '../../../firebase/config';
+import { changeModalSelector } from '../../../redux/selector';
+import { Button } from '../index';
+import style from './ModalSign.module.scss';
 import ModalSignSlice from './ModalSignSlice';
+import UserLoginSlice from './UserLoginSlice';
 
 const cx = classNames.bind(style);
 const ggProvider = new firebase.auth.GoogleAuthProvider();
@@ -17,27 +18,29 @@ const ggProvider = new firebase.auth.GoogleAuthProvider();
 const ModalSign = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isActiveLogin = useSelector(changeModalSelector);
 
     const handleGoogleLogin = () => {
         auth.signInWithPopup(ggProvider);
     };
 
     useEffect(() => {
-        const AuthCancle = auth.onAuthStateChanged((user) => {
+        const unscribe = auth.onAuthStateChanged((user) => {
             if (user) {
+                const { displayName, email, uid, photoURL } = user;
+                dispatch(UserLoginSlice.actions.getUser({ displayName, email, uid, photoURL }));
+                dispatch(ModalSignSlice.actions.changeModalSign(false));
                 navigate(routes.home);
             }
         });
         return () => {
-            AuthCancle();
+            unscribe();
         };
     }, []);
 
     const handleEscape = () => {
         dispatch(ModalSignSlice.actions.changeModalSign(false));
     };
-
-    const isActiveLogin = useSelector(changeModalSelector);
 
     return (
         <div

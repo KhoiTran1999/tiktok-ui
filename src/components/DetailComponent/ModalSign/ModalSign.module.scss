@@ -52,8 +52,8 @@
 
         z-index: 9999;
         position: absolute;
-        transform: scale(0);
         transition: 0.3s all;
+        transform: scale(0);
         &.active {
             transform: scale(1);
         }

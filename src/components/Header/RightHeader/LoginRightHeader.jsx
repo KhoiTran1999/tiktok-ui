@@ -1,20 +1,23 @@
-import React, { useCallback, useState } from 'react';
-import classNames from 'classnames/bind';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
+import classNames from 'classnames/bind';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, ImageCustom, Menu, Wrapper } from '../../DetailComponent';
+import LogoEffect from '../../../assets/icon/LogoEffect';
 import LogoMessage from '../../../assets/icon/LogoMessage';
 import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
 import images from '../../../assets/images';
-import LogoEffect from '../../../assets/icon/LogoEffect';
+import { auth } from '../../../firebase/config';
+import { getUserSelector } from '../../../redux/selector';
+import { Button, ImageCustom, Menu, Wrapper } from '../../DetailComponent';
+import UserLoginSlice from '../../DetailComponent/ModalSign/UserLoginSlice';
 import style from './RightHeader.module.scss';
-import ModalSignSlice from '../../DetailComponent/ModalSign/ModalSignSlice';
 
 const cx = classNames.bind(style);
 
 const LoginRightHeader = () => {
+    const { t } = useTranslation();
     const dataMainMenuLogin = [
         {
             icon: <i className="fa-regular fa-user"></i>,
@@ -66,8 +69,13 @@ const LoginRightHeader = () => {
     ];
     const [isResetMenu, setIsResetMenu] = useState(false);
 
-    const { t } = useTranslation();
     const dispatch = useDispatch();
+    const user = useSelector(getUserSelector);
+
+    const onLogout = () => {
+        auth.signOut();
+        dispatch(UserLoginSlice.actions.getUser(''));
+    };
 
     return (
         <div className={cx('group')}>
@@ -109,7 +117,7 @@ const LoginRightHeader = () => {
                                     data={dataMainMenuLogin}
                                     className={cx('subnav-menu')}
                                     isResetMenu={isResetMenu}
-                                    // onLogout={onLogout}
+                                    onLogout={onLogout}
                                 />
                             )}
                             onHide={() => {
@@ -119,7 +127,7 @@ const LoginRightHeader = () => {
                                 setIsResetMenu(false);
                             }}
                         >
-                            <ImageCustom src={images.imgGaiXinh} alt="avatar" />
+                            <ImageCustom src={user.photoURL} alt="avatar" />
                         </Tippy>
                     </div>
                 </li>
