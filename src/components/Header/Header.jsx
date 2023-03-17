@@ -14,6 +14,8 @@ import { Button, ImageCustom, Menu, ModalSign, Wrapper } from '../DetailComponen
 import FormSearch from '../DetailComponent/FormSearch';
 import style from './Header.module.scss';
 import routes from '../../config/routes.js';
+import { useDispatch } from 'react-redux';
+import ModalSignSlice from '../DetailComponent/ModalSign/ModalSignSlice.js';
 
 const cx = classNames.bind(style);
 
@@ -103,10 +105,11 @@ const Header = () => {
 
     const [isLogin, setIsLogin] = useState(false);
     const [isResetMenu, setIsResetMenu] = useState(false);
-    const [isActiveLogin, setIsActiveLogin] = useState(false);
+
+    const dispatch = useDispatch();
 
     const handleLogin = () => {
-        setIsActiveLogin(true);
+        dispatch(ModalSignSlice.actions.changeModalSign(true));
     };
 
     const onLogout = useCallback(() => {
@@ -192,7 +195,14 @@ const Header = () => {
                         <div style={{ marginRight: '-20px' }} className={cx('group')}>
                             <ul>
                                 <li>
-                                    <Button basic medium className={cx('upload')}>
+                                    <Button
+                                        basic
+                                        medium
+                                        className={cx('upload')}
+                                        onClick={() => {
+                                            handleLogin();
+                                        }}
+                                    >
                                         <i className="fa-solid fa-plus"></i> {t('header.upload')}
                                     </Button>
                                 </li>
@@ -246,7 +256,6 @@ const Header = () => {
                     )}
                 </div>
             </div>
-            <ModalSign isActiveLogin={isActiveLogin} setIsActiveLogin={setIsActiveLogin} />
         </header>
     );
 };

@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
+import { useSelector, useDispatch } from 'react-redux';
+
 import style from './ModalSign.module.scss';
 import { Button } from '../index';
 import firebase, { auth } from '../../../firebase/config';
 import routes from '../../../config/routes';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogo from '../../../assets/icon/GoogleLogo';
+import { changeModal, changeModalSelector } from '../../../redux/selector';
+import ModalSignSlice from './ModalSignSlice';
 
 const cx = classNames.bind(style);
 const ggProvider = new firebase.auth.GoogleAuthProvider();
 
-const ModalSign = ({ isActiveLogin, setIsActiveLogin }) => {
+const ModalSign = () => {
     const navigate = useNavigate();
-
-    const handleEscape = () => {
-        setIsActiveLogin(false);
-    };
+    const dispatch = useDispatch();
 
     const handleGoogleLogin = () => {
         auth.signInWithPopup(ggProvider);
@@ -31,6 +32,12 @@ const ModalSign = ({ isActiveLogin, setIsActiveLogin }) => {
             AuthCancle();
         };
     }, []);
+
+    const handleEscape = () => {
+        dispatch(ModalSignSlice.actions.changeModalSign(false));
+    };
+
+    const isActiveLogin = useSelector(changeModalSelector);
 
     return (
         <div

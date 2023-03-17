@@ -1,18 +1,21 @@
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
-import { Button, ModalSign } from '../DetailComponent';
+import { useDispatch } from 'react-redux';
+
+import { Button } from '../DetailComponent';
 import AccountList from './AccountList/AccountList';
 import Discover from './Discover/Discover';
 import Footer from './Footer/Footer';
 import NavMenu from './NavMenu/NavMenu';
 import style from './Sidebar.module.scss';
+import ModalSignSlice from '../DetailComponent/ModalSign/ModalSignSlice';
 
 const cx = classNames.bind(style);
 const Sidebar = () => {
-    const [isActiveLogin, setIsActiveLogin] = useState(false);
+    const dispatch = useDispatch();
 
     const handleLogin = () => {
-        setIsActiveLogin(true);
+        dispatch(ModalSignSlice.actions.changeModalSign(true));
     };
 
     return (
@@ -44,7 +47,6 @@ const Sidebar = () => {
 
                 <Footer />
             </aside>
-            <ModalSign isActiveLogin={isActiveLogin} setIsActiveLogin={setIsActiveLogin} />
         </>
     );
 };
