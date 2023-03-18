@@ -2,15 +2,17 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import style from './HeaderContainer.module.scss';
 import { Button } from '../../../DetailComponent';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ModalSignSlice from '../../../DetailComponent/ModalSign/ModalSignSlice';
+import { UserSelector } from '../../../../redux/selector';
 
 const cx = classNames.bind(style);
 const HeaderContainer = () => {
     const dispatch = useDispatch();
+    const user = useSelector(UserSelector);
 
     const handleSign = () => {
-        dispatch(ModalSignSlice.actions.changeModalSign(true));
+        if (user.login === false) dispatch(ModalSignSlice.actions.setModalSign(true));
     };
     return (
         <div className={cx('header-container')}>

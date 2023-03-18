@@ -1,4 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
+import styled from 'styled-components';
+import { useSpring, motion } from 'framer-motion';
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +14,7 @@ import { Button, ImageCustom, Menu, Wrapper } from '../../DetailComponent';
 import UserLoginSlice from '../../DetailComponent/ModalSign/UserLoginSlice';
 import style from './RightHeader.module.scss';
 
+const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
 
 const LoginRightHeader = () => {
@@ -75,6 +78,30 @@ const LoginRightHeader = () => {
         dispatch(UserLoginSlice.actions.setUser(''));
     };
 
+    //--------------Tippy Motion Framer-----------------------
+    const springConfig = { damping: 15, stiffness: 300 };
+    const initialScale = 0.5;
+    const opacity = useSpring(0, springConfig);
+    const scale = useSpring(initialScale, springConfig);
+
+    function onMount() {
+        scale.set(1);
+        opacity.set(1);
+    }
+
+    function onHide({ unmount }) {
+        const cleanup = scale.onChange((value) => {
+            if (value <= initialScale) {
+                cleanup();
+                unmount();
+            }
+        });
+        setIsResetMenu(true);
+        scale.set(initialScale);
+        opacity.set(0);
+    }
+    //--------------------------------------------------------
+
     return (
         <div className={cx('group')}>
             <ul>
@@ -105,20 +132,22 @@ const LoginRightHeader = () => {
                             placement="bottom-end"
                             interactive
                             hideOnClick={false}
-                            render={(attrs) => (
-                                <Menu
-                                    data={dataMainMenuLogin}
-                                    className={cx('subnav-menu')}
-                                    isResetMenu={isResetMenu}
-                                    onLogout={onLogout}
-                                />
-                            )}
-                            onHide={() => {
-                                setIsResetMenu(true);
-                            }}
+                            animation={true}
+                            onHide={onHide}
+                            onMount={onMount}
                             onShow={() => {
                                 setIsResetMenu(false);
                             }}
+                            render={(attrs) => (
+                                <Box style={{ scale, opacity }} {...attrs}>
+                                    <Menu
+                                        data={dataMainMenuLogin}
+                                        className={cx('subnav-menu')}
+                                        isResetMenu={isResetMenu}
+                                        onLogout={onLogout}
+                                    />
+                                </Box>
+                            )}
                         >
                             <ImageCustom src={user.photoURL} alt="avatar" />
                         </Tippy>

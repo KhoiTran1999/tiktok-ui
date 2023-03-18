@@ -27,23 +27,25 @@
             border-radius: 8px;
         }
         .play-button {
-            opacity: 0;
-            visibility: hidden;
             color: white;
             position: absolute;
             bottom: 7.5%;
             left: 9%;
             cursor: pointer;
-        }
-        .volume-wrapper {
             opacity: 0;
             visibility: hidden;
+            transition: 0.3s all;
+        }
+        .volume-wrapper {
             height: 45px;
             width: 45px;
             position: absolute;
             bottom: 5%;
             right: 4%;
             cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s all;
             &:hover .fill-bar {
                 display: block;
             }
@@ -102,14 +104,16 @@
             }
         }
         .timeline-wrapper {
-            opacity: 0;
-            visibility: hidden;
             width: 268px;
             padding: 10px 5px;
 
             position: absolute;
             bottom: 2px;
             left: 3%;
+
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s all;
             @media screen and (min-width: 1700px) {
                 left: 12%;
             }
@@ -157,8 +161,7 @@
             .fill-bar-timeline {
                 width: 0px;
                 height: 2px;
-                background-color: red;
-                // background-color: white;
+                background-color: white;
                 position: absolute;
                 z-index: 2;
             }

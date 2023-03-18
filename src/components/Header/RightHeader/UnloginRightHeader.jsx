@@ -1,14 +1,17 @@
 import Tippy from '@tippyjs/react/headless';
+import styled from 'styled-components';
+import { useSpring, motion } from 'framer-motion';
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserSelector } from '../../../redux/selector';
 
+import { UserSelector } from '../../../redux/selector';
 import { Button, Menu } from '../../DetailComponent';
 import ModalSignSlice from '../../DetailComponent/ModalSign/ModalSignSlice';
 import style from './RightHeader.module.scss';
 
+const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
 const UnloginRightHeader = () => {
     const { t } = useTranslation();
@@ -52,6 +55,30 @@ const UnloginRightHeader = () => {
     const handleLogin = () => {
         dispatch(ModalSignSlice.actions.setModalSign(true));
     };
+
+    //-----------Tippy Framer Motion------------------------
+    const springConfig = { damping: 15, stiffness: 300 };
+    const initialScale = 0.5;
+    const opacity = useSpring(0, springConfig);
+    const scale = useSpring(initialScale, springConfig);
+
+    function onMount() {
+        scale.set(1);
+        opacity.set(1);
+    }
+
+    function onHide({ unmount }) {
+        const cleanup = scale.onChange((value) => {
+            if (value <= initialScale) {
+                cleanup();
+                unmount();
+            }
+        });
+        setIsResetMenu(false);
+        scale.set(initialScale);
+        opacity.set(0);
+    }
+    //------------------------------------------------------
     return (
         <div style={{ marginRight: '-20px' }} className={cx('group')}>
             <ul>
@@ -97,19 +124,21 @@ const UnloginRightHeader = () => {
                             hideOnClick={false}
                             placement="bottom-end"
                             interactive
-                            render={(attrs) => (
-                                <Menu
-                                    data={dataMainMenuUnLogin}
-                                    className={cx('subnav-menu')}
-                                    isResetMenu={isResetMenu}
-                                />
-                            )}
-                            onHide={() => {
-                                setIsResetMenu(true);
-                            }}
+                            animation={true}
+                            onMount={onMount}
+                            onHide={onHide}
                             onShow={() => {
                                 setIsResetMenu(false);
                             }}
+                            render={(attrs) => (
+                                <Box style={{ scale, opacity }} {...attrs}>
+                                    <Menu
+                                        data={dataMainMenuUnLogin}
+                                        className={cx('subnav-menu')}
+                                        isResetMenu={isResetMenu}
+                                    />
+                                </Box>
+                            )}
                         >
                             <i className="fa-solid fa-ellipsis-vertical"></i>
                         </Tippy>
