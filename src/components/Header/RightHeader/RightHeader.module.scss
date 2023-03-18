@@ -3,20 +3,22 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-right: 10px;
         > li {
-            margin-left: 25px;
+            margin-left: 15px;
             cursor: pointer;
             .upload {
                 span {
                     padding-right: 5px;
                 }
                 i {
-                    padding: 0px 10px;
+                    padding: 0px 7px;
                 }
             }
-            .effectLogo {
-                margin-top: 7px;
+
+            .login-button {
             }
+
             .message {
                 margin-top: 5px;
                 width: 25px;
@@ -52,6 +54,41 @@
                     }
                 }
             }
+            .upload,
+            .login-button {
+                position: relative;
+                overflow: hidden;
+                &.skeletonLoading {
+                    &::before {
+                        content: '';
+                        width: 100%;
+                        height: 100%;
+                        background: #dddddd;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                    &::after {
+                        content: '';
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(to right, #dddddd, white 50%, #dddddd);
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        animation: skeletonLoading 1s infinite alternate;
+                    }
+                }
+            }
         }
+    }
+}
+
+@keyframes skeletonLoading {
+    from {
+        left: -50%;
+    }
+    to {
+        left: 50%;
     }
 }

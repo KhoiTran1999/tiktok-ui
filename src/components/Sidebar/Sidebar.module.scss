@@ -35,5 +35,11 @@
         .sign {
             margin: 20px 0px;
         }
+        .signText,
+        .sign {
+            &.skeletonLoading {
+                display: none;
+            }
+        }
     }
 }

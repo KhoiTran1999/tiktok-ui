@@ -9,14 +9,45 @@
                 &:hover {
                     background-color: rgba(22, 24, 35, 0.03);
                 }
-                img {
+                .avatar {
                     width: 40px;
                     height: 40px;
-                    object-fit: cover;
                     border-radius: 50%;
+                    overflow: hidden;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 50%;
+                    }
+                    position: relative;
+                    &.skeletonLoading {
+                        &::before {
+                            content: '';
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            background: #dddddd;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                        }
+                        &::after {
+                            content: '';
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            background: linear-gradient(to right, #dddddd, white 50%, #dddddd);
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            animation: skeletonLoading 1s infinite alternate;
+                        }
+                    }
                 }
                 .information {
                     margin-left: 16px;
+                    // overflow: hidden;
                     .nickname {
                         font-size: 15px;
                         font-weight: 600;
@@ -32,6 +63,39 @@
                         font-size: 13px;
                         color: rgb(136, 133, 133);
                         margin-top: -5px;
+                    }
+                    .nickname,
+                    .check,
+                    .name {
+                        position: relative;
+                        overflow: hidden;
+                        &.skeletonLoading {
+                            border-radius: 5px;
+                            &.name {
+                                margin-top: 5px;
+                            }
+                            &::before {
+                                content: '';
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 5px;
+                                background: #dddddd;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                            }
+                            &::after {
+                                content: '';
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 5px;
+                                background: linear-gradient(to right, #dddddd, white 50%, #dddddd);
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                animation: skeletonLoading 1s infinite alternate;
+                            }
+                        }
                     }
                 }
             }
@@ -88,5 +152,14 @@
                 }
             }
         }
+    }
+}
+
+@keyframes skeletonLoading {
+    from {
+        left: -50%;
+    }
+    to {
+        left: 50%;
     }
 }

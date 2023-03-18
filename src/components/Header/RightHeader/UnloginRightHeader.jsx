@@ -1,13 +1,13 @@
-import React, { useCallback, useState } from 'react';
-import classNames from 'classnames/bind';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
+import classNames from 'classnames/bind';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserSelector } from '../../../redux/selector';
 
-import { Button, ImageCustom, Menu, Wrapper } from '../../DetailComponent';
-import LogoEffect from '../../../assets/icon/LogoEffect';
-import style from './RightHeader.module.scss';
+import { Button, Menu } from '../../DetailComponent';
 import ModalSignSlice from '../../DetailComponent/ModalSign/ModalSignSlice';
+import style from './RightHeader.module.scss';
 
 const cx = classNames.bind(style);
 const UnloginRightHeader = () => {
@@ -47,9 +47,10 @@ const UnloginRightHeader = () => {
     const [isResetMenu, setIsResetMenu] = useState(false);
 
     const dispatch = useDispatch();
+    const user = useSelector(UserSelector);
 
     const handleLogin = () => {
-        dispatch(ModalSignSlice.actions.changeModalSign(true));
+        dispatch(ModalSignSlice.actions.setModalSign(true));
     };
     return (
         <div style={{ marginRight: '-20px' }} className={cx('group')}>
@@ -58,7 +59,9 @@ const UnloginRightHeader = () => {
                     <Button
                         basic
                         medium
-                        className={cx('upload')}
+                        className={cx('upload', {
+                            skeletonLoading: user.login === null,
+                        })}
                         onClick={() => {
                             handleLogin();
                         }}
@@ -74,18 +77,19 @@ const UnloginRightHeader = () => {
                         onClick={() => {
                             handleLogin();
                         }}
+                        className={cx('login-button', {
+                            skeletonLoading: user.login === null,
+                        })}
                     >
                         <span style={{ padding: '0px 15px' }}>{t('header.login')}</span>
                     </Button>
                 </li>
 
                 <li>
-                    <Tippy render={(attrs) => <Wrapper>{t('header.logoEffect')}</Wrapper>}>
-                        <LogoEffect className={cx('effectLogo')} width="2.3rem" />
-                    </Tippy>
-                </li>
-                <li>
-                    <div style={{ marginBottom: '7px' }} className={cx('menu')}>
+                    <div
+                        style={{ marginBottom: '7px' }}
+                        className={cx('menu', { skeletonLoading: user.login === null })}
+                    >
                         <Tippy
                             // visible
                             delay={[0, 700]}

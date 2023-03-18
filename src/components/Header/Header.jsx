@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import LogoTiktok from '../../assets/icon/LogoTiktok';
 import routes from '../../config/routes.js';
-import { getUserSelector } from '../../redux/selector';
+import { UserSelector } from '../../redux/selector';
 import '../../translation/i18n.js';
 import FormSearch from './FormSearch';
 import style from './Header.module.scss';
@@ -15,12 +15,7 @@ import UnloginRightHeader from './RightHeader/UnloginRightHeader.jsx';
 const cx = classNames.bind(style);
 
 const Header = () => {
-    const [isLogin, setIsLogin] = useState(false);
-    const user = useSelector(getUserSelector);
-    useEffect(() => {
-        if (user) setIsLogin(true);
-        else setIsLogin(false);
-    }, [user]);
+    const user = useSelector(UserSelector);
 
     return (
         <header>
@@ -32,7 +27,13 @@ const Header = () => {
                         </Link>
                     </h1>
                     <FormSearch />
-                    {isLogin ? <LoginRightHeader /> : <UnloginRightHeader />}
+                    {user.login === null ? (
+                        <UnloginRightHeader />
+                    ) : user.login === true ? (
+                        <LoginRightHeader />
+                    ) : (
+                        <UnloginRightHeader />
+                    )}
                 </div>
             </div>
         </header>

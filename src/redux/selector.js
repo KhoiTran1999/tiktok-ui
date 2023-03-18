@@ -1,2 +1,2 @@
-export const changeModalSelector = (state) => state.modalSign;
-export const getUserSelector = (state) => state.userLogin;
+export const ModalSelector = (state) => state.modalSign;
+export const UserSelector = (state) => state.userLogin;

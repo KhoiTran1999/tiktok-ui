@@ -4,12 +4,10 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import LogoEffect from '../../../assets/icon/LogoEffect';
 import LogoMessage from '../../../assets/icon/LogoMessage';
 import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
-import images from '../../../assets/images';
 import { auth } from '../../../firebase/config';
-import { getUserSelector } from '../../../redux/selector';
+import { UserSelector } from '../../../redux/selector';
 import { Button, ImageCustom, Menu, Wrapper } from '../../DetailComponent';
 import UserLoginSlice from '../../DetailComponent/ModalSign/UserLoginSlice';
 import style from './RightHeader.module.scss';
@@ -70,11 +68,11 @@ const LoginRightHeader = () => {
     const [isResetMenu, setIsResetMenu] = useState(false);
 
     const dispatch = useDispatch();
-    const user = useSelector(getUserSelector);
+    const user = useSelector(UserSelector);
 
     const onLogout = () => {
         auth.signOut();
-        dispatch(UserLoginSlice.actions.getUser(''));
+        dispatch(UserLoginSlice.actions.setUser(''));
     };
 
     return (
@@ -84,12 +82,6 @@ const LoginRightHeader = () => {
                     <Button basic medium className={cx('upload')}>
                         <i className="fa-solid fa-plus"></i> {t('header.upload')}
                     </Button>
-                </li>
-
-                <li>
-                    <Tippy placement="bottom" render={(attrs) => <Wrapper>{t('header.logoEffect')}</Wrapper>}>
-                        <LogoEffect className={cx('effectLogo')} width="2.3rem" />
-                    </Tippy>
                 </li>
 
                 <li>
@@ -107,6 +99,7 @@ const LoginRightHeader = () => {
                 <li>
                     <div className={cx('menu')}>
                         <Tippy
+                            // visible
                             delay={[0, 700]}
                             offset={[18, 10]}
                             placement="bottom-end"

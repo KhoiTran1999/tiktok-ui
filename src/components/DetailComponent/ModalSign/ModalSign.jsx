@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import GoogleLogo from '../../../assets/icon/GoogleLogo';
 import routes from '../../../config/routes';
 import firebase, { auth } from '../../../firebase/config';
-import { changeModalSelector } from '../../../redux/selector';
+import { ModalSelector } from '../../../redux/selector';
 import { Button } from '../index';
 import style from './ModalSign.module.scss';
 import ModalSignSlice from './ModalSignSlice';
@@ -18,19 +18,21 @@ const ggProvider = new firebase.auth.GoogleAuthProvider();
 const ModalSign = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const isActiveLogin = useSelector(changeModalSelector);
+    const isActiveLogin = useSelector(ModalSelector);
 
-    const handleGoogleLogin = () => {
-        auth.signInWithPopup(ggProvider);
+    const handleGoogleLogin = async () => {
+        await auth.signInWithPopup(ggProvider);
     };
 
     useEffect(() => {
         const unscribe = auth.onAuthStateChanged((user) => {
             if (user) {
                 const { displayName, email, uid, photoURL } = user;
-                dispatch(UserLoginSlice.actions.getUser({ displayName, email, uid, photoURL }));
-                dispatch(ModalSignSlice.actions.changeModalSign(false));
+                dispatch(UserLoginSlice.actions.setUser({ displayName, email, uid, photoURL, login: true }));
+                dispatch(ModalSignSlice.actions.setModalSign(false));
                 navigate(routes.home);
+            } else {
+                dispatch(UserLoginSlice.actions.setUser({ login: false }));
             }
         });
         return () => {
@@ -38,9 +40,7 @@ const ModalSign = () => {
         };
     }, []);
 
-    const handleEscape = () => {
-        dispatch(ModalSignSlice.actions.changeModalSign(false));
-    };
+    const handleEscape = () => dispatch(ModalSignSlice.actions.setModalSign(false));
 
     return (
         <div

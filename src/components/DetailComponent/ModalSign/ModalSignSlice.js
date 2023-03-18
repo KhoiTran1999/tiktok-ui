@@ -4,7 +4,7 @@ const ModalSignSlice = createSlice({
     name: 'modalSign',
     initialState: false,
     reducers: {
-        changeModalSign: (state, action) => {
+        setModalSign: (state, action) => {
             return (state = action.payload);
         },
     },

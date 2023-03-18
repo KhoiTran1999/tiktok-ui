@@ -13,6 +13,7 @@
 .primary {
     color: rgba(255, 255, 255, 1);
     background-color: var(--primary);
+    border: none;
     &:hover {
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
     }
@@ -74,7 +75,7 @@
 .medium {
     font-size: 16px;
     font-weight: 500;
-    padding: 8px 11px;
+    padding: 8px 14px;
 }
 
 .small {

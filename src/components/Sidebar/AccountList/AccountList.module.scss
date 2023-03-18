@@ -38,6 +38,9 @@
             font-weight: 500;
             color: var(--primary);
             cursor: pointer;
+            &.skeletonLoading {
+                display: none;
+            }
         }
     }
 }

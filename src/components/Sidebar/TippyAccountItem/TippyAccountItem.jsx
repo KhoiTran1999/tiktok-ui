@@ -8,9 +8,13 @@ import ImageCustom from '../../DetailComponent/ImageCustom';
 import style from './TippyAccountItem.module.scss';
 import SubnavWrapper from '../../DetailComponent/SubnavWrapper';
 import Button from '../../DetailComponent/Button/Button';
+import { useSelector } from 'react-redux';
+import { UserSelector } from '../../../redux/selector';
 
 const cx = classNames.bind(style);
 const TippyAccountItem = ({ data = [] }) => {
+    const user = useSelector(UserSelector);
+
     return (
         <div className={cx('Account-list-sidebar')}>
             <ul>
@@ -50,11 +54,29 @@ const TippyAccountItem = ({ data = [] }) => {
                                 )}
                             >
                                 <Link to={`${routes.profile}${val.nickname}`}>
-                                    <ImageCustom src={val.avatar} alt="avatar" />
+                                    <div
+                                        className={cx('avatar', {
+                                            skeletonLoading: user.login === null,
+                                        })}
+                                    >
+                                        <ImageCustom src={val.avatar} alt="avatar" />
+                                    </div>
                                     <div className={cx('information')}>
-                                        <span className={cx('nickname')}>{val.nickname}</span>
+                                        <div
+                                            className={cx('nickname', {
+                                                skeletonLoading: user.login === null,
+                                            })}
+                                        >
+                                            {val.nickname}
+                                        </div>
                                         {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
-                                        <div className={cx('name')}>{val.full_name}</div>
+                                        <div
+                                            className={cx('name', {
+                                                skeletonLoading: user.login === null,
+                                            })}
+                                        >
+                                            {val.full_name}
+                                        </div>
                                     </div>
                                 </Link>
                             </Tippy>
