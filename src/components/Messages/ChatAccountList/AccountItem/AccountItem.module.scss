@@ -1,0 +1,47 @@
+.accountItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    margin: 0px -15px 0px -24px;
+    padding: 8px 15px 8px 24px;
+    transition: 0.3s all;
+    &:hover {
+        background-color: rgb(241, 241, 241);
+    }
+    .avatar {
+        width: 56px;
+        height: 56px;
+        overflow: hidden;
+        border-radius: 50%;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .infor {
+        padding-left: 12px;
+        h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 13px;
+            .content {
+                display: inline-block;
+                max-width: 175px;
+                color: rgba(22, 24, 35, 0.75);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .createdAt {
+                color: rgba(22, 24, 35, 0.5);
+            }
+        }
+    }
+}

@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import './GlobalStyle.scss';
 import { publicRoutes } from './routes';
 
+import AuthUser from './firebase/AuthUser';
+
 function App() {
     return (
         <div className="App">
@@ -22,6 +24,7 @@ function App() {
                     );
                 })}
             </Routes>
+            <AuthUser />
         </div>
     );
 }

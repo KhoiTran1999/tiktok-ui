@@ -9,7 +9,7 @@
             ul {
                 overflow-y: hidden;
                 li {
-                    padding: 7px 0px 2px 5px;
+                    padding: 8px 0px 3px 5px;
                     // margin: 0px -10px;
                     border-radius: 5px;
                     transition: 0.5s all;
@@ -20,12 +20,12 @@
                         > span {
                             span {
                                 font-size: 18px;
-                                margin-right: 10px;
+                                margin-right: 8px;
                                 color: var(--text);
                             }
                             h4 {
                                 font-size: 17px;
-                                font-weight: 800;
+                                font-weight: 700;
                                 color: var(--text);
                             }
                         }

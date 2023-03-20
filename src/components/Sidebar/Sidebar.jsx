@@ -29,34 +29,40 @@ const Sidebar = () => {
                 </div>
 
                 {user.login ? (
-                    <div className={cx('wrapper')}>
-                        <AccountList title={'Following accounts'} />
-                    </div>
+                    <>
+                        <div className={cx('wrapper')}>
+                            <AccountList title={'Suggested accounts'} tippyVisible={true} />
+                        </div>
+                        <div className={cx('wrapper')}>
+                            <AccountList title={'Following accounts'} />
+                        </div>
+                    </>
                 ) : (
-                    <div className={cx('wrapper')}>
-                        <p
-                            className={cx('signText', {
-                                skeletonLoading: user.login === null,
-                            })}
-                        >
-                            Log in to follow creators, like videos, and view comments.
-                        </p>
-                        <Button
-                            className={cx('sign', {
-                                skeletonLoading: user.login === null,
-                            })}
-                            outline
-                            large
-                            onClick={handleLogin}
-                        >
-                            Log in
-                        </Button>
-                    </div>
+                    <>
+                        <div className={cx('wrapper')}>
+                            <p
+                                className={cx('signText', {
+                                    skeletonLoading: user.login === null,
+                                })}
+                            >
+                                Log in to follow creators, like videos, and view comments.
+                            </p>
+                            <Button
+                                className={cx('sign', {
+                                    skeletonLoading: user.login === null,
+                                })}
+                                outline
+                                large
+                                onClick={handleLogin}
+                            >
+                                Log in
+                            </Button>
+                        </div>
+                        <div className={cx('wrapper')}>
+                            <AccountList title={'Suggested accounts'} tippyVisible={true} />
+                        </div>
+                    </>
                 )}
-
-                <div className={cx('wrapper')}>
-                    <AccountList title={'Suggested accounts'} tippyVisible={true} />
-                </div>
 
                 <div className={cx('wrapper')}>
                     <Discover />

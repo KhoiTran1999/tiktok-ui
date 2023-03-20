@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyAkQBtccicYPF7xrjL4lEv-tv2EohENbgg',
@@ -13,6 +14,12 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const db = firebase.firestore();
 
-export { auth };
+auth.useEmulator('http://localhost:9099');
+if (window.location.hostname === 'localhost') {
+    db.useEmulator('localhost', '8080');
+}
+
+export { auth, db };
 export default firebase;

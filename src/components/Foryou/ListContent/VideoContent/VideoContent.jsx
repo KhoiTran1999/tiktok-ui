@@ -7,14 +7,14 @@ import style from './VideoContent.module.scss';
 const cx = classNames.bind(style);
 const VideoContent = ({ dataVideo }) => {
     const [play, setPlay] = useState(false);
-    const [muted, setMuted] = useState(false);
+    const [muted, setMuted] = useState(true);
     const [volume, setVolume] = useState(0.2);
     const [time, setTime] = useState(0);
 
     const fillVolumeRef = useRef('40px');
     const fillBarTimeLineRef = useRef('0px');
     const videoRef = useRef(null);
-    const duration = useRef(null);
+    const duration = useRef(0);
 
     const options = {
         root: null,
@@ -44,7 +44,7 @@ const VideoContent = ({ dataVideo }) => {
 
     useEffect(() => {
         videoRef.current.oncanplay = () => {
-            duration.current = videoRef.current.duration;
+            duration.current = videoRef.current.duration || 0;
         };
     });
 
@@ -112,7 +112,7 @@ const VideoContent = ({ dataVideo }) => {
     return (
         <div className={cx('video-wrapper')}>
             <div className={cx('wrapper')}>
-                <video loop ref={videoRef} onTimeUpdate={handleTimeupdate}>
+                <video loop muted ref={videoRef} onTimeUpdate={handleTimeupdate}>
                     <source src={dataVideo} type={'video/mp4'} />
                     Your browser does not support the video tag.
                 </video>

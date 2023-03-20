@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +8,8 @@ import LogoTiktok from '../../assets/icon/LogoTiktok';
 import routes from '../../config/routes.js';
 import { UserSelector } from '../../redux/selector';
 import '../../translation/i18n.js';
-import FormSearch from './FormSearch';
+import { ModalSign } from '../DetailComponent';
+import FormSearch from './FormSearch/FormSearch';
 import style from './Header.module.scss';
 import LoginRightHeader from './RightHeader/LoginRightHeader.jsx';
 import UnloginRightHeader from './RightHeader/UnloginRightHeader.jsx';
@@ -36,6 +38,7 @@ const Header = () => {
                     )}
                 </div>
             </div>
+            {createPortal(<ModalSign />, document.body)}
         </header>
     );
 };

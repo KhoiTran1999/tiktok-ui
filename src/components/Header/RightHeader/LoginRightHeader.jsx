@@ -5,14 +5,17 @@ import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import LogoMessage from '../../../assets/icon/LogoMessage';
+import LogoMessageActive from '../../../assets/icon/LogoMessageActive';
 import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
 import { auth } from '../../../firebase/config';
 import { UserSelector } from '../../../redux/selector';
 import { Button, ImageCustom, Menu, Wrapper } from '../../DetailComponent';
 import UserLoginSlice from '../../DetailComponent/ModalSign/UserLoginSlice';
 import style from './RightHeader.module.scss';
+import routes from '../../../config/routes';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
@@ -68,6 +71,7 @@ const LoginRightHeader = () => {
             action: 'logout',
         },
     ];
+
     const [isResetMenu, setIsResetMenu] = useState(false);
 
     const dispatch = useDispatch();
@@ -113,7 +117,13 @@ const LoginRightHeader = () => {
 
                 <li>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>{t('header.logoMessage')}</Wrapper>}>
-                        <LogoMessage className={cx('message')} />
+                        <Link to={routes.messages}>
+                            {window.location.pathname === '/messages' ? (
+                                <LogoMessageActive className={cx('message')} />
+                            ) : (
+                                <LogoMessage className={cx('message')} />
+                            )}
+                        </Link>
                     </Tippy>
                 </li>
 

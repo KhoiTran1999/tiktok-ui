@@ -1,60 +1,54 @@
 import classNames from 'classnames/bind';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useNavigate } from 'react-router-dom';
 import GoogleLogo from '../../../assets/icon/GoogleLogo';
-import routes from '../../../config/routes';
-import firebase, { auth } from '../../../firebase/config';
-import { ModalSelector } from '../../../redux/selector';
+import firebase, { auth, db } from '../../../firebase/config';
+import { addDocument } from '../../../firebase/services';
+import { ModalSignSelector } from '../../../redux/selector';
 import { Button } from '../index';
 import style from './ModalSign.module.scss';
 import ModalSignSlice from './ModalSignSlice';
-import UserLoginSlice from './UserLoginSlice';
+import Modal from '../Modal/Modal';
+import { Link } from 'react-router-dom';
+import routes from '../../../config/routes';
 
 const cx = classNames.bind(style);
 const ggProvider = new firebase.auth.GoogleAuthProvider();
 
 const ModalSign = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const isActiveLogin = useSelector(ModalSelector);
+    const isActiveLogin = useSelector(ModalSignSelector);
 
     const handleGoogleLogin = async () => {
-        await auth.signInWithPopup(ggProvider);
-    };
+        //Popup UI to sign up
+        const { additionalUserInfo, user } = await auth.signInWithPopup(ggProvider);
 
-    useEffect(() => {
-        const unscribe = auth.onAuthStateChanged((user) => {
-            if (user) {
-                const { displayName, email, uid, photoURL } = user;
-                dispatch(UserLoginSlice.actions.setUser({ displayName, email, uid, photoURL, login: true }));
-                dispatch(ModalSignSlice.actions.setModalSign(false));
-                navigate(routes.home);
-            } else {
-                dispatch(UserLoginSlice.actions.setUser({ login: false }));
-            }
-        });
-        return () => {
-            unscribe();
-        };
-    }, []);
+        //Add infor if this user is new
+        if (additionalUserInfo.isNewUser) {
+            addDocument('userList', {
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                uid: user.uid,
+                providerID: additionalUserInfo.providerId,
+            });
+        }
+    };
 
     const handleEscape = () => dispatch(ModalSignSlice.actions.setModalSign(false));
 
     return (
-        <div
-            className={cx('wrapper', {
-                active: isActiveLogin,
-            })}
-        >
+        <Modal>
             <div
                 className={cx('modal-sign', {
                     active: isActiveLogin,
                 })}
             >
                 <div className={cx('escape')} onClick={handleEscape}>
-                    <i className="fa-solid fa-xmark"></i>
+                    <Link to={routes.home}>
+                        <i className="fa-solid fa-xmark"></i>
+                    </Link>
                 </div>
                 <div className={cx('wrap-content')}>
                     <h2>Get more of what you love when you log in to TikTok</h2>
@@ -72,7 +66,7 @@ const ModalSign = () => {
                     <a href="">Sign up</a>
                 </div>
             </div>
-        </div>
+        </Modal>
     );
 };
 

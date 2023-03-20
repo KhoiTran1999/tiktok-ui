@@ -1,0 +1,59 @@
+.MessagesContainer {
+    height: 100%;
+    padding: 16px 30px;
+    padding-left: 26px;
+    display: flex;
+    position: relative;
+    .conversationContainer {
+        width: 34%;
+        z-index: 1;
+        .conversationWrapper {
+            height: 100%;
+            padding: 16px 24px;
+            padding-right: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            .headerCoversation {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+                h1 {
+                    font-size: 22px;
+                }
+                svg {
+                    margin-top: -5px;
+                    outline: none;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .chatBoxContainer {
+        width: 70%;
+        .chatBoxWrapper {
+            height: 100%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+    }
+    .backButton {
+        position: absolute;
+        top: 25px;
+        left: -30px;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(22, 24, 35, 0.03);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        i {
+            color: rgb(54, 53, 53);
+            font-size: 20px;
+        }
+    }
+}

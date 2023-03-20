@@ -1,0 +1,38 @@
+.footerChatBox {
+    // margin-bottom: 100px;
+    display: flex;
+    flex-grow: 0;
+    padding: 13px 16px;
+    border-top: 0.5px solid rgba(22, 24, 35, 0.12);
+    position: relative;
+    input {
+        width: 100%;
+        padding: 10px 16px;
+        border: 1px solid transparent;
+        outline: none;
+        border-radius: 8px;
+        background-color: rgba(22, 24, 35, 0.06);
+        caret-color: #fe2c55;
+        transition: 0.3s all;
+        &:focus {
+            border: 1px solid rgba(22, 24, 35, 0.2);
+        }
+        &.active {
+            outline: 2px solid #fe2c55;
+        }
+    }
+    .icon {
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        transform: translate(0, -50%);
+        cursor: pointer;
+        i {
+            font-size: 23px;
+            border-radius: 50%;
+            &:hover {
+                color: rgb(54, 53, 53);
+            }
+        }
+    }
+}
