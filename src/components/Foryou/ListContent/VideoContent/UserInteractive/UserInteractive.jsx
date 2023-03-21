@@ -153,7 +153,7 @@ const UserInteractive = () => {
             <p>7789</p>
             <Tippy
                 trigger="click mouseenter"
-                delay={[0, 500]}
+                delay={[500, 500]}
                 interactive
                 placement="top-start"
                 animation={true}

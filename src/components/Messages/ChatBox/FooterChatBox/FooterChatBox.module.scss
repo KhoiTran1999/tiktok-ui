@@ -5,20 +5,23 @@
     padding: 13px 16px;
     border-top: 0.5px solid rgba(22, 24, 35, 0.12);
     position: relative;
-    input {
+    form {
         width: 100%;
-        padding: 10px 16px;
-        border: 1px solid transparent;
-        outline: none;
-        border-radius: 8px;
-        background-color: rgba(22, 24, 35, 0.06);
-        caret-color: #fe2c55;
-        transition: 0.3s all;
-        &:focus {
-            border: 1px solid rgba(22, 24, 35, 0.2);
-        }
-        &.active {
-            outline: 2px solid #fe2c55;
+        input {
+            width: 100%;
+            padding: 10px 16px;
+            border: 1px solid transparent;
+            outline: none;
+            border-radius: 8px;
+            background-color: rgba(22, 24, 35, 0.06);
+            caret-color: #fe2c55;
+            transition: 0.3s all;
+            &:focus {
+                border: 1px solid rgba(22, 24, 35, 0.2);
+            }
+            &.active {
+                outline: 2px solid #fe2c55;
+            }
         }
     }
     .icon {

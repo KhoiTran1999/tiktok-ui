@@ -49,7 +49,7 @@ const TippyAccountItem = ({ data = [] }) => {
                     return (
                         <li key={val.id}>
                             <Tippy
-                                delay={[1000, 0]}
+                                delay={[500, 0]}
                                 offset={[0, 0]}
                                 appendTo={document.querySelector(`.${cx('Account-list-sidebar')}`)}
                                 interactive

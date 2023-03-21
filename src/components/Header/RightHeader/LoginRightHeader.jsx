@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import LogoMessage from '../../../assets/icon/LogoMessage';
 import LogoMessageActive from '../../../assets/icon/LogoMessageActive';
@@ -76,9 +76,11 @@ const LoginRightHeader = () => {
 
     const dispatch = useDispatch();
     const user = useSelector(UserSelector);
+    const navigate = useNavigate();
 
     const onLogout = () => {
         auth.signOut();
+        navigate(routes.home);
         dispatch(UserLoginSlice.actions.setUser(''));
     };
 

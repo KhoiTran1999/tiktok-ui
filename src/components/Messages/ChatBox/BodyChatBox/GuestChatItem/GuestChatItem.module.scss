@@ -1,5 +1,5 @@
 .guestChatItem {
-    margin: 8px 0px 8px 24px;
+    margin: 8px 0px 15px 24px;
     .wrapper {
         display: flex;
         justify-content: flex-start;
@@ -29,12 +29,39 @@
                 color: #161823;
             }
         }
+
         .iconMore {
             margin: 9px 16px 0px 16px;
             cursor: pointer;
             display: none;
             i {
                 font-size: 23px;
+            }
+        }
+    }
+    .interactive {
+        display: none;
+        height: 20px;
+        &.active {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 5px;
+            margin-left: 40px;
+        }
+        i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        img {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 5px;
+            display: none;
+            &.active {
+                display: block;
             }
         }
     }

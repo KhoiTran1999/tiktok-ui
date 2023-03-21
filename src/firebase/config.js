@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { doc, deleteDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyAkQBtccicYPF7xrjL4lEv-tv2EohENbgg',
@@ -21,5 +22,5 @@ if (window.location.hostname === 'localhost') {
     db.useEmulator('localhost', '8080');
 }
 
-export { auth, db };
+export { auth, db, doc, deleteDoc };
 export default firebase;

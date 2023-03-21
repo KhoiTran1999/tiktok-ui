@@ -12,6 +12,7 @@ import ModalSignSlice from './ModalSignSlice';
 import Modal from '../Modal/Modal';
 import { Link } from 'react-router-dom';
 import routes from '../../../config/routes';
+import generateKey from '../../../services/generaterKey';
 
 const cx = classNames.bind(style);
 const ggProvider = new firebase.auth.GoogleAuthProvider();
@@ -32,6 +33,7 @@ const ModalSign = () => {
                 photoURL: user.photoURL,
                 uid: user.uid,
                 providerID: additionalUserInfo.providerId,
+                keyword: generateKey(user.displayName), //For key word searching
             });
         }
     };

@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes from '../../../../config/routes';
-import { ChoosedUserSelector } from '../../../../redux/selector';
+import { ChoosedUserSelector, ClickedRoomSelector } from '../../../../redux/selector';
 import style from './HeaderChatBox.module.scss';
 
 const cx = classNames.bind(style);

@@ -1,18 +1,20 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import routes from '../config/routes';
-import { auth, db } from '../firebase/config';
-import useFireStore from '../hooks/useFireStore';
 import ModalSignSlice from '../components/DetailComponent/ModalSign/ModalSignSlice';
 import UserLoginSlice from '../components/DetailComponent/ModalSign/UserLoginSlice';
+import MessagesSlice from '../components/Messages/ChatBox/BodyChatBox/messagesSlice';
 import RoomsSlice from '../components/Messages/RoomsSlice';
-import { UserSelector } from '../redux/selector';
+import routes from '../config/routes';
+import { auth } from '../firebase/config';
+import useFireStore from '../hooks/useFireStore';
+import { ChoosedUserSelector, ClickedRoomSelector, UserSelector } from '../redux/selector';
 import UserListSlice from './UserListSlice';
 
 const AuthUser = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const user = useSelector(UserSelector);
 
     //Get user from Auth Firebase after login
@@ -34,7 +36,9 @@ const AuthUser = () => {
 
     //Get userList from FireStore and set it
     const userList = useFireStore('userList');
-    dispatch(UserListSlice.actions.setUserList(userList));
+    useEffect(() => {
+        dispatch(UserListSlice.actions.setUserList(userList));
+    }, [userList]);
 
     //Get rooms from FireStore and set rooms
     const roomsCondition = useMemo(() => {
@@ -45,8 +49,10 @@ const AuthUser = () => {
         };
     }, [user.uid]);
 
-    const rooms = useFireStore('rooms', roomsCondition);
-    dispatch(RoomsSlice.actions.setRooms(rooms));
+    const CurRoomsList = useFireStore('rooms', roomsCondition);
+    useEffect(() => {
+        dispatch(RoomsSlice.actions.setCurRooms(CurRoomsList));
+    }, [CurRoomsList]);
 
     //---------------------------------------------
     return <></>;

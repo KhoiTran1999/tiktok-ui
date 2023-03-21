@@ -27,7 +27,7 @@ const Messages = () => {
                 <div className={cx('conversationWrapper')}>
                     <div className={cx('headerCoversation')}>
                         <h1>Messages</h1>
-                        <div className="LogoSetting" onClick={handleSetting}>
+                        <div className={cx('LogoSetting')} onClick={handleSetting}>
                             <LogoSetting />
                         </div>
                     </div>

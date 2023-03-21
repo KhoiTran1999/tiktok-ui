@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const RoomsSlice = createSlice({
-    name: 'curRoomsList',
+const MessagesSlice = createSlice({
+    name: 'messages',
     initialState: [],
     reducers: {
-        setCurRooms: (state, action) => {
+        setMessages: (state, action) => {
             return (state = action.payload);
         },
     },
 });
 
-export default RoomsSlice;
+export default MessagesSlice;

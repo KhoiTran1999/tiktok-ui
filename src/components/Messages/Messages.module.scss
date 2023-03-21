@@ -21,13 +21,31 @@
                 margin-bottom: 10px;
                 h1 {
                     font-size: 22px;
+                    @media screen and (max-width: 1100px) {
+                        display: none;
+                    }
                 }
-                svg {
-                    margin-top: -5px;
-                    outline: none;
-                    cursor: pointer;
+
+                .LogoSetting {
+                    svg {
+                        margin-top: -5px;
+                        outline: none;
+                        cursor: pointer;
+                    }
+                    @media screen and (max-width: 1100px) {
+                        position: absolute;
+                        left: -25px;
+                        top: 80px;
+                        margin-left: 10px;
+                    }
                 }
             }
+            @media screen and (max-width: 425px) {
+                padding: 8px 0px 8px 12px;
+            }
+        }
+        @media screen and (max-width: 1100px) {
+            width: 18%;
         }
     }
     .chatBoxContainer {
@@ -37,6 +55,9 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        @media screen and (max-width: 1100px) {
+            width: 86%;
         }
     }
     .backButton {
@@ -54,6 +75,10 @@
         i {
             color: rgb(54, 53, 53);
             font-size: 20px;
+        }
+        @media screen and (max-width: 1100px) {
+            left: -30px;
+            margin-left: 10px;
         }
     }
 }
