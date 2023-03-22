@@ -22,8 +22,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#Deploy Firbase
-/.firebase
-/.github
-.firebaserc
-firebase.json
