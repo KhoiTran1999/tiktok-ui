@@ -8,6 +8,7 @@ export const UserListSelector = (state) => state.userList;
 export const ChoosedUserSelector = (state) => state.choosedUser;
 export const MessagesSelector = (state) => state.messages;
 export const LoadingSelector = (state) => state.loading;
+export const SelectedRoomSelector = (state) => state.selectedRoom;
 
 export const UserChatListSelector = createSelector(
     UserListSelector,
@@ -26,17 +27,5 @@ export const UserChatListSelector = createSelector(
             return userChatID.includes(valUser.uid);
         });
         return userChatList;
-    },
-);
-
-export const ClickedRoomSelector = createSelector(
-    CurrentRoomsSelector,
-    UserSelector,
-    ChoosedUserSelector,
-    (curRoomsList, userLogin, choosedUser) => {
-        const clickedRoom = curRoomsList.filter((room) => {
-            return room.members.includes(userLogin.uid) && room.members.includes(choosedUser.uid);
-        });
-        return clickedRoom[0];
     },
 );

@@ -1,48 +1,61 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
 import styled from 'styled-components';
 import { useSpring, motion } from 'framer-motion';
 
 import { CurrentRoomsSelector, UserSelector } from '../../../../redux/selector';
-import ChoosedUserSlice from '../../ChatBox/choosedUserSlice';
+import ChoosedUserSlice from './choosedUserSlice';
 import style from './AccountItem.module.scss';
 import { SubnavWrapper } from '../../../DetailComponent';
 import ToolList from './ToolList/ToolList';
+import SelectedRoomSlice from './selectedRoomSlice';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
 const AccountItem = ({ messages, uid, avatar, name, user }) => {
     const dispatch = useDispatch();
 
+    const [roomId, setRoomId] = useState('');
     const [createdAt, setCreatedAt] = useState('');
     const [text, setText] = useState('');
+    const [isEmptyRoom, setIsEmptyRoom] = useState(false);
 
     const userLogin = useSelector(UserSelector);
     const rooms = useSelector(CurrentRoomsSelector);
 
     useEffect(() => {
-        rooms.map((val) => {
-            if (val.members.includes(uid) && val.members.includes(userLogin.uid)) {
+        rooms.map((valRoom) => {
+            if (valRoom.members.includes(uid) && valRoom.members.includes(userLogin.uid)) {
+                setRoomId(valRoom.id);
                 messages.map((valMess) => {
-                    if (valMess.roomId === val.id) {
+                    if (valMess.roomId === valRoom.id) {
                         setText(valMess.text);
                         if (valMess.createdAt) setCreatedAt(valMess.createdAt);
                         else setCreatedAt(0);
                     }
                 });
+                const emptyMessagesRoom = messages.filter((valMess) => {
+                    return valRoom.id === valMess.roomId;
+                });
+                if (emptyMessagesRoom.length === 0) {
+                    setIsEmptyRoom(true);
+                    setCreatedAt(0);
+                } else setIsEmptyRoom(false);
             }
         });
     }, [messages]);
 
     const handleClickAccount = () => {
         dispatch(ChoosedUserSlice.actions.setChoosedUser(user));
+        dispatch(SelectedRoomSlice.actions.setSelectedRoom(roomId));
     };
 
     const formatDate = (seconds) => {
         const today = new Date();
         const date = new Date(today - seconds).toLocaleDateString();
+        if (date === 'Invalid Date') return '';
         return date;
     };
 
@@ -77,8 +90,8 @@ const AccountItem = ({ messages, uid, avatar, name, user }) => {
             <div className={cx('infor')}>
                 <h4>{name}</h4>
                 <div className={cx('wrapper')}>
-                    <span className={cx('content')}>{text}</span>
-                    <span className={cx('createdAt')}>{formatDate(createdAt.seconds) || ''}</span>
+                    <span className={cx('content')}>{isEmptyRoom ? '' : text}</span>
+                    <span className={cx('createdAt')}>{formatDate(createdAt.seconds)}</span>
                 </div>
             </div>
             <Tippy

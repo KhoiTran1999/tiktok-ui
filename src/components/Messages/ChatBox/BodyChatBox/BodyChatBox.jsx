@@ -1,38 +1,29 @@
 import classNames from 'classnames/bind';
 import { formatRelative } from 'date-fns';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import useFireStore from '../../../../hooks/useFireStore';
-import { ChoosedUserSelector, ClickedRoomSelector, LoadingSelector, UserSelector } from '../../../../redux/selector';
+import { ChoosedUserSelector, SelectedRoomSelector, UserSelector } from '../../../../redux/selector';
 import style from './BodyChatBox.module.scss';
 import GuestChatItem from './GuestChatItem/GuestChatItem';
 import UserChatItem from './UserChatItem/UserChatItem';
-import Skeleton from './Skeleton/Skeleton';
 
 const cx = classNames.bind(style);
 const BodyChatBox = () => {
-    const dispatch = useDispatch();
-    const loading = useSelector(LoadingSelector);
     const scrollRef = useRef(null);
 
     const userLogin = useSelector(UserSelector);
     const choosedUser = useSelector(ChoosedUserSelector);
-    const clickRoom = useSelector(ClickedRoomSelector);
-
-    const [clickRoomId, setClickRoomID] = useState('');
-
-    useEffect(() => {
-        setClickRoomID(clickRoom.id);
-    }, [choosedUser]);
+    const selectedRoomId = useSelector(SelectedRoomSelector);
 
     // Get messages
     const messagesCondition = useMemo(() => {
         return {
             fieldName: 'roomId',
             operator: '==',
-            compareValue: clickRoomId,
+            compareValue: selectedRoomId,
         };
-    }, [clickRoomId]);
+    }, [selectedRoomId]);
 
     const messages = useFireStore('messages', messagesCondition, 'createdAt', 'asc');
     //-----------------------------------------------------
@@ -49,11 +40,11 @@ const BodyChatBox = () => {
         }
         return formattedDate;
     };
-
+    // {formatDate(selectedRoom.createdAt.seconds)}
     return (
         <div className={cx('bodyChatBox')}>
             <ul>
-                <p className={cx('createdAtRoom')}>Created at {formatDate(clickRoom.createdAt.seconds)}</p>
+                <p className={cx('createdAtRoom')}>Created at </p>
                 <>
                     {messages.map((val) => {
                         const { photoURL, text, id, activeHeart } = val;

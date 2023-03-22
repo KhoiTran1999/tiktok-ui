@@ -30,12 +30,29 @@
         top: 50%;
         transform: translate(0, -50%);
         cursor: pointer;
+        &.active {
+            right: 75px;
+        }
         i {
             font-size: 23px;
             border-radius: 50%;
             &:hover {
                 color: rgb(54, 53, 53);
             }
+        }
+    }
+    .sentButton {
+        display: none;
+        margin-top: 3px;
+        margin-left: 15px;
+        cursor: pointer;
+        svg {
+            width: 30px;
+            height: 30px;
+            color: var(--primary);
+        }
+        &.active {
+            display: block;
         }
     }
 }
