@@ -6,7 +6,7 @@ export const UserSelector = (state) => state.userLogin;
 export const CurrentRoomsSelector = (state) => state.curRoomsList;
 export const UserListSelector = (state) => state.userList;
 export const ChoosedUserSelector = (state) => state.choosedUser;
-export const MessagesSelector = (state) => state.messages;
+export const MessagesOfRoomSelector = (state) => state.messagesOfRoom;
 export const LoadingSelector = (state) => state.loading;
 export const SelectedRoomSelector = (state) => state.selectedRoom;
 

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const MessagesSlice = createSlice({
-    name: 'messages',
+const MessagesOfRoomSlice = createSlice({
+    name: 'messagesOfRoom',
     initialState: [],
     reducers: {
         setMessages: (state, action) => {
@@ -10,4 +10,4 @@ const MessagesSlice = createSlice({
     },
 });
 
-export default MessagesSlice;
+export default MessagesOfRoomSlice;

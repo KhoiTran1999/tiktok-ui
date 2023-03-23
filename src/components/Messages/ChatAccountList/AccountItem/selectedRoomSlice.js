@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const SelectedRoomSlice = createSlice({
     name: 'selectedRoom',
-    initialState: '',
+    initialState: null,
     reducers: {
         setSelectedRoom: (state, action) => {
-            state = action.payload;
-            return state;
+            if (state === '') return (state = null);
+            else return (state = action.payload);
         },
     },
 });

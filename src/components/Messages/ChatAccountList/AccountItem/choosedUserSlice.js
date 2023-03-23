@@ -2,18 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const ChoosedUserSlice = createSlice({
     name: 'choosedUser',
-    initialState: {
-        displayName: '',
-        email: '',
-        photoURL: '',
-        uid: '',
-        providerID: '',
-        keyword: '', //For key word searching
-        createdAt: 0,
-    },
+    initialState: null,
     reducers: {
         setChoosedUser: (state, action) => {
-            return (state = action.payload);
+            if (state === '') return (state = null);
+            else return (state = action.payload);
         },
     },
 });

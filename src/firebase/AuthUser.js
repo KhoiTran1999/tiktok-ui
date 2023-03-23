@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ModalSignSlice from '../components/DetailComponent/ModalSign/ModalSignSlice';
 import UserLoginSlice from '../components/DetailComponent/ModalSign/UserLoginSlice';
-import MessagesSlice from '../components/Messages/ChatBox/BodyChatBox/messagesSlice';
+import MessagesOfRoomSlice from '../components/Messages/ChatBox/BodyChatBox/MessagesOfRoomSlice';
 import RoomsSlice from '../components/Messages/RoomsSlice';
 import routes from '../config/routes';
 import { auth } from '../firebase/config';

@@ -5,9 +5,14 @@ import images from '../../../../../assets/images';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { deleteDocument, updataDocument } from '../../../../../firebase/services';
+import ChoosedUserSlice from '../../../ChatAccountList/AccountItem/choosedUserSlice';
+import SelectedRoomSlice from '../../../ChatAccountList/AccountItem/selectedRoomSlice';
+import { useDispatch } from 'react-redux';
 
 const cx = classNames.bind(style);
 const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhotoURL, activeHeart }) => {
+    const dispatch = useDispatch();
+
     const [isGuestHeartState, setIsGuestHeartState] = useState(() => {
         return activeHeart.includes(guestUid);
     });
@@ -16,7 +21,7 @@ const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhot
     });
 
     const handleDeleteDoc = () => {
-        alert('You are only enable to delete your messages...!!!');
+        alert('You are only unable to delete your messages...!!!');
     };
 
     const handleInteractive = () => {
@@ -31,10 +36,20 @@ const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhot
     useEffect(() => {
         if (isUserHeartState) {
             activeHeart.push(userUid);
-            updataDocument('messages', docId, { activeHeart });
+            updataDocument('messages', docId, { activeHeart }).then((res) => {
+                if (res === true) {
+                    dispatch(ChoosedUserSlice.actions.setChoosedUser(''));
+                    dispatch(SelectedRoomSlice.actions.setSelectedRoom(''));
+                }
+            });
         } else {
             activeHeart = activeHeart.filter((val) => val !== userUid);
-            updataDocument('messages', docId, { activeHeart });
+            updataDocument('messages', docId, { activeHeart }).then((res) => {
+                if (res === true) {
+                    dispatch(ChoosedUserSlice.actions.setChoosedUser(''));
+                    dispatch(SelectedRoomSlice.actions.setSelectedRoom(''));
+                }
+            });
         }
     }, [isUserHeartState]);
 
@@ -49,6 +64,8 @@ const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhot
                 </div>
 
                 <Tippy
+                    delay={[0, 500]}
+                    interactive
                     content={
                         <ul style={{ display: 'flex', padding: '7px', fontSize: '12px' }} className={cx('more')}>
                             <li onClick={handleInteractive} style={{ cursor: 'pointer' }}>
@@ -62,8 +79,6 @@ const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhot
                             </li>
                         </ul>
                     }
-                    delay={[0, 500]}
-                    interactive
                 >
                     <div className={cx('iconMore')}>
                         <i className="fa-solid fa-ellipsis"></i>

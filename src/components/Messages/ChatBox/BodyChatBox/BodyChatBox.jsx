@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { formatRelative } from 'date-fns';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useFireStore from '../../../../hooks/useFireStore';
 import { ChoosedUserSelector, SelectedRoomSelector, UserSelector } from '../../../../redux/selector';
 import style from './BodyChatBox.module.scss';
@@ -77,7 +77,6 @@ const BodyChatBox = () => {
                         );
                     })}
                 </>
-
                 <div ref={scrollRef}></div>
             </ul>
         </div>

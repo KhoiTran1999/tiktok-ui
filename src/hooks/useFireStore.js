@@ -3,11 +3,9 @@ import { useDispatch } from 'react-redux';
 import { db } from '../firebase/config';
 import loadingSlice from '../services/loadingSlice';
 
-const useFireStore = (collection, condition, orderBy, sort, setLoading) => {
+const useFireStore = (collection, condition, orderBy, sort) => {
     const [document, setDocuments] = useState([]);
-    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(loadingSlice.actions.setLoading(true));
         let collectionRef = db.collection(collection);
         /**
          * condition
@@ -29,9 +27,8 @@ const useFireStore = (collection, condition, orderBy, sort, setLoading) => {
         }
 
         //Listening Event onChange
-        const unsubcribed = collectionRef.onSnapshot((snapshot) => {
+        collectionRef.onSnapshot((snapshot) => {
             const documents = snapshot.docs.map((doc) => {
-                dispatch(loadingSlice.actions.setLoading(false));
                 return {
                     id: doc.id,
                     ...doc.data(),
@@ -40,7 +37,7 @@ const useFireStore = (collection, condition, orderBy, sort, setLoading) => {
             setDocuments(documents);
         });
 
-        return () => unsubcribed;
+        // return () => unsubcribed;
     }, [collection, condition]);
 
     return document;

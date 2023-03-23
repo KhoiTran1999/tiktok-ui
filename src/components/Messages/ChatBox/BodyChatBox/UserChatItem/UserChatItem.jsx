@@ -5,9 +5,14 @@ import images from '../../../../../assets/images';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { updataDocument, deleteDocument } from '../../../../../firebase/services';
+import { useDispatch } from 'react-redux';
+import ChoosedUserSlice from '../../../ChatAccountList/AccountItem/choosedUserSlice';
+import SelectedRoomSlice from '../../../ChatAccountList/AccountItem/selectedRoomSlice';
 
 const cx = classNames.bind(style);
 const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL, activeHeart }) => {
+    const dispatch = useDispatch();
+
     const [isGuestHeartState, setIsGuestHeartState] = useState(() => {
         return activeHeart.includes(guestUid);
     });
@@ -31,10 +36,20 @@ const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL,
     useEffect(() => {
         if (isUserHeartState) {
             activeHeart.push(userUid);
-            updataDocument('messages', docId, { activeHeart });
+            updataDocument('messages', docId, { activeHeart }).then((res) => {
+                if (res === true) {
+                    dispatch(ChoosedUserSlice.actions.setChoosedUser(''));
+                    dispatch(SelectedRoomSlice.actions.setSelectedRoom(''));
+                }
+            });
         } else {
             activeHeart = activeHeart.filter((val) => val !== userUid);
-            updataDocument('messages', docId, { activeHeart });
+            updataDocument('messages', docId, { activeHeart }).then((res) => {
+                if (res === true) {
+                    dispatch(ChoosedUserSlice.actions.setChoosedUser(''));
+                    dispatch(SelectedRoomSlice.actions.setSelectedRoom(''));
+                }
+            });
         }
     }, [isUserHeartState]);
 
