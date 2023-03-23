@@ -7,8 +7,12 @@
             "port": 8080
         },
         "ui": {
-            "enabled": true
+            "enabled": false
         },
-        "singleProjectMode": true
+        "singleProjectMode": false
+    },
+    "hosting": {
+        "public": "public",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }
 }
