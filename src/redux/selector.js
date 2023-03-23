@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
+//ChatBox State
 export const ModalSignSelector = (state) => state.modalSign;
 export const ModalSettingSelector = (state) => state.modalSetting;
 export const UserSelector = (state) => state.userLogin;
@@ -29,3 +30,7 @@ export const UserChatListSelector = createSelector(
         return userChatList;
     },
 );
+
+//For you State
+export const MutedSelector = (state) => state.muted;
+export const VolumeSelector = (state) => state.volume;

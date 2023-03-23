@@ -1,8 +1,12 @@
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useElementOnScreen } from '../../../../hooks';
+import { MutedSelector, VolumeSelector } from '../../../../redux/selector';
+import MutedSlice from './mutedSlice';
 import UserInteractive from './UserInteractive/UserInteractive';
 import style from './VideoContent.module.scss';
+import VolumeSlice from './volumeSlice';
 
 const cx = classNames.bind(style);
 const VideoContent = ({ dataVideo }) => {
@@ -11,11 +15,17 @@ const VideoContent = ({ dataVideo }) => {
     const [volume, setVolume] = useState(0.2);
     const [time, setTime] = useState(0);
 
-    const fillVolumeRef = useRef('40px');
     const fillBarTimeLineRef = useRef('0px');
     const videoRef = useRef(null);
     const duration = useRef(0);
 
+    const dispatch = useDispatch();
+
+    const mutedRedux = useSelector(MutedSelector);
+    const volumeRedux = useSelector(VolumeSelector);
+    const fillVolumeRef = useRef(() => {
+        return `${50 * volumeRedux}px`;
+    });
     const options = {
         root: null,
         rootMargin: '0px',
@@ -38,9 +48,20 @@ const VideoContent = ({ dataVideo }) => {
     }, [isVisible]);
 
     useEffect(() => {
-        videoRef.current.volume = volume;
-        fillVolumeRef.current.style.height = '13px';
+        videoRef.current.volume = volumeRedux;
     }, []);
+
+    useEffect(() => {
+        videoRef.current.muted = mutedRedux;
+    }, [mutedRedux]);
+
+    useEffect(() => {
+        videoRef.current.volume = volumeRedux;
+    }, [volumeRedux]);
+
+    useEffect(() => {
+        fillVolumeRef.current.style.height = `${50 * volumeRedux}px`;
+    }, [volumeRedux]);
 
     useEffect(() => {
         videoRef.current.oncanplay = () => {
@@ -63,31 +84,27 @@ const VideoContent = ({ dataVideo }) => {
     };
 
     const handleMutedVolume = () => {
-        if (muted) {
-            setMuted(false);
-            videoRef.current.muted = false;
+        if (mutedRedux) {
+            dispatch(MutedSlice.actions.setMuted(false));
         } else {
-            setMuted(true);
-            videoRef.current.muted = true;
+            dispatch(MutedSlice.actions.setMuted(true));
         }
     };
 
     const handleSetVolume = (e) => {
-        setVolume(e.target.value);
-        videoRef.current.volume = e.target.value;
+        dispatch(VolumeSlice.actions.setVolume(e.target.value));
+        videoRef.current.volume = volumeRedux;
 
         //Hanlde fill bar volume
-        const WIDTH_FILL_BAR = 50 * e.target.value; //50px
+        const WIDTH_FILL_BAR = 50 * volumeRedux; //50px
         fillVolumeRef.current.style.height = `${WIDTH_FILL_BAR}px`;
 
         //muted icon when muted
         if (+e.target.value === 0) {
-            setMuted(true);
-            videoRef.current.muted = muted;
+            dispatch(MutedSlice.actions.setMuted(true));
             return;
         } else {
-            setMuted(false);
-            videoRef.current.muted = muted;
+            dispatch(MutedSlice.actions.setMuted(false));
         }
     };
 
@@ -112,7 +129,7 @@ const VideoContent = ({ dataVideo }) => {
     return (
         <div className={cx('video-wrapper')}>
             <div className={cx('wrapper')}>
-                <video loop muted ref={videoRef} onTimeUpdate={handleTimeupdate}>
+                <video loop muted={mutedRedux} ref={videoRef} onTimeUpdate={handleTimeupdate}>
                     <source src={dataVideo} type={'video/mp4'} />
                     Your browser does not support the video tag.
                 </video>
@@ -128,7 +145,7 @@ const VideoContent = ({ dataVideo }) => {
                         className={cx('volume-bar')}
                         onChange={(e) => handleSetVolume(e)}
                         type="range"
-                        value={volume}
+                        value={volumeRedux}
                         min="0"
                         max="1"
                         step="0.1"
@@ -137,8 +154,8 @@ const VideoContent = ({ dataVideo }) => {
                     <i
                         onClick={handleMutedVolume}
                         className={cx('volume-button', {
-                            'fa-solid fa-volume-high': !muted,
-                            'fa-solid fa-volume-xmark': muted,
+                            'fa-solid fa-volume-high': !mutedRedux,
+                            'fa-solid fa-volume-xmark': mutedRedux,
                         })}
                     ></i>
                 </div>

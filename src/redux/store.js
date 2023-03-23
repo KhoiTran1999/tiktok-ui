@@ -8,6 +8,8 @@ import UserListSlice from '../firebase/UserListSlice';
 import LoadingSlice from '../services/loadingSlice';
 import SelectedRoomSlice from '../components/Messages/ChatAccountList/AccountItem/selectedRoomSlice';
 import MessagesOfRoomSlice from '../components/Messages/ChatBox/BodyChatBox/MessagesOfRoomSlice';
+import MutedSlice from '../components/Foryou/ListContent/VideoContent/mutedSlice';
+import VolumeSlice from '../components/Foryou/ListContent/VideoContent/volumeSlice';
 
 const store = configureStore({
     reducer: {
@@ -20,6 +22,8 @@ const store = configureStore({
         messagesOfRoom: MessagesOfRoomSlice.reducer,
         loading: LoadingSlice.reducer,
         selectedRoom: SelectedRoomSlice.reducer,
+        muted: MutedSlice.reducer,
+        volume: VolumeSlice.reducer,
     },
 });
 
