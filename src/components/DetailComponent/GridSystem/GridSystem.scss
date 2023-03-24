@@ -1,0 +1,50 @@
+@import './media.scss';
+
+$col: 25;
+$gutter: 16px;
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include xs {
+        @for $i from 1 through $col {
+            .col-xs-#{$i} {
+                padding: $gutter/2;
+                width: 100%/25 * $i;
+            }
+        }
+    }
+    @include sm {
+        @for $i from 1 through $col {
+            .col-sm-#{$i} {
+                padding: $gutter/2;
+                width: 100%/25 * $i;
+            }
+        }
+    }
+    @include md {
+        @for $i from 1 through $col {
+            .col-md-#{$i} {
+                padding: $gutter/2;
+                width: 100%/25 * $i;
+            }
+        }
+    }
+    @include lg {
+        @for $i from 1 through $col {
+            .col-lg-#{$i} {
+                padding: $gutter/2;
+                width: 100%/25 * $i;
+            }
+        }
+    }
+    @include xl {
+        @for $i from 1 through $col {
+            .col-xl-#{$i} {
+                padding: $gutter/2;
+                width: 100%/25 * $i;
+            }
+        }
+    }
+}

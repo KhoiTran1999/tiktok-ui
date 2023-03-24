@@ -1,0 +1,36 @@
+.videoGrid {
+    ul {
+        margin: 0px -8px;
+        li {
+            position: relative;
+            cursor: pointer;
+            video {
+                width: 100%;
+                height: 270px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+            .title {
+                font-size: 15px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .playLogo {
+                width: 18px;
+                height: 18px;
+                position: absolute;
+                bottom: 50px;
+                left: 20px;
+            }
+            .views {
+                font-size: 15px;
+                font-weight: 600;
+                color: white;
+                position: absolute;
+                bottom: 47px;
+                left: 43px;
+            }
+        }
+    }
+}

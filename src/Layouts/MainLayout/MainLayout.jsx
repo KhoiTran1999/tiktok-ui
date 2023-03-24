@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import { ModalSign } from '../../components/DetailComponent';
-import Foryou from '../../components/Foryou/Foryou';
+import MainContent from '../../components/MainContent/MainContent';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import style from './MainLayout.module.scss';
@@ -15,11 +14,10 @@ const MainLayout = () => {
                 <div className="container">
                     <div className={cx('row')}>
                         <Sidebar />
-                        <Foryou />
+                        <MainContent />
                     </div>
                 </div>
             </main>
-            {/* <ModalSign /> */}
         </div>
     );
 };

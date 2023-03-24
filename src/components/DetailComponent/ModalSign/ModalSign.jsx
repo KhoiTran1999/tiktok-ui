@@ -29,11 +29,18 @@ const ModalSign = () => {
         if (additionalUserInfo.isNewUser) {
             addDocument('userList', {
                 displayName: user.displayName,
+                nickName: user.displayName,
                 email: user.email,
                 photoURL: user.photoURL,
                 uid: user.uid,
                 providerID: additionalUserInfo.providerId,
                 keyword: generateKey(user.displayName), //For key word searching
+                bio: '',
+                tick: true,
+                followingsCount: 0,
+                followersCount: 0,
+                likesCount: 0,
+                websiteURL: user.email,
             });
         }
     };

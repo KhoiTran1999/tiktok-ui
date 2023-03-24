@@ -1,0 +1,45 @@
+.videoProfile {
+    margin-top: 25px;
+    .nav {
+        display: flex;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgb(235, 234, 234);
+        cursor: pointer;
+        position: relative;
+        transition: 0.3s all;
+        .videos,
+        .liked {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 25px;
+            width: 230px;
+            text-align: center;
+            color: rgba(22, 24, 35, 0.5);
+            i {
+                margin-right: 8px;
+                margin-top: 2px;
+            }
+            &.active {
+                color: var(--text);
+            }
+        }
+        .liked {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        &::after {
+            content: '';
+            width: 230px;
+            height: 2px;
+            background-color: var(--text);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transition: 0.3s all;
+        }
+        &.active::after {
+            left: 230px;
+        }
+    }
+}

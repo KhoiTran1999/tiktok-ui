@@ -14,7 +14,7 @@ const AccountList = ({ title, tippyVisible }) => {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await getUser('hoa');
+            const response = await getUser('g');
             setAccountList(response.data);
         };
         getData();

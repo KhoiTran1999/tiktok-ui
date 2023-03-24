@@ -1,7 +1,7 @@
 .search {
-    width: 32.5%;
+    flex: 0 1 361px;
     padding: 2px;
-    margin-left: 20px;
+    margin-left: 200px;
     background-color: #f1f1f2;
     border-radius: 30px;
     display: flex;
@@ -12,7 +12,7 @@
         border: none;
         outline: none;
         background-color: transparent;
-        font-size: 15px;
+        font-size: 14px;
         letter-spacing: 0.2px;
         color: rgb(108, 107, 107);
         width: 86%;

@@ -1,16 +1,11 @@
 .side-bar {
-    width: 24.5%;
-    overflow-y: overlay;
+    width: 348px;
+    overflow-y: auto;
     overflow-x: hidden;
-    max-height: 650px;
+    height: 100%;
+    max-height: 100vh;
     position: fixed;
     z-index: 9;
-    @media screen and (min-width: 1700px) {
-        max-height: 100%;
-    }
-    @media screen and (min-width: 2200px) {
-        width: 15.5%;
-    }
     &::-webkit-scrollbar {
         width: 6px;
     }
@@ -23,6 +18,7 @@
         opacity: 1;
         visibility: visible;
     }
+    overscroll-behavior: none;
     .wrapper {
         margin: 0px 10px 0px 7px;
         border-bottom: 1px solid rgb(235, 234, 234);

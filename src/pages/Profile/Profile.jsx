@@ -1,10 +1,5 @@
 function Profile({ children }) {
-    return (
-        <div className="profile">
-            <h1>Profile Page</h1>
-            {children}
-        </div>
-    );
+    return <div className="profile">{children}</div>;
 }
 
 export default Profile;

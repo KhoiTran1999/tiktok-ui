@@ -62,21 +62,21 @@ const TippyAccountItem = ({ data = [] }) => {
                                         <Box style={{ scale, opacity }} {...attrs}>
                                             <div className={cx('wrapper')}>
                                                 <div className={cx('header')}>
-                                                    <img src={val.avatar} alt="avatar" />
+                                                    <img src={val.photoURL} alt="avatar" />
                                                     <Button primary medium>
                                                         Follow
                                                     </Button>
                                                 </div>
                                                 <div className={cx('content')}>
                                                     <div className={cx('wrap')}>
-                                                        <h4>{val.nickname}</h4>
+                                                        <h4>{val.nickName}</h4>
                                                         {val.tick && (
                                                             <i className={cx('fa-solid fa-circle-check', 'check')}></i>
                                                         )}
                                                     </div>
-                                                    <p className={cx('name')}>{val.full_name}</p>
+                                                    <p className={cx('name')}>{val.displayName}</p>
                                                     <p className={cx('status')}>
-                                                        <b>{val.followers_count}</b> Followers <b>{val.likes_count}</b>{' '}
+                                                        <b>{val.followersCount}</b> Followers <b>{val.likesCount}</b>{' '}
                                                         Likes
                                                     </p>
                                                 </div>
@@ -85,13 +85,13 @@ const TippyAccountItem = ({ data = [] }) => {
                                     </SubnavWrapper>
                                 )}
                             >
-                                <Link to={`${routes.profile}${val.nickname}`}>
+                                <Link to={`${routes.profile}${val.nickName}`}>
                                     <div
                                         className={cx('avatar', {
                                             skeletonLoading: user.login === null,
                                         })}
                                     >
-                                        <ImageCustom src={val.avatar} alt="avatar" />
+                                        <ImageCustom src={val.photoURL} alt="avatar" />
                                     </div>
                                     <div className={cx('information')}>
                                         <div
@@ -99,7 +99,7 @@ const TippyAccountItem = ({ data = [] }) => {
                                                 skeletonLoading: user.login === null,
                                             })}
                                         >
-                                            {val.nickname}
+                                            {val.nickName}
                                         </div>
                                         {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
                                         <div
@@ -107,7 +107,7 @@ const TippyAccountItem = ({ data = [] }) => {
                                                 skeletonLoading: user.login === null,
                                             })}
                                         >
-                                            {val.full_name}
+                                            {val.displayName}
                                         </div>
                                     </div>
                                 </Link>

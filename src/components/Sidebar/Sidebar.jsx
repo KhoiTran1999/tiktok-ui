@@ -12,7 +12,7 @@ import NavMenu from './NavMenu/NavMenu';
 import style from './Sidebar.module.scss';
 
 const cx = classNames.bind(style);
-const Sidebar = () => {
+const Sidebar = ({ className = 'side-bar' }) => {
     const dispatch = useDispatch();
     const user = useSelector(UserSelector);
 
@@ -23,7 +23,7 @@ const Sidebar = () => {
     return (
         <>
             <div className={cx('fake-width')}></div>
-            <aside className={cx('side-bar')}>
+            <aside className={cx('side-bar', `${className}`)}>
                 <div className={cx('wrapper')}>
                     <NavMenu />
                 </div>

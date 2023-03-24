@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import './components/DetailComponent/GridSystem/GridSystem.scss';
 
 :root {
     --primary: rgba(254, 44, 85, 1);
@@ -59,9 +60,6 @@ body {
     width: 100%;
     margin: 0 auto;
     padding: 0px 5px;
-    @media screen and (min-width: 1700px) {
-        max-width: 1300px;
-    }
 }
 
 a {

@@ -16,12 +16,12 @@ import UnloginRightHeader from './RightHeader/UnloginRightHeader.jsx';
 
 const cx = classNames.bind(style);
 
-const Header = () => {
+const Header = ({ className }) => {
     const user = useSelector(UserSelector);
 
     return (
         <header>
-            <div className="container">
+            <div className={cx('container', className)}>
                 <div className={cx('row')}>
                     <h1 className={cx('logo')}>
                         <Link to={routes.home}>

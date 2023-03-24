@@ -13,12 +13,12 @@ const AccountSearch = ({ data = [] }) => {
                 {data.map((val, idx) => {
                     return (
                         <li key={val.id}>
-                            <Link to={`${routes.profile}${val.nickname}`}>
-                                <ImageCustom src={val.avatar} alt="avatar" />
+                            <Link to={`${routes.profile}${val.nickName}`}>
+                                <ImageCustom src={val.photoURL} alt="avatar" />
                                 <div className={cx('information')}>
-                                    <h4 className={cx('nickname')}>{val.nickname}</h4>
+                                    <h4 className={cx('nickname')}>{val.nickName}</h4>
                                     {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
-                                    <p className={cx('name')}>{val.full_name}</p>
+                                    <p className={cx('name')}>{val.displayName}</p>
                                 </div>
                             </Link>
                         </li>

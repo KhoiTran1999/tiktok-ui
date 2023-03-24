@@ -1,13 +1,12 @@
-import httpRequest from '../utils/httpRequest';
+import axios from 'axios';
 
-const getUser = async (q, type = 'less') => {
-    const response = await httpRequest.get('users/search', {
+const getUser = async (nickname) => {
+    const res = await axios.get('https://63f816b61dc21d5465b961be.mockapi.io/users', {
         params: {
-            q,
-            type,
+            nickname: nickname,
         },
     });
-    return response.data;
+    return res;
 };
 
 export default getUser;

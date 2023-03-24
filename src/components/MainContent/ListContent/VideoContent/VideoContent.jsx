@@ -11,8 +11,6 @@ import VolumeSlice from './volumeSlice';
 const cx = classNames.bind(style);
 const VideoContent = ({ dataVideo }) => {
     const [play, setPlay] = useState(false);
-    const [muted, setMuted] = useState(true);
-    const [volume, setVolume] = useState(0.2);
     const [time, setTime] = useState(0);
 
     const fillBarTimeLineRef = useRef('0px');

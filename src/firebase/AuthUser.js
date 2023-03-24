@@ -26,7 +26,7 @@ const AuthUser = () => {
                 dispatch(ModalSignSlice.actions.setModalSign(false));
             } else {
                 dispatch(UserLoginSlice.actions.setUser({ login: false }));
-                navigate(routes.home);
+                // navigate(routes.home);
             }
         });
         return () => {
