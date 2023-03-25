@@ -86,7 +86,7 @@ const FormSearch = () => {
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <SubnavWrapper>
-                            {allUserList ? (
+                            {allUserList.length > 0 ? (
                                 <>
                                     <span className={cx('account-title')}>{t('header.accountSearch')}</span>
                                     <AccountSearch allUserList={allUserList} />

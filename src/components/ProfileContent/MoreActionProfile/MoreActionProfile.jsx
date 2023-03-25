@@ -2,18 +2,15 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './MoreActionProfile.module.scss';
 import Tippy from '@tippyjs/react/headless';
-import styled from 'styled-components';
-import { useSpring, motion } from 'framer-motion';
 import ShareLogo from '../../../assets/icon/ShareLogo';
 import { Menu } from '../../DetailComponent';
 import { SubnavWrapper } from '../../DetailComponent';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CurrentRoomsSelector, UserSelector } from '../../../redux/selector';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addDocument } from '../../../firebase/services';
 import routes from '../../../config/routes';
 
-const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
 const MoreActionProfile = ({ allUserList }) => {
     const MenuShare = [
@@ -123,47 +120,19 @@ const MoreActionProfile = ({ allUserList }) => {
         navigate(routes.messages);
     };
 
-    //-----------Tippy Framer Motion----------------------
-    const springConfig = { damping: 15, stiffness: 300 };
-    const initialScale = 0.5;
-    const opacity = useSpring(0, springConfig);
-    const scale = useSpring(initialScale, springConfig);
-
-    function onMount() {
-        scale.set(1);
-        opacity.set(1);
-    }
-
-    function onHide({ unmount }) {
-        const cleanup = scale.onChange((value) => {
-            if (value <= initialScale) {
-                cleanup();
-                unmount();
-            }
-        });
-        setIsResetMenu(true);
-        scale.set(initialScale);
-        opacity.set(0);
-    }
-    //----------------------------------------------------
-
     return (
         <div className={cx('moreAction')}>
             <Tippy
                 delay={[0, 500]}
                 interactive
                 placement="bottom-end"
-                animation={true}
-                onMount={onMount}
-                onHide={onHide}
+                onHide={() => {
+                    setIsResetMenu(true);
+                }}
                 onShow={() => {
                     setIsResetMenu(false);
                 }}
-                render={(attrs) => (
-                    <Box style={{ scale, opacity }} {...attrs}>
-                        <Menu data={MenuShare} isResetMenu={isResetMenu} />
-                    </Box>
-                )}
+                render={(attrs) => <Menu data={MenuShare} isResetMenu={isResetMenu} />}
             >
                 <div>
                     <ShareLogo />
@@ -173,37 +142,29 @@ const MoreActionProfile = ({ allUserList }) => {
                 delay={[0, 500]}
                 interactive
                 placement="bottom-end"
-                animation={true}
-                onMount={onMount}
-                onHide={onHide}
-                onShow={() => {
-                    setIsResetMenu(false);
-                }}
                 render={(attrs) => (
-                    <Box style={{ scale, opacity }} {...attrs}>
-                        <SubnavWrapper>
-                            <div className={cx('report-block')}>
-                                <ul>
-                                    {userLogin.uid !== user.uid && userLogin.login ? (
-                                        <li onClick={sendMessage}>
-                                            <i className="fa-regular fa-paper-plane"></i>
-                                            <span>Send Message</span>
-                                        </li>
-                                    ) : (
-                                        <></>
-                                    )}
-                                    <li>
-                                        <i className="fa-regular fa-flag"></i>
-                                        <span>Report</span>
+                    <SubnavWrapper>
+                        <div className={cx('report-block')}>
+                            <ul>
+                                {userLogin.uid !== user.uid && userLogin.login ? (
+                                    <li onClick={sendMessage}>
+                                        <i className="fa-regular fa-paper-plane"></i>
+                                        <span>Send Message</span>
                                     </li>
-                                    <li>
-                                        <i className="fa-solid fa-ban"></i>
-                                        <span>Block</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </SubnavWrapper>
-                    </Box>
+                                ) : (
+                                    <></>
+                                )}
+                                <li>
+                                    <i className="fa-regular fa-flag"></i>
+                                    <span>Report</span>
+                                </li>
+                                <li>
+                                    <i className="fa-solid fa-ban"></i>
+                                    <span>Block</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </SubnavWrapper>
                 )}
             >
                 <i className="fa-solid fa-ellipsis"></i>
