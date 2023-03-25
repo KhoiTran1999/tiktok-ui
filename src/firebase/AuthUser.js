@@ -43,9 +43,14 @@ const AuthUser = () => {
     //Get userList from MockAPI
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getUserList();
-            if (data.data.length > 0) {
-                dispatch(UserListMockSlice.actions.setUserListMock(data.data));
+            try {
+                const data = await getUserList();
+                if (data.data.length > 0) {
+                    dispatch(UserListMockSlice.actions.setUserListMock(data.data));
+                }
+            } catch (error) {
+                alert('Error when call Get UserList API');
+                window.location.reload();
             }
         };
         fetchData();

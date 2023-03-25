@@ -17,7 +17,10 @@ const VideoItem = ({ idVideoPlay, setIdVideoPlay, idVideo, dataVideo }) => {
         setIdVideoPlay(idVideo);
     };
     return (
-        <li className="col col-lg-5" onMouseEnter={handleHover}>
+        <li
+            className="col col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-9 col-xs-10 col-xxs-11"
+            onMouseEnter={handleHover}
+        >
             <video loop muted ref={videoRef}>
                 <source src={dataVideo} type={'video/mp4'} />
                 Your browser does not support the video tag.

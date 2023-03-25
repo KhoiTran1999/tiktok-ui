@@ -13,13 +13,15 @@ const ProfileContent = () => {
 
     return (
         <div className={cx('profileContent')}>
-            <div className={cx('header')}>
-                <div className={cx('row')}>
-                    <InforProfile allUserList={allUserList} />
-                    <MoreAction allUserList={allUserList} />
+            <div className={cx('wrapper')}>
+                <div className={cx('header')}>
+                    <div className={cx('row')}>
+                        <InforProfile allUserList={allUserList} />
+                        <MoreAction allUserList={allUserList} />
+                    </div>
                 </div>
+                <VideoProfile />
             </div>
-            <VideoProfile />
         </div>
     );
 };

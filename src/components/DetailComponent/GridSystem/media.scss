@@ -1,12 +1,20 @@
 //BreakPoints:
-$xs: 576px; //mobile
-$sm: 576px; //tablet
-$md: 768px; //laptop
-$lg: 992px;
-$xl: 1440px;
+$xxs: 576px;
+$xs: 800px;
+$sm: 1110px;
+$md: 1300px;
+$lg: 1500px;
+$xl: 1900px;
+$xxl: 2100px;
+
+@mixin xxs {
+    @media (min-width: $xxs) {
+        @content;
+    }
+}
 
 @mixin xs {
-    @media (max-width: $xs) {
+    @media (min-width: $xs) {
         @content;
     }
 }
@@ -31,6 +39,12 @@ $xl: 1440px;
 
 @mixin xl {
     @media (min-width: $xl) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media (min-width: $xxl) {
         @content;
     }
 }

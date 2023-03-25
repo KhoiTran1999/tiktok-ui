@@ -4,38 +4,41 @@ import { db } from '../firebase/config';
 const useFireStore = (collection, condition, orderBy, sort) => {
     const [document, setDocuments] = useState([]);
     useEffect(() => {
-        let collectionRef = db.collection(collection);
-        /**
-         * condition
-         * {
-         *   fieldName: 'abc',
-         *   operator: '===, >, in,...'
-         *   compareValue: 'adc'
-         * }
-         */
-        if (condition) {
-            if (!condition.compareValue || !condition.compareValue.length) {
-                setDocuments([]);
-                return;
+        try {
+            let collectionRef = db.collection(collection);
+            /**
+             * condition
+             * {
+             *   fieldName: 'abc',
+             *   operator: '===, >, in,...'
+             *   compareValue: 'adc'
+             * }
+             */
+            if (condition) {
+                if (!condition.compareValue || !condition.compareValue.length) {
+                    setDocuments([]);
+                    return;
+                }
+                collectionRef = collectionRef.where(condition.fieldName, condition.operator, condition.compareValue);
             }
-            collectionRef = collectionRef.where(condition.fieldName, condition.operator, condition.compareValue);
-        }
-        if (orderBy) {
-            collectionRef = collectionRef.orderBy(orderBy, sort);
-        }
+            if (orderBy) {
+                collectionRef = collectionRef.orderBy(orderBy, sort);
+            }
 
-        //Listening Event onChange
-        collectionRef.onSnapshot((snapshot) => {
-            const documents = snapshot.docs.map((doc) => {
-                return {
-                    id: doc.id,
-                    ...doc.data(),
-                };
+            //Listening Event onChange
+            collectionRef.onSnapshot((snapshot) => {
+                const documents = snapshot.docs.map((doc) => {
+                    return {
+                        id: doc.id,
+                        ...doc.data(),
+                    };
+                });
+                setDocuments(documents);
             });
-            setDocuments(documents);
-        });
-
-        // return () => unsubcribed;
+        } catch (error) {
+            alert('Error when Listening event onChange of FireStore');
+            window.location.reload();
+        }
     }, [collection, condition]);
 
     return document;

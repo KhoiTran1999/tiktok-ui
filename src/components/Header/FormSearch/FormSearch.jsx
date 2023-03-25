@@ -46,9 +46,14 @@ const FormSearch = () => {
 
         //{Call Api using Axios}
         const getData = async () => {
-            const responseMock = await getSearchUser(Debounce, limitResult);
-            setUserMock(responseMock.data);
-            setIsLoading(false);
+            try {
+                const responseMock = await getSearchUser(Debounce, limitResult);
+                setUserMock(responseMock.data);
+                setIsLoading(false);
+            } catch (error) {
+                alert('Error when call Search User API');
+                window.location.reload();
+            }
         };
         getData();
     }, [Debounce, limitResult]);
