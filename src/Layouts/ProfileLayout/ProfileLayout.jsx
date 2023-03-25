@@ -1,9 +1,9 @@
+import classNames from 'classnames/bind';
 import React from 'react';
 import Header from '../../components/Header/Header';
+import ProfileContent from '../../components/ProfileContent/ProfileContent';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import style from './ProfileLayout.module.scss';
-import classNames from 'classnames/bind';
-import ProfileContent from '../../components/ProfileContent/ProfileContent';
 
 const cx = classNames.bind(style);
 const ProfileLayout = () => {

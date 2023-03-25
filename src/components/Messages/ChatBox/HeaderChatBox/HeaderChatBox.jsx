@@ -1,9 +1,8 @@
 import classNames from 'classnames/bind';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import routes from '../../../../config/routes';
-import { ChoosedUserSelector, ClickedRoomSelector } from '../../../../redux/selector';
+import { ChoosedUserSelector } from '../../../../redux/selector';
 import style from './HeaderChatBox.module.scss';
 
 const cx = classNames.bind(style);
@@ -12,7 +11,7 @@ const HeaderChatBox = () => {
 
     return (
         <div className={cx('header')}>
-            <Link to={routes.profile}>
+            <Link to={`/profile/${choosedUser.nickName}`}>
                 <div className={cx('avatar')}>
                     <img src={choosedUser.photoURL} alt="avatar" />
                 </div>

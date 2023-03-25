@@ -1,21 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ModalSignSlice from '../components/DetailComponent/ModalSign/ModalSignSlice';
 import UserLoginSlice from '../components/DetailComponent/ModalSign/UserLoginSlice';
-import MessagesOfRoomSlice from '../components/Messages/ChatBox/BodyChatBox/MessagesOfRoomSlice';
 import RoomsSlice from '../components/Messages/RoomsSlice';
-import routes from '../config/routes';
 import { auth } from '../firebase/config';
 import useFireStore from '../hooks/useFireStore';
-import { ChoosedUserSelector, ClickedRoomSelector, UserSelector } from '../redux/selector';
+import { UserSelector } from '../redux/selector';
+import { getUserList } from '../services/ApiService';
 import UserListSlice from './UserListSlice';
+import UserListMockSlice from './UserListMockSlice';
 
 const AuthUser = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const user = useSelector(UserSelector);
+    const userLogin = useSelector(UserSelector);
 
     //Get user from Auth Firebase after login
     useEffect(() => {
@@ -35,19 +35,30 @@ const AuthUser = () => {
     }, []);
 
     //Get userList from FireStore and set it
-    const userList = useFireStore('userList');
+    const userListFireStore = useFireStore('userList');
     useEffect(() => {
-        dispatch(UserListSlice.actions.setUserList(userList));
-    }, [userList]);
+        dispatch(UserListSlice.actions.setUserList(userListFireStore));
+    }, [userListFireStore]);
+
+    //Get userList from MockAPI
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getUserList();
+            if (data.data.length > 0) {
+                dispatch(UserListMockSlice.actions.setUserListMock(data.data));
+            }
+        };
+        fetchData();
+    }, []);
 
     //Get rooms from FireStore and set rooms
     const roomsCondition = useMemo(() => {
         return {
             fieldName: 'members',
             operator: 'array-contains',
-            compareValue: user.uid,
+            compareValue: userLogin.uid,
         };
-    }, [user.uid]);
+    }, [userLogin.uid]);
 
     const CurRoomsList = useFireStore('rooms', roomsCondition);
     useEffect(() => {

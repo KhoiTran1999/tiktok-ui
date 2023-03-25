@@ -1,13 +1,24 @@
 import classNames from 'classnames/bind';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import style from './VideoGrid.module.scss';
 import PlayLogo from '../../../../assets/icon/PlayLogo';
 
 const cx = classNames.bind(style);
-const VideoItem = ({ play, setPlay, pause, setPause, dataVideo }) => {
+const VideoItem = ({ idVideoPlay, setIdVideoPlay, idVideo, dataVideo }) => {
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        if (idVideoPlay === idVideo) {
+            videoRef.current.play();
+        } else videoRef.current.pause();
+    }, [idVideoPlay]);
+
+    const handleHover = () => {
+        setIdVideoPlay(idVideo);
+    };
     return (
-        <li className="col col-lg-5">
-            <video loop muted>
+        <li className="col col-lg-5" onMouseEnter={handleHover}>
+            <video loop muted ref={videoRef}>
                 <source src={dataVideo} type={'video/mp4'} />
                 Your browser does not support the video tag.
             </video>

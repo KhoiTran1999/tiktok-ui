@@ -12,7 +12,6 @@ const ChatAccountList = () => {
     const dispatch = useDispatch();
     const userChatList = useSelector(UserChatListSelector);
     const curRoom = useSelector(CurrentRoomsSelector);
-
     const messages = useFireStore('messages', '', 'createdAt', 'asc');
 
     useEffect(() => {

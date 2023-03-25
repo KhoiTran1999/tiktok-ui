@@ -27,7 +27,6 @@ const AccountItem = ({ messages, uid, avatar, name, user }) => {
 
     useEffect(() => {
         rooms.map((valRoom) => {
-            if (messages.length === 0) console.log('bang 0');
             if (valRoom.members.includes(uid) && valRoom.members.includes(userLogin.uid)) {
                 setRoomId(valRoom.id);
                 messages.map((valMess) => {

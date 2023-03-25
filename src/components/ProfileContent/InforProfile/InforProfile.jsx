@@ -1,23 +1,37 @@
-import React from 'react';
 import classNames from 'classnames/bind';
-import style from './InforProfile.module.scss';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Button, ImageCustom } from '../../DetailComponent';
-import images from '../../../assets/images';
+import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosedUserSlice';
+import style from './InforProfile.module.scss';
 
 const cx = classNames.bind(style);
-const InforProfile = () => {
+const InforProfile = ({ allUserList }) => {
+    const dispatch = useDispatch();
+    const linkName = useParams();
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        allUserList.map((val) => {
+            if (val.nickName === linkName.userName) {
+                setUser(val);
+            }
+        });
+    });
+
     return (
         <div className={cx('infor')}>
             <div className={cx('header-infor')}>
                 <div className={cx('avatar')}>
-                    <ImageCustom src={images.imgGaiXinh} />
+                    <img src={user.photoURL} />
                 </div>
                 <div className={cx('left-headerInfor')}>
                     <div className={cx('wrapper')}>
-                        <h2 className={cx('nickName')}>tranthanh123</h2>
+                        <h2 className={cx('nickName')}>{user.nickName}</h2>
                         <i className="fa-solid fa-circle-check"></i>
                     </div>
-                    <h1 className={cx('displayName')}>Trấn Thành</h1>
+                    <h1 className={cx('displayName')}>{user.displayName}</h1>
                     <Button primary large className={cx('followButton')}>
                         Follow
                     </Button>
@@ -25,13 +39,14 @@ const InforProfile = () => {
             </div>
             <div className={cx('footer-infor')}>
                 <p className={cx('status')}>
-                    <b>24</b> Followings <b>6.5M</b> Followers <b>40.1M</b> Likes
+                    <b>{user.followingsCount}</b> Followings <b>{user.followersCount}</b> Followers{' '}
+                    <b>{user.likesCount}</b> Likes
                 </p>
-                <p className={cx('bio')}>Xê! Follow anh nha mấy đứa hay ra dẻ</p>
+                <p className={cx('bio')}>{user.bio}</p>
                 <div className={cx('websiteURL')}>
                     <i className="fa-solid fa-link"></i>
-                    <a href="https://www.facebook.com/duonglamshowbiz" target="_blank">
-                        www.facebook.com/duonglamshowbiz
+                    <a href={user.websiteURL} target="_blank">
+                        {user.websiteURL}
                     </a>
                 </div>
             </div>

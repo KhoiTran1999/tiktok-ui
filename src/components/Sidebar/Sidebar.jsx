@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { UserSelector } from '../../redux/selector';
 import { Button } from '../DetailComponent';
 import ModalSignSlice from '../DetailComponent/ModalSign/ModalSignSlice';
@@ -23,53 +22,55 @@ const Sidebar = ({ className = 'side-bar' }) => {
     return (
         <>
             <div className={cx('fake-width')}></div>
-            <aside className={cx('side-bar', `${className}`)}>
-                <div className={cx('wrapper')}>
-                    <NavMenu />
-                </div>
+            <div className={cx('parents')}>
+                <aside className={cx('side-bar', `${className}`)}>
+                    <div className={cx('wrapper')}>
+                        <NavMenu />
+                    </div>
 
-                {user.login ? (
-                    <>
-                        <div className={cx('wrapper')}>
-                            <AccountList title={'Suggested accounts'} tippyVisible={true} />
-                        </div>
-                        <div className={cx('wrapper')}>
-                            <AccountList title={'Following accounts'} />
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        <div className={cx('wrapper')}>
-                            <p
-                                className={cx('signText', {
-                                    skeletonLoading: user.login === null,
-                                })}
-                            >
-                                Log in to follow creators, like videos, and view comments.
-                            </p>
-                            <Button
-                                className={cx('sign', {
-                                    skeletonLoading: user.login === null,
-                                })}
-                                outline
-                                large
-                                onClick={handleLogin}
-                            >
-                                Log in
-                            </Button>
-                        </div>
-                        <div className={cx('wrapper')}>
-                            <AccountList title={'Suggested accounts'} tippyVisible={true} />
-                        </div>
-                    </>
-                )}
+                    {user.login ? (
+                        <>
+                            <div className={cx('wrapper')}>
+                                <AccountList title={'Suggested accounts'} tippyVisible={true} />
+                            </div>
+                            <div className={cx('wrapper')}>
+                                <AccountList title={'Following accounts'} />
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className={cx('wrapper')}>
+                                <p
+                                    className={cx('signText', {
+                                        skeletonLoading: user.login === null,
+                                    })}
+                                >
+                                    Log in to follow creators, like videos, and view comments.
+                                </p>
+                                <Button
+                                    className={cx('sign', {
+                                        skeletonLoading: user.login === null,
+                                    })}
+                                    outline
+                                    large
+                                    onClick={handleLogin}
+                                >
+                                    Log in
+                                </Button>
+                            </div>
+                            <div className={cx('wrapper')}>
+                                <AccountList title={'Suggested accounts'} tippyVisible={true} />
+                            </div>
+                        </>
+                    )}
 
-                <div className={cx('wrapper')}>
-                    <Discover />
-                </div>
+                    <div className={cx('wrapper')}>
+                        <Discover />
+                    </div>
 
-                <Footer />
-            </aside>
+                    <Footer />
+                </aside>
+            </div>
         </>
     );
 };

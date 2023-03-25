@@ -6,8 +6,7 @@ import VideoItem from './VideoItem';
 
 const cx = classNames.bind(style);
 const VideoGrid = () => {
-    const [play, setPlay] = useState(true);
-    const [pause, setPause] = useState(true);
+    const [idVideoPlay, setIdVideoPlay] = useState(1);
 
     return (
         <div className={cx('videoGrid')}>
@@ -15,11 +14,10 @@ const VideoGrid = () => {
                 {Object.keys(videos).map((key, idx) => {
                     return (
                         <VideoItem
-                            play={play}
-                            setPlay={setPlay}
-                            pause={pause}
-                            setPause={setPause}
+                            idVideoPlay={idVideoPlay}
+                            setIdVideoPlay={setIdVideoPlay}
                             key={idx}
+                            idVideo={idx + 1}
                             dataVideo={videos[key]}
                         />
                     );

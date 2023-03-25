@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { db } from '../firebase/config';
-import loadingSlice from '../services/loadingSlice';
 
 const useFireStore = (collection, condition, orderBy, sort) => {
     const [document, setDocuments] = useState([]);

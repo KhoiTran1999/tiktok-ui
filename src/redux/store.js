@@ -10,6 +10,7 @@ import SelectedRoomSlice from '../components/Messages/ChatAccountList/AccountIte
 import MessagesOfRoomSlice from '../components/Messages/ChatBox/BodyChatBox/MessagesOfRoomSlice';
 import MutedSlice from '../components/MainContent/ListContent/VideoContent/mutedSlice';
 import VolumeSlice from '../components/MainContent/ListContent/VideoContent/volumeSlice';
+import UserListMockSlice from '../firebase/UserListMockSlice';
 
 const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
         modalSetting: ModalSettingSlice.reducer,
         curRoomsList: RoomsSlice.reducer,
         userList: UserListSlice.reducer,
+        userListMock: UserListMockSlice.reducer,
         choosedUser: ChoosedUserSlice.reducer,
         messagesOfRoom: MessagesOfRoomSlice.reducer,
         loading: LoadingSlice.reducer,

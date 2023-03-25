@@ -48,15 +48,24 @@
                 .information {
                     margin-left: 5px;
                     // overflow: hidden;
-                    .nickname {
-                        font-size: 15px;
-                        font-weight: 600;
-                        margin-top: 2px;
-                    }
-                    .check {
-                        font-size: 13px;
-                        color: rgb(32, 213, 236);
-                        margin-left: 10px;
+                    .wrap {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        .nickname {
+                            font-size: 15px;
+                            font-weight: 600;
+                            margin-top: 2px;
+                            max-width: 170px;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+                        .check {
+                            font-size: 13px;
+                            color: rgb(32, 213, 236);
+                            margin-left: 10px;
+                        }
                     }
                     .name {
                         font-size: 13px;
@@ -101,7 +110,7 @@
         }
     }
     .wrapper {
-        // background-color: red;
+        position: relative;
         width: 320px;
         padding: 20px;
         .header {

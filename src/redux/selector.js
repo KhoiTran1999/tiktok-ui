@@ -6,16 +6,21 @@ export const ModalSettingSelector = (state) => state.modalSetting;
 export const UserSelector = (state) => state.userLogin;
 export const CurrentRoomsSelector = (state) => state.curRoomsList;
 export const UserListSelector = (state) => state.userList;
+export const UserListMockSelector = (state) => state.userListMock;
 export const ChoosedUserSelector = (state) => state.choosedUser;
 export const MessagesOfRoomSelector = (state) => state.messagesOfRoom;
 export const LoadingSelector = (state) => state.loading;
 export const SelectedRoomSelector = (state) => state.selectedRoom;
 
+export const AllUserListSelector = createSelector(UserListSelector, UserListMockSelector, (userList, userListMock) => {
+    return [...userList, ...userListMock];
+});
+
 export const UserChatListSelector = createSelector(
-    UserListSelector,
+    AllUserListSelector,
     UserSelector,
     CurrentRoomsSelector,
-    (userList, user, curRoomsList) => {
+    (allUserList, user, curRoomsList) => {
         let tempt = [];
         let userChatID = [];
         curRoomsList.map((valRooms) => {
@@ -24,7 +29,7 @@ export const UserChatListSelector = createSelector(
             });
             userChatID = [...userChatID, ...tempt];
         });
-        const userChatList = userList.filter((valUser) => {
+        const userChatList = allUserList.filter((valUser) => {
             return userChatID.includes(valUser.uid);
         });
         return userChatList;

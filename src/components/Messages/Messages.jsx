@@ -39,11 +39,11 @@ const Messages = () => {
             <div className={cx('chatBoxContainer')}>
                 <div className={cx('chatBoxWrapper')}>{choosedUser ? <ChatBox /> : <></>}</div>
             </div>
-            <div className={cx('backButton')}>
-                <Link to={routes.home}>
+            <Link to={routes.home}>
+                <div className={cx('backButton')}>
                     <i className="fa-solid fa-arrow-left"></i>
-                </Link>
-            </div>
+                </div>
+            </Link>
             {createPortal(<ModalSetting />, document.body)}
         </div>
     );

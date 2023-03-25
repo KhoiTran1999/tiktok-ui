@@ -5,7 +5,6 @@ import Tippy from '@tippyjs/react/headless';
 import styled from 'styled-components';
 import { useSpring, motion } from 'framer-motion';
 
-import routes from '../../../config/routes';
 import ImageCustom from '../../DetailComponent/ImageCustom';
 import style from './TippyAccountItem.module.scss';
 import SubnavWrapper from '../../DetailComponent/SubnavWrapper';
@@ -16,7 +15,7 @@ import { UserSelector } from '../../../redux/selector';
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
 
-const TippyAccountItem = ({ data = [] }) => {
+const TippyAccountItem = ({ allUserList }) => {
     const user = useSelector(UserSelector);
 
     //---------Tippy Framer Motion Setup---------------
@@ -42,23 +41,23 @@ const TippyAccountItem = ({ data = [] }) => {
         opacity.set(0);
     }
     //-------------------------------------------------
+
     return (
         <div className={cx('Account-list-sidebar')}>
             <ul>
-                {data.map((val, idx) => {
+                {allUserList.map((val) => {
                     return (
                         <li key={val.id}>
                             <Tippy
                                 delay={[500, 0]}
                                 offset={[0, 0]}
-                                appendTo={document.querySelector(`.${cx('Account-list-sidebar')}`)}
                                 interactive
                                 placement="bottom-start"
                                 animation={true}
                                 onMount={onMount}
                                 onHide={onHide}
                                 render={(attrs) => (
-                                    <SubnavWrapper>
+                                    <SubnavWrapper scrollAction="visible">
                                         <Box style={{ scale, opacity }} {...attrs}>
                                             <div className={cx('wrapper')}>
                                                 <div className={cx('header')}>
@@ -76,7 +75,7 @@ const TippyAccountItem = ({ data = [] }) => {
                                                     </div>
                                                     <p className={cx('name')}>{val.displayName}</p>
                                                     <p className={cx('status')}>
-                                                        <b>{val.followersCount}</b> Followers <b>{val.likesCount}</b>{' '}
+                                                        <b>{val.followersCount}</b> Followers <b>{val.likesCount}</b>
                                                         Likes
                                                     </p>
                                                 </div>
@@ -85,7 +84,7 @@ const TippyAccountItem = ({ data = [] }) => {
                                     </SubnavWrapper>
                                 )}
                             >
-                                <Link to={`${routes.profile}${val.nickName}`}>
+                                <Link to={`/profile/${val.nickName}`}>
                                     <div
                                         className={cx('avatar', {
                                             skeletonLoading: user.login === null,
@@ -94,14 +93,16 @@ const TippyAccountItem = ({ data = [] }) => {
                                         <ImageCustom src={val.photoURL} alt="avatar" />
                                     </div>
                                     <div className={cx('information')}>
-                                        <div
-                                            className={cx('nickname', {
-                                                skeletonLoading: user.login === null,
-                                            })}
-                                        >
-                                            {val.nickName}
+                                        <div className={cx('wrap')}>
+                                            <div
+                                                className={cx('nickname', {
+                                                    skeletonLoading: user.login === null,
+                                                })}
+                                            >
+                                                {val.nickName}
+                                            </div>
+                                            {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
                                         </div>
-                                        {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
                                         <div
                                             className={cx('name', {
                                                 skeletonLoading: user.login === null,

@@ -3,7 +3,7 @@ import React from 'react';
 function PlayLogo({ className, width = '3.2rem', height = '3.2rem' }, ref) {
     return (
         <svg
-            class={className}
+            className={className}
             width={width}
             data-e2e=""
             height={height}

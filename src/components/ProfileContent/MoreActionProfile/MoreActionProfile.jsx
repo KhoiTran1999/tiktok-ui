@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './MoreActionProfile.module.scss';
 import Tippy from '@tippyjs/react/headless';
@@ -7,10 +7,15 @@ import { useSpring, motion } from 'framer-motion';
 import ShareLogo from '../../../assets/icon/ShareLogo';
 import { Menu } from '../../DetailComponent';
 import { SubnavWrapper } from '../../DetailComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import { CurrentRoomsSelector, UserSelector } from '../../../redux/selector';
+import { useNavigate, useParams } from 'react-router-dom';
+import { addDocument } from '../../../firebase/services';
+import routes from '../../../config/routes';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
-const MoreActionProfile = () => {
+const MoreActionProfile = ({ allUserList }) => {
     const MenuShare = [
         {
             icon: <i className="fa-solid fa-code"></i>,
@@ -89,7 +94,34 @@ const MoreActionProfile = () => {
         },
     ];
 
+    const userLogin = useSelector(UserSelector);
+    const curRoomList = useSelector(CurrentRoomsSelector);
     const [isResetMenu, setIsResetMenu] = useState(false);
+
+    const linkName = useParams();
+    const [user, setUser] = useState({});
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        allUserList.map((val) => {
+            if (val.nickName === linkName.userName) {
+                setUser(val);
+            }
+        });
+    });
+
+    const sendMessage = () => {
+        const existingRoom = curRoomList.filter((valRoom) => {
+            return valRoom.members.includes(userLogin.uid) && valRoom.members.includes(user.uid);
+        });
+
+        if (existingRoom.length === 0) {
+            addDocument('rooms', {
+                members: [userLogin.uid, user.uid],
+            });
+        }
+        navigate(routes.messages);
+    };
 
     //-----------Tippy Framer Motion----------------------
     const springConfig = { damping: 15, stiffness: 300 };
@@ -118,7 +150,7 @@ const MoreActionProfile = () => {
     return (
         <div className={cx('moreAction')}>
             <Tippy
-                delay={[0, 0]}
+                delay={[0, 500]}
                 interactive
                 placement="bottom-end"
                 animation={true}
@@ -138,7 +170,7 @@ const MoreActionProfile = () => {
                 </div>
             </Tippy>
             <Tippy
-                delay={[0, 0]}
+                delay={[0, 500]}
                 interactive
                 placement="bottom-end"
                 animation={true}
@@ -152,6 +184,14 @@ const MoreActionProfile = () => {
                         <SubnavWrapper>
                             <div className={cx('report-block')}>
                                 <ul>
+                                    {userLogin.uid !== user.uid && userLogin.login ? (
+                                        <li onClick={sendMessage}>
+                                            <i className="fa-regular fa-paper-plane"></i>
+                                            <span>Send Message</span>
+                                        </li>
+                                    ) : (
+                                        <></>
+                                    )}
                                     <li>
                                         <i className="fa-regular fa-flag"></i>
                                         <span>Report</span>

@@ -19,12 +19,16 @@
                 .information {
                     margin-left: 16px;
                     .nickname {
-                        display: inline;
+                        display: inline-block;
                         font-size: 15px;
                         font-weight: 600;
                         letter-spacing: 0.5px;
                         margin-top: 2px;
                         margin-bottom: -3px;
+                        max-width: 170px;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
                     }
                     .check {
                         font-size: 13px;

@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import GoogleLogo from '../../../assets/icon/GoogleLogo';
-import firebase, { auth, db } from '../../../firebase/config';
+import firebase, { auth } from '../../../firebase/config';
 import { addDocument } from '../../../firebase/services';
 import { ModalSignSelector } from '../../../redux/selector';
 import { Button } from '../index';
