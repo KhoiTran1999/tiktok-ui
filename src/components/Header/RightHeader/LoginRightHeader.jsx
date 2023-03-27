@@ -112,9 +112,11 @@ const LoginRightHeader = () => {
         <div className={cx('group')}>
             <ul>
                 <li>
-                    <Button basic medium className={cx('upload')}>
-                        <i className="fa-solid fa-plus"></i> {t('header.upload')}
-                    </Button>
+                    <Link to={routes.upload}>
+                        <Button basic medium className={cx('upload')}>
+                            <i className="fa-solid fa-plus"></i> {t('header.upload')}
+                        </Button>
+                    </Link>
                 </li>
 
                 <li>

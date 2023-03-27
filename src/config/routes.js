@@ -4,6 +4,7 @@ const routes = {
     profile: '/profile/:userName',
     live: '/live',
     messages: '/messages',
+    upload: '/upload',
 };
 
 export default routes;

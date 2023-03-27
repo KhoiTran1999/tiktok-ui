@@ -1,0 +1,39 @@
+.modalDiscard {
+    padding: 32px;
+    border-radius: 8px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    transition: 0.3s all;
+    &.active {
+        transform: scale(1);
+    }
+    h2 {
+        text-align: center;
+        font-size: 24px;
+        color: var(--text);
+        font-weight: 600;
+    }
+    p {
+        margin-top: 7px;
+        text-align: center;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 18px;
+        color: rgba(22, 24, 35, 0.75);
+    }
+    .discard {
+        margin-top: 24px;
+        width: 336px;
+        height: 48px;
+    }
+    .editing {
+        margin-top: 15px;
+        margin-left: 0;
+        width: 336px;
+        height: 48px;
+    }
+}

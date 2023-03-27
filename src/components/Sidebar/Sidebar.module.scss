@@ -6,6 +6,7 @@
         overflow-y: auto;
         height: 100%;
         max-height: 100vh;
+        overscroll-behavior: none;
         &::-webkit-scrollbar {
             width: 6px;
         }
@@ -18,7 +19,6 @@
             opacity: 1;
             visibility: visible;
         }
-        overscroll-behavior: none;
         .wrapper {
             margin: 0px 10px 0px 7px;
             border-bottom: 1px solid rgb(235, 234, 234);

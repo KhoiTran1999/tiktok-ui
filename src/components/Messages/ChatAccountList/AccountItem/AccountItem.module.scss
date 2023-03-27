@@ -68,6 +68,9 @@
         i {
             font-size: 20px;
         }
+        @media screen and (max-width: 1100px) {
+            display: none;
+        }
     }
     .wrapper-tool {
         > div {

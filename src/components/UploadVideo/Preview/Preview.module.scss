@@ -1,0 +1,42 @@
+.preview {
+    margin-top: 24px;
+    padding: 68px 35px;
+    border: 2px dashed rgba(22, 24, 35, 0.2);
+    border-radius: 8px;
+    flex: 0 0 264px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+    i {
+        font-size: 30px;
+        color: rgb(182, 178, 178);
+    }
+    h4 {
+        font-size: 17px;
+        color: var(--text);
+        margin-top: 24px;
+    }
+    h5 {
+        font-size: 13px;
+        color: rgba(22, 24, 35, 0.75);
+        font-weight: 400;
+        margin-top: 5px;
+        margin-bottom: 24px;
+    }
+    p {
+        font-size: 13px;
+        color: rgba(22, 24, 35, 0.5);
+        margin-bottom: 12px;
+        line-height: 1.5;
+    }
+    button {
+        font-size: 15px;
+        margin-top: 23px;
+        width: 186px;
+    }
+}

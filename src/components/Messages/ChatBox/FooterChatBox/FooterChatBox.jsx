@@ -1,8 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
-import styled from 'styled-components';
-import { useSpring, motion } from 'framer-motion';
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
@@ -12,17 +10,19 @@ import { ChoosedUserSelector, SelectedRoomSelector, UserSelector } from '../../.
 import style from './FooterChatBox.module.scss';
 import LogoMessageActive from '../../../../assets/icon/LogoMessageActive';
 
-const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
 const FooterChatBox = () => {
     const [inputValue, setInputValue] = useState('');
     const user = useSelector(UserSelector);
     const selectedRoom = useSelector(SelectedRoomSelector);
 
-    const [selectedEmoji, setSelectedEmoji] = useState(null);
+    useEffect(() => {
+        let textarea = document.getElementById('myTextarea');
+        if (inputValue.length === 0) textarea.rows = 1;
+    }, [inputValue]);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        if (inputValue.trim().length === 0) return;
         addDocument('messages', {
             uid: user.uid,
             text: inputValue,
@@ -35,6 +35,7 @@ const FooterChatBox = () => {
     };
 
     const handleInput = (e) => {
+        console.log(inputValue);
         if (inputValue.length === 0 && e.target.value === ' ') return;
         setInputValue(e.target.value);
     };
@@ -43,70 +44,89 @@ const FooterChatBox = () => {
         setInputValue(inputValue + emoji.native);
     };
 
-    //-----------Tippy Framer Motion------------------------
-    const springConfig = { damping: 15, stiffness: 300 };
-    const initialScale = 0.5;
-    const opacity = useSpring(0, springConfig);
-    const scale = useSpring(initialScale, springConfig);
+    const handleFocus = () => {
+        const form = document.querySelector('form');
+        form.style.border = '1px solid rgba(22, 24, 35, 0.2)';
+    };
+    const handleUnfocus = () => {
+        const form = document.querySelector('form');
+        form.style.border = '1px solid transparent';
+    };
 
-    function onMount() {
-        scale.set(1);
-        opacity.set(1);
+    function autoSizeTextArea(e, defaultHeight) {
+        const form = document.querySelector('form');
+        const textarea = document.getElementById('myTextarea');
+        const overflow = document.getElementById(`${cx('overflow')}`);
+
+        textarea.style.height = `auto`;
+        const height = e.target.scrollHeight;
+        textarea.style.height = `${height}px`;
+
+        if (defaultHeight) {
+            textarea.style.height = `16px`;
+            form.style.paddingBottom = '5px';
+            overflow.classList.remove(`${cx('active')}`);
+            return;
+        }
+        if (e.target.scrollHeight > 16) {
+            form.style.paddingBottom = '30px';
+            overflow.classList.add(`${cx('active')}`);
+        } else {
+            form.style.paddingBottom = '5px';
+            overflow.classList.remove(`${cx('active')}`);
+        }
     }
 
-    function onHide({ unmount }) {
-        const cleanup = scale.onChange((value) => {
-            if (value <= initialScale) {
-                cleanup();
-                unmount();
-            }
-        });
-        scale.set(initialScale);
-        opacity.set(0);
-    }
-    //------------------------------------------------------
+    const pressed = (e) => {
+        if (e.which == 13 && !e.shiftKey) {
+            autoSizeTextArea(e, true);
+            e.preventDefault(e);
+            handleSubmit();
+        }
+    };
+
     return (
         <div className={cx('footerChatBox')}>
             <form action="message" onSubmit={handleSubmit}>
-                <input
-                    className={cx({
-                        active: inputValue.length > 0,
-                    })}
+                <textarea
+                    name="messages"
+                    id="myTextarea"
+                    onInput={autoSizeTextArea}
                     value={inputValue}
                     onChange={handleInput}
+                    onKeyDown={pressed}
+                    onFocus={handleFocus}
+                    onBlur={handleUnfocus}
                     autoFocus
                     type="text"
                     placeholder="Send a message..."
-                />
+                    cols="80"
+                    maxLength={6000}
+                ></textarea>
+                <span id={cx('overflow')}>{inputValue.length}/6000</span>
             </form>
-
             <Tippy
                 interactive
                 trigger="click"
                 placement="top-end"
-                animation={true}
-                onMount={onMount}
-                onHide={onHide}
                 render={(attrs) => (
-                    <Box style={{ scale, opacity }} {...attrs}>
-                        <Picker
-                            emojiTooltip={true}
-                            onEmojiSelect={handleEmojiSelect}
-                            perLine="7"
-                            navPosition="none"
-                            emojiButtonSize="40"
-                            emojiButtonRadius="5px"
-                            emojiButtonColors={['rgb(241, 241, 241)']}
-                            categories={['people']}
-                            icon="auto"
-                            maxFrequentRows="0"
-                            noCountryFlags={false}
-                            theme="light"
-                            searchPosition="none"
-                            previewPosition="none"
-                            data={data}
-                        />
-                    </Box>
+                    <Picker
+                        emojiTooltip={true}
+                        onEmojiSelect={handleEmojiSelect}
+                        perLine="7"
+                        navPosition="none"
+                        emojiButtonSize="40"
+                        emojiButtonRadius="5px"
+                        emojiButtonColors={['rgb(241, 241, 241)']}
+                        categories={['people']}
+                        icon="auto"
+                        maxFrequentRows="0"
+                        noCountryFlags={false}
+                        theme="light"
+                        searchPosition="none"
+                        previewPosition="none"
+                        data={data}
+                    />
                 )}
             >
                 <div
