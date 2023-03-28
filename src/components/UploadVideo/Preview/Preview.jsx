@@ -34,7 +34,10 @@ const Preview = ({ videoLink, setVideoLink, setThumbnailList }) => {
                 duration.current = videoRef.current.duration || 0;
             };
             setMuted(true);
-        } else setPlay(true);
+        } else {
+            setPlay(true);
+            setVolume(0.5);
+        }
     }, [videoLink]);
 
     useEffect(() => {
