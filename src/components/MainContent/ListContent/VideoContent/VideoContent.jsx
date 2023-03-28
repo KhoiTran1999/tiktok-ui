@@ -21,9 +21,7 @@ const VideoContent = ({ dataVideo }) => {
 
     const mutedRedux = useSelector(MutedSelector);
     const volumeRedux = useSelector(VolumeSelector);
-    const fillVolumeRef = useRef(() => {
-        return `${50 * volumeRedux}px`;
-    });
+    const fillVolumeRef = useRef();
     const options = {
         root: null,
         rootMargin: '0px',

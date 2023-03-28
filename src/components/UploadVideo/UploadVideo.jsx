@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './UploadVideo.module.scss';
 import { SubnavWrapper } from '../DetailComponent';
@@ -8,6 +8,13 @@ import Footer from './Footer/Footer';
 
 const cx = classNames.bind(style);
 const UploadVideo = () => {
+    const [videoLink, setVideoLink] = useState();
+    const [thumbnailList, setThumbnailList] = useState([]);
+
+    useEffect(() => {
+        if (!videoLink) setThumbnailList([]);
+    }, [videoLink]);
+
     return (
         <div className={cx('uploadVideo')}>
             <div className={cx('container')}>
@@ -19,8 +26,16 @@ const UploadVideo = () => {
                                 <h4>Post a video to your account</h4>
                             </div>
                             <div className={cx('upload-body')}>
-                                <Preview />
-                                <AddDetail />
+                                <Preview
+                                    videoLink={videoLink}
+                                    setVideoLink={setVideoLink}
+                                    setThumbnailList={setThumbnailList}
+                                />
+                                <AddDetail
+                                    videoLink={videoLink}
+                                    setVideoLink={setVideoLink}
+                                    thumbnailList={thumbnailList}
+                                />
                             </div>
                         </div>
                     </SubnavWrapper>

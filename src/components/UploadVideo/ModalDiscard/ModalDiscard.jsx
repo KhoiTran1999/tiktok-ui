@@ -8,7 +8,7 @@ import ModalDiscardSlice from '../ModalDiscard/ModalDiscardSlice';
 import { ModalDiscardSelector } from '../../../redux/selector';
 
 const cx = classNames.bind(style);
-const ModalDiscard = () => {
+const ModalDiscard = ({ setVideoLink }) => {
     const dispatch = useDispatch();
     const isModalDiscardPopup = useSelector(ModalDiscardSelector);
     return (
@@ -21,7 +21,10 @@ const ModalDiscard = () => {
                 <h2>Discard this post?</h2>
                 <p>The video and all edits will be discarded.</p>
                 <Button
-                    onClick={() => dispatch(ModalDiscardSlice.actions.setMadalDiscard(false))}
+                    onClick={() => {
+                        dispatch(ModalDiscardSlice.actions.setMadalDiscard(false));
+                        setVideoLink(null);
+                    }}
                     primary
                     large
                     className={cx('discard')}

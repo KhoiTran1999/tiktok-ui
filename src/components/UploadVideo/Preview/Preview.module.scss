@@ -1,3 +1,168 @@
+.iphonePreview {
+    position: relative;
+    &:hover {
+        .play-button,
+        .volume-wrapper,
+        .timeline-wrapper {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    .imgPreview {
+        width: 366px;
+        height: 550px;
+        position: absolute;
+        left: -55px;
+        top: -5px;
+    }
+    .videoPreview {
+        width: 245px;
+        height: 511px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin: 6px 20px 6px 6px;
+    }
+    .play-button {
+        position: absolute;
+        bottom: 60px;
+        left: 40px;
+        color: white;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s all;
+    }
+    .volume-wrapper {
+        height: 45px;
+        width: 45px;
+        position: absolute;
+        bottom: 50px;
+        right: 40px;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s all;
+        &:hover .fill-bar {
+            display: block;
+        }
+        &:hover .volume-bar {
+            display: block;
+        }
+        .volume-button {
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .volume-bar {
+            display: none;
+            padding: 11px 7px;
+            width: 65px;
+            border-radius: 40px;
+            background-color: rgba(0, 0, 0, 0.387);
+
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            transform: rotate(270deg);
+            cursor: pointer;
+            z-index: 10;
+
+            -webkit-appearance: none;
+
+            &::-webkit-slider-runnable-track {
+                height: 2px;
+                background: rgba(235, 233, 233, 0.323);
+                border-radius: 3px;
+                z-index: 10;
+            }
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                height: 14px;
+                width: 14px;
+                border-radius: 50%;
+                background: white;
+                margin-top: -6px;
+                z-index: 10;
+            }
+        }
+        .fill-bar {
+            display: none;
+            width: 2px;
+            height: 25px;
+            background-color: white;
+            position: absolute;
+            bottom: 48px;
+            right: 47%;
+            z-index: 0;
+        }
+    }
+    .timeline-wrapper {
+        width: 220px;
+        padding: 10px 5px;
+
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s all;
+        @media screen and (min-width: 1700px) {
+            left: 12%;
+        }
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &:hover {
+            .timeline {
+                &::-webkit-slider-runnable-track {
+                    height: 4px;
+                }
+                &::-webkit-slider-thumb {
+                    background: white;
+                }
+            }
+            .fill-bar-timeline {
+                height: 4px;
+            }
+        }
+        .timeline {
+            width: 185px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.34);
+            cursor: pointer;
+            &::-webkit-slider-runnable-track {
+                height: 2px;
+                border-radius: 3px;
+                z-index: 10;
+            }
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                height: 14px;
+                width: 14px;
+                border-radius: 50%;
+                margin-top: -6px;
+                z-index: 10;
+            }
+        }
+        .running-time {
+            font-size: 10px;
+            color: white;
+            margin-left: 10px;
+        }
+        .fill-bar-timeline {
+            width: 0;
+            height: 2px;
+            background-color: white;
+            position: absolute;
+            z-index: 2;
+        }
+    }
+}
 .preview {
     margin-top: 24px;
     padding: 68px 35px;
@@ -9,9 +174,11 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
     &:hover {
         background-color: rgba(22, 24, 35, 0.03);
     }
+
     i {
         font-size: 30px;
         color: rgb(182, 178, 178);

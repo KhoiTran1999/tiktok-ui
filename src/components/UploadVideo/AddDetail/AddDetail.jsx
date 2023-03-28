@@ -3,14 +3,13 @@ import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import style from './AddDetail.module.scss';
 import Select from 'react-select';
-import images from '../../../assets/images';
 import Button from '../../DetailComponent/Button';
 import ModalDiscard from '../ModalDiscard/ModalDiscard';
 import ModalDiscardSlice from '../ModalDiscard/ModalDiscardSlice';
 import { createPortal } from 'react-dom';
 
 const cx = classNames.bind(style);
-const AddDetail = () => {
+const AddDetail = ({ videoLink, setVideoLink, thumbnailList }) => {
     const dispatch = useDispatch();
 
     const [inputValue, setInputValue] = useState('');
@@ -93,11 +92,24 @@ const AddDetail = () => {
                 <span className={cx('name-tagging')}>@</span>
                 <span className={cx('hash-tag')}>#</span>
             </div>
-
             <div className={cx('thumnail')}>
                 <p className={cx('title')}>Cover</p>
                 <div className={cx('thumnail-wrapper')}>
-                    <img src={images.imgGaiXinh} alt="" />
+                    {thumbnailList.length === 8 ? (
+                        <>
+                            {thumbnailList.map((val, idx) => {
+                                return (
+                                    <div key={idx} className={cx('img-wrapper')}>
+                                        <img src={val} alt="thumbnail" />
+                                    </div>
+                                );
+                            })}
+                        </>
+                    ) : (
+                        <>
+                            <div className={cx('skeleton')}></div>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -186,7 +198,7 @@ const AddDetail = () => {
                     Post
                 </Button>
             </div>
-            {createPortal(<ModalDiscard />, document.body)}
+            {createPortal(<ModalDiscard setVideoLink={setVideoLink} />, document.body)}
         </div>
     );
 };
