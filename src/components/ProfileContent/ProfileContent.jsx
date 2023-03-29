@@ -20,7 +20,7 @@ const ProfileContent = () => {
                         <MoreAction allUserList={allUserList} />
                     </div>
                 </div>
-                <VideoProfile />
+                <VideoProfile allUserList={allUserList} />
             </div>
         </div>
     );

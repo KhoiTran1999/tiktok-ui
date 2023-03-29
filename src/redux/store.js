@@ -12,6 +12,7 @@ import MessagesOfRoomSlice from '../components/Messages/ChatBox/BodyChatBox/Mess
 import MutedSlice from '../components/MainContent/ListContent/VideoContent/mutedSlice';
 import VolumeSlice from '../components/MainContent/ListContent/VideoContent/volumeSlice';
 import UserListMockSlice from '../firebase/UserListMockSlice';
+import VideoListSlice from '../components/ProfileContent/VideoProfile/VideoListSlice';
 
 const store = configureStore({
     reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
         selectedRoom: SelectedRoomSlice.reducer,
         muted: MutedSlice.reducer,
         volume: VolumeSlice.reducer,
+        videoList: VideoListSlice.reducer,
     },
 });
 

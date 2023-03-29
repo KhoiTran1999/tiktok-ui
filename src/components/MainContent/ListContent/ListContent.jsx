@@ -2,15 +2,18 @@ import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import ItemContent from './ItemContent';
 import style from './ListContent.module.scss';
-import videos from '../../../assets/videos';
+import { useSelector } from 'react-redux';
+import { VideoListSelector } from '../../../redux/selector';
 
 const cx = classNames.bind(style);
 const ListContent = () => {
+    const videoList = useSelector(VideoListSelector);
+
     return (
         <div className={cx('list-content')}>
             <ul>
-                {Object.keys(videos).map((key, idx) => {
-                    return <ItemContent key={idx} dataVideo={videos[key]} />;
+                {videoList.map((val) => {
+                    return <ItemContent video={val} />;
                 })}
             </ul>
         </div>

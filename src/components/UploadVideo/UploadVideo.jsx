@@ -9,7 +9,12 @@ import Footer from './Footer/Footer';
 const cx = classNames.bind(style);
 const UploadVideo = () => {
     const [videoLink, setVideoLink] = useState();
+    const [videoFile, setVideoFile] = useState();
     const [thumbnailList, setThumbnailList] = useState([]);
+    //------- Upload Video State -----------
+    const [percentageLoading, setPercentageLoading] = useState(0);
+    const [isRunning, setIsRunning] = useState(false);
+    const [isCancel, setIsCancel] = useState(false);
 
     useEffect(() => {
         if (!videoLink) setThumbnailList([]);
@@ -30,11 +35,21 @@ const UploadVideo = () => {
                                     videoLink={videoLink}
                                     setVideoLink={setVideoLink}
                                     setThumbnailList={setThumbnailList}
+                                    setVideoFile={setVideoFile}
+                                    percentageLoading={percentageLoading}
+                                    isRunning={isRunning}
+                                    setIsCancel={setIsCancel}
                                 />
                                 <AddDetail
                                     videoLink={videoLink}
                                     setVideoLink={setVideoLink}
                                     thumbnailList={thumbnailList}
+                                    videoFile={videoFile}
+                                    setPercentageLoading={setPercentageLoading}
+                                    isRunning={isRunning}
+                                    setIsRunning={setIsRunning}
+                                    isCancel={isCancel}
+                                    setIsCancel={setIsCancel}
                                 />
                             </div>
                         </div>

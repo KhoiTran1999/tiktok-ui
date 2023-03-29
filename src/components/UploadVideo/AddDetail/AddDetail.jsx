@@ -1,28 +1,52 @@
-import React, { useState } from 'react';
 import classNames from 'classnames/bind';
-import { useDispatch } from 'react-redux';
-import style from './AddDetail.module.scss';
+import React, { useEffect, useState } from 'react';
+import { useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import { v4 as uuidv4 } from 'uuid';
+import { addDocument, cancelUploadFile, uploadFile, uploadPoster } from '../../../firebase/services';
+import { UserSelector } from '../../../redux/selector';
 import Button from '../../DetailComponent/Button';
 import ModalDiscard from '../ModalDiscard/ModalDiscard';
 import ModalDiscardSlice from '../ModalDiscard/ModalDiscardSlice';
-import { createPortal } from 'react-dom';
+import style from './AddDetail.module.scss';
 
 const cx = classNames.bind(style);
-const AddDetail = ({ videoLink, setVideoLink, thumbnailList }) => {
+const AddDetail = ({
+    videoLink,
+    setVideoLink,
+    thumbnailList,
+    videoFile,
+    setPercentageLoading,
+    isRunning,
+    setIsRunning,
+    isCancel,
+    setIsCancel,
+}) => {
     const dispatch = useDispatch();
+    const userLogin = useSelector(UserSelector);
 
     const [inputValue, setInputValue] = useState('');
     const [selectedOption, setSelectedOption] = useState(null);
     const [isCopyrightActive, setIsCopyrightActive] = useState(false);
+    const [downloadURL, setDownloadURL] = useState();
+    const [uuid, setUuid] = useState(uuidv4());
+    const [isSuccessedUpload, setIsSuccessedUpload] = useState(false);
+    const [thumbnailURL, setThumbnailURL] = useState('');
+    const [poster, setPoster] = useState('');
+    const [imgIdx, setImgIdx] = useState();
 
+    const uploadTaskRef = useRef();
+    const thumnailRef = useRef();
+
+    //is used for caption element
     const autoSizeTextArea = (e) => {
         setInputValue(e.target.value);
 
         let textArea = document.getElementById('caption-textArea');
         textArea.style.height = 'auto';
         const height = textArea.scrollHeight;
-        console.log(height);
         if (height > 174) {
             console.log('over');
             textArea.style.height = `174px`;
@@ -34,12 +58,14 @@ const AddDetail = ({ videoLink, setVideoLink, thumbnailList }) => {
         }
     };
 
+    //is used for select element
     const restrictedOption = [
         { value: 'Followers', label: 'Followers' },
         { value: 'Friends', label: 'Friends' },
         { value: 'Private', label: 'Private' },
     ];
 
+    //is used for select element
     const colourStyles = {
         control: (styles, { isFocused, isDisabled }) => ({
             ...styles,
@@ -73,6 +99,62 @@ const AddDetail = ({ videoLink, setVideoLink, thumbnailList }) => {
         menu: (style) => ({ ...style, width: '300px' }),
     };
 
+    const handlePostVideo = () => {
+        try {
+            uploadPoster(`thumnail/${uuidv4()}`, thumbnailURL, setPoster, thumnailRef);
+            uploadFile(
+                `video/${uuid}`,
+                videoFile,
+                setDownloadURL,
+                uploadTaskRef,
+                setVideoLink,
+                setPercentageLoading,
+                setIsRunning,
+                setIsSuccessedUpload,
+            );
+        } catch (error) {
+            alert('Please choose one Cover');
+        }
+    };
+
+    useEffect(() => {
+        if (isSuccessedUpload) {
+            addDocument('videoList', {
+                uid: userLogin.uid,
+                videoURL: downloadURL,
+                thumbnail: poster,
+                caption: inputValue,
+                likes: 0,
+                views: 0,
+                shares: 0,
+            });
+        }
+    }, [isSuccessedUpload]);
+
+    //Reset state after upload finished
+    useEffect(() => {
+        if (isSuccessedUpload) {
+            dispatch(ModalDiscardSlice.actions.setMadalDiscard(true));
+            setUuid(uuidv4());
+            setImgIdx(null);
+            setPoster('');
+            setThumbnailURL('');
+            setInputValue('');
+        }
+    }, [isSuccessedUpload]);
+
+    useEffect(() => {
+        if (isCancel) {
+            uploadTaskRef.current.cancel();
+            setIsCancel(false);
+        }
+    }, [isCancel]);
+
+    const handleOnClickThumbnail = (val, idx) => {
+        setThumbnailURL(val);
+        setImgIdx(idx);
+    };
+
     return (
         <div className={cx('add-detail')}>
             <div className={cx('form-group')}>
@@ -99,7 +181,13 @@ const AddDetail = ({ videoLink, setVideoLink, thumbnailList }) => {
                         <>
                             {thumbnailList.map((val, idx) => {
                                 return (
-                                    <div key={idx} className={cx('img-wrapper')}>
+                                    <div
+                                        key={idx}
+                                        onClick={() => handleOnClickThumbnail(val, idx)}
+                                        className={cx('img-wrapper', {
+                                            active: imgIdx === idx,
+                                        })}
+                                    >
                                         <img src={val} alt="thumbnail" />
                                     </div>
                                 );
@@ -171,10 +259,26 @@ const AddDetail = ({ videoLink, setVideoLink, thumbnailList }) => {
                 </div>
 
                 {isCopyrightActive ? (
-                    <p className={cx('required-video')}>
-                        <i className="fa-solid fa-circle-exclamation"></i>
-                        <span>Copyright check will not begin until your video is uploaded.</span>
-                    </p>
+                    <>
+                        {videoLink ? (
+                            <>
+                                <p className={cx('no-issues')}>
+                                    <i className="fa-solid fa-check"></i>
+                                    <span>No issues detected.</span>
+                                </p>
+                                <p className={cx('explain')}>
+                                    Note: Results of copyright checks aren't final. For instance, future changes of the
+                                    copyright holder's authorization to the sound may impact your video may impact your
+                                    video. <a href="">Learn more</a>
+                                </p>
+                            </>
+                        ) : (
+                            <p className={cx('required-video')}>
+                                <i className="fa-solid fa-circle-exclamation"></i>
+                                <span>Copyright check will not begin until your video is uploaded.</span>
+                            </p>
+                        )}
+                    </>
                 ) : (
                     <p className={cx('explain')}>
                         We'll check your video for potential copyright infringements on used sounds. If infringements
@@ -194,11 +298,33 @@ const AddDetail = ({ videoLink, setVideoLink, thumbnailList }) => {
                 >
                     Discard
                 </Button>
-                <Button primary medium className={cx('post')}>
-                    Post
-                </Button>
+
+                {isRunning ? (
+                    <Button primary medium className={cx('loading')}>
+                        <i className="fa-solid fa-spinner"></i>
+                    </Button>
+                ) : (
+                    <>
+                        {videoLink ? (
+                            <Button onClick={handlePostVideo} primary medium className={cx('post')}>
+                                Post
+                            </Button>
+                        ) : (
+                            <Button primary medium className={cx('restricted-post')}>
+                                Post
+                            </Button>
+                        )}
+                    </>
+                )}
             </div>
-            {createPortal(<ModalDiscard setVideoLink={setVideoLink} />, document.body)}
+            {createPortal(
+                <ModalDiscard
+                    setVideoLink={setVideoLink}
+                    isSuccessedUpload={isSuccessedUpload}
+                    setIsSuccessedUpload={setIsSuccessedUpload}
+                />,
+                document.body,
+            )}
         </div>
     );
 };

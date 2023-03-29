@@ -1,13 +1,25 @@
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 import images from '../../../assets/images';
 import { Button } from '../../DetailComponent';
 import GenerateThumbnail from '../generateThumbnail/GenerateThumbnail';
 import style from './Preview.module.scss';
+import { cancelUploadFile } from '../../../firebase/services';
 
 const cx = classNames.bind(style);
-const Preview = ({ videoLink, setVideoLink, setThumbnailList }) => {
+const Preview = ({
+    videoLink,
+    setVideoLink,
+    setThumbnailList,
+    setVideoFile,
+    percentageLoading,
+    isRunning,
+    setIsCancel,
+}) => {
     const videoRef = useRef();
     const fillVolumeRef = useRef(() => '25px');
     const duration = useRef(0);
@@ -20,6 +32,7 @@ const Preview = ({ videoLink, setVideoLink, setThumbnailList }) => {
 
     const handleVideoUpload = (e) => {
         setVideoLink(URL.createObjectURL(e.target.files[0]));
+        setVideoFile(e.target.files[0]);
     };
 
     useEffect(() => {
@@ -113,88 +126,109 @@ const Preview = ({ videoLink, setVideoLink, setThumbnailList }) => {
 
     return (
         <label htmlFor="videoFile">
-            {videoLink ? (
-                <div className={cx('iphonePreview')}>
-                    <video
-                        ref={videoRef}
-                        src={videoLink}
-                        onTimeUpdate={handleTimeupdate}
-                        className={cx('videoPreview')}
-                        loop
-                        muted
-                        autoPlay
-                    ></video>
-                    <img className={cx('imgPreview')} src={images.previewVideo} alt="preview video image" />
-                    <i
-                        onClick={handlePlay}
-                        className={cx('play-button', {
-                            'fa-solid fa-play': !play,
-                            'fa-solid fa-pause': play,
-                        })}
-                    ></i>
-                    <div className={cx('volume-wrapper')}>
-                        <input
-                            className={cx('volume-bar')}
-                            onChange={(e) => handleSetVolume(e)}
-                            type="range"
-                            value={volume}
-                            min="0"
-                            max="1"
-                            step="0.1"
-                        />
-                        <div ref={fillVolumeRef} className={cx('fill-bar')}></div>
-                        <i
-                            onClick={handleMutedVolume}
-                            className={cx('volume-button', {
-                                'fa-solid fa-volume-high': !muted,
-                                'fa-solid fa-volume-xmark': muted,
+            {isRunning ? (
+                <div className={cx('loading')}>
+                    <div className={cx('loading-wrap')}>
+                        <CircularProgressbar
+                            value={Math.floor(percentageLoading)}
+                            text={`${Math.floor(percentageLoading)}%`}
+                            styles={buildStyles({
+                                textColor: 'hsl(0, 0%, 20%)',
+                                pathColor: 'rgba(254, 44, 85, 1)',
                             })}
-                        ></i>
-                    </div>
-                    <div className={cx('timeline-wrapper')}>
-                        <input
-                            type="range"
-                            className={cx('timeline')}
-                            value={time}
-                            onChange={handleForwardVideo}
-                            min="0"
-                            max={duration.current}
-                            step="1"
                         />
-                        <span className={cx('running-time')}>
-                            {formatTime(time)}/{formatTime(duration.current)}
-                        </span>
-                        <div className={cx('fill-bar-timeline')} ref={fillBarTimeLineRef}></div>
                     </div>
-                </div>
-            ) : (
-                <div className={cx('preview')}>
-                    <i className="fa-solid fa-cloud-arrow-up"></i>
-                    <h4>Select video to upload</h4>
-                    <h5>Or drag and drop a file</h5>
-                    <p>MP4 or WebM</p>
-                    <p>720x1280 resolution or higher</p>
-                    <p>Up to 30 minutes</p>
-                    <p>Less than 2 GB</p>
-                    <Button primary medium>
-                        <label style={{ cursor: 'pointer' }} htmlFor="videoFile">
-                            Select file
-                        </label>
+                    <p>Uploading Video</p>
+                    <Button onClick={() => setIsCancel(true)} basic medium className={cx('cancel-button')}>
+                        Cancel
                     </Button>
-                    <input onChange={handleVideoUpload} type="file" id="videoFile" hidden accept="video/*" />
                 </div>
-            )}
-            {videoLink ? (
-                createPortal(
-                    <GenerateThumbnail
-                        videoLink={videoLink}
-                        duration={duration.current}
-                        setThumbnailList={setThumbnailList}
-                    />,
-                    document.body,
-                )
             ) : (
-                <></>
+                <>
+                    {videoLink ? (
+                        <div className={cx('iphonePreview')}>
+                            <video
+                                ref={videoRef}
+                                src={videoLink}
+                                onTimeUpdate={handleTimeupdate}
+                                className={cx('videoPreview')}
+                                loop
+                                muted
+                                autoPlay
+                            ></video>
+                            <img className={cx('imgPreview')} src={images.previewVideo} alt="preview video image" />
+                            <i
+                                onClick={handlePlay}
+                                className={cx('play-button', {
+                                    'fa-solid fa-play': !play,
+                                    'fa-solid fa-pause': play,
+                                })}
+                            ></i>
+                            <div className={cx('volume-wrapper')}>
+                                <input
+                                    className={cx('volume-bar')}
+                                    onChange={(e) => handleSetVolume(e)}
+                                    type="range"
+                                    value={volume}
+                                    min="0"
+                                    max="1"
+                                    step="0.1"
+                                />
+                                <div ref={fillVolumeRef} className={cx('fill-bar')}></div>
+                                <i
+                                    onClick={handleMutedVolume}
+                                    className={cx('volume-button', {
+                                        'fa-solid fa-volume-high': !muted,
+                                        'fa-solid fa-volume-xmark': muted,
+                                    })}
+                                ></i>
+                            </div>
+                            <div className={cx('timeline-wrapper')}>
+                                <input
+                                    type="range"
+                                    className={cx('timeline')}
+                                    value={time}
+                                    onChange={handleForwardVideo}
+                                    min="0"
+                                    max={duration.current}
+                                    step="1"
+                                />
+                                <span className={cx('running-time')}>
+                                    {formatTime(time)}/{formatTime(duration.current)}
+                                </span>
+                                <div className={cx('fill-bar-timeline')} ref={fillBarTimeLineRef}></div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className={cx('preview')}>
+                            <i className="fa-solid fa-cloud-arrow-up"></i>
+                            <h4>Select video to upload</h4>
+                            <h5>Or drag and drop a file</h5>
+                            <p>MP4 or WebM</p>
+                            <p>720x1280 resolution or higher</p>
+                            <p>Up to 30 minutes</p>
+                            <p>Less than 2 GB</p>
+                            <Button primary medium>
+                                <label style={{ cursor: 'pointer' }} htmlFor="videoFile">
+                                    Select file
+                                </label>
+                            </Button>
+                            <input onChange={handleVideoUpload} type="file" id="videoFile" hidden accept="video/*" />
+                        </div>
+                    )}
+                    {videoLink ? (
+                        createPortal(
+                            <GenerateThumbnail
+                                videoLink={videoLink}
+                                duration={duration.current}
+                                setThumbnailList={setThumbnailList}
+                            />,
+                            document.body,
+                        )
+                    ) : (
+                        <></>
+                    )}
+                </>
             )}
         </label>
     );

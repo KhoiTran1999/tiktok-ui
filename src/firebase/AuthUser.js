@@ -10,6 +10,7 @@ import { UserSelector } from '../redux/selector';
 import { getUserList } from '../services/ApiService';
 import UserListSlice from './UserListSlice';
 import UserListMockSlice from './UserListMockSlice';
+import VideoListSlice from '../components/ProfileContent/VideoProfile/VideoListSlice';
 
 const AuthUser = () => {
     const navigate = useNavigate();
@@ -70,6 +71,11 @@ const AuthUser = () => {
         dispatch(RoomsSlice.actions.setCurRooms(CurRoomsList));
     }, [CurRoomsList]);
 
+    //Get videoList from FireStore and set videoList to Redux
+    const videoListFireStore = useFireStore('videoList', '', 'createdAt', 'desc');
+    useEffect(() => {
+        dispatch(VideoListSlice.actions.setVideoList(videoListFireStore));
+    }, [videoListFireStore]);
     //---------------------------------------------
     return <></>;
 };

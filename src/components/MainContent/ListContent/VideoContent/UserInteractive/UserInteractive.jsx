@@ -13,7 +13,7 @@ import style from './UserInteractive.module.scss';
 const cx = classNames.bind(style);
 const Box = styled(motion.div)``;
 
-const UserInteractive = () => {
+const UserInteractive = ({ video }) => {
     const MenuShare = [
         {
             icon: <i className="fa-solid fa-code"></i>,
@@ -146,7 +146,7 @@ const UserInteractive = () => {
                     })}
                 ></i>
             </div>
-            <p>1.4M</p>
+            <p>{video.likes}</p>
             <div className={cx('icon-wrapper')} onClick={handleClickComment}>
                 <i className="fa-solid fa-comment-dots"></i>
             </div>
@@ -172,7 +172,7 @@ const UserInteractive = () => {
                     <div className={cx('icon-wrapper')}>
                         <i className="fa-solid fa-share"></i>
                     </div>
-                    <p>17.8k</p>
+                    <p>{video.shares}</p>
                 </div>
             </Tippy>
         </div>

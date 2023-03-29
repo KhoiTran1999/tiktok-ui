@@ -72,7 +72,7 @@
                     transform: scale(1.2);
                     z-index: 10;
                     &::after {
-                        background-color: transparent;
+                        display: none;
                     }
                 }
                 img {
@@ -89,6 +89,15 @@
                     top: 0;
                     left: 0;
                     transition: 0.3s all;
+                    z-index: 12;
+                }
+                &.active {
+                    transform: scale(1.2);
+                    z-index: 11;
+                    border: 2px solid var(--primary);
+                    &::after {
+                        display: none;
+                    }
                 }
             }
             .skeleton {
@@ -218,6 +227,21 @@
                 color: rgba(22, 24, 35, 0.75);
             }
         }
+        .no-issues {
+            padding: 8px 12px;
+            background-color: rgba(22, 24, 35, 0.06);
+            border-radius: 4px;
+            i {
+                font-size: 14px;
+                color: rgb(19, 198, 19);
+                margin-right: 5px;
+            }
+            span {
+                font-size: 13px;
+                line-height: 1.5;
+                color: rgba(22, 24, 35, 0.75);
+            }
+        }
     }
     .footer-add-detail {
         margin-top: 24px;
@@ -232,6 +256,14 @@
             margin-left: 15px;
             width: 164px;
             height: 48px;
+            span {
+                font-size: 15px;
+            }
+        }
+        .restricted-post {
+            margin-left: 15px;
+            width: 164px;
+            height: 48px;
             background-color: rgba(235, 235, 235, 1);
             cursor: not-allowed;
             &:hover {
@@ -242,5 +274,22 @@
                 color: rgba(22, 24, 35, 0.34);
             }
         }
+        .loading {
+            margin-left: 15px;
+            width: 164px;
+            height: 48px;
+            i {
+                animation: loading 1s linear infinite;
+            }
+        }
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

@@ -4,7 +4,7 @@ import style from './VideoGrid.module.scss';
 import PlayLogo from '../../../../assets/icon/PlayLogo';
 
 const cx = classNames.bind(style);
-const VideoItem = ({ idVideoPlay, setIdVideoPlay, idVideo, dataVideo }) => {
+const VideoItem = ({ idVideoPlay, setIdVideoPlay, idVideo, linkVideo, poster, views, caption }) => {
     const videoRef = useRef(null);
 
     useEffect(() => {
@@ -21,15 +21,15 @@ const VideoItem = ({ idVideoPlay, setIdVideoPlay, idVideo, dataVideo }) => {
             className="col col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-9 col-xs-10 col-xxs-11"
             onMouseEnter={handleHover}
         >
-            <video loop muted ref={videoRef}>
-                <source src={dataVideo} type={'video/mp4'} />
+            <video loop muted ref={videoRef} poster={poster}>
+                <source src={linkVideo} type={'video/mp4'} />
                 Your browser does not support the video tag.
             </video>
-            <div className={cx('title')} title="Cách đối phó với mẹ khi bị điểm kém#Cris #CrisPhan #CrisDevilGamer">
-                Cách đối phó với mẹ khi bị điểm kém#Cris #CrisPhan #CrisDevilGamer
+            <div className={cx('title')} title={`${caption}`}>
+                {caption}
             </div>
             <PlayLogo className={cx('playLogo')} />
-            <strong className={cx('views')}>4.1M</strong>
+            <strong className={cx('views')}>{views}</strong>
         </li>
     );
 };

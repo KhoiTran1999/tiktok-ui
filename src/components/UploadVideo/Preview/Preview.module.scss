@@ -207,3 +207,28 @@
         width: 186px;
     }
 }
+.loading {
+    width: 260px;
+    height: 458px;
+    margin-top: 24px;
+    padding: 68px 35px;
+    border: 2px dashed rgba(22, 24, 35, 0.2);
+    border-radius: 8px;
+    flex: 0 0 264px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .loading-wrap {
+        width: 100px;
+        height: 100px;
+    }
+    p {
+        margin-top: 20px;
+        color: var(--text);
+    }
+    .cancel-button {
+        margin-top: 20px;
+        width: 130px;
+    }
+}

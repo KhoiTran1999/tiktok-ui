@@ -9,7 +9,7 @@ import style from './VideoContent.module.scss';
 import VolumeSlice from './volumeSlice';
 
 const cx = classNames.bind(style);
-const VideoContent = ({ dataVideo }) => {
+const VideoContent = ({ video }) => {
     const [play, setPlay] = useState(false);
     const [time, setTime] = useState(0);
 
@@ -126,7 +126,7 @@ const VideoContent = ({ dataVideo }) => {
         <div className={cx('video-wrapper')}>
             <div className={cx('wrapper')}>
                 <video loop muted={mutedRedux} ref={videoRef} onTimeUpdate={handleTimeupdate}>
-                    <source src={dataVideo} type={'video/mp4'} />
+                    <source src={video.videoURL} type={'video/mp4'} />
                     Your browser does not support the video tag.
                 </video>
                 <i
@@ -171,7 +171,7 @@ const VideoContent = ({ dataVideo }) => {
                     <div className={cx('fill-bar-timeline')} ref={fillBarTimeLineRef}></div>
                 </div>
             </div>
-            <UserInteractive />
+            <UserInteractive video={video} />
         </div>
     );
 };
