@@ -5,10 +5,10 @@ import Tippy from '@tippyjs/react/headless';
 import styled from 'styled-components';
 import { useSpring, motion } from 'framer-motion';
 
-import ImageCustom from '../../DetailComponent/ImageCustom';
+import ImageCustom from '../../ReusedComponent/ImageCustom';
 import style from './TippyAccountItem.module.scss';
-import SubnavWrapper from '../../DetailComponent/SubnavWrapper';
-import Button from '../../DetailComponent/Button/Button';
+import SubnavWrapper from '../../ReusedComponent/SubnavWrapper';
+import Button from '../../ReusedComponent/Button/Button';
 import { useSelector } from 'react-redux';
 import { UserSelector } from '../../../redux/selector';
 

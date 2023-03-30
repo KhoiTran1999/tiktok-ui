@@ -7,7 +7,7 @@ import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
 import { addDocument, cancelUploadFile, uploadFile, uploadPoster } from '../../../firebase/services';
 import { UserSelector } from '../../../redux/selector';
-import Button from '../../DetailComponent/Button';
+import Button from '../../ReusedComponent/Button';
 import ModalDiscard from '../ModalDiscard/ModalDiscard';
 import ModalDiscardSlice from '../ModalDiscard/ModalDiscardSlice';
 import style from './AddDetail.module.scss';
@@ -124,7 +124,8 @@ const AddDetail = ({
                 videoURL: downloadURL,
                 thumbnail: poster,
                 caption: inputValue,
-                likes: 0,
+                likes: [],
+                comments: [],
                 views: 0,
                 shares: 0,
             });

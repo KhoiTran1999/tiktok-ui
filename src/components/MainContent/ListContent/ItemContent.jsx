@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import images from '../../../assets/images';
 import { UserListSelector } from '../../../redux/selector';
-import { ImageCustom } from '../../DetailComponent';
+import { ImageCustom } from '../../ReusedComponent';
 import HeaderContainer from './HeaderContainer/HeaderContainer';
 import style from './ListContent.module.scss';
 import VideoContent from './VideoContent/VideoContent';
@@ -33,7 +33,7 @@ const ItemContent = ({ video }) => {
             </Link>
             <div className={cx('content-container')}>
                 <HeaderContainer userVideo={userVideo} video={video} />
-                <VideoContent video={video} />
+                <VideoContent video={video} userVideo={userVideo} />
             </div>
         </li>
     );

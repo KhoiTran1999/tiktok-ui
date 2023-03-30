@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '../../DetailComponent';
+import { Button } from '../../ReusedComponent';
 import style from './Footer.module.scss';
 import classNames from 'classnames/bind';
 import DirectedLink from './DirectedLink';

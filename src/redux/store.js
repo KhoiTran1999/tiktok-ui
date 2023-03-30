@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import ModalSignSlice from '../components/DetailComponent/ModalSign/ModalSignSlice';
-import UserLoginSlice from '../components/DetailComponent/ModalSign/UserLoginSlice';
+import ModalSignSlice from '../components/ReusedComponent/ModalSign/ModalSignSlice';
+import UserLoginSlice from '../components/ReusedComponent/ModalSign/UserLoginSlice';
 import ChoosedUserSlice from '../components/Messages/ChatAccountList/AccountItem/choosedUserSlice';
 import ModalSettingSlice from '../components/Messages/ModalSetting/ModalSettingSlice';
 import ModalDiscardSlice from '../components/UploadVideo/ModalDiscard/ModalDiscardSlice';

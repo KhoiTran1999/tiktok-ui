@@ -12,8 +12,8 @@ import LogoMessageActive from '../../../assets/icon/LogoMessageActive';
 import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
 import { auth } from '../../../firebase/config';
 import { UserSelector } from '../../../redux/selector';
-import { Button, ImageCustom, Menu, Wrapper } from '../../DetailComponent';
-import UserLoginSlice from '../../DetailComponent/ModalSign/UserLoginSlice';
+import { Button, ImageCustom, Menu, Wrapper } from '../../ReusedComponent';
+import UserLoginSlice from '../../ReusedComponent/ModalSign/UserLoginSlice';
 import style from './RightHeader.module.scss';
 import routes from '../../../config/routes';
 

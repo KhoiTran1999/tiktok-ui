@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import style from './HeaderContainer.module.scss';
-import { Button } from '../../../DetailComponent';
+import { Button } from '../../../ReusedComponent';
 import { useDispatch, useSelector } from 'react-redux';
-import ModalSignSlice from '../../../DetailComponent/ModalSign/ModalSignSlice';
+import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
 import { UserSelector } from '../../../../redux/selector';
 import { Link } from 'react-router-dom';
 

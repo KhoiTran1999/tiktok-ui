@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './UploadVideo.module.scss';
-import { SubnavWrapper } from '../DetailComponent';
+import { SubnavWrapper } from '../ReusedComponent';
 import Preview from './Preview/Preview';
 import AddDetail from './AddDetail/AddDetail';
 import Footer from './Footer/Footer';

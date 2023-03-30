@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import style from './ModalDiscard.module.scss';
-import Button from '../../DetailComponent/Button';
-import Modal from '../../DetailComponent/Modal';
+import Button from '../../ReusedComponent/Button';
+import Modal from '../../ReusedComponent/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalDiscardSlice from '../ModalDiscard/ModalDiscardSlice';
 import { ModalDiscardSelector, UserSelector } from '../../../redux/selector';

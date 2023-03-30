@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import ModalSignSlice from '../components/DetailComponent/ModalSign/ModalSignSlice';
-import UserLoginSlice from '../components/DetailComponent/ModalSign/UserLoginSlice';
+import ModalSignSlice from '../components/ReusedComponent/ModalSign/ModalSignSlice';
+import UserLoginSlice from '../components/ReusedComponent/ModalSign/UserLoginSlice';
 import RoomsSlice from '../components/Messages/RoomsSlice';
 import { auth } from '../firebase/config';
 import useFireStore from '../hooks/useFireStore';

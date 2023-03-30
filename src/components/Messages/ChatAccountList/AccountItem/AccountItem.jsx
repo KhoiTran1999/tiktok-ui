@@ -8,7 +8,7 @@ import { useSpring, motion } from 'framer-motion';
 import { CurrentRoomsSelector, UserSelector } from '../../../../redux/selector';
 import ChoosedUserSlice from './choosedUserSlice';
 import style from './AccountItem.module.scss';
-import { SubnavWrapper } from '../../../DetailComponent';
+import { SubnavWrapper } from '../../../ReusedComponent';
 import ToolList from './ToolList/ToolList';
 import SelectedRoomSlice from './selectedRoomSlice';
 

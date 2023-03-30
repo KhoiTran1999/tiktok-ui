@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Button, ImageCustom } from '../../DetailComponent';
+import { Button, ImageCustom } from '../../ReusedComponent';
 import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosedUserSlice';
 import style from './InforProfile.module.scss';
 

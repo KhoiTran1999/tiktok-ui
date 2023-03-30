@@ -13,7 +13,7 @@ const ListContent = () => {
         <div className={cx('list-content')}>
             <ul>
                 {videoList.map((val) => {
-                    return <ItemContent video={val} />;
+                    return <ItemContent key={val.id} video={val} />;
                 })}
             </ul>
         </div>

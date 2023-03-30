@@ -3,8 +3,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ModalSettingSelector } from '../../../redux/selector';
-import Button from '../../DetailComponent/Button';
-import Modal from '../../DetailComponent/Modal/Modal';
+import Button from '../../ReusedComponent/Button';
+import Modal from '../../ReusedComponent/Modal/Modal';
 import style from './ModalSetting.module.scss';
 import ModalSettingSlice from './ModalSettingSlice';
 

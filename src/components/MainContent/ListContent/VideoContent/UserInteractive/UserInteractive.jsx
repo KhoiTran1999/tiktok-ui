@@ -6,14 +6,17 @@ import 'animate.css';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserSelector } from '../../../../../redux/selector';
-import { Menu } from '../../../../DetailComponent';
-import ModalSignSlice from '../../../../DetailComponent/ModalSign/ModalSignSlice';
+import { Menu } from '../../../../ReusedComponent';
+import ModalSignSlice from '../../../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './UserInteractive.module.scss';
+import { updataDocument } from '../../../../../firebase/services';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 const Box = styled(motion.div)``;
 
-const UserInteractive = ({ video }) => {
+const UserInteractive = ({ video, userVideo }) => {
     const MenuShare = [
         {
             icon: <i className="fa-solid fa-code"></i>,
@@ -121,13 +124,22 @@ const UserInteractive = ({ video }) => {
     }
     //----------------------------------------------------
 
+    useEffect(() => {
+        if (video.likes.includes(user.uid)) setHeart(true);
+        else setHeart(false);
+        console.log(video);
+    }, [video.likes]);
+
     const handleHeartActive = () => {
         if (user.login === true) {
-            if (heart) {
+            if (video.likes.includes(user.uid)) {
                 setHeart(false);
+                const newLikes = video.likes.filter((val) => val !== user.uid);
+                updataDocument('videoList', video.id, { likes: newLikes });
                 return;
             } else {
                 setHeart(true);
+                updataDocument('videoList', video.id, { likes: [...video.likes, user.uid] });
             }
         } else dispatch(ModalSignSlice.actions.setModalSign(true));
     };
@@ -141,15 +153,17 @@ const UserInteractive = ({ video }) => {
             <div className={cx('icon-wrapper')} onClick={handleHeartActive}>
                 <i
                     className={cx('fa-solid fa-heart', {
-                        'heart-active': heart,
-                        'animate__animated animate__bounceIn': heart,
+                        'heart-active': heart && user.login === true,
+                        'animate__animated animate__bounceIn': heart && user.login === true,
                     })}
                 ></i>
             </div>
-            <p>{video.likes}</p>
-            <div className={cx('icon-wrapper')} onClick={handleClickComment}>
-                <i className="fa-solid fa-comment-dots"></i>
-            </div>
+            <p>{video.likes.length}</p>
+            <Link to={`/profile/${userVideo.nickName}/${video.id}`}>
+                <div className={cx('icon-wrapper')} onClick={handleClickComment}>
+                    <i className="fa-solid fa-comment-dots"></i>
+                </div>
+            </Link>
             <p>7789</p>
             <Tippy
                 trigger="click mouseenter"

@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Menu from '../../DetailComponent/Menu';
+import Menu from '../../ReusedComponent/Menu';
 import config from '../../../config';
 import style from './NavMenu.module.scss';
 import HomeLogo from '../../../assets/icon/HomeLogo';

@@ -8,7 +8,7 @@ import LogoTiktok from '../../assets/icon/LogoTiktok';
 import routes from '../../config/routes.js';
 import { UserSelector } from '../../redux/selector';
 import '../../translation/i18n.js';
-import { ModalSign } from '../DetailComponent';
+import { ModalSign } from '../ReusedComponent';
 import FormSearch from './FormSearch/FormSearch';
 import style from './Header.module.scss';
 import LoginRightHeader from './RightHeader/LoginRightHeader.jsx';

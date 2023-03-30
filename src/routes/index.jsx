@@ -10,11 +10,14 @@ import MessagesPage from '../pages/MessagesPage';
 import Profile from '../pages/Profile';
 import Upload from '../pages/Upload';
 import UploadLayout from '../Layouts/UploadLayout/UploadLayout';
+import CommentPage from '../pages/CommentPage';
+import CommentLayout from '../Layouts/CommentLayout';
 
 const publicRoutes = [
     { path: routes.home, page: Home, layout: MainLayout },
     { path: routes.following, page: Following, layout: MainLayout },
     { path: routes.profile, page: Profile, layout: ProfileLayout },
+    { path: routes.comment, page: CommentPage, layout: CommentLayout },
     { path: routes.live, page: Live, layout: LiveLayout },
     { path: routes.messages, page: MessagesPage, layout: MessagesLayout },
     { path: routes.upload, page: Upload, layout: UploadLayout },

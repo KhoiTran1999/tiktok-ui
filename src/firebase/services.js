@@ -16,7 +16,6 @@ export async function deleteDocument(collection, docId) {
 
 export async function updataDocument(collection, docId, field) {
     const collectionRef = db.collection(collection).doc(docId);
-    // const res = await collectionRef.update(field);
     const res = await collectionRef.get().then((snapShot) => {
         if (snapShot.exists) {
             collectionRef.update(field);
@@ -40,7 +39,6 @@ export const uploadFile = (
     const storageRef = ref(storage, nameFile);
     // Listen for state changes, errors, and completion of the upload.
     uploadTaskRef.current = uploadBytesResumable(storageRef, file);
-
     uploadTaskRef.current.on(
         'state_changed',
         (snapshot) => {

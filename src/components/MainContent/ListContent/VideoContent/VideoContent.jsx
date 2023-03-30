@@ -9,7 +9,7 @@ import style from './VideoContent.module.scss';
 import VolumeSlice from './volumeSlice';
 
 const cx = classNames.bind(style);
-const VideoContent = ({ video }) => {
+const VideoContent = ({ video, userVideo }) => {
     const [play, setPlay] = useState(false);
     const [time, setTime] = useState(0);
 
@@ -171,7 +171,7 @@ const VideoContent = ({ video }) => {
                     <div className={cx('fill-bar-timeline')} ref={fillBarTimeLineRef}></div>
                 </div>
             </div>
-            <UserInteractive video={video} />
+            <UserInteractive video={video} userVideo={userVideo} />
         </div>
     );
 };

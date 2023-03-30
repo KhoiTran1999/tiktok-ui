@@ -5,8 +5,8 @@ import { getSearchUser } from '../../../services/ApiService';
 import { useTranslation } from 'react-i18next';
 import useDebounce from '../../../hooks/useDebounce';
 import '../../../translation/i18n';
-import AccountSearch from '../../DetailComponent/AccountSearch';
-import SubnavWrapper from '../../DetailComponent/SubnavWrapper';
+import AccountSearch from '../../ReusedComponent/AccountSearch';
+import SubnavWrapper from '../../ReusedComponent/SubnavWrapper';
 import style from './FormSearch.module.scss';
 import useFireStore from '../../../hooks/useFireStore';
 

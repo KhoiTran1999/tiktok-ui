@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { UserSelector } from '../../../redux/selector';
-import { Button, Menu } from '../../DetailComponent';
-import ModalSignSlice from '../../DetailComponent/ModalSign/ModalSignSlice';
+import { Button, Menu } from '../../ReusedComponent';
+import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './RightHeader.module.scss';
 
 const Box = styled(motion.div)``;

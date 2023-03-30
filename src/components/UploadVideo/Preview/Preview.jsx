@@ -5,7 +5,7 @@ import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 import images from '../../../assets/images';
-import { Button } from '../../DetailComponent';
+import { Button } from '../../ReusedComponent';
 import GenerateThumbnail from '../generateThumbnail/GenerateThumbnail';
 import style from './Preview.module.scss';
 import { cancelUploadFile } from '../../../firebase/services';

@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { AllUserListSelector, UserListSelector, UserSelector } from '../../../redux/selector';
-import { AccountSearch } from '../../DetailComponent';
+import { AccountSearch } from '../../ReusedComponent';
 import TippyAccountItem from '../TippyAccountItem';
 import style from './AccountList.module.scss';
 
