@@ -8,7 +8,7 @@ import classNames from 'classnames/bind';
 import style from './FooterComment.module.scss';
 
 const cx = classNames.bind(style);
-const FooterComment = () => {
+const FooterComment = ({ video, user }) => {
     const [inputValue, setInputValue] = useState('');
     const [isCount, setIsCount] = useState(false);
 
@@ -65,7 +65,6 @@ const FooterComment = () => {
                         className={cx('textArea')}
                         placeholder={'Add comment...'}
                         maxLength={150}
-                        autoFocus
                         rows={1}
                     ></textarea>
                     <span

@@ -6,12 +6,12 @@ import BodyComment from './BodyComment/BodyComment';
 import FooterComment from './FooterComment/FooterComment';
 
 const cx = classNames.bind(style);
-const CommentWrapper = () => {
+const CommentWrapper = ({ video, user }) => {
     return (
         <div className={cx('CommentWrapper')}>
-            <HeaderComment />
-            <BodyComment />
-            <FooterComment />
+            <HeaderComment video={video} user={user} />
+            <BodyComment video={video} user={user} />
+            <FooterComment video={video} user={user} />
         </div>
     );
 };

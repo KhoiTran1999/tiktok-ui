@@ -2,11 +2,10 @@ import classNames from 'classnames/bind';
 import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import images from '../../../../assets/images';
 import style from './VideoElement.module.scss';
 
 const cx = classNames.bind(style);
-const VideoElement = ({ videoRef, isPlay, classNameTimeLine }) => {
+const VideoElement = ({ video, videoRef, isPlay, classNameTimeLine }) => {
     const [muted, setMuted] = useState(false);
     const [volume, setVolume] = useState(0.3);
     const [time, setTime] = useState(0);
@@ -70,7 +69,7 @@ const VideoElement = ({ videoRef, isPlay, classNameTimeLine }) => {
     return (
         <>
             <div className={cx('video')}>
-                <video onTimeUpdate={handleTimeupdate} src={images.video} ref={videoRef} loop></video>
+                <video onTimeUpdate={handleTimeupdate} src={video.videoURL} ref={videoRef} loop autoPlay></video>
             </div>
 
             <span

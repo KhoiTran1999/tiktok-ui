@@ -6,10 +6,13 @@ import VideoElement from './VideoElement/VideoElement';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(style);
-const VideoWrapper = () => {
-    const [isPlay, setIsPlay] = useState(false);
+const VideoWrapper = ({ video }) => {
+    const navigate = useNavigate();
+
+    const [isPlay, setIsPlay] = useState(true);
 
     const videoRef = useRef();
 
@@ -26,31 +29,35 @@ const VideoWrapper = () => {
         }
     };
 
-    const handleTest = (event) => {
+    const handleGoback = (event) => {
         event.stopPropagation();
-        console.log('test');
+        navigate(-1);
+    };
+
+    const handleForward = (event) => {
+        event.stopPropagation();
     };
 
     return (
         <div onClick={handlePlay} className={cx('videoWrapper')}>
-            <span onClick={handleTest} className={cx('escape-button')}>
+            <span onClick={handleGoback} className={cx('escape-button')}>
                 <i className="fa-solid fa-x"></i>
             </span>
-            <span className={cx('logoTiktok')}>
+            <span onClick={handleForward} className={cx('logoTiktok')}>
                 <LogoTiktokCircle />
             </span>
-            <span className={cx('report')}>
+            <span onClick={handleForward} className={cx('report')}>
                 <i className="fa-regular fa-flag"></i>
                 <span>Report</span>
             </span>
 
-            <span className={cx('up-button')}>
+            <span onClick={handleForward} className={cx('up-button')}>
                 <i className="fa-solid fa-chevron-up"></i>
             </span>
-            <span className={cx('down-button')}>
+            <span onClick={handleForward} className={cx('down-button')}>
                 <i className="fa-solid fa-chevron-down"></i>
             </span>
-            <VideoElement classNameTimeLine={cx('timeLine')} videoRef={videoRef} isPlay={isPlay} />
+            <VideoElement video={video} classNameTimeLine={cx('timeLine')} videoRef={videoRef} isPlay={isPlay} />
         </div>
     );
 };

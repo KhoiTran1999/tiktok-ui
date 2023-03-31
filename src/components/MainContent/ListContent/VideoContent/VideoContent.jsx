@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useElementOnScreen } from '../../../../hooks';
 import { MutedSelector, VolumeSelector } from '../../../../redux/selector';
 import MutedSlice from './mutedSlice';
@@ -122,10 +123,15 @@ const VideoContent = ({ video, userVideo }) => {
         videoRef.current.currentTime = e.target.value;
     };
 
+    const navigate = useNavigate();
+    const moveToComment = () => {
+        navigate(`/profile/${userVideo.nickName}/${video.id}`);
+    };
+
     return (
         <div className={cx('video-wrapper')}>
             <div className={cx('wrapper')}>
-                <video loop muted={mutedRedux} ref={videoRef} onTimeUpdate={handleTimeupdate}>
+                <video onClick={moveToComment} loop muted={mutedRedux} ref={videoRef} onTimeUpdate={handleTimeupdate}>
                     <source src={video.videoURL} type={'video/mp4'} />
                     Your browser does not support the video tag.
                 </video>

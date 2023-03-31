@@ -25,10 +25,11 @@ const HeaderContainer = ({ userVideo, video }) => {
                     </span>
                 </Link>
                 <p className={cx('status')}>
-                    {video.caption} <b className={cx('hash-tag')}>#story #tamtrang # duongthaithuyy</b>
+                    {video.caption}
+                    {/* <b className={cx('hash-tag')}>#story #tamtrang # duongthaithuyy</b> */}
                 </p>
                 <span className={cx('music')}>
-                    <i className="fa-solid fa-music"></i> Flop nhất link nhạc - Hayato_shiro
+                    {/* <i className="fa-solid fa-music"></i> Flop nhất link nhạc - Hayato_shiro */}
                 </span>
             </div>
             <Button outline small onClick={handleSign}>

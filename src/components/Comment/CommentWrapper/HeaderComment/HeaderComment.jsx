@@ -1,13 +1,21 @@
-import React from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import style from './HeaderComment.module.scss';
-import images from '../../../../assets/images';
+import React from 'react';
+import 'animate.css';
+import { formatRelative } from 'date-fns';
 import Button from '../../../../components/ReusedComponent/Button';
-import { Menu, SubnavWrapper, Wrapper } from '../../../ReusedComponent';
+import { SubnavWrapper, Wrapper } from '../../../ReusedComponent';
+import style from './HeaderComment.module.scss';
+import { updataDocument } from '../../../../firebase/services';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
+import { UserSelector } from '../../../../redux/selector';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
-const HeaderComment = () => {
+const HeaderComment = ({ video, user }) => {
     const MenuShare = [
         {
             icon: <i className="fa-brands fa-linkedin-in"></i>,
@@ -34,46 +42,124 @@ const HeaderComment = () => {
             title: 'Share to Pinterest',
         },
     ];
+
+    const dispatch = useDispatch();
+
+    const [heart, setHeart] = useState(false);
+    const userLogin = useSelector(UserSelector);
+
+    useEffect(() => {
+        if (video.likes.includes(userLogin.uid)) setHeart(true);
+        else setHeart(false);
+    }, [video.likes]);
+
+    const handleHeartActive = () => {
+        if (userLogin.login === true) {
+            if (video.likes.includes(userLogin.uid)) {
+                setHeart(false);
+                const newLikes = video.likes.filter((val) => val !== userLogin.uid);
+                updataDocument('videoList', video.id, { likes: newLikes });
+                return;
+            } else {
+                setHeart(true);
+                updataDocument('videoList', video.id, { likes: [...video.likes, userLogin.uid] });
+            }
+        } else dispatch(ModalSignSlice.actions.setModalSign(true));
+    };
+
+    const formatDate = (seconds) => {
+        let formattedDate = '';
+        if (seconds) {
+            formattedDate = formatRelative(new Date(seconds * 1000), new Date());
+
+            formattedDate = formattedDate.charAt(0).toLocaleUpperCase() + formattedDate.slice(1);
+        }
+        return formattedDate;
+    };
+
+    const handleCopyHref = () => {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Copied');
+    };
+
     return (
         <div className={cx('header-comment')}>
             <div className={cx('header-comment-avatar')}>
-                <div className={cx('infor')}>
-                    <div className={cx('avatar')}>
-                        <img src={images.imgGaiXinh2} alt="" />
-                    </div>
-                    <div className={cx('wrapper-nickName')}>
-                        <div className={cx('wrap')}>
-                            <span className={cx('nickName')}>_veebe</span>
-                            <span className={cx('tick')}>
-                                <i className={cx('fa-solid fa-circle-check', 'check')}></i>
-                            </span>
+                <Tippy
+                    delay={[500, 0]}
+                    interactive
+                    render={(attrs) => (
+                        <SubnavWrapper className={cx('wrapper-tippy')}>
+                            <div className={cx('header-tippy')}>
+                                <Link to={`/profile/${user.nickName}`} target="_blank">
+                                    <img src={user.photoURL} alt="avatar" />
+                                </Link>
+                                <Button outline medium>
+                                    Follow
+                                </Button>
+                            </div>
+                            <div className={cx('body-tippy')}>
+                                <Link to={`/profile/${user.nickName}`} target="_blank">
+                                    <h4 className={cx('nickName')}>{user.nickName}</h4>
+                                    <p className={cx('displayName')}>{user.displayName}</p>
+                                </Link>
+                                <p className={cx('follow')}>
+                                    <strong>{user.followersCount}</strong> Followers <strong>{user.likesCount}</strong>{' '}
+                                    Likes
+                                </p>
+                            </div>
+                            <div className={cx('bio')}>
+                                <p>{user.bio}</p>
+                            </div>
+                        </SubnavWrapper>
+                    )}
+                >
+                    <Link to={`/profile/${user.nickName}`}>
+                        <div className={cx('infor')}>
+                            <div className={cx('avatar')}>
+                                <img src={user.photoURL} alt="avatar" />
+                            </div>
+                            <div className={cx('wrapper-nickName')}>
+                                <div className={cx('wrap')}>
+                                    <span className={cx('nickName')}>{user.nickName}</span>
+                                    <span className={cx('tick')}>
+                                        <i className={cx('fa-solid fa-circle-check', 'check')}></i>
+                                    </span>
+                                </div>
+                                <div className={cx('wrap')}>
+                                    <span className={cx('displayName')}>{user.displayName}</span>
+                                    <span> · </span>
+                                    <span className={cx('createdAt')}>{formatDate(video.createdAt.seconds)}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className={cx('wrap')}>
-                            <span className={cx('displayName')}>Beevee</span>
-                            <span> · </span>
-                            <span className={cx('createdAt')}>2d ago</span>
-                        </div>
-                    </div>
-                </div>
+                    </Link>
+                </Tippy>
+
                 <Button outline medium>
                     Follow
                 </Button>
             </div>
-            <div className={cx('title')}>Giọng ngoài đời cũng ko chua lắm ạ ~~~~</div>
-            <div className={cx('music')}>
+            <div className={cx('title')}>{video.caption}</div>
+            {/* <div className={cx('music')}>
                 <i className="fa-solid fa-music"></i>
                 nhạc nền - Đạt Villa
-            </div>
+            </div> */}
             <div className={cx('like-share')}>
                 <div className={cx('like-wrap')}>
-                    <div className={cx('heart')}>
-                        <i className="fa-solid fa-heart"></i>
+                    <div onClick={handleHeartActive} className={cx('heart')}>
+                        <i
+                            className={cx('fa-solid fa-heart', {
+                                'heart-active': heart && userLogin.login === true,
+                                'animate__animated animate__bounceIn': heart && userLogin.login === true,
+                            })}
+                        ></i>
                     </div>
-                    <span>99.4k</span>
+                    <span>{video.likes.length}</span>
                     <div className={cx('comment')}>
                         <i className="fa-solid fa-comment-dots"></i>
                     </div>
-                    <span>5492</span>
+                    <span>{video.comments.length}</span>
                 </div>
                 <ul className={cx('share-wrap')}>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Embed</Wrapper>}>
@@ -123,8 +209,10 @@ const HeaderComment = () => {
                 </ul>
             </div>
             <div className={cx('copy-link')}>
-                <p className={cx('link')}>https://www.tiktok.com/@oanhalee411/video/7206927491183807771</p>
-                <button className={cx('button-copy')}>Copy Link</button>
+                <p className={cx('link')}>{window.location.href}</p>
+                <button onClick={handleCopyHref} className={cx('button-copy')}>
+                    Copy Link
+                </button>
             </div>
         </div>
     );

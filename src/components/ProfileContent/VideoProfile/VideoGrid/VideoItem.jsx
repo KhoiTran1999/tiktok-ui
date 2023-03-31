@@ -2,9 +2,10 @@ import classNames from 'classnames/bind';
 import React, { useEffect, useRef } from 'react';
 import style from './VideoGrid.module.scss';
 import PlayLogo from '../../../../assets/icon/PlayLogo';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(style);
-const VideoItem = ({ idVideoPlay, setIdVideoPlay, idVideo, linkVideo, poster, views, caption }) => {
+const VideoItem = ({ user, idVideoPlay, setIdVideoPlay, idVideo, linkVideo, poster, views, caption }) => {
     const videoRef = useRef(null);
 
     useEffect(() => {
@@ -16,12 +17,18 @@ const VideoItem = ({ idVideoPlay, setIdVideoPlay, idVideo, linkVideo, poster, vi
     const handleHover = () => {
         setIdVideoPlay(idVideo);
     };
+
+    const navigate = useNavigate();
+    const moveToComment = () => {
+        navigate(`/profile/${user.nickName}/${idVideo}`);
+    };
+
     return (
         <li
             className="col col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-9 col-xs-10 col-xxs-11"
             onMouseEnter={handleHover}
         >
-            <video loop muted ref={videoRef} poster={poster}>
+            <video onClick={moveToComment} loop muted ref={videoRef} poster={poster}>
                 <source src={linkVideo} type={'video/mp4'} />
                 Your browser does not support the video tag.
             </video>

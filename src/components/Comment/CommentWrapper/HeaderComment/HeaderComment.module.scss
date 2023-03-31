@@ -7,6 +7,9 @@
         margin-bottom: 18px;
         .infor {
             display: flex;
+            &:hover .wrapper-nickName .wrap .nickName {
+                text-decoration: underline;
+            }
             .avatar {
                 margin-right: 12px;
                 img {
@@ -39,6 +42,40 @@
                     .createdAt {
                         font-size: 13px;
                     }
+                }
+            }
+        }
+        .wrapper-tippy {
+            width: 320px;
+            padding: 20px;
+            .header-tippy {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                img {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+            .body-tippy {
+                .nickName {
+                    margin-top: 7px;
+                }
+                .displayName {
+                    font-size: 13px;
+                }
+                .follow {
+                    margin-top: 7px;
+                }
+            }
+            .bio {
+                padding-top: 16px;
+                margin-top: 16px;
+                border-top: 1px solid rgba(22, 24, 35, 0.12);
+                p {
+                    font-size: 14px;
                 }
             }
         }
@@ -91,6 +128,15 @@
                 font-size: 11px;
                 font-weight: 700;
                 text-align: center;
+            }
+            .heart {
+                cursor: pointer;
+                i {
+                    &.heart-active {
+                        color: rgb(254, 44, 85);
+                        position: relative;
+                    }
+                }
             }
         }
         .share-wrap {
@@ -186,6 +232,7 @@
             overflow: hidden;
             white-space: nowrap;
             padding: 7px 0px 5px 12px;
+            cursor: default;
         }
         .button-copy {
             font-size: 13px;

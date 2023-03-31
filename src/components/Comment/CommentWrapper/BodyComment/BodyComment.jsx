@@ -4,7 +4,7 @@ import style from './BodyComment.module.scss';
 import Commenter from './Commenter/Commenter';
 
 const cx = classNames.bind(style);
-const BodyComment = () => {
+const BodyComment = ({ video, user }) => {
     return (
         <div className={cx('bodyComment')}>
             <Commenter />

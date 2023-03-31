@@ -21,6 +21,7 @@ const VideoGrid = ({ videoList, user }) => {
                                 poster={val.thumbnail}
                                 views={val.views}
                                 caption={val.caption}
+                                user={user}
                             />
                         );
                     }
