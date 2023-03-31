@@ -35,7 +35,6 @@ const FooterChatBox = () => {
     };
 
     const handleInput = (e) => {
-        console.log(inputValue);
         if (inputValue.length === 0 && e.target.value === ' ') return;
         setInputValue(e.target.value);
     };

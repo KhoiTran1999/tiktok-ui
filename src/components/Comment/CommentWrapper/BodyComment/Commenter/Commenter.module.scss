@@ -1,0 +1,99 @@
+.commenter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    &:hover .likes .report {
+        opacity: 1;
+        visibility: visible;
+    }
+    .infor {
+        display: flex;
+        .avatar {
+            margin-right: 12px;
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+        .infor-user {
+            .nickName-wrap {
+                display: flex;
+                align-items: center;
+                .nickName {
+                    font-size: 17px;
+                    font-weight: 600;
+                    margin-right: 7px;
+                }
+                > i {
+                    font-size: 14px;
+                    color: rgb(32, 213, 236);
+                }
+            }
+            .text {
+                font-size: 15px;
+                margin-bottom: 6px;
+                color: var(--text);
+            }
+            .createdAt-wrap {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .createdAt {
+                    color: rgba(22, 24, 35, 0.5);
+                    font-size: 13px;
+                    line-height: 20px;
+                }
+                .reply {
+                    color: rgba(22, 24, 35, 0.5);
+                    font-size: 14px;
+                    line-height: 20px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .likes {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .report {
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .report-wrap {
+            background-color: white;
+            padding: 17px 99px 17px 20px;
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+            cursor: pointer;
+            &:hover i {
+                color: var(--primary);
+            }
+            &:hover span {
+                color: var(--primary);
+            }
+            i {
+                margin-right: 10px;
+            }
+            span {
+                color: var(--text);
+                font-size: 17px;
+                font-weight: 600;
+            }
+        }
+        .heart {
+            font-size: 17px;
+            color: rgba(22, 24, 35, 0.5);
+            cursor: pointer;
+        }
+        span {
+            font-size: 12px;
+            color: rgb(151, 149, 149);
+            margin-bottom: 15px;
+        }
+    }
+}
