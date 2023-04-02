@@ -13,12 +13,14 @@ import MutedSlice from '../components/MainContent/ListContent/VideoContent/muted
 import VolumeSlice from '../components/MainContent/ListContent/VideoContent/volumeSlice';
 import UserListMockSlice from '../firebase/UserListMockSlice';
 import VideoListSlice from '../components/ProfileContent/VideoProfile/VideoListSlice';
+import ModalEditProfileSlice from '../components/ProfileContent/ModalEditProfile/ModalEditProfileSlice';
 
 const store = configureStore({
     reducer: {
         modalSign: ModalSignSlice.reducer,
         modalSetting: ModalSettingSlice.reducer,
         modalDiscard: ModalDiscardSlice.reducer,
+        modalEditProfile: ModalEditProfileSlice.reducer,
         userLogin: UserLoginSlice.reducer,
         curRoomsList: RoomsSlice.reducer,
         userList: UserListSlice.reducer,

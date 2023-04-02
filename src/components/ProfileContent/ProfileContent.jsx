@@ -2,11 +2,13 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import style from './ProfileContent.module.scss';
 import MoreActionProfile from './MoreActionProfile/MoreActionProfile';
+import { createPortal } from 'react-dom';
 
 import InforProfile from './InforProfile/InforProfile';
 import VideoProfile from './VideoProfile/VideoProfile';
 import { useSelector } from 'react-redux';
 import { AllUserListSelector } from '../../redux/selector';
+import ModalEditProfile from './ModalEditProfile/ModalEditProfile';
 
 const cx = classNames.bind(style);
 const ProfileContent = () => {
@@ -23,6 +25,7 @@ const ProfileContent = () => {
                 </div>
                 <VideoProfile allUserList={allUserList} />
             </div>
+            {createPortal(<ModalEditProfile />, document.body)}
         </div>
     );
 };

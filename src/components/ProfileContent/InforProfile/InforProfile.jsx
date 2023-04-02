@@ -7,6 +7,7 @@ import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosed
 import style from './InforProfile.module.scss';
 import { CurrentRoomsSelector, UserSelector } from '../../../redux/selector';
 import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
+import ModalEditProfileSlice from '../ModalEditProfile/ModalEditProfileSlice';
 import { addDocument, updateDocument } from '../../../firebase/services';
 import routes from '../../../config/routes';
 
@@ -58,7 +59,7 @@ const InforProfile = ({ allUserList }) => {
     };
 
     const handleEditProfile = () => {
-        dispatch(ModalSignSlice.actions.setModalSign(true));
+        dispatch(ModalEditProfileSlice.actions.setModalEditProfile(true));
     };
 
     return (
