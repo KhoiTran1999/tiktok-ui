@@ -22,10 +22,14 @@ const cx = classNames.bind(style);
 
 const LoginRightHeader = () => {
     const { t } = useTranslation();
+
+    const user = useSelector(UserSelector);
+
     const dataMainMenuLogin = [
         {
             icon: <i className="fa-regular fa-user"></i>,
             title: t('header.Menu.viewProfile'),
+            to: `/profile/${user.displayName}`,
         },
         {
             icon: <i className="fa-brands fa-tiktok"></i>,
@@ -75,13 +79,29 @@ const LoginRightHeader = () => {
     const [isResetMenu, setIsResetMenu] = useState(false);
 
     const dispatch = useDispatch();
-    const user = useSelector(UserSelector);
     const navigate = useNavigate();
 
     const onLogout = () => {
         auth.signOut();
         navigate(routes.home);
-        dispatch(UserLoginSlice.actions.setUser(''));
+        dispatch(
+            UserLoginSlice.actions.setUser({
+                login: false,
+                displayName: '',
+                nickName: '',
+                email: '',
+                photoURL: '',
+                uid: '',
+                providerID: '',
+                keyword: '', //For key word searching
+                bio: '',
+                tick: false,
+                followings: [],
+                followers: [],
+                likes: 0,
+                websiteURL: '',
+            }),
+        );
     };
 
     //--------------Tippy Motion Framer-----------------------

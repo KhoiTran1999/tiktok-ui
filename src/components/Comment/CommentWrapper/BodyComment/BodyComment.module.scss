@@ -6,4 +6,16 @@
     overflow-y: auto;
     width: 100%;
     height: 100%;
+    .emptyComment {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+            color: rgba(22, 24, 35, 0.5);
+            font-weight: 400;
+            font-size: 13px;
+        }
+    }
 }

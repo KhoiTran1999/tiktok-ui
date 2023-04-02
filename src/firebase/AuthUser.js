@@ -6,7 +6,7 @@ import UserLoginSlice from '../components/ReusedComponent/ModalSign/UserLoginSli
 import RoomsSlice from '../components/Messages/RoomsSlice';
 import { auth } from '../firebase/config';
 import useFireStore from '../hooks/useFireStore';
-import { UserSelector } from '../redux/selector';
+import { UserListSelector, UserSelector } from '../redux/selector';
 import { getUserList } from '../services/ApiService';
 import UserListSlice from './UserListSlice';
 import UserListMockSlice from './UserListMockSlice';
@@ -17,23 +17,27 @@ const AuthUser = () => {
     const dispatch = useDispatch();
 
     const userLogin = useSelector(UserSelector);
-
+    const userList = useSelector(UserListSelector);
     //Get user from Auth Firebase after login
     useEffect(() => {
         const unscribe = auth.onAuthStateChanged((user) => {
             if (user) {
-                const { displayName, email, uid, photoURL } = user;
-                dispatch(UserLoginSlice.actions.setUser({ displayName, email, uid, photoURL, login: true }));
+                const { uid } = user;
+                userList.map((val) => {
+                    if (val.uid === uid) {
+                        dispatch(UserLoginSlice.actions.setUser({ ...val, login: true }));
+                    }
+                });
+
                 dispatch(ModalSignSlice.actions.setModalSign(false));
             } else {
                 dispatch(UserLoginSlice.actions.setUser({ login: false }));
-                // navigate(routes.home);
             }
         });
         return () => {
             unscribe();
         };
-    }, []);
+    }, [userList]);
 
     //Get userList from FireStore and set it
     const userListFireStore = useFireStore('userList');

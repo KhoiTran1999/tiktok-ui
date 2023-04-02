@@ -46,6 +46,7 @@ const TippyAccountItem = ({ allUserList }) => {
         <div className={cx('Account-list-sidebar')}>
             <ul>
                 {allUserList.map((val) => {
+                    if (val.uid === user.uid) return <></>;
                     return (
                         <li key={val.id}>
                             <Tippy
@@ -75,7 +76,7 @@ const TippyAccountItem = ({ allUserList }) => {
                                                     </div>
                                                     <p className={cx('name')}>{val.displayName}</p>
                                                     <p className={cx('status')}>
-                                                        <b>{val.followersCount}</b> Followers <b>{val.likesCount}</b>
+                                                        <b>{val.followers.length}</b> Followers <b>{val.likes}</b>
                                                         Likes
                                                     </p>
                                                 </div>

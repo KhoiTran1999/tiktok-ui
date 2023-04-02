@@ -10,17 +10,26 @@
         display: flex;
         .avatar {
             margin-right: 12px;
+            height: fit-content;
+            cursor: pointer;
             img {
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
                 object-fit: cover;
             }
+            &:hover ~ .infor-user .nickName {
+                text-decoration: underline;
+            }
         }
         .infor-user {
             .nickName-wrap {
                 display: flex;
                 align-items: center;
+                cursor: pointer;
+                &:hover .nickName {
+                    text-decoration: underline;
+                }
                 .nickName {
                     font-size: 17px;
                     font-weight: 600;
@@ -29,6 +38,40 @@
                 > i {
                     font-size: 14px;
                     color: rgb(32, 213, 236);
+                }
+            }
+            .wrapper-tippy {
+                width: 320px;
+                padding: 20px;
+                .header-tippy {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    img {
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                }
+                .body-tippy {
+                    .nickName {
+                        margin-top: 7px;
+                    }
+                    .displayName {
+                        font-size: 13px;
+                    }
+                    .follow {
+                        margin-top: 7px;
+                    }
+                }
+                .bio {
+                    padding-top: 16px;
+                    margin-top: 16px;
+                    border-top: 1px solid rgba(22, 24, 35, 0.12);
+                    p {
+                        font-size: 14px;
+                    }
                 }
             }
             .text {
@@ -44,6 +87,7 @@
                     color: rgba(22, 24, 35, 0.5);
                     font-size: 13px;
                     line-height: 20px;
+                    margin-right: 10px;
                 }
                 .reply {
                     color: rgba(22, 24, 35, 0.5);
@@ -58,6 +102,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        align-items: center;
         .report {
             font-size: 20px;
             cursor: pointer;
@@ -89,6 +134,9 @@
             font-size: 17px;
             color: rgba(22, 24, 35, 0.5);
             cursor: pointer;
+            &.heart-active {
+                color: rgb(254, 44, 85);
+            }
         }
         span {
             font-size: 12px;

@@ -10,7 +10,7 @@ import { VideoListSelector } from '../../../redux/selector';
 
 const cx = classNames.bind(style);
 const VideoProfile = ({ allUserList }) => {
-    const [active, setActive] = useState(true);
+    const [activeLiked, setActive] = useState(true);
     const [videoList, setVideoList] = useState([]);
 
     const linkName = useParams();
@@ -43,12 +43,12 @@ const VideoProfile = ({ allUserList }) => {
         <div className={cx('videoProfile')}>
             <div
                 className={cx('nav', {
-                    active: !active,
+                    active: !activeLiked,
                 })}
             >
                 <div
                     className={cx('videos', {
-                        active: active,
+                        active: activeLiked,
                     })}
                     onClick={handleActiveVideos}
                 >
@@ -56,7 +56,7 @@ const VideoProfile = ({ allUserList }) => {
                 </div>
                 <div
                     className={cx('liked', {
-                        active: !active,
+                        active: !activeLiked,
                     })}
                     onClick={handleActiveLiked}
                 >
@@ -64,7 +64,7 @@ const VideoProfile = ({ allUserList }) => {
                     Liked
                 </div>
             </div>
-            <VideoGrid videoList={videoList} user={user} />
+            <VideoGrid videoList={videoList} user={user} activeLiked={activeLiked} />
         </div>
     );
 };

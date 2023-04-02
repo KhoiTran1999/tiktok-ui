@@ -37,9 +37,9 @@ const ModalSign = () => {
                 keyword: generateKey(user.displayName), //For key word searching
                 bio: '',
                 tick: true,
-                followingsCount: 0,
-                followersCount: 0,
-                likesCount: 0,
+                followings: [],
+                followers: [],
+                likes: [],
                 websiteURL: user.email,
             });
         }
@@ -55,9 +55,7 @@ const ModalSign = () => {
                 })}
             >
                 <div className={cx('escape')} onClick={handleEscape}>
-                    <Link to={routes.home}>
-                        <i className="fa-solid fa-xmark"></i>
-                    </Link>
+                    <i className="fa-solid fa-xmark"></i>
                 </div>
                 <div className={cx('wrap-content')}>
                     <h2>Get more of what you love when you log in to TikTok</h2>

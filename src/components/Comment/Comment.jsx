@@ -15,7 +15,7 @@ const Comment = () => {
     const param = useParams();
 
     const [video, setVideo] = useState({ likes: [], comments: [], createdAt: {} });
-    const [user, setUser] = useState({});
+    const [userVideo, setUserVideo] = useState({ followers: [], following: [], likes: [] });
 
     const videoList = useSelector(VideoListSelector);
     const userList = useSelector(UserListSelector);
@@ -29,7 +29,7 @@ const Comment = () => {
     useEffect(() => {
         if (video) {
             userList.map((val) => {
-                if (video.uid === val.uid) setUser(val);
+                if (video.uid === val.uid) setUserVideo(val);
             });
         }
     }, [video]);
@@ -37,12 +37,16 @@ const Comment = () => {
     return (
         <div className={cx('body-wrapper')}>
             <div
-                style={{ backgroundSize: 'auto', backgroundImage: `url(${video.thumbnail})` }}
+                style={{
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    backgroundImage: `url(${video.thumbnail})`,
+                }}
                 className={cx('background')}
             ></div>
             <div className={cx('body-content')}>
                 <VideoWrapper video={video} />
-                <CommentWrapper video={video} user={user} />
+                <CommentWrapper video={video} userVideo={userVideo} />
             </div>
         </div>
     );

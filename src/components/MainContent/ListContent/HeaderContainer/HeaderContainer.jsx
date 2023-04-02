@@ -4,17 +4,31 @@ import style from './HeaderContainer.module.scss';
 import { Button } from '../../../ReusedComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
-import { UserSelector } from '../../../../redux/selector';
+import { UserListSelector, UserSelector } from '../../../../redux/selector';
 import { Link } from 'react-router-dom';
+import { updateDocument } from '../../../../firebase/services';
 
 const cx = classNames.bind(style);
 const HeaderContainer = ({ userVideo, video }) => {
     const dispatch = useDispatch();
     const user = useSelector(UserSelector);
+    const userList = useSelector(UserListSelector);
 
-    const handleSign = () => {
-        if (user.login === false) dispatch(ModalSignSlice.actions.setModalSign(true));
+    const handleFollow = () => {
+        if (user.followers.includes(video.uid)) {
+            const newFollowers = user.followers.filter((val) => val !== video.uid);
+            updateDocument('userList', user.id, {
+                ...user,
+                followers: newFollowers,
+            });
+        } else {
+            updateDocument('userList', user.id, {
+                ...user,
+                followers: [...user.followers, video.uid],
+            });
+        }
     };
+    console.log(user.followers);
     return (
         <div className={cx('header-container')}>
             <div className={cx('info-container')}>
@@ -32,9 +46,22 @@ const HeaderContainer = ({ userVideo, video }) => {
                     {/* <i className="fa-solid fa-music"></i> Flop nhất link nhạc - Hayato_shiro */}
                 </span>
             </div>
-            <Button outline small onClick={handleSign}>
-                Follow
-            </Button>
+
+            {user.login === false ? (
+                <Button outline small onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}>
+                    Follow
+                </Button>
+            ) : user.followers.includes(video.uid) ? (
+                <Button style={{ padding: '4px 16px' }} basic small onClick={handleFollow}>
+                    Following
+                </Button>
+            ) : user.uid !== video.uid ? (
+                <Button outline small onClick={handleFollow}>
+                    Follow
+                </Button>
+            ) : (
+                <></>
+            )}
         </div>
     );
 };

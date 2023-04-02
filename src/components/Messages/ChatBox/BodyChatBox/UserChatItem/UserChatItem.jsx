@@ -4,7 +4,7 @@ import style from './UserChatItem.module.scss';
 import images from '../../../../../assets/images';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { updataDocument, deleteDocument } from '../../../../../firebase/services';
+import { updateDocument, deleteDocument } from '../../../../../firebase/services';
 import { useDispatch } from 'react-redux';
 import ChoosedUserSlice from '../../../ChatAccountList/AccountItem/choosedUserSlice';
 import SelectedRoomSlice from '../../../ChatAccountList/AccountItem/selectedRoomSlice';
@@ -36,7 +36,7 @@ const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL,
     useEffect(() => {
         if (isUserHeartState) {
             activeHeart.push(userUid);
-            updataDocument('messages', docId, { activeHeart }).then((res) => {
+            updateDocument('messages', docId, { activeHeart }).then((res) => {
                 if (res === true) {
                     dispatch(ChoosedUserSlice.actions.setChoosedUser(''));
                     dispatch(SelectedRoomSlice.actions.setSelectedRoom(''));
@@ -44,7 +44,7 @@ const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL,
             });
         } else {
             activeHeart = activeHeart.filter((val) => val !== userUid);
-            updataDocument('messages', docId, { activeHeart }).then((res) => {
+            updateDocument('messages', docId, { activeHeart }).then((res) => {
                 if (res === true) {
                     dispatch(ChoosedUserSlice.actions.setChoosedUser(''));
                     dispatch(SelectedRoomSlice.actions.setSelectedRoom(''));

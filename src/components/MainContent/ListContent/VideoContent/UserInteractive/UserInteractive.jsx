@@ -9,7 +9,7 @@ import { UserSelector } from '../../../../../redux/selector';
 import { Menu } from '../../../../ReusedComponent';
 import ModalSignSlice from '../../../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './UserInteractive.module.scss';
-import { updataDocument } from '../../../../../firebase/services';
+import { updateDocument } from '../../../../../firebase/services';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -132,19 +132,21 @@ const UserInteractive = ({ video, userVideo }) => {
     const handleHeartActive = () => {
         if (user.login === true) {
             if (video.likes.includes(user.uid)) {
-                setHeart(false);
                 const newLikes = video.likes.filter((val) => val !== user.uid);
-                updataDocument('videoList', video.id, { likes: newLikes });
+                updateDocument('videoList', video.id, { likes: newLikes });
+
+                const newUserLikes = user.likes.filter((val) => val !== video.id);
+                updateDocument('userList', user.id, { ...user, likes: newUserLikes });
                 return;
             } else {
-                setHeart(true);
-                updataDocument('videoList', video.id, { likes: [...video.likes, user.uid] });
+                updateDocument('videoList', video.id, { likes: [...video.likes, user.uid] });
+
+                updateDocument('userList', user.id, {
+                    ...user,
+                    likes: [...user.likes, video.id],
+                });
             }
         } else dispatch(ModalSignSlice.actions.setModalSign(true));
-    };
-
-    const handleClickComment = () => {
-        if (user.login === false) dispatch(ModalSignSlice.actions.setModalSign(true));
     };
 
     return (
@@ -159,11 +161,11 @@ const UserInteractive = ({ video, userVideo }) => {
             </div>
             <p>{video.likes.length}</p>
             <Link to={`/profile/${userVideo.nickName}/${video.id}`}>
-                <div className={cx('icon-wrapper')} onClick={handleClickComment}>
+                <div className={cx('icon-wrapper')}>
                     <i className="fa-solid fa-comment-dots"></i>
                 </div>
             </Link>
-            <p>7789</p>
+            <p>{video.comments.length}</p>
             <Tippy
                 trigger="click mouseenter"
                 delay={[500, 500]}

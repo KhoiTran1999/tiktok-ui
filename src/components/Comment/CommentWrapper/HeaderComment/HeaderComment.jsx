@@ -1,12 +1,13 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import React from 'react';
+import { createPortal } from 'react-dom';
 import 'animate.css';
 import { formatRelative } from 'date-fns';
 import Button from '../../../../components/ReusedComponent/Button';
-import { SubnavWrapper, Wrapper } from '../../../ReusedComponent';
+import { ModalSign, SubnavWrapper, Wrapper } from '../../../ReusedComponent';
 import style from './HeaderComment.module.scss';
-import { updataDocument } from '../../../../firebase/services';
+import { updateDocument } from '../../../../firebase/services';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +16,7 @@ import { UserSelector } from '../../../../redux/selector';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
-const HeaderComment = ({ video, user }) => {
+const HeaderComment = ({ video, userVideo }) => {
     const MenuShare = [
         {
             icon: <i className="fa-brands fa-linkedin-in"></i>,
@@ -51,18 +52,24 @@ const HeaderComment = ({ video, user }) => {
     useEffect(() => {
         if (video.likes.includes(userLogin.uid)) setHeart(true);
         else setHeart(false);
-    }, [video.likes]);
+    });
 
     const handleHeartActive = () => {
         if (userLogin.login === true) {
             if (video.likes.includes(userLogin.uid)) {
-                setHeart(false);
                 const newLikes = video.likes.filter((val) => val !== userLogin.uid);
-                updataDocument('videoList', video.id, { likes: newLikes });
+                updateDocument('videoList', video.id, { likes: newLikes });
+
+                const newUserLikes = userLogin.likes.filter((val) => val !== video.id);
+                updateDocument('userList', userLogin.id, { ...userLogin, likes: newUserLikes });
                 return;
             } else {
-                setHeart(true);
-                updataDocument('videoList', video.id, { likes: [...video.likes, userLogin.uid] });
+                updateDocument('videoList', video.id, { likes: [...video.likes, userLogin.uid] });
+
+                updateDocument('userList', userLogin.id, {
+                    ...userLogin,
+                    likes: [...userLogin.likes, video.id],
+                });
             }
         } else dispatch(ModalSignSlice.actions.setModalSign(true));
     };
@@ -82,6 +89,21 @@ const HeaderComment = ({ video, user }) => {
         alert('Copied');
     };
 
+    const handleFollow = () => {
+        if (userLogin.followers.includes(userVideo.uid)) {
+            const newFollowers = userLogin.followers.filter((val) => val !== userVideo.uid);
+            updateDocument('userList', userLogin.id, {
+                ...userLogin,
+                followers: newFollowers,
+            });
+        } else {
+            updateDocument('userList', userLogin.id, {
+                ...userLogin,
+                followers: [...userLogin.followers, userVideo.uid],
+            });
+        }
+    };
+
     return (
         <div className={cx('header-comment')}>
             <div className={cx('header-comment-avatar')}>
@@ -91,43 +113,59 @@ const HeaderComment = ({ video, user }) => {
                     render={(attrs) => (
                         <SubnavWrapper className={cx('wrapper-tippy')}>
                             <div className={cx('header-tippy')}>
-                                <Link to={`/profile/${user.nickName}`} target="_blank">
-                                    <img src={user.photoURL} alt="avatar" />
+                                <Link to={`/profile/${userVideo.nickName}`} target="_blank">
+                                    <img src={userVideo.photoURL} alt="avatar" />
                                 </Link>
-                                <Button outline medium>
-                                    Follow
-                                </Button>
+                                {userLogin.login === false ? (
+                                    <Button
+                                        outline
+                                        medium
+                                        onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}
+                                    >
+                                        Follow
+                                    </Button>
+                                ) : userLogin.followers.includes(userVideo.uid) ? (
+                                    <Button basic medium onClick={handleFollow}>
+                                        Following
+                                    </Button>
+                                ) : userLogin.uid === userVideo.uid ? (
+                                    <></>
+                                ) : (
+                                    <Button outline medium onClick={handleFollow}>
+                                        Follow
+                                    </Button>
+                                )}
                             </div>
                             <div className={cx('body-tippy')}>
-                                <Link to={`/profile/${user.nickName}`} target="_blank">
-                                    <h4 className={cx('nickName')}>{user.nickName}</h4>
-                                    <p className={cx('displayName')}>{user.displayName}</p>
+                                <Link to={`/profile/${userVideo.nickName}`} target="_blank">
+                                    <h4 className={cx('nickName')}>{userVideo.nickName}</h4>
+                                    <p className={cx('displayName')}>{userVideo.displayName}</p>
                                 </Link>
                                 <p className={cx('follow')}>
-                                    <strong>{user.followersCount}</strong> Followers <strong>{user.likesCount}</strong>{' '}
-                                    Likes
+                                    <strong>{userVideo.followers.length}</strong> Followers{' '}
+                                    <strong>{userVideo.likes.length}</strong> Likes
                                 </p>
                             </div>
                             <div className={cx('bio')}>
-                                <p>{user.bio}</p>
+                                <p>{userVideo.bio}</p>
                             </div>
                         </SubnavWrapper>
                     )}
                 >
-                    <Link to={`/profile/${user.nickName}`}>
+                    <Link to={`/profile/${userVideo.nickName}`}>
                         <div className={cx('infor')}>
                             <div className={cx('avatar')}>
-                                <img src={user.photoURL} alt="avatar" />
+                                <img src={userVideo.photoURL} alt="avatar" />
                             </div>
                             <div className={cx('wrapper-nickName')}>
                                 <div className={cx('wrap')}>
-                                    <span className={cx('nickName')}>{user.nickName}</span>
+                                    <span className={cx('nickName')}>{userVideo.nickName}</span>
                                     <span className={cx('tick')}>
                                         <i className={cx('fa-solid fa-circle-check', 'check')}></i>
                                     </span>
                                 </div>
                                 <div className={cx('wrap')}>
-                                    <span className={cx('displayName')}>{user.displayName}</span>
+                                    <span className={cx('displayName')}>{userVideo.displayName}</span>
                                     <span> · </span>
                                     <span className={cx('createdAt')}>{formatDate(video.createdAt.seconds)}</span>
                                 </div>
@@ -135,10 +173,33 @@ const HeaderComment = ({ video, user }) => {
                         </div>
                     </Link>
                 </Tippy>
-
-                <Button outline medium>
-                    Follow
-                </Button>
+                {userLogin.login === false ? (
+                    <Button outline medium onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}>
+                        Follow
+                    </Button>
+                ) : userLogin.followers.includes(userVideo.uid) ? (
+                    <Button basic medium onClick={handleFollow}>
+                        Following
+                    </Button>
+                ) : userLogin.uid === userVideo.uid ? (
+                    <Tippy
+                        placement="bottom-end"
+                        offset={[15, 10]}
+                        interactive
+                        render={(attrs) => (
+                            <div className={cx('tippy-wrapper-privacy')}>
+                                <p className={cx('privacy')}>Privacy settings</p>
+                                <p className={cx('delete')}>Delete</p>
+                            </div>
+                        )}
+                    >
+                        <i style={{ fontSize: '20px', cursor: 'pointer' }} className="fa-solid fa-ellipsis"></i>
+                    </Tippy>
+                ) : (
+                    <Button outline medium onClick={handleFollow}>
+                        Follow
+                    </Button>
+                )}
             </div>
             <div className={cx('title')}>{video.caption}</div>
             {/* <div className={cx('music')}>
@@ -189,7 +250,7 @@ const HeaderComment = ({ video, user }) => {
                     </Tippy>
                     <Tippy
                         delay={[0, 500]}
-                        placement="bottom"
+                        placement="bottom-end"
                         interactive
                         render={(attrs) => (
                             <div className={cx('menu-share')}>
@@ -214,6 +275,7 @@ const HeaderComment = ({ video, user }) => {
                     Copy Link
                 </button>
             </div>
+            {createPortal(<ModalSign />, document.body)}
         </div>
     );
 };

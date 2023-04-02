@@ -26,11 +26,11 @@ const ItemContent = ({ video }) => {
 
     return (
         <li>
-            <Link to={`/profile/${userVideo.nickName}`}>
-                <div className={cx('avatar')}>
+            <div className={cx('avatar')}>
+                <Link to={`/profile/${userVideo.nickName}`}>
                     <img src={userVideo.photoURL} alt="avatar" />
-                </div>
-            </Link>
+                </Link>
+            </div>
             <div className={cx('content-container')}>
                 <HeaderContainer userVideo={userVideo} video={video} />
                 <VideoContent video={video} userVideo={userVideo} />

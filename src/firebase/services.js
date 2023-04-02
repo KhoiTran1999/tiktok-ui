@@ -14,7 +14,7 @@ export async function deleteDocument(collection, docId) {
     const res = await db.collection(collection).doc(docId).delete();
 }
 
-export async function updataDocument(collection, docId, field) {
+export async function updateDocument(collection, docId, field) {
     const collectionRef = db.collection(collection).doc(docId);
     const res = await collectionRef.get().then((snapShot) => {
         if (snapShot.exists) {
