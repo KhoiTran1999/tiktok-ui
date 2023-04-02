@@ -28,7 +28,7 @@ const HeaderContainer = ({ userVideo, video }) => {
             });
         }
     };
-    console.log(user.followers);
+
     return (
         <div className={cx('header-container')}>
             <div className={cx('info-container')}>

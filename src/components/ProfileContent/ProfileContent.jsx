@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import style from './ProfileContent.module.scss';
-import MoreAction from './MoreActionProfile/MoreActionProfile';
+import MoreActionProfile from './MoreActionProfile/MoreActionProfile';
+
 import InforProfile from './InforProfile/InforProfile';
 import VideoProfile from './VideoProfile/VideoProfile';
 import { useSelector } from 'react-redux';
@@ -17,7 +18,7 @@ const ProfileContent = () => {
                 <div className={cx('header')}>
                     <div className={cx('row')}>
                         <InforProfile allUserList={allUserList} />
-                        <MoreAction allUserList={allUserList} />
+                        <MoreActionProfile allUserList={allUserList} />
                     </div>
                 </div>
                 <VideoProfile allUserList={allUserList} />
