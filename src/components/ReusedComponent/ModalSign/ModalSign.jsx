@@ -13,6 +13,9 @@ import Modal from '../Modal/Modal';
 import { Link } from 'react-router-dom';
 import routes from '../../../config/routes';
 import generateKey from '../../../services/generaterKey';
+import ModalEditProfileSlice from '../../ProfileContent/ModalEditProfile/ModalEditProfileSlice';
+import ModalWelcome from '../../Header/ModalWelcome/ModalWelcome';
+import ModalWelcomeSlice from '../../Header/ModalWelcome/ModalWelcome.Slice';
 
 const cx = classNames.bind(style);
 const ggProvider = new firebase.auth.GoogleAuthProvider();
@@ -28,13 +31,12 @@ const ModalSign = () => {
         //Add infor if this user is new
         if (additionalUserInfo.isNewUser) {
             addDocument('userList', {
-                displayName: user.displayName,
-                nickName: user.displayName,
+                displayName: '',
+                nickName: '',
                 email: user.email,
                 photoURL: user.photoURL,
                 uid: user.uid,
                 providerID: additionalUserInfo.providerId,
-                keyword: generateKey(user.displayName), //For key word searching
                 bio: '',
                 tick: true,
                 followings: [],
@@ -42,6 +44,7 @@ const ModalSign = () => {
                 likes: [],
                 websiteURL: user.email,
             });
+            dispatch(ModalWelcomeSlice.actions.setModalWelcome(true));
         }
     };
 
@@ -70,7 +73,7 @@ const ModalSign = () => {
                 </div>
                 <div className={cx('sign-up')}>
                     <span>Don’t have an account?</span>
-                    <a href="">Sign up</a>
+                    <a>Sign up</a>
                 </div>
             </div>
         </Modal>

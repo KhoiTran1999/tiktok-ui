@@ -6,11 +6,18 @@ import useFireStore from '../../../../hooks/useFireStore';
 
 const cx = classNames.bind(style);
 const BodyComment = ({ video }) => {
+    let newList = [...video.comments];
+    if (newList.length > 0) {
+        newList.sort((a, b) => {
+            return a.createdAt.seconds - b.createdAt.seconds;
+        });
+    }
+
     return (
         <div className={cx('bodyComment')}>
-            {video.comments.length > 0 ? (
+            {newList.length > 0 ? (
                 <>
-                    {video.comments.map((val) => (
+                    {newList.map((val) => (
                         <Commenter key={val.id} comment={val} video={video} />
                     ))}
                 </>

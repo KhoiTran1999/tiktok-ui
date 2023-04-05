@@ -28,18 +28,11 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
                 return (
                     <li key={idx} onClick={() => handleOnclick(idx, val.action, val.code, val.to)}>
                         <Button text to={val.to}>
-                            {val.to === window.location.pathname ? (
-                                <>
-                                    <span className={`${cx('active')}`}>{val.activeIcon}</span>
-                                    <h4 className={`${cx('active')}`}>{val.title}</h4>
-                                </>
-                            ) : (
-                                <>
-                                    {val.dropDown && <h2>{val.dropDown}</h2>}
-                                    <span>{val.icon}</span>
-                                    <h4>{val.title}</h4>
-                                </>
-                            )}
+                            <>
+                                {val.dropDown && <h2>{val.dropDown}</h2>}
+                                <span>{val.icon}</span>
+                                <h4>{val.title}</h4>
+                            </>
                         </Button>
                     </li>
                 );

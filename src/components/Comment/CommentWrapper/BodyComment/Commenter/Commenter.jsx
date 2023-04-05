@@ -5,27 +5,41 @@ import { createPortal } from 'react-dom';
 import { formatDistance } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateDocument } from '../../../../../firebase/services';
-import { UserListSelector, UserSelector } from '../../../../../redux/selector';
+import { addDocument, updateDocument } from '../../../../../firebase/services';
+import { UserListSelector, UserSelector, VideoListSelector } from '../../../../../redux/selector';
 import ModalSignSlice from '../../../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './Commenter.module.scss';
 import { ModalSign, SubnavWrapper } from '../../../../ReusedComponent';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../../ReusedComponent';
+import { useRef } from 'react';
 
 const cx = classNames.bind(style);
 const Commenter = ({ comment, video }) => {
     const dispatch = useDispatch();
     const [heart, setHeart] = useState(false);
-    const [userComment, setUserComment] = useState({});
+    const [userComment, setUserComment] = useState({ followers: [] });
 
     const userLogin = useSelector(UserSelector);
     const userList = useSelector(UserListSelector);
+    const videoList = useSelector(VideoListSelector);
 
     useEffect(() => {
         userList.map((val) => {
             if (comment.uid === val.uid) setUserComment(val);
         });
+    });
+
+    //Count likes of userProfile
+    const countLikeRef = useRef(0);
+    useEffect(() => {
+        let count = 0;
+        videoList.map((val) => {
+            if (val.uid === userComment.uid) {
+                count += val.likes.length;
+            }
+        });
+        countLikeRef.current = count;
     });
 
     const formatDate = (seconds) => {
@@ -78,14 +92,40 @@ const Commenter = ({ comment, video }) => {
     };
 
     const handleFollow = () => {
-        if (userLogin.login === false) dispatch(ModalSignSlice.actions.setModalSign(true));
+        if (userLogin.followings.includes(userComment.uid)) {
+            //remove uid into followings of userLogin
+            const newFollowings = userLogin.followings.filter((val) => val !== userComment.uid);
+            updateDocument('userList', userLogin.id, {
+                ...userLogin,
+                followings: newFollowings,
+            });
+
+            //remove uid into followers of Guest
+            const newFollowers = userComment.followers.filter((val) => val !== userLogin.uid);
+            updateDocument('userList', userComment.id, {
+                ...userComment,
+                followers: newFollowers,
+            });
+        } else {
+            //add uid into followings of userLogin
+            updateDocument('userList', userLogin.id, {
+                ...userLogin,
+                followings: [...userLogin.followings, userComment.uid],
+            });
+
+            //add uid into followers of Guest
+            updateDocument('userList', userComment.id, {
+                ...userComment,
+                followers: [...userComment.followers, userLogin.uid],
+            });
+        }
     };
 
     return (
         <div className={cx('commenter')}>
             <div className={cx('infor')}>
                 <div className={cx('avatar')}>
-                    <Link to={`/profile/${comment.nickName}`}>
+                    <Link to={`/profile/${userComment.nickName}`}>
                         <img src={comment.photoURL} alt="avatar" />
                     </Link>
                 </div>
@@ -100,9 +140,26 @@ const Commenter = ({ comment, video }) => {
                                     <Link to={`/profile/${userComment.nickName}`} target="_blank">
                                         <img src={userComment.photoURL} alt="avatar" />
                                     </Link>
-                                    <Button outline medium onClick={handleFollow}>
-                                        Follow
-                                    </Button>
+                                    {userLogin.login === false ? (
+                                        <Button
+                                            style={{ padding: '7px 16px' }}
+                                            outline
+                                            small
+                                            onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}
+                                        >
+                                            Follow
+                                        </Button>
+                                    ) : userLogin.followings.includes(userComment.uid) ? (
+                                        <Button style={{ padding: '7px 16px' }} basic small onClick={handleFollow}>
+                                            Following
+                                        </Button>
+                                    ) : userLogin.uid !== userComment.uid ? (
+                                        <Button style={{ padding: '7px 16px' }} outline small onClick={handleFollow}>
+                                            Follow
+                                        </Button>
+                                    ) : (
+                                        <></>
+                                    )}
                                 </div>
                                 <div className={cx('body-tippy')}>
                                     <Link to={`/profile/${userComment.nickName}`} target="_blank">
@@ -111,7 +168,7 @@ const Commenter = ({ comment, video }) => {
                                     </Link>
                                     <p className={cx('follow')}>
                                         <strong>{userComment.followers.length}</strong> Followers{' '}
-                                        <strong>{userComment.likes}</strong> Likes
+                                        <strong>{countLikeRef.current}</strong> Likes
                                     </p>
                                 </div>
                                 <div className={cx('bio')}>
@@ -120,9 +177,9 @@ const Commenter = ({ comment, video }) => {
                             </SubnavWrapper>
                         )}
                     >
-                        <Link to={`/profile/${comment.nickName}`}>
+                        <Link to={`/profile/${userComment.nickName}`}>
                             <div className={cx('nickName-wrap')}>
-                                <div className={cx('nickName')}>{comment.nickName}</div>
+                                <div className={cx('nickName')}>{userComment.nickName}</div>
                                 <i className="fa-solid fa-circle-check"></i>
                             </div>
                         </Link>

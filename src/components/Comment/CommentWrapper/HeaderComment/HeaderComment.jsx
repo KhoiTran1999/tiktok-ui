@@ -7,13 +7,14 @@ import { formatRelative } from 'date-fns';
 import Button from '../../../../components/ReusedComponent/Button';
 import { ModalSign, SubnavWrapper, Wrapper } from '../../../ReusedComponent';
 import style from './HeaderComment.module.scss';
-import { updateDocument } from '../../../../firebase/services';
+import { deleteDocument, deleteFileStorage, updateDocument } from '../../../../firebase/services';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
-import { UserSelector } from '../../../../redux/selector';
-import { Link } from 'react-router-dom';
+import { UserListSelector, UserSelector, VideoListSelector } from '../../../../redux/selector';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 
 const cx = classNames.bind(style);
 const HeaderComment = ({ video, userVideo }) => {
@@ -45,13 +46,28 @@ const HeaderComment = ({ video, userVideo }) => {
     ];
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [heart, setHeart] = useState(false);
     const userLogin = useSelector(UserSelector);
+    const videoList = useSelector(VideoListSelector);
+    const userList = useSelector(UserListSelector);
 
     useEffect(() => {
         if (video.likes.includes(userLogin.uid)) setHeart(true);
         else setHeart(false);
+    });
+
+    //Count likes of userProfile
+    const countLikeRef = useRef(0);
+    useEffect(() => {
+        let count = 0;
+        videoList.map((val) => {
+            if (val.uid === userVideo.uid) {
+                count += val.likes.length;
+            }
+        });
+        countLikeRef.current = count;
     });
 
     const handleHeartActive = () => {
@@ -90,18 +106,48 @@ const HeaderComment = ({ video, userVideo }) => {
     };
 
     const handleFollow = () => {
-        if (userLogin.followers.includes(userVideo.uid)) {
-            const newFollowers = userLogin.followers.filter((val) => val !== userVideo.uid);
+        if (userLogin.followings.includes(userVideo.uid)) {
+            //remove uid into followings of userLogin
+            const newFollowings = userLogin.followings.filter((val) => val !== userVideo.uid);
             updateDocument('userList', userLogin.id, {
                 ...userLogin,
+                followings: newFollowings,
+            });
+
+            //remove uid into followers of Guest
+            const newFollowers = userVideo.followers.filter((val) => val !== userLogin.uid);
+            updateDocument('userList', userVideo.id, {
+                ...userVideo,
                 followers: newFollowers,
             });
         } else {
+            //add uid into followings of userLogin
             updateDocument('userList', userLogin.id, {
                 ...userLogin,
-                followers: [...userLogin.followers, userVideo.uid],
+                followings: [...userLogin.followings, userVideo.uid],
+            });
+
+            //add uid into followers of Guest
+            updateDocument('userList', userVideo.id, {
+                ...userVideo,
+                followers: [...userVideo.followers, userLogin.uid],
             });
         }
+    };
+
+    const handleDeleteVideo = () => {
+        deleteFileStorage(video.videoURL);
+        deleteFileStorage(video.thumbnail);
+        deleteDocument('videoList', video.id);
+
+        userList.map((user) => {
+            if (user.likes.includes(video.id)) {
+                const newLikes = user.likes.filter((val) => val !== video.id);
+                updateDocument('userList', user.id, { ...user, likes: newLikes });
+            }
+        });
+
+        navigate(`/profile/${userVideo.nickName}`);
     };
 
     return (
@@ -124,7 +170,7 @@ const HeaderComment = ({ video, userVideo }) => {
                                     >
                                         Follow
                                     </Button>
-                                ) : userLogin.followers.includes(userVideo.uid) ? (
+                                ) : userLogin.followings.includes(userVideo.uid) ? (
                                     <Button basic medium onClick={handleFollow}>
                                         Following
                                     </Button>
@@ -143,7 +189,7 @@ const HeaderComment = ({ video, userVideo }) => {
                                 </Link>
                                 <p className={cx('follow')}>
                                     <strong>{userVideo.followers.length}</strong> Followers{' '}
-                                    <strong>{userVideo.likes.length}</strong> Likes
+                                    <strong>{countLikeRef.current}</strong> Likes
                                 </p>
                             </div>
                             <div className={cx('bio')}>
@@ -177,7 +223,7 @@ const HeaderComment = ({ video, userVideo }) => {
                     <Button outline medium onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}>
                         Follow
                     </Button>
-                ) : userLogin.followers.includes(userVideo.uid) ? (
+                ) : userLogin.followings.includes(userVideo.uid) ? (
                     <Button basic medium onClick={handleFollow}>
                         Following
                     </Button>
@@ -189,7 +235,9 @@ const HeaderComment = ({ video, userVideo }) => {
                         render={(attrs) => (
                             <div className={cx('tippy-wrapper-privacy')}>
                                 <p className={cx('privacy')}>Privacy settings</p>
-                                <p className={cx('delete')}>Delete</p>
+                                <p onClick={handleDeleteVideo} className={cx('delete')}>
+                                    Delete
+                                </p>
                             </div>
                         )}
                     >

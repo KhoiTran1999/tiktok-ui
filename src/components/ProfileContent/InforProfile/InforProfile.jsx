@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, ImageCustom } from '../../ReusedComponent';
 import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosedUserSlice';
 import style from './InforProfile.module.scss';
-import { CurrentRoomsSelector, UserSelector } from '../../../redux/selector';
+import { CurrentRoomsSelector, UserSelector, VideoListSelector } from '../../../redux/selector';
 import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
 import ModalEditProfileSlice from '../ModalEditProfile/ModalEditProfileSlice';
 import { addDocument, updateDocument } from '../../../firebase/services';
@@ -18,8 +18,25 @@ const InforProfile = ({ allUserList }) => {
 
     const linkName = useParams();
 
+    const [user, setUser] = useState({
+        login: false,
+        displayName: '',
+        nickName: '',
+        email: '',
+        photoURL: '',
+        uid: '',
+        providerID: '',
+        keyword: '', //For key word searching
+        bio: '',
+        tick: false,
+        followings: [],
+        followers: [],
+        likes: [],
+        websiteURL: '',
+    });
+
     const userLogin = useSelector(UserSelector);
-    const [user, setUser] = useState({ followings: [], followers: [], likes: [] });
+    const videoList = useSelector(VideoListSelector);
     const curRoomList = useSelector(CurrentRoomsSelector);
 
     useEffect(() => {
@@ -30,17 +47,44 @@ const InforProfile = ({ allUserList }) => {
         });
     });
 
+    //Count likes of userProfile
+    const countLikeRef = useRef(0);
+    useEffect(() => {
+        let count = 0;
+        videoList.map((val) => {
+            if (val.uid === user.uid) {
+                count += val.likes.length;
+            }
+        });
+        countLikeRef.current = count;
+    });
+
     const handleFollow = () => {
-        if (userLogin.followers.includes(user.uid)) {
-            const newFollowers = user.followers.filter((val) => val !== user.uid);
+        if (userLogin.followings.includes(user.uid)) {
+            //remove uid into followings of userLogin
+            const newFollowings = userLogin.followings.filter((val) => val !== user.uid);
             updateDocument('userList', userLogin.id, {
                 ...userLogin,
+                followings: newFollowings,
+            });
+
+            //remove uid into followers of Guest
+            const newFollowers = user.followers.filter((val) => val !== userLogin.uid);
+            updateDocument('userList', user.id, {
+                ...user,
                 followers: newFollowers,
             });
         } else {
+            //add uid into followings of userLogin
             updateDocument('userList', userLogin.id, {
                 ...userLogin,
-                followers: [...userLogin.followers, user.uid],
+                followings: [...userLogin.followings, user.uid],
+            });
+
+            //add uid into followers of Guest
+            updateDocument('userList', user.id, {
+                ...user,
+                followers: [...user.followers, userLogin.uid],
             });
         }
     };
@@ -78,7 +122,7 @@ const InforProfile = ({ allUserList }) => {
                         <Button primary large onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}>
                             Follow
                         </Button>
-                    ) : userLogin.followers.includes(user.uid) ? (
+                    ) : userLogin.followings.includes(user.uid) ? (
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Button
                                 style={{ width: '164px', height: '36px', fontWeight: '700' }}
@@ -112,7 +156,7 @@ const InforProfile = ({ allUserList }) => {
             <div className={cx('footer-infor')}>
                 <p className={cx('status')}>
                     <b>{user.followings.length}</b> Followings <b>{user.followers.length}</b> Followers{' '}
-                    <b>{user.likes.length}</b> Likes
+                    <b>{countLikeRef.current}</b> Likes
                 </p>
                 <p className={cx('bio')}>{user.bio}</p>
                 <div className={cx('websiteURL')}>

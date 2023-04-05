@@ -18,9 +18,15 @@
                 text-decoration: underline;
             }
         }
-        .status {
+        .caption {
             font-weight: 300;
             font-size: 15px;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow-y: hidden;
+            text-overflow: ellipsis;
             .hash-tag {
                 font-weight: 500;
                 cursor: pointer;

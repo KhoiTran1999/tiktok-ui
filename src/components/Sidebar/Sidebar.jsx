@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserSelector } from '../../redux/selector';
+import { AllUserListSelector, UserListSelector, UserSelector } from '../../redux/selector';
 import { Button } from '../ReusedComponent';
 import ModalSignSlice from '../ReusedComponent/ModalSign/ModalSignSlice';
 import AccountList from './AccountList/AccountList';
@@ -14,6 +14,16 @@ const cx = classNames.bind(style);
 const Sidebar = ({ className = 'side-bar' }) => {
     const dispatch = useDispatch();
     const user = useSelector(UserSelector);
+    const allUserList = useSelector(AllUserListSelector);
+    const [suggestedAccountList, setSuggestedAccountList] = useState([]);
+    const [followingAccountList, setFollowingAccountList] = useState([]);
+
+    useEffect(() => {
+        if (user.followings !== undefined && allUserList) {
+            setSuggestedAccountList(allUserList.filter((val) => !user.followings.includes(val.uid)));
+            setFollowingAccountList(allUserList.filter((val) => user.followings.includes(val.uid)));
+        }
+    }, [allUserList, user]);
 
     const handleLogin = () => {
         dispatch(ModalSignSlice.actions.setModalSign(true));
@@ -31,11 +41,19 @@ const Sidebar = ({ className = 'side-bar' }) => {
                     {user.login ? (
                         <>
                             <div className={cx('wrapper')}>
-                                <AccountList title={'Suggested accounts'} tippyVisible={true} />
+                                <AccountList
+                                    title={'Suggested accounts'}
+                                    tippyVisible={true}
+                                    accountList={suggestedAccountList}
+                                />
                             </div>
-                            <div className={cx('wrapper')}>
-                                <AccountList title={'Following accounts'} />
-                            </div>
+                            {followingAccountList.length > 0 ? (
+                                <div className={cx('wrapper')}>
+                                    <AccountList title={'Following accounts'} accountList={followingAccountList} />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </>
                     ) : (
                         <>
@@ -59,7 +77,11 @@ const Sidebar = ({ className = 'side-bar' }) => {
                                 </Button>
                             </div>
                             <div className={cx('wrapper')}>
-                                <AccountList title={'Suggested accounts'} tippyVisible={true} />
+                                <AccountList
+                                    accountList={suggestedAccountList}
+                                    title={'Suggested accounts'}
+                                    tippyVisible={true}
+                                />
                             </div>
                         </>
                     )}

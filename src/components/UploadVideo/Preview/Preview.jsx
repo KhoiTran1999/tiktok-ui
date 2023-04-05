@@ -31,6 +31,11 @@ const Preview = ({
     const [time, setTime] = useState(0);
 
     const handleVideoUpload = (e) => {
+        console.log(e.target.files[0]);
+        if (e.target.files[0].size > 80000000) {
+            alert(`Video is limited at 80 MB. Your video is ${Math.round(e.target.files[0].size / 1000000)} MB`);
+            return;
+        }
         setVideoLink(URL.createObjectURL(e.target.files[0]));
         setVideoFile(e.target.files[0]);
     };
@@ -206,8 +211,8 @@ const Preview = ({
                             <h5>Or drag and drop a file</h5>
                             <p>MP4 or WebM</p>
                             <p>720x1280 resolution or higher</p>
-                            <p>Up to 30 minutes</p>
-                            <p>Less than 2 GB</p>
+                            <p>Up to 10 minutes</p>
+                            <p>Less than 80 MB</p>
                             <Button primary medium>
                                 <label style={{ cursor: 'pointer' }} htmlFor="videoFile">
                                     Select file

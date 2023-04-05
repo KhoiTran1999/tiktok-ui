@@ -11,6 +11,7 @@ import { getUserList } from '../services/ApiService';
 import UserListSlice from './UserListSlice';
 import UserListMockSlice from './UserListMockSlice';
 import VideoListSlice from '../components/ProfileContent/VideoProfile/VideoListSlice';
+import ModalWelcomeSlice from '../components/Header/ModalWelcome/ModalWelcome.Slice';
 
 const AuthUser = () => {
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ const AuthUser = () => {
                 const { uid } = user;
                 userList.map((val) => {
                     if (val.uid === uid) {
+                        if (val.nickName === '') dispatch(ModalWelcomeSlice.actions.setModalWelcome(true));
                         dispatch(UserLoginSlice.actions.setUser({ ...val, login: true }));
                     }
                 });

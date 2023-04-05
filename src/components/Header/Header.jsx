@@ -13,6 +13,8 @@ import FormSearch from './FormSearch/FormSearch';
 import style from './Header.module.scss';
 import LoginRightHeader from './RightHeader/LoginRightHeader.jsx';
 import UnloginRightHeader from './RightHeader/UnloginRightHeader.jsx';
+import ModalEditProfile from '../ProfileContent/ModalEditProfile/ModalEditProfile';
+import ModalWelcome from './ModalWelcome/ModalWelcome';
 
 const cx = classNames.bind(style);
 

@@ -2,61 +2,40 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames/bind';
-import style from './ModalEditProfile.module.scss';
+import style from './ModalWelcome.module.scss';
 import Modal from '../../ReusedComponent/Modal/Modal';
-import ModalEditProfileSlice from './ModalEditProfileSlice';
-import { ModalEditProfileSelector, UserListSelector, UserSelector } from '../../../redux/selector';
+import ModalWelcomeSlice from './ModalWelcome.Slice';
+import { AllUserListSelector, ModalWelcomeSelector, UserListSelector, UserSelector } from '../../../redux/selector';
 import { Button } from '../../ReusedComponent';
 import { deleteFileStorage, updateDocument, uploadPoster } from '../../../firebase/services';
 import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import generateKey from '../../../services/generaterKey';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(style);
-const ModalEditProfile = () => {
+const ModalWelcome = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const userLogin = useSelector(UserSelector);
-    const userList = useSelector(UserListSelector);
-    const isModalEditProfile = useSelector(ModalEditProfileSelector);
+    const allUserList = useSelector(AllUserListSelector);
+    const isModalWelcome = useSelector(ModalWelcomeSelector);
 
     const [preview, setPreview] = useState(userLogin.photoURL);
     const fileRef = useRef();
 
-    const [inputUserName, setInputUserName] = useState(userLogin.nickName);
+    const [inputUserName, setInputUserName] = useState('');
     const [atLeastError, setAtLeastError] = useState(false);
     const [isAvailable, setIsAvailable] = useState(true);
     const [isExceedUserName, setIsExceedUserName] = useState(false);
 
-    const [inputName, setInputName] = useState(userLogin.displayName);
+    const [inputName, setInputName] = useState('');
     const [isExceedName, setIsExceedName] = useState(false);
 
     const [inputBio, setInputBio] = useState('');
     const [isExceedBio, setIsExceedBio] = useState(false);
 
     const [isSaveButton, setIsSaveButton] = useState(false);
-
-    useEffect(() => {
-        setPreview(userLogin.photoURL);
-        setInputUserName(userLogin.nickName);
-        setInputName(userLogin.displayName);
-        setInputBio(userLogin.bio);
-    }, [userLogin]);
-
-    const handleCancel = () => {
-        dispatch(ModalEditProfileSlice.actions.setModalEditProfile(false));
-
-        //reset
-        fileRef.current = null;
-        setPreview(userLogin.photoURL);
-        setInputUserName(userLogin.nickName);
-        setInputName(userLogin.displayName);
-        setInputBio(userLogin.bio);
-        setIsExceedUserName(false);
-        setAtLeastError(false);
-        setIsAvailable(true);
-    };
 
     const handleSetInputAvatar = (e) => {
         fileRef.current = e.target.files[0];
@@ -67,6 +46,10 @@ const ModalEditProfile = () => {
         }
         setPreview(URL.createObjectURL(fileRef.current));
     };
+
+    useEffect(() => {
+        setPreview(userLogin.photoURL);
+    }, [userLogin]);
 
     useEffect(() => {
         return () => {
@@ -84,7 +67,7 @@ const ModalEditProfile = () => {
             setIsExceedUserName(false);
             setAtLeastError(false);
             e.target.style.border = '1px solid rgba(22, 24, 35, 0.2)';
-            const sameNickname = userList.filter((val) => {
+            const sameNickname = allUserList.filter((val) => {
                 return val.nickName !== userLogin.nickName && val.nickName === e.target.value;
             });
 
@@ -131,7 +114,9 @@ const ModalEditProfile = () => {
                 inputName !== userLogin.displayName ||
                 inputBio !== userLogin.bio) &&
             !atLeastError &&
-            isAvailable
+            isAvailable &&
+            inputUserName.length > 1 &&
+            inputName.length > 0
         ) {
             setIsSaveButton(true);
         } else setIsSaveButton(false);
@@ -147,7 +132,6 @@ const ModalEditProfile = () => {
 
                 //Upload avatar then escape
                 uploadPoster(`avatar/${uuidv4()}`, dataUrl).then((url) => {
-                    deleteFileStorage(userLogin.photoURL);
                     updateDocument('userList', userLogin.id, {
                         ...userLogin,
                         photoURL: url,
@@ -168,14 +152,13 @@ const ModalEditProfile = () => {
                 bio: inputBio,
             });
         }
-        dispatch(ModalEditProfileSlice.actions.setModalEditProfile(false));
+        dispatch(ModalWelcomeSlice.actions.setModalWelcome(false));
         navigate(`/profile/${inputUserName}`);
-        alert('Profile have been updated');
         fileRef.current = null;
-        setPreview(userLogin.photoURL);
-        setInputUserName(userLogin.nickName);
-        setInputName(userLogin.displayName);
-        setInputBio(userLogin.bio);
+        setPreview(null);
+        setInputUserName('');
+        setInputName('');
+        setInputBio('');
         setIsExceedUserName(false);
         setAtLeastError(false);
         setIsAvailable(true);
@@ -183,12 +166,11 @@ const ModalEditProfile = () => {
 
     return (
         <>
-            {isModalEditProfile ? (
+            {isModalWelcome ? (
                 <Modal>
                     <div className={cx('wrapper-edit')}>
                         <div className={cx('header')}>
-                            <h3>Edit profile</h3>
-                            <i onClick={handleCancel} className="fa-solid fa-xmark"></i>
+                            <h3>Welcome to Tiktok</h3>
                         </div>
                         <div className={cx('body')}>
                             <div className={cx('profilePhoto')}>
@@ -304,9 +286,6 @@ const ModalEditProfile = () => {
                             </div>
                         </div>
                         <div className={cx('footer')}>
-                            <Button onClick={handleCancel} className={cx('cancel-button')} basic small>
-                                Cancel
-                            </Button>
                             {isSaveButton ? (
                                 <Button
                                     onClick={handleSave}
@@ -331,4 +310,4 @@ const ModalEditProfile = () => {
     );
 };
 
-export default ModalEditProfile;
+export default ModalWelcome;

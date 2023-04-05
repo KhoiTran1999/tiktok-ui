@@ -5,24 +5,30 @@ import ImageCustom from '../ImageCustom';
 import style from './AccountSearch.module.scss';
 
 const cx = classNames.bind(style);
-const AccountSearch = ({ allUserList }) => {
+const AccountSearch = ({ accountList }) => {
     return (
         <div className={cx('Account-list')}>
             <ul>
-                {allUserList.map((val, idx) => {
-                    return (
-                        <li key={val.id}>
-                            <Link to={`/profile/${val.nickName}`}>
-                                <ImageCustom src={val.photoURL} alt="avatar" />
-                                <div className={cx('information')}>
-                                    <h4 className={cx('nickname')}>{val.nickName}</h4>
-                                    {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
-                                    <p className={cx('name')}>{val.displayName}</p>
-                                </div>
-                            </Link>
-                        </li>
-                    );
-                })}
+                {accountList ? (
+                    <>
+                        {accountList.map((val, idx) => {
+                            return (
+                                <li key={val.id}>
+                                    <Link to={`/profile/${val.nickName}`}>
+                                        <ImageCustom src={val.photoURL} alt="avatar" />
+                                        <div className={cx('information')}>
+                                            <h4 className={cx('nickname')}>{val.nickName}</h4>
+                                            {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
+                                            <p className={cx('name')}>{val.displayName}</p>
+                                        </div>
+                                    </Link>
+                                </li>
+                            );
+                        })}
+                    </>
+                ) : (
+                    <></>
+                )}
             </ul>
         </div>
     );

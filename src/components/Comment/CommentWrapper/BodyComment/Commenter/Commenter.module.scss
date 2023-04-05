@@ -57,9 +57,11 @@
                 .body-tippy {
                     .nickName {
                         margin-top: 7px;
+                        word-wrap: break-word;
                     }
                     .displayName {
                         font-size: 13px;
+                        word-wrap: break-word;
                     }
                     .follow {
                         margin-top: 7px;
@@ -71,6 +73,7 @@
                     border-top: 1px solid rgba(22, 24, 35, 0.12);
                     p {
                         font-size: 14px;
+                        word-wrap: break-word;
                     }
                 }
             }

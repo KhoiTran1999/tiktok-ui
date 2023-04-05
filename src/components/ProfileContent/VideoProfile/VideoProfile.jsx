@@ -14,7 +14,6 @@ const VideoProfile = ({ allUserList }) => {
     const [videoList, setVideoList] = useState([]);
 
     const linkName = useParams();
-    const dispatch = useDispatch();
 
     //Get user in this page
     const [user, setUser] = useState({});
@@ -64,6 +63,7 @@ const VideoProfile = ({ allUserList }) => {
                     Liked
                 </div>
             </div>
+
             <VideoGrid videoList={videoList} user={user} activeLiked={activeLiked} />
         </div>
     );

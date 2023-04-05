@@ -24,15 +24,9 @@
                 justify-content: flex-start;
 
                 span {
-                    &.active {
-                        color: var(--primary);
-                    }
                 }
                 h4 {
                     font-weight: 500;
-                    &.active {
-                        color: var(--primary);
-                    }
                 }
             }
             &:hover {

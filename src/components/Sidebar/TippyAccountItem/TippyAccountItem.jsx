@@ -2,121 +2,35 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react/headless';
-import styled from 'styled-components';
-import { useSpring, motion } from 'framer-motion';
 
 import ImageCustom from '../../ReusedComponent/ImageCustom';
 import style from './TippyAccountItem.module.scss';
 import SubnavWrapper from '../../ReusedComponent/SubnavWrapper';
 import Button from '../../ReusedComponent/Button/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserSelector } from '../../../redux/selector';
+import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
+import { updateDocument } from '../../../firebase/services';
+import AccountItem from './AccountItem';
 
-const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
-
-const TippyAccountItem = ({ allUserList }) => {
+const TippyAccountItem = ({ accountList }) => {
     const user = useSelector(UserSelector);
-
-    //---------Tippy Framer Motion Setup---------------
-    const springConfig = { damping: 15, stiffness: 300 };
-    const initialScale = 0.5;
-    const opacity = useSpring(0, springConfig);
-    const scale = useSpring(initialScale, springConfig);
-
-    function onMount() {
-        scale.set(1);
-        opacity.set(1);
-    }
-
-    function onHide({ unmount }) {
-        const cleanup = scale.onChange((value) => {
-            if (value <= initialScale) {
-                cleanup();
-                unmount();
-            }
-        });
-
-        scale.set(initialScale);
-        opacity.set(0);
-    }
-    //-------------------------------------------------
 
     return (
         <div className={cx('Account-list-sidebar')}>
             <ul>
-                {allUserList.map((val) => {
-                    if (val.uid === user.uid) return <></>;
-                    return (
-                        <li key={val.id}>
-                            <Tippy
-                                delay={[500, 0]}
-                                offset={[0, 0]}
-                                interactive
-                                placement="bottom-start"
-                                animation={true}
-                                onMount={onMount}
-                                onHide={onHide}
-                                render={(attrs) => (
-                                    <SubnavWrapper scrollAction="visible">
-                                        <Box style={{ scale, opacity }} {...attrs}>
-                                            <div className={cx('wrapper')}>
-                                                <div className={cx('header')}>
-                                                    <img src={val.photoURL} alt="avatar" />
-                                                    <Button primary medium>
-                                                        Follow
-                                                    </Button>
-                                                </div>
-                                                <div className={cx('content')}>
-                                                    <div className={cx('wrap')}>
-                                                        <h4>{val.nickName}</h4>
-                                                        {val.tick && (
-                                                            <i className={cx('fa-solid fa-circle-check', 'check')}></i>
-                                                        )}
-                                                    </div>
-                                                    <p className={cx('name')}>{val.displayName}</p>
-                                                    <p className={cx('status')}>
-                                                        <b>{val.followers.length}</b> Followers <b>{val.likes}</b>
-                                                        Likes
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Box>
-                                    </SubnavWrapper>
-                                )}
-                            >
-                                <Link to={`/profile/${val.nickName}`}>
-                                    <div
-                                        className={cx('avatar', {
-                                            skeletonLoading: user.login === null,
-                                        })}
-                                    >
-                                        <ImageCustom src={val.photoURL} alt="avatar" />
-                                    </div>
-                                    <div className={cx('information')}>
-                                        <div className={cx('wrap')}>
-                                            <div
-                                                className={cx('nickname', {
-                                                    skeletonLoading: user.login === null,
-                                                })}
-                                            >
-                                                {val.nickName}
-                                            </div>
-                                            {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
-                                        </div>
-                                        <div
-                                            className={cx('name', {
-                                                skeletonLoading: user.login === null,
-                                            })}
-                                        >
-                                            {val.displayName}
-                                        </div>
-                                    </div>
-                                </Link>
-                            </Tippy>
-                        </li>
-                    );
-                })}
+                {accountList ? (
+                    <>
+                        {accountList.map((val) => {
+                            if (val.uid === user.uid) return <></>;
+
+                            return <AccountItem key={val.id} accountUser={val} />;
+                        })}
+                    </>
+                ) : (
+                    <></>
+                )}
             </ul>
         </div>
     );

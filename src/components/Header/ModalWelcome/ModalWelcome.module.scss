@@ -5,18 +5,11 @@
     .header {
         border-bottom: 0.5px solid rgba(22, 24, 35, 0.2);
         padding: 24px 24px 12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         h3 {
+            text-align: center;
             font-size: 23px;
             font-weight: 600;
             color: rgb(22, 24, 35);
-        }
-        i {
-            font-size: 25px;
-            color: rgb(90, 89, 89);
-            cursor: pointer;
         }
     }
     .body {
@@ -132,11 +125,6 @@
         justify-content: flex-end;
         align-items: center;
         border-top: 0.5px solid rgba(22, 24, 35, 0.2);
-        .cancel-button {
-            width: 96px;
-            height: 36px;
-            font-size: 14px;
-        }
         .save-button {
             width: 96px;
             height: 36px;

@@ -1,6 +1,6 @@
 import firebase, { db } from './config';
 import { storage } from './config';
-import { getDownloadURL, ref, uploadBytesResumable, uploadString } from 'firebase/storage';
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable, uploadString } from 'firebase/storage';
 
 export const addDocument = (collection, data) => {
     const query = db.collection(collection);
@@ -80,12 +80,21 @@ export const uploadFile = (
     );
 };
 
-export const uploadPoster = (nameFile, file, setDownloadURL, uploadTaskRef) => {
+export const uploadPoster = (nameFile, file) => {
     const storageRef = ref(storage, nameFile);
-    // Listen for state changes, errors, and completion of the upload.
-    uploadTaskRef.current = uploadString(storageRef, file, 'data_url').then((snapShot) => {
-        getDownloadURL(snapShot.ref).then(async (url) => {
-            setDownloadURL(url);
-        });
+    return uploadString(storageRef, file, 'data_url').then((snapShot) => {
+        return getDownloadURL(snapShot.ref);
     });
+};
+
+export const deleteFileStorage = (fileURL) => {
+    const storageDelete = getStorage();
+    const storageDeleteRef = ref(storageDelete, fileURL);
+    deleteObject(storageDeleteRef)
+        .then(() => {
+            console.log('File deleted successfully');
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
 };

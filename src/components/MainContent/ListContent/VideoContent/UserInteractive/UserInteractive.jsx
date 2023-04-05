@@ -127,7 +127,7 @@ const UserInteractive = ({ video, userVideo }) => {
     useEffect(() => {
         if (video.likes.includes(user.uid)) setHeart(true);
         else setHeart(false);
-    }, [video.likes]);
+    });
 
     const handleHeartActive = () => {
         if (user.login === true) {

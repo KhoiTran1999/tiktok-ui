@@ -14,41 +14,51 @@ const VideoGrid = ({ videoList, user, activeLiked }) => {
 
     return (
         <div className={cx('videoGrid')}>
-            <ul className={'row'}>
-                {videoList.map((val, idx) => {
-                    if (val.uid === user.uid && activeLiked) {
-                        return (
-                            <VideoItem
-                                idVideoPlay={idVideoPlay}
-                                setIdVideoPlay={setIdVideoPlay}
-                                idVideo={val.id}
-                                linkVideo={val.videoURL}
-                                poster={val.thumbnail}
-                                views={val.views}
-                                caption={val.caption}
-                                user={user}
-                            />
-                        );
-                    } else if (
-                        activeLiked === false &&
-                        userLogin.likes.includes(val.id) &&
-                        userLogin.nickName === linkName.userName
-                    ) {
-                        return (
-                            <VideoItem
-                                idVideoPlay={idVideoPlay}
-                                setIdVideoPlay={setIdVideoPlay}
-                                idVideo={val.id}
-                                linkVideo={val.videoURL}
-                                poster={val.thumbnail}
-                                views={val.views}
-                                caption={val.caption}
-                                user={user}
-                            />
-                        );
-                    }
-                })}
-            </ul>
+            {(!userLogin.login && !activeLiked) || (userLogin.nickName !== linkName.userName && !activeLiked) ? (
+                <div className={cx('privateVideo')}>
+                    <i className="fa-solid fa-lock"></i>
+                    <h3>This user's liked videos are private</h3>
+                    <p>Videos liked by {linkName.userName} are currently hidden</p>
+                </div>
+            ) : (
+                <>
+                    <ul className={'row'}>
+                        {videoList.map((val, idx) => {
+                            if (val.uid === user.uid && activeLiked) {
+                                return (
+                                    <VideoItem
+                                        idVideoPlay={idVideoPlay}
+                                        setIdVideoPlay={setIdVideoPlay}
+                                        idVideo={val.id}
+                                        linkVideo={val.videoURL}
+                                        poster={val.thumbnail}
+                                        views={val.views}
+                                        caption={val.caption}
+                                        user={user}
+                                    />
+                                );
+                            } else if (
+                                activeLiked === false &&
+                                userLogin.likes.includes(val.id) &&
+                                userLogin.nickName === linkName.userName
+                            ) {
+                                return (
+                                    <VideoItem
+                                        idVideoPlay={idVideoPlay}
+                                        setIdVideoPlay={setIdVideoPlay}
+                                        idVideo={val.id}
+                                        linkVideo={val.videoURL}
+                                        poster={val.thumbnail}
+                                        views={val.views}
+                                        caption={val.caption}
+                                        user={user}
+                                    />
+                                );
+                            }
+                        })}
+                    </ul>
+                </>
+            )}
         </div>
     );
 };

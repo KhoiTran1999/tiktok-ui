@@ -2,7 +2,7 @@ import Tippy from '@tippyjs/react/headless';
 import styled from 'styled-components';
 import { useSpring, motion } from 'framer-motion';
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import LogoMessage from '../../../assets/icon/LogoMessage';
 import LogoMessageActive from '../../../assets/icon/LogoMessageActive';
 import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
 import { auth } from '../../../firebase/config';
-import { UserSelector } from '../../../redux/selector';
+import { ModalWelcomeSelector, UserSelector } from '../../../redux/selector';
 import { Button, ImageCustom, Menu, Wrapper } from '../../ReusedComponent';
 import UserLoginSlice from '../../ReusedComponent/ModalSign/UserLoginSlice';
 import style from './RightHeader.module.scss';
@@ -22,14 +22,16 @@ const cx = classNames.bind(style);
 
 const LoginRightHeader = () => {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const user = useSelector(UserSelector);
 
-    const dataMainMenuLogin = [
+    let dataMainMenuLogin = [
         {
             icon: <i className="fa-regular fa-user"></i>,
             title: t('header.Menu.viewProfile'),
-            to: `/profile/${user.displayName}`,
+            to: `/profile/${user.nickName}`,
         },
         {
             icon: <i className="fa-brands fa-tiktok"></i>,
@@ -77,9 +79,6 @@ const LoginRightHeader = () => {
     ];
 
     const [isResetMenu, setIsResetMenu] = useState(false);
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const onLogout = () => {
         auth.signOut();

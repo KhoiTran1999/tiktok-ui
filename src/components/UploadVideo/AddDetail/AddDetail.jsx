@@ -38,10 +38,10 @@ const AddDetail = ({
     const [imgIdx, setImgIdx] = useState();
 
     const uploadTaskRef = useRef();
-    const thumnailRef = useRef();
 
     //is used for caption element
     const autoSizeTextArea = (e) => {
+        if (inputValue.length === 0 && e.target.value === ' ') return;
         setInputValue(e.target.value);
 
         let textArea = document.getElementById('caption-textArea');
@@ -101,7 +101,7 @@ const AddDetail = ({
 
     const handlePostVideo = () => {
         try {
-            uploadPoster(`thumnail/${uuidv4()}`, thumbnailURL, setPoster, thumnailRef);
+            uploadPoster(`thumnail/${uuidv4()}`, thumbnailURL).then((url) => setPoster(url));
             uploadFile(
                 `video/${uuid}`,
                 videoFile,
@@ -123,7 +123,7 @@ const AddDetail = ({
                 uid: userLogin.uid,
                 videoURL: downloadURL,
                 thumbnail: poster,
-                caption: inputValue,
+                caption: inputValue.trim(),
                 likes: [],
                 comments: [],
                 views: 0,

@@ -3,6 +3,8 @@ import './GlobalStyle.scss';
 import { publicRoutes } from './routes';
 
 import AuthUser from './firebase/AuthUser';
+import { createPortal } from 'react-dom';
+import ModalWelcome from './components/Header/ModalWelcome/ModalWelcome';
 
 function App() {
     return (
@@ -25,6 +27,7 @@ function App() {
                 })}
             </Routes>
             <AuthUser />
+            {createPortal(<ModalWelcome />, document.body)}
         </div>
     );
 }

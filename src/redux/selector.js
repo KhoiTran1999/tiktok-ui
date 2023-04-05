@@ -5,6 +5,7 @@ export const ModalSignSelector = (state) => state.modalSign;
 export const ModalSettingSelector = (state) => state.modalSetting;
 export const ModalDiscardSelector = (state) => state.modalDiscard;
 export const ModalEditProfileSelector = (state) => state.modalEditProfile;
+export const ModalWelcomeSelector = (state) => state.modalWelcome;
 export const UserSelector = (state) => state.userLogin;
 export const CurrentRoomsSelector = (state) => state.curRoomsList;
 export const UserListSelector = (state) => state.userList;

@@ -35,7 +35,7 @@ const ModalDiscard = ({ setVideoLink, isSuccessedUpload, setIsSuccessedUpload })
                     >
                         Upload another video
                     </Button>
-                    <Link to={`/profile/${userLogin.displayName}`}>
+                    <Link to={`/profile/${userLogin.nickName}`}>
                         <Button
                             onClick={() => {
                                 dispatch(ModalDiscardSlice.actions.setMadalDiscard(false));

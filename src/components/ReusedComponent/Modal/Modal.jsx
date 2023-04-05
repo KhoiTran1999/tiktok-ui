@@ -6,6 +6,7 @@ import {
     ModalEditProfileSelector,
     ModalSettingSelector,
     ModalSignSelector,
+    ModalWelcomeSelector,
 } from '../../../redux/selector';
 import style from './Modal.module.scss';
 
@@ -16,11 +17,13 @@ const Modal = ({ children }) => {
     const isModalSignPopup = useSelector(ModalSignSelector);
     const isModalDiscardPopup = useSelector(ModalDiscardSelector);
     const isModalEditProfile = useSelector(ModalEditProfileSelector);
+    const isModalWelcome = useSelector(ModalWelcomeSelector);
 
     return (
         <div
             className={cx('wrapper', {
-                active: isSettingPopup || isModalSignPopup || isModalDiscardPopup || isModalEditProfile,
+                active:
+                    isSettingPopup || isModalSignPopup || isModalDiscardPopup || isModalEditProfile || isModalWelcome,
             })}
         >
             {children}
