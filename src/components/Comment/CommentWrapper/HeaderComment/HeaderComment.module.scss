@@ -123,6 +123,12 @@
     }
     .title {
         font-size: 15px;
+        word-break: break-word;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
     }
     .music {
         margin: 10px 0px 16px;

@@ -45,21 +45,42 @@ const FooterComment = ({ video }) => {
 
     const handleSubmit = () => {
         if (inputValue.trim().length === 0) return;
-        updateDocument('videoList', video.id, {
-            comments: [
-                ...video.comments,
-                {
-                    photoURL: userLogin.photoURL,
-                    nickName: userLogin.displayName,
-                    uid: userLogin.uid,
-                    id: uuidv4(),
-                    text: inputValue,
-                    likes: [],
-                    replyComment: [],
-                    createdAt: firebase.firestore.Timestamp.now(),
-                },
-            ],
-        });
+        if (video.uid === userLogin.uid) {
+            updateDocument('videoList', video.id, {
+                comments: [
+                    ...video.comments,
+                    {
+                        photoURL: userLogin.photoURL,
+                        nickName: userLogin.displayName,
+                        uid: userLogin.uid,
+                        id: uuidv4(),
+                        text: inputValue,
+                        likes: [],
+                        replyComment: [],
+                        notification: false,
+                        createdAt: firebase.firestore.Timestamp.now(),
+                    },
+                ],
+            });
+        } else {
+            updateDocument('videoList', video.id, {
+                comments: [
+                    ...video.comments,
+                    {
+                        photoURL: userLogin.photoURL,
+                        nickName: userLogin.displayName,
+                        uid: userLogin.uid,
+                        id: uuidv4(),
+                        text: inputValue,
+                        likes: [],
+                        replyComment: [],
+                        notification: true,
+                        createdAt: firebase.firestore.Timestamp.now(),
+                    },
+                ],
+            });
+        }
+
         //Reset
         setInputValue('');
         textAreaRef.current.style = 'height: auto';

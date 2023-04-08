@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import { createPortal } from 'react-dom';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -31,9 +32,23 @@ const Preview = ({
     const [time, setTime] = useState(0);
 
     const handleVideoUpload = (e) => {
-        console.log(e.target.files[0]);
+        console.log(e.target.files[0].type);
+        if (!e.target.files[0].type.includes('video')) {
+            toast.warn(`Please choose Video type`, {
+                position: 'top-center',
+                autoClose: 2000,
+                theme: 'light',
+            });
+            e.target.value = null;
+            return;
+        }
         if (e.target.files[0].size > 80000000) {
-            alert(`Video is limited at 80 MB. Your video is ${Math.round(e.target.files[0].size / 1000000)} MB`);
+            toast.warn(`Video is limited at 80 MB. Your video is ${Math.round(e.target.files[0].size / 1000000)} MB`, {
+                position: 'top-center',
+                autoClose: 2000,
+                theme: 'light',
+            });
+            e.target.value = null;
             return;
         }
         setVideoLink(URL.createObjectURL(e.target.files[0]));
@@ -126,8 +141,6 @@ const Preview = ({
 
         return `${dozenMinutes}${minutes}:${dozenSeconds}${seconds}`;
     };
-
-    //--------Generate thumbnail----------
 
     return (
         <label htmlFor="videoFile">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { db } from '../firebase/config';
+import { toast } from 'react-toastify';
 
 const useFireStore = (collection, condition, orderBy, sort) => {
     const [document, setDocuments] = useState([]);
@@ -36,8 +37,11 @@ const useFireStore = (collection, condition, orderBy, sort) => {
                 setDocuments(documents);
             });
         } catch (error) {
-            alert('Error when Listening event onChange of FireStore');
-            window.location.reload();
+            toast.error('Error when Listening event onChange of FireStore', {
+                position: 'top-center',
+                autoClose: 2000,
+                theme: 'light',
+            });
         }
     }, [collection, condition]);
 

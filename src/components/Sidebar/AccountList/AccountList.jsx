@@ -12,6 +12,7 @@ const AccountList = ({ title, tippyVisible, accountList }) => {
     const [newAccountList, setNewAccountList] = useState([]);
     const amountAccountRef = useRef(5);
 
+    //array account equal with amountAccountRef to paginate
     useEffect(() => {
         if (accountList) {
             const newArray = accountList.reduce((acc, val) => {
@@ -44,7 +45,9 @@ const AccountList = ({ title, tippyVisible, accountList }) => {
                 ) : (
                     <AccountSearch accountList={newAccountList} />
                 )}
-                {amountAccountRef.current >= 30 ? (
+                {accountList.length <= 5 ? (
+                    <></>
+                ) : amountAccountRef.current > 30 || accountList.length < amountAccountRef.current ? (
                     <button
                         onClick={handlePaginateAccountDecrease}
                         className={cx('see-all', {

@@ -5,12 +5,14 @@ import Tippy from '@tippyjs/react/headless';
 import styled from 'styled-components';
 import { useSpring, motion } from 'framer-motion';
 
-import { CurrentRoomsSelector, UserSelector } from '../../../../redux/selector';
+import { AmountOfNotiSelector, CurrentRoomsSelector, UserSelector } from '../../../../redux/selector';
 import ChoosedUserSlice from './choosedUserSlice';
 import style from './AccountItem.module.scss';
 import { SubnavWrapper } from '../../../ReusedComponent';
 import ToolList from './ToolList/ToolList';
 import SelectedRoomSlice from './selectedRoomSlice';
+import AmountOfNotiSlice from '../../../Header/RightHeader/AmountOfNotiSlice';
+import { updateDocument } from '../../../../firebase/services';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
@@ -24,7 +26,9 @@ const AccountItem = ({ messages, uid, avatar, name, user }) => {
 
     const userLogin = useSelector(UserSelector);
     const rooms = useSelector(CurrentRoomsSelector);
+    const amountNoti = useSelector(AmountOfNotiSelector);
 
+    //Get Last message
     useEffect(() => {
         rooms.map((valRoom) => {
             if (valRoom.members.includes(uid) && valRoom.members.includes(userLogin.uid)) {
@@ -50,6 +54,20 @@ const AccountItem = ({ messages, uid, avatar, name, user }) => {
     const handleClickAccount = () => {
         dispatch(ChoosedUserSlice.actions.setChoosedUser(user));
         dispatch(SelectedRoomSlice.actions.setSelectedRoom(roomId));
+
+        //Remove Noti
+        const newAmountNoti = amountNoti.filter((val) => val !== roomId);
+
+        messages.map((val) => {
+            if (val.roomId === roomId) {
+                updateDocument('messages', val.id, {
+                    ...val,
+                    notification: false,
+                });
+            }
+        });
+
+        dispatch(AmountOfNotiSlice.actions.setAmountOfNoti(newAmountNoti));
     };
 
     const formatDate = (seconds) => {
@@ -94,6 +112,9 @@ const AccountItem = ({ messages, uid, avatar, name, user }) => {
                     <span className={cx('createdAt')}>{formatDate(createdAt.seconds)}</span>
                 </div>
             </div>
+
+            {amountNoti.includes(roomId) ? <div className={cx('noti')}></div> : <></>}
+
             <Tippy
                 trigger="click"
                 interactive

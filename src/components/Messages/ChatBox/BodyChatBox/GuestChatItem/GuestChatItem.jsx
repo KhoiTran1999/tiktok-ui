@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import classNames from 'classnames/bind';
-import style from './GuestChatItem.module.scss';
-import images from '../../../../../assets/images';
 import Tippy from '@tippyjs/react';
+import classNames from 'classnames/bind';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import 'tippy.js/dist/tippy.css';
-import { deleteDocument, updateDocument } from '../../../../../firebase/services';
+import { updateDocument } from '../../../../../firebase/services';
 import ChoosedUserSlice from '../../../ChatAccountList/AccountItem/choosedUserSlice';
 import SelectedRoomSlice from '../../../ChatAccountList/AccountItem/selectedRoomSlice';
-import { useDispatch } from 'react-redux';
+import style from './GuestChatItem.module.scss';
 
 const cx = classNames.bind(style);
 const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhotoURL, activeHeart }) => {
@@ -21,7 +21,11 @@ const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhot
     });
 
     const handleDeleteDoc = () => {
-        alert('You are only unable to delete your messages...!!!');
+        toast.warn('you are only able to delete your message!', {
+            position: 'top-center',
+            autoClose: 2000,
+            theme: 'light',
+        });
     };
 
     const handleInteractive = () => {

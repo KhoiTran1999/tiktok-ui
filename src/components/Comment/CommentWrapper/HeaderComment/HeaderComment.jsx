@@ -1,6 +1,7 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import React from 'react';
+import { toast } from 'react-toastify';
 import { createPortal } from 'react-dom';
 import 'animate.css';
 import { formatRelative } from 'date-fns';
@@ -102,7 +103,11 @@ const HeaderComment = ({ video, userVideo }) => {
 
     const handleCopyHref = () => {
         navigator.clipboard.writeText(window.location.href);
-        alert('Copied');
+        toast.success('Copied', {
+            position: 'top-center',
+            autoClose: 2000,
+            theme: 'light',
+        });
     };
 
     const handleFollow = () => {

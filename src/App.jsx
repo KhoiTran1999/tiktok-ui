@@ -1,10 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import './GlobalStyle.scss';
 import { publicRoutes } from './routes';
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import AuthUser from './firebase/AuthUser';
 import { createPortal } from 'react-dom';
 import ModalWelcome from './components/Header/ModalWelcome/ModalWelcome';
+import Notification from './components/ReusedComponent/Notification/Notification';
 
 function App() {
     return (
@@ -27,6 +30,8 @@ function App() {
                 })}
             </Routes>
             <AuthUser />
+            <Notification />
+            <ToastContainer limit={6} transition={Slide} />
             {createPortal(<ModalWelcome />, document.body)}
         </div>
     );

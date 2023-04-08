@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
-import { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
-import { addDocument, cancelUploadFile, uploadFile, uploadPoster } from '../../../firebase/services';
+import { addDocument, uploadFile, uploadPoster } from '../../../firebase/services';
 import { UserSelector } from '../../../redux/selector';
 import Button from '../../ReusedComponent/Button';
 import ModalDiscard from '../ModalDiscard/ModalDiscard';
@@ -113,7 +113,11 @@ const AddDetail = ({
                 setIsSuccessedUpload,
             );
         } catch (error) {
-            alert('Please choose one Cover');
+            toast.warn(`Please choose one Cover`, {
+                position: 'top-center',
+                autoClose: 2000,
+                theme: 'light',
+            });
         }
     };
 
@@ -128,6 +132,7 @@ const AddDetail = ({
                 comments: [],
                 views: 0,
                 shares: 0,
+                notification: true,
             });
         }
     }, [isSuccessedUpload]);

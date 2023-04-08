@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import ItemContent from './ItemContent';
 import style from './ListContent.module.scss';
 import { useSelector } from 'react-redux';
-import { VideoListSelector } from '../../../redux/selector';
+import { UserListSelector, VideoListSelector } from '../../../redux/selector';
 
 const cx = classNames.bind(style);
 const ListContent = () => {

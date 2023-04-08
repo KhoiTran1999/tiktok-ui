@@ -25,7 +25,7 @@
                         letter-spacing: 0.5px;
                         margin-top: 2px;
                         margin-bottom: -3px;
-                        max-width: 170px;
+                        max-width: 140px;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
@@ -36,9 +36,11 @@
                         margin-left: 10px;
                     }
                     .name {
-                        // font-size: 13px;
                         color: rgb(136, 133, 133);
-                        // margin-top: -1px;
+                        max-width: 140px;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
                     }
                 }
             }

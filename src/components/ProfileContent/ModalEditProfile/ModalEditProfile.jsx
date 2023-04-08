@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 import classNames from 'classnames/bind';
 import style from './ModalEditProfile.module.scss';
 import Modal from '../../ReusedComponent/Modal/Modal';
@@ -62,7 +63,11 @@ const ModalEditProfile = () => {
         fileRef.current = e.target.files[0];
         const allowedTypes = ['image/jpeg', 'image/png'];
         if (!allowedTypes.includes(fileRef.current.type)) {
-            alert('Invalid file type. Only JPEG, PNG images are allowed.');
+            toast.warn('Invalid file type. Only JPEG, PNG images are allowed.', {
+                position: 'top-center',
+                autoClose: 2000,
+                theme: 'light',
+            });
             return;
         }
         setPreview(URL.createObjectURL(fileRef.current));
@@ -170,7 +175,6 @@ const ModalEditProfile = () => {
         }
         dispatch(ModalEditProfileSlice.actions.setModalEditProfile(false));
         navigate(`/profile/${inputUserName}`);
-        alert('Profile have been updated');
         fileRef.current = null;
         setPreview(userLogin.photoURL);
         setInputUserName(userLogin.nickName);
@@ -179,6 +183,11 @@ const ModalEditProfile = () => {
         setIsExceedUserName(false);
         setAtLeastError(false);
         setIsAvailable(true);
+        toast.success('Profile have been updated', {
+            position: 'top-center',
+            autoClose: 2000,
+            theme: 'light',
+        });
     };
 
     return (

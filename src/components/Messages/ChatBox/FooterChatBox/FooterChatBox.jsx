@@ -5,8 +5,13 @@ import { useSelector } from 'react-redux';
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 
-import { addDocument } from '../../../../firebase/services';
-import { ChoosedUserSelector, SelectedRoomSelector, UserSelector } from '../../../../redux/selector';
+import { addDocument, updateDocument } from '../../../../firebase/services';
+import {
+    ChoosedUserSelector,
+    CurrentRoomsSelector,
+    SelectedRoomSelector,
+    UserSelector,
+} from '../../../../redux/selector';
 import style from './FooterChatBox.module.scss';
 import LogoMessageActive from '../../../../assets/icon/LogoMessageActive';
 
@@ -30,7 +35,10 @@ const FooterChatBox = () => {
             createdAt: new Date(),
             photoURL: user.photoURL,
             activeHeart: [],
+            notificationPopup: true,
+            notification: true,
         });
+
         setInputValue('');
     };
 

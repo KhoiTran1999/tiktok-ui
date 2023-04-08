@@ -12,7 +12,7 @@ import style from './Modal.module.scss';
 
 const cx = classNames.bind(style);
 
-const Modal = ({ children }) => {
+const Modal = ({ children, overflow }) => {
     const isSettingPopup = useSelector(ModalSettingSelector);
     const isModalSignPopup = useSelector(ModalSignSelector);
     const isModalDiscardPopup = useSelector(ModalDiscardSelector);
@@ -21,6 +21,7 @@ const Modal = ({ children }) => {
 
     return (
         <div
+            style={{ overflow: overflow }}
             className={cx('wrapper', {
                 active:
                     isSettingPopup || isModalSignPopup || isModalDiscardPopup || isModalEditProfile || isModalWelcome,

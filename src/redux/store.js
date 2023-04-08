@@ -15,6 +15,7 @@ import UserListMockSlice from '../firebase/UserListMockSlice';
 import VideoListSlice from '../components/ProfileContent/VideoProfile/VideoListSlice';
 import ModalEditProfileSlice from '../components/ProfileContent/ModalEditProfile/ModalEditProfileSlice';
 import ModalWelcomeSlice from '../components/Header/ModalWelcome/ModalWelcome.Slice';
+import AmountOfNotiSlice from '../components/Header/RightHeader/AmountOfNotiSlice';
 
 const store = configureStore({
     reducer: {
@@ -34,6 +35,7 @@ const store = configureStore({
         muted: MutedSlice.reducer,
         volume: VolumeSlice.reducer,
         videoList: VideoListSlice.reducer,
+        amountOfNoti: AmountOfNotiSlice.reducer,
     },
 });
 

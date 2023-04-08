@@ -1,21 +1,28 @@
 import Tippy from '@tippyjs/react/headless';
-import styled from 'styled-components';
-import { useSpring, motion } from 'framer-motion';
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import { motion, useSpring } from 'framer-motion';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import LogoMessage from '../../../assets/icon/LogoMessage';
 import LogoMessageActive from '../../../assets/icon/LogoMessageActive';
 import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
+import routes from '../../../config/routes';
 import { auth } from '../../../firebase/config';
-import { ModalWelcomeSelector, UserSelector } from '../../../redux/selector';
+import { AmountOfNotiSelector, CurrentRoomsSelector, UserSelector } from '../../../redux/selector';
+import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosedUserSlice';
+import SelectedRoomSlice from '../../Messages/ChatAccountList/AccountItem/selectedRoomSlice';
 import { Button, ImageCustom, Menu, Wrapper } from '../../ReusedComponent';
 import UserLoginSlice from '../../ReusedComponent/ModalSign/UserLoginSlice';
+import AmountOfNotiSlice from './AmountOfNotiSlice';
 import style from './RightHeader.module.scss';
-import routes from '../../../config/routes';
+import { useMemo } from 'react';
+import useFireStore from '../../../hooks/useFireStore';
+import { useEffect } from 'react';
+import { useRef } from 'react';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
@@ -26,6 +33,7 @@ const LoginRightHeader = () => {
     const navigate = useNavigate();
 
     const user = useSelector(UserSelector);
+    const anoumtOfNoti = useSelector(AmountOfNotiSelector);
 
     let dataMainMenuLogin = [
         {
@@ -101,6 +109,28 @@ const LoginRightHeader = () => {
                 websiteURL: '',
             }),
         );
+
+        //reset after logout
+        dispatch(ChoosedUserSlice.actions.setChoosedUser(null));
+        dispatch(SelectedRoomSlice.actions.setSelectedRoom(null));
+        dispatch(
+            UserLoginSlice.actions.setUser({
+                login: false,
+                displayName: '',
+                nickName: '',
+                email: '',
+                photoURL: '',
+                uid: '',
+                providerID: '',
+                keyword: '', //For key word searching
+                bio: '',
+                tick: false,
+                followings: [],
+                followers: [],
+                likes: [],
+                websiteURL: '',
+            }),
+        );
     };
 
     //--------------Tippy Motion Framer-----------------------
@@ -141,10 +171,32 @@ const LoginRightHeader = () => {
                 <li>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>{t('header.logoMessage')}</Wrapper>}>
                         <Link to={routes.messages}>
-                            {window.location.pathname === '/messages' ? (
-                                <LogoMessageActive className={cx('message')} />
+                            {anoumtOfNoti.length > 0 ? (
+                                <>
+                                    {window.location.pathname === '/messages' ? (
+                                        <div className={cx('messages-wrap')}>
+                                            <LogoMessageActive className={cx('message')} />
+                                            <span className={cx('notiMessage')}>{anoumtOfNoti.length}</span>
+                                        </div>
+                                    ) : (
+                                        <div className={cx('messages-wrap')}>
+                                            <LogoMessage className={cx('message')} />
+                                            <span className={cx('notiMessage')}>{anoumtOfNoti.length}</span>
+                                        </div>
+                                    )}
+                                </>
                             ) : (
-                                <LogoMessage className={cx('message')} />
+                                <>
+                                    {window.location.pathname === '/messages' ? (
+                                        <div className={cx('messages-wrap')}>
+                                            <LogoMessageActive className={cx('message')} />
+                                        </div>
+                                    ) : (
+                                        <div className={cx('messages-wrap')}>
+                                            <LogoMessage className={cx('message')} />
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </Link>
                     </Tippy>

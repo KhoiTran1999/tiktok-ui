@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ModalSignSlice from '../components/ReusedComponent/ModalSign/ModalSignSlice';
 import UserLoginSlice from '../components/ReusedComponent/ModalSign/UserLoginSlice';
 import RoomsSlice from '../components/Messages/RoomsSlice';
@@ -56,8 +57,11 @@ const AuthUser = () => {
                     dispatch(UserListMockSlice.actions.setUserListMock(data.data));
                 }
             } catch (error) {
-                alert('Error when call Get UserList API');
-                window.location.reload();
+                toast.error('Error when call Get UserList API', {
+                    position: 'top-center',
+                    autoClose: 2000,
+                    theme: 'light',
+                });
             }
         };
         fetchData();

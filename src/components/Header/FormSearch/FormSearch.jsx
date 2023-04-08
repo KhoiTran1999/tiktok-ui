@@ -1,5 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+import { toast } from 'react-toastify';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getSearchUser } from '../../../services/ApiService';
 import { useTranslation } from 'react-i18next';
@@ -51,8 +52,11 @@ const FormSearch = () => {
                 setUserMock(responseMock.data);
                 setIsLoading(false);
             } catch (error) {
-                alert('Error when call Search User API');
-                window.location.reload();
+                toast.error('Error when call Search User API', {
+                    position: 'top-center',
+                    autoClose: 2000,
+                    theme: 'light',
+                });
             }
         };
         getData();
@@ -94,7 +98,7 @@ const FormSearch = () => {
                             {allUserList.length > 0 ? (
                                 <>
                                     <span className={cx('account-title')}>{t('header.accountSearch')}</span>
-                                    <AccountSearch allUserList={allUserList} />
+                                    <AccountSearch accountList={allUserList} />
                                     {limitResult === 100 ? (
                                         <></>
                                     ) : (

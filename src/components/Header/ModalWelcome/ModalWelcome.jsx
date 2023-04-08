@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames/bind';
-import style from './ModalWelcome.module.scss';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
+import { deleteFileStorage, updateDocument, uploadPoster } from '../../../firebase/services';
+import { AllUserListSelector, ModalWelcomeSelector, UserSelector } from '../../../redux/selector';
+import generateKey from '../../../services/generaterKey';
+import { Button } from '../../ReusedComponent';
 import Modal from '../../ReusedComponent/Modal/Modal';
 import ModalWelcomeSlice from './ModalWelcome.Slice';
-import { AllUserListSelector, ModalWelcomeSelector, UserListSelector, UserSelector } from '../../../redux/selector';
-import { Button } from '../../ReusedComponent';
-import { deleteFileStorage, updateDocument, uploadPoster } from '../../../firebase/services';
-import { useRef } from 'react';
-import generateKey from '../../../services/generaterKey';
-import { useNavigate } from 'react-router-dom';
+import style from './ModalWelcome.module.scss';
 
 const cx = classNames.bind(style);
 const ModalWelcome = () => {
@@ -41,7 +41,11 @@ const ModalWelcome = () => {
         fileRef.current = e.target.files[0];
         const allowedTypes = ['image/jpeg', 'image/png'];
         if (!allowedTypes.includes(fileRef.current.type)) {
-            alert('Invalid file type. Only JPEG, PNG images are allowed.');
+            toast.warn('Invalid file type. Only JPEG, PNG images are allowed.', {
+                position: 'top-center',
+                autoClose: 2000,
+                theme: 'light',
+            });
             return;
         }
         setPreview(URL.createObjectURL(fileRef.current));
@@ -167,7 +171,7 @@ const ModalWelcome = () => {
     return (
         <>
             {isModalWelcome ? (
-                <Modal>
+                <Modal overflow="auto">
                     <div className={cx('wrapper-edit')}>
                         <div className={cx('header')}>
                             <h3>Welcome to Tiktok</h3>
