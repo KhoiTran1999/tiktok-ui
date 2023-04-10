@@ -28,6 +28,10 @@
                     display: flex;
                     justify-content: flex-start;
                     align-items: flex-start;
+                    &.upload-body-ui {
+                        display: block;
+                        margin-bottom: 55px;
+                    }
                 }
             }
         }

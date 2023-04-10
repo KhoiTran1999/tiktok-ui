@@ -26,11 +26,20 @@ const UploadVideo = () => {
                 <div className={cx('upload-wrapper')}>
                     <SubnavWrapper scrollAction="visible" maxHeight="fit-content">
                         <div className={cx('upload-content')}>
-                            <div className={cx('upload-header')}>
-                                <h3>Upload video</h3>
-                                <h4>Post a video to your account</h4>
-                            </div>
-                            <div className={cx('upload-body')}>
+                            {videoLink ? (
+                                <div className={cx('upload-header')}>
+                                    <h3>Upload video</h3>
+                                    <h4>Post a video to your account</h4>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+
+                            <div
+                                className={cx('upload-body', {
+                                    'upload-body-ui': videoLink === null || videoLink === undefined,
+                                })}
+                            >
                                 <Preview
                                     videoLink={videoLink}
                                     setVideoLink={setVideoLink}
@@ -40,17 +49,21 @@ const UploadVideo = () => {
                                     isRunning={isRunning}
                                     setIsCancel={setIsCancel}
                                 />
-                                <AddDetail
-                                    videoLink={videoLink}
-                                    setVideoLink={setVideoLink}
-                                    thumbnailList={thumbnailList}
-                                    videoFile={videoFile}
-                                    setPercentageLoading={setPercentageLoading}
-                                    isRunning={isRunning}
-                                    setIsRunning={setIsRunning}
-                                    isCancel={isCancel}
-                                    setIsCancel={setIsCancel}
-                                />
+                                {videoLink ? (
+                                    <AddDetail
+                                        videoLink={videoLink}
+                                        setVideoLink={setVideoLink}
+                                        thumbnailList={thumbnailList}
+                                        videoFile={videoFile}
+                                        setPercentageLoading={setPercentageLoading}
+                                        isRunning={isRunning}
+                                        setIsRunning={setIsRunning}
+                                        isCancel={isCancel}
+                                        setIsCancel={setIsCancel}
+                                    />
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                         </div>
                     </SubnavWrapper>

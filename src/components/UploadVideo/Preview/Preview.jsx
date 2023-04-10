@@ -56,6 +56,38 @@ const Preview = ({
         setVideoFile(e.target.files[0]);
     };
 
+    const handleDragOver = (event) => {
+        event.preventDefault();
+    };
+    const handlDrop = (e) => {
+        e.preventDefault();
+        if (!e.dataTransfer.files[0].type.includes('video')) {
+            toast.warn(`Please choose Video type`, {
+                position: 'top-center',
+                autoClose: 2000,
+                theme: 'light',
+                containerId: 'PuredToast',
+            });
+            e.target.value = null;
+            return;
+        }
+        if (e.dataTransfer.files[0].size > 80000000) {
+            toast.warn(
+                `Video is limited at 80 MB. Your video is ${Math.round(e.dataTransfer.files[0].size / 1000000)} MB`,
+                {
+                    position: 'top-center',
+                    autoClose: 2000,
+                    theme: 'light',
+                    containerId: 'PuredToast',
+                },
+            );
+            e.target.value = null;
+            return;
+        }
+        setVideoLink(URL.createObjectURL(e.dataTransfer.files[0]));
+        setVideoFile(e.dataTransfer.files[0]);
+    };
+
     useEffect(() => {
         return () => {
             URL.revokeObjectURL(videoLink);
@@ -144,7 +176,7 @@ const Preview = ({
     };
 
     return (
-        <label htmlFor="videoFile">
+        <label htmlFor="videoFile" onDragOver={handleDragOver} onDrop={handlDrop}>
             {isRunning ? (
                 <div className={cx('loading')}>
                     <div className={cx('loading-wrap')}>
