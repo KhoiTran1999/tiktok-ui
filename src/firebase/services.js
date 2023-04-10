@@ -1,29 +1,22 @@
-import firebase, { db } from './config';
+import { Timestamp } from 'firebase/firestore';
+import { db } from './config';
 import { storage } from './config';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable, uploadString } from 'firebase/storage';
 
-export const addDocument = (collection, data) => {
-    const query = db.collection(collection);
-    query.add({
+export const addDocument = async (collection, data) => {
+    await db.collection(collection).add({
         ...data,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt: Timestamp.fromDate(new Date()),
     });
 };
 
-export async function deleteDocument(collection, docId) {
-    const res = await db.collection(collection).doc(docId).delete();
-}
-
 export async function updateDocument(collection, docId, field) {
     const collectionRef = db.collection(collection).doc(docId);
-    const res = await collectionRef.get().then((snapShot) => {
-        if (snapShot.exists) {
-            collectionRef.update(field);
-        } else {
-            return true;
-        }
-    });
-    return res;
+    await collectionRef.update(field);
+}
+
+export async function deleteDocument(collection, docId) {
+    const res = await db.collection(collection).doc(docId).delete();
 }
 
 export const uploadFile = (

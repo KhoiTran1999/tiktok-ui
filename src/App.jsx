@@ -31,7 +31,16 @@ function App() {
             </Routes>
             <AuthUser />
             <Notification />
-            <ToastContainer limit={6} transition={Slide} />
+            <ToastContainer
+                limit={6}
+                transition={Slide}
+                style={{ padding: '0', width: 'auto', height: 'auto' }}
+                toastStyle={{ padding: '0', backgroundColor: ' white' }}
+                bodyStyle={{ padding: '0', margin: '0px' }}
+                enableMultiContainer
+                containerId={'ConfiguredToast'}
+            />
+            <ToastContainer enableMultiContainer containerId={'PuredToast'} />
             {createPortal(<ModalWelcome />, document.body)}
         </div>
     );

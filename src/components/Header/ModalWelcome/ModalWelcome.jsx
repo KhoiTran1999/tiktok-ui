@@ -45,6 +45,7 @@ const ModalWelcome = () => {
                 position: 'top-center',
                 autoClose: 2000,
                 theme: 'light',
+                containerId: 'PuredToast',
             });
             return;
         }

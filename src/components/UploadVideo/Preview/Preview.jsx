@@ -32,12 +32,12 @@ const Preview = ({
     const [time, setTime] = useState(0);
 
     const handleVideoUpload = (e) => {
-        console.log(e.target.files[0].type);
         if (!e.target.files[0].type.includes('video')) {
             toast.warn(`Please choose Video type`, {
                 position: 'top-center',
                 autoClose: 2000,
                 theme: 'light',
+                containerId: 'PuredToast',
             });
             e.target.value = null;
             return;
@@ -47,6 +47,7 @@ const Preview = ({
                 position: 'top-center',
                 autoClose: 2000,
                 theme: 'light',
+                containerId: 'PuredToast',
             });
             e.target.value = null;
             return;

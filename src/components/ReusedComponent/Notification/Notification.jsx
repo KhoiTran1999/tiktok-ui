@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames/bind';
+import style from './Notification.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -17,6 +19,7 @@ import AmountOfNotiSlice from '../../Header/RightHeader/AmountOfNotiSlice';
 import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosedUserSlice';
 import SelectedRoomSlice from '../../Messages/ChatAccountList/AccountItem/selectedRoomSlice';
 
+const cx = classNames.bind(style);
 const Notification = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -63,7 +66,6 @@ const Notification = () => {
         messages.map((val) => {
             if (val.roomId === roomId) {
                 updateDocument('messages', val.id, {
-                    ...val,
                     notification: false,
                 });
             }
@@ -72,99 +74,86 @@ const Notification = () => {
         dispatch(AmountOfNotiSlice.actions.setAmountOfNoti(newAmountNoti));
     };
 
-    const MessageComp = ({ closeToast, nickName, createdAt, photoURL, text, uid, roomId }) => {
+    const MessageComp = ({ nickName, createdAt, photoURL, text, uid, roomId, toastId }) => {
         return (
-            <div
-                onClick={() => handleMoveToMessages(uid, roomId)}
-                style={{ width: '100%', maxHeight: '100px', boxSizing: 'border-box', display: 'flex' }}
-            >
-                <div
-                    style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%',
-                    }}
-                >
-                    <img
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            borderRadius: '50%',
-                            objectFit: 'cover',
-                        }}
-                        src={photoURL}
-                        alt=""
-                    />
+            <div className={cx('messages-wrap')}>
+                <div className={cx('icon')}>
+                    <i className="fa-solid fa-message"></i>
                 </div>
-                <div>
-                    <p
-                        style={{
-                            fontSize: '13px',
-                            display: '-webkit-box',
-                            WebkitBoxOrient: 'vertical',
-                            WebkitLineClamp: '4',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            wordBreak: 'break-word',
-                            paddingLeft: '10px',
-                            boxSizing: 'border-box',
-                        }}
-                    >
-                        {text}
+                <div className={cx('avatar')}>
+                    <img src={photoURL} alt="avatar" />
+                </div>
+                <div className={cx('info')}>
+                    <p className={cx('nickName')}>
+                        <b>{nickName}</b> sent you a message:{' '}
                     </p>
-                    <span style={{ fontSize: '12px', paddingLeft: '10px', marginTop: '5px' }}>
-                        {formatDate(createdAt)}
-                    </span>
+                    <p>"{text}"</p>
+                    <div className={cx('footer-wrap')}>
+                        <span className={cx('time')}>{formatDate(createdAt)}</span>
+                        <span onClick={() => handleMoveToMessages(uid, roomId)} className={cx('reply')}>
+                            Reply
+                        </span>
+                    </div>
                 </div>
+                <span className={cx('close')}>
+                    <i onClick={() => toast.dismiss(toastId)} className="fa-solid fa-xmark"></i>
+                </span>
             </div>
         );
     };
 
     useEffect(() => {
         messages.map((val) => {
-            curRoomList.map((room) => {
-                if (room.id === val.roomId && room.members.includes(userLogin.uid)) {
-                    if (
-                        val.notificationPopup &&
-                        val.uid !== userLogin.uid &&
-                        window.location.pathname !== '/messages'
-                    ) {
-                        toast(
-                            <MessageComp
-                                createdAt={val.createdAt.seconds}
-                                photoURL={val.photoURL}
-                                text={val.text}
-                                uid={val.uid}
-                                roomId={val.roomId}
-                            />,
-                            {
-                                position: 'bottom-right',
-                                autoClose: 2000,
-                                hideProgressBar: true,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: 'light',
-                                toastId: val.id,
-                                onOpen: () => {
-                                    updateDocument('messages', val.id, {
-                                        ...val,
-                                        notificationPopup: false,
-                                    });
-                                },
-                            },
-                        );
-                    } else if (
-                        val.notificationPopup &&
-                        val.uid !== userLogin.uid &&
-                        window.location.pathname === '/messages'
-                    ) {
-                        updateDocument('messages', val.id, {
-                            ...val,
-                            notificationPopup: false,
-                        });
-                    }
+            userList.map((user) => {
+                if (user.uid === val.uid) {
+                    curRoomList.map((room) => {
+                        if (room.id === val.roomId && room.members.includes(userLogin.uid)) {
+                            if (
+                                val.notificationPopup &&
+                                val.uid !== userLogin.uid &&
+                                window.location.pathname !== '/messages'
+                            ) {
+                                toast(
+                                    <MessageComp
+                                        nickName={user.nickName}
+                                        createdAt={val.createdAt.seconds}
+                                        photoURL={val.photoURL}
+                                        text={val.text}
+                                        uid={val.uid}
+                                        roomId={val.roomId}
+                                        toastId={val.id}
+                                    />,
+                                    {
+                                        className: `${cx('toast-message')}`,
+                                        position: 'bottom-right',
+                                        autoClose: 2000,
+                                        hideProgressBar: true,
+                                        draggable: true,
+                                        pauseOnHover: true,
+                                        closeButton: false,
+                                        toastId: val.id,
+                                        containerId: 'ConfiguredToast',
+                                        style: {
+                                            padding: '0px 20px 0px 0px',
+                                        },
+                                        onOpen: () => {
+                                            updateDocument('messages', val.id, {
+                                                notificationPopup: false,
+                                            });
+                                        },
+                                    },
+                                );
+                            } else if (
+                                val.notificationPopup &&
+                                val.uid !== userLogin.uid &&
+                                window.location.pathname === '/messages'
+                            ) {
+                                updateDocument('messages', val.id, {
+                                    notificationPopup: false,
+                                });
+                            }
+                        }
+                    });
                 }
             });
         });
@@ -188,7 +177,6 @@ const Notification = () => {
                         }
                     } else if (val.notification && val.uid !== userLogin.uid && room.id === selectedRoom) {
                         updateDocument('messages', val.id, {
-                            ...val,
                             notification: false,
                         });
                     }
@@ -201,74 +189,74 @@ const Notification = () => {
     }, [messages]);
 
     //------------------Noti when video is uploaded--------------------
-    const VideoNoti = ({ closeToast, nickName, caption, thumbnail, videoId }) => {
+    const VideoNoti = ({ photoURL, nickName, caption, thumbnail, videoId, createdAt }) => {
         return (
-            <Link to={`/profile/${nickName}/${videoId}`}>
-                <h4 style={{ color: 'white', wordBreak: 'break-word' }}>{nickName} has uploaded new video </h4>
-                <p
-                    style={{
-                        color: 'white',
-                        marginTop: '10px',
-                        display: '-webkit-box',
-                        WebkitBoxOrient: 'vertical',
-                        WebkitLineClamp: '2',
-                        overflowY: 'hidden',
-                        textOverflow: 'ellipsis',
-                    }}
-                >
-                    {caption}
-                </p>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <img
-                        style={{
-                            height: '300px',
-                            width: '170px',
-                            borderRadius: '8px',
-                        }}
-                        src={thumbnail}
-                        alt="thumbnail"
-                    />
+            <div className={cx('upload-wrap')}>
+                <div className={cx('icon')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                    <i className="fa-solid fa-play"></i>
                 </div>
-            </Link>
+                <div className={cx('avatar')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                    <img src={photoURL} alt="avatar" />
+                </div>
+                <div className={cx('info')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                    <p className={cx('nickName')}>
+                        <b>{nickName}</b> has uploaded a video:{' '}
+                    </p>
+                    <p>"{caption}"</p>
+                    <div className={cx('footer-wrap')}>
+                        <span className={cx('time')}>{formatDate(createdAt)}</span>
+                    </div>
+                </div>
+                <div className={cx('thumbnail')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                    <img src={thumbnail} alt="thumbnail" />
+                </div>
+                <span className={cx('close')}>
+                    <i onClick={() => toast.dismiss(videoId)} className="fa-solid fa-xmark"></i>
+                </span>
+            </div>
         );
     };
 
     useEffect(() => {
-        videoList.map((video) => {
-            if (video.notification) {
-                userList.map((userUpload) => {
-                    if (userUpload.uid === video.uid) {
-                        userList.map((user) => {
-                            if (user.uid !== video.uid && user.uid === userLogin.uid) {
-                                toast(
-                                    <VideoNoti
-                                        nickName={userUpload.nickName}
-                                        caption={video.caption}
-                                        thumbnail={video.thumbnail}
-                                        videoId={video.id}
-                                    />,
-                                    {
-                                        position: 'bottom-right',
-                                        autoClose: 200000,
-                                        hideProgressBar: true,
-                                        closeOnClick: true,
-                                        pauseOnHover: true,
-                                        draggable: true,
-                                        progress: undefined,
-                                        theme: 'dark',
-                                        toastId: user.uid,
+        if (videoList.length > 0) {
+            videoList.map((video) => {
+                if (video.notification === true) {
+                    userList.map((user) => {
+                        if (userLogin.uid !== video.uid && user.uid === userLogin.uid) {
+                            toast(
+                                <VideoNoti
+                                    photoURL={user.photoURL}
+                                    nickName={user.nickName}
+                                    caption={video.caption}
+                                    thumbnail={video.thumbnail}
+                                    videoId={video.id}
+                                    createdAt={video.createdAt.seconds}
+                                />,
+                                {
+                                    className: `${cx('upload')}`,
+                                    position: 'bottom-right',
+                                    autoClose: 2000,
+                                    hideProgressBar: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    closeButton: false,
+                                    toastId: video.id,
+                                    containerId: 'ConfiguredToast',
+                                    style: {
+                                        padding: '0px 15px 0px 0px',
                                     },
-                                );
-                                updateDocument('videoList', video.id, {
-                                    ...video,
-                                    notification: false,
-                                });
-                            }
+                                },
+                            );
+                        }
+                    });
+                    setTimeout(() => {
+                        updateDocument('videoList', video.id, {
+                            notification: false,
                         });
-                    }
-                });
-            }
-        });
+                    }, 500);
+                }
+            });
+        }
     }, [videoList.length]);
 
     //---------------Noti Comment when other user comment into your video---------
@@ -280,52 +268,34 @@ const Notification = () => {
         return formattedDate;
     };
 
-    const CommentNoti = ({ closeToast, nickName, text, photoURL, createdAt, videoId }) => {
+    const CommentNoti = ({ nickName, text, photoURL, createdAt, thumbnail, videoId, toastId }) => {
         return (
-            <Link to={`/profile/${nickName}/${videoId}`}>
-                <div
-                    style={{
-                        width: '100%',
-                        maxHeight: '100px',
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div>
-                        <img
-                            style={{
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '50%',
-                                objectFit: 'cover',
-                            }}
-                            src={photoURL}
-                            alt="avatar"
-                        />
-                    </div>
-                    <div>
-                        <p
-                            style={{
-                                fontSize: '13px',
-                                display: '-webkit-box',
-                                WebkitBoxOrient: 'vertical',
-                                WebkitLineClamp: '4',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                wordBreak: 'break-word',
-                                paddingLeft: '10px',
-                                boxSizing: 'border-box',
-                            }}
-                        >
-                            <b>{nickName} has commented your video: </b>"{text}"
-                        </p>
-                        <span style={{ fontSize: '12px', paddingLeft: '10px', marginTop: '5px' }}>
-                            {formatDate(createdAt)}
+            <div className={cx('comment-wrap')}>
+                <div className={cx('icon')}>
+                    <i className="fa-regular fa-comments"></i>
+                </div>
+                <div className={cx('avatar')}>
+                    <img src={photoURL} alt="avatar" />
+                </div>
+                <div className={cx('info')}>
+                    <p className={cx('nickName')}>
+                        <b>{nickName}</b> has commented in your post:{' '}
+                    </p>
+                    <p>"{text}"</p>
+                    <div className={cx('footer-wrap')}>
+                        <span className={cx('time')}>{formatDate(createdAt)}</span>
+                        <span onClick={() => navigate(`/profile/${nickName}/${videoId}`)} className={cx('reply')}>
+                            Reply
                         </span>
                     </div>
                 </div>
-            </Link>
+                <div className={cx('thumbnail')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                    <img src={thumbnail} alt="thumbnail" />
+                </div>
+                <span className={cx('close')}>
+                    <i onClick={() => toast.dismiss(toastId)} className="fa-solid fa-xmark"></i>
+                </span>
+            </div>
         );
     };
     useEffect(() => {
@@ -338,17 +308,23 @@ const Notification = () => {
                             photoURL={comment.photoURL}
                             text={comment.text}
                             createdAt={comment.createdAt.seconds}
+                            thumbnail={video.thumbnail}
                             videoId={video.id}
+                            toastId={comment.id}
                         />,
                         {
+                            className: `${cx('toast-comment')}`,
                             position: 'bottom-right',
                             autoClose: 2000,
                             hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
                             draggable: true,
-                            progress: undefined,
-                            theme: 'light',
+                            pauseOnHover: true,
+                            closeButton: false,
+                            toastId: comment.id,
+                            containerId: 'ConfiguredToast',
+                            style: {
+                                padding: '0px 20px 0px 0px',
+                            },
                         },
                     );
                 }
@@ -362,7 +338,6 @@ const Notification = () => {
                 };
             });
             updateDocument('videoList', video.id, {
-                ...video,
                 comments: newCommentNoti,
             });
         });

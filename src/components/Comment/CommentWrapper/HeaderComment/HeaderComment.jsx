@@ -107,6 +107,7 @@ const HeaderComment = ({ video, userVideo }) => {
             position: 'top-center',
             autoClose: 2000,
             theme: 'light',
+            containerId: 'PuredToast',
         });
     };
 
@@ -218,7 +219,11 @@ const HeaderComment = ({ video, userVideo }) => {
                                 <div className={cx('wrap')}>
                                     <span className={cx('displayName')}>{userVideo.displayName}</span>
                                     <span> · </span>
-                                    <span className={cx('createdAt')}>{formatDate(video.createdAt.seconds)}</span>
+                                    {video.createdAt ? (
+                                        <span className={cx('createdAt')}>{formatDate(video.createdAt.seconds)}</span>
+                                    ) : (
+                                        <></>
+                                    )}
                                 </div>
                             </div>
                         </div>

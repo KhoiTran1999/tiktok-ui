@@ -14,7 +14,7 @@ const cx = classNames.bind(style);
 const Comment = () => {
     const param = useParams();
 
-    const [video, setVideo] = useState({ likes: [], comments: [], createdAt: {} });
+    const [video, setVideo] = useState({ likes: [], comments: [], createdAt: { seconds: 0 } });
     const [userVideo, setUserVideo] = useState({ followers: [], following: [], likes: [] });
 
     const videoList = useSelector(VideoListSelector);
