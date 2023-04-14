@@ -20,11 +20,13 @@
                 display: flex;
                 align-items: center;
                 .nickName {
+                    max-width: 368px;
                     font-weight: 700;
                     font-size: 29px;
                     line-height: 38px;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    white-space: nowrap;
                     text-align: center;
                     word-break: break-word;
                     display: inline-block;

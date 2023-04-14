@@ -150,7 +150,7 @@ const MoreActionProfile = ({ allUserList }) => {
                                     <></>
                                 ) : userLogin.uid === user.uid ? (
                                     <></>
-                                ) : userLogin.followers.includes(user.uid) ? (
+                                ) : userLogin.followings.includes(user.uid) ? (
                                     <></>
                                 ) : (
                                     <li onClick={sendMessage}>

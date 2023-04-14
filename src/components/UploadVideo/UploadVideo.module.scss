@@ -11,6 +11,10 @@
             .upload-content {
                 padding: 24px 40px;
                 .upload-header {
+                    display: none;
+                    &.upload-header-ui {
+                        display: block;
+                    }
                     h3 {
                         color: var(--text);
                         font-size: 22px;

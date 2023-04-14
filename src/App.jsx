@@ -40,7 +40,13 @@ function App() {
                 enableMultiContainer
                 containerId={'ConfiguredToast'}
             />
-            <ToastContainer enableMultiContainer containerId={'PuredToast'} />
+            <ToastContainer
+                enableMultiContainer
+                containerId={'PuredToast'}
+                transition={Slide}
+                autoClose={2000}
+                position={'top-center'}
+            />
             {createPortal(<ModalWelcome />, document.body)}
         </div>
     );

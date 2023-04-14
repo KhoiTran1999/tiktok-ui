@@ -189,25 +189,30 @@ const Notification = () => {
     }, [messages]);
 
     //------------------Noti when video is uploaded--------------------
+    const handleNavigate = (nickName, videoId) => {
+        navigate(`/profile/${nickName}`);
+        navigate(`/profile/${nickName}/${videoId}`);
+        window.location.reload();
+    };
     const VideoNoti = ({ photoURL, nickName, caption, thumbnail, videoId, createdAt }) => {
         return (
             <div className={cx('upload-wrap')}>
-                <div className={cx('icon')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                <div className={cx('icon')} onClick={() => handleNavigate(nickName, videoId)}>
                     <i className="fa-solid fa-play"></i>
                 </div>
-                <div className={cx('avatar')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                <div className={cx('avatar')} onClick={() => handleNavigate(nickName, videoId)}>
                     <img src={photoURL} alt="avatar" />
                 </div>
-                <div className={cx('info')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                <div className={cx('info')} onClick={() => handleNavigate(nickName, videoId)}>
                     <p className={cx('nickName')}>
-                        <b>{nickName}</b> has uploaded a video:{' '}
+                        <b>{nickName}</b> has uploaded video:{' '}
                     </p>
                     <p>"{caption}"</p>
                     <div className={cx('footer-wrap')}>
                         <span className={cx('time')}>{formatDate(createdAt)}</span>
                     </div>
                 </div>
-                <div className={cx('thumbnail')} onClick={() => navigate(`/profile/${nickName}/${videoId}`)}>
+                <div className={cx('thumbnail')} onClick={() => handleNavigate(nickName, videoId)}>
                     <img src={thumbnail} alt="thumbnail" />
                 </div>
                 <span className={cx('close')}>
@@ -221,34 +226,39 @@ const Notification = () => {
         if (videoList.length > 0) {
             videoList.map((video) => {
                 if (video.notification === true) {
-                    userList.map((user) => {
-                        if (userLogin.uid !== video.uid && user.uid === userLogin.uid) {
-                            toast(
-                                <VideoNoti
-                                    photoURL={user.photoURL}
-                                    nickName={user.nickName}
-                                    caption={video.caption}
-                                    thumbnail={video.thumbnail}
-                                    videoId={video.id}
-                                    createdAt={video.createdAt.seconds}
-                                />,
-                                {
-                                    className: `${cx('upload')}`,
-                                    position: 'bottom-right',
-                                    autoClose: 2000,
-                                    hideProgressBar: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    closeButton: false,
-                                    toastId: video.id,
-                                    containerId: 'ConfiguredToast',
-                                    style: {
-                                        padding: '0px 15px 0px 0px',
-                                    },
-                                },
-                            );
+                    userList.map((userUpload) => {
+                        if (userUpload.uid === video.uid) {
+                            userList.map((user) => {
+                                if (userLogin.uid !== video.uid && user.uid === userLogin.uid) {
+                                    toast(
+                                        <VideoNoti
+                                            photoURL={userUpload.photoURL}
+                                            nickName={userUpload.nickName}
+                                            caption={video.caption}
+                                            thumbnail={video.thumbnail}
+                                            videoId={video.id}
+                                            createdAt={video.createdAt.seconds}
+                                        />,
+                                        {
+                                            className: `${cx('upload')}`,
+                                            position: 'bottom-right',
+                                            autoClose: 2000,
+                                            hideProgressBar: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            closeButton: false,
+                                            toastId: video.id,
+                                            containerId: 'ConfiguredToast',
+                                            style: {
+                                                padding: '0px 15px 0px 0px',
+                                            },
+                                        },
+                                    );
+                                }
+                            });
                         }
                     });
+
                     setTimeout(() => {
                         updateDocument('videoList', video.id, {
                             notification: false,

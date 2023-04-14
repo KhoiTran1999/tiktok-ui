@@ -11,8 +11,12 @@ export const addDocument = async (collection, data) => {
 };
 
 export async function updateDocument(collection, docId, field) {
-    const collectionRef = db.collection(collection).doc(docId);
-    await collectionRef.update(field);
+    try {
+        const collectionRef = db.collection(collection).doc(docId);
+        await collectionRef.update(field);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function deleteDocument(collection, docId) {
@@ -73,7 +77,7 @@ export const uploadFile = (
     );
 };
 
-export const uploadPoster = (nameFile, file) => {
+export const uploadPoster = async (nameFile, file) => {
     const storageRef = ref(storage, nameFile);
     return uploadString(storageRef, file, 'data_url').then((snapShot) => {
         return getDownloadURL(snapShot.ref);
@@ -83,11 +87,61 @@ export const uploadPoster = (nameFile, file) => {
 export const deleteFileStorage = (fileURL) => {
     const storageDelete = getStorage();
     const storageDeleteRef = ref(storageDelete, fileURL);
-    deleteObject(storageDeleteRef)
-        .then(() => {
-            console.log('File deleted successfully');
-        })
-        .catch((error) => {
-            console.log(error.message);
+    deleteObject(storageDeleteRef);
+};
+
+export const handleFollowService = (userLogin, guest) => {
+    if (userLogin.followings.includes(guest.uid)) {
+        //remove uid into followings of userLogin
+        const newFollowings = userLogin.followings.filter((val) => val !== guest.uid);
+        updateDocument('userList', userLogin.id, {
+            followings: newFollowings,
         });
+
+        //remove uid into followers of Guest
+        const newFollowers = guest.followers.filter((val) => val !== userLogin.uid);
+        updateDocument('userList', guest.id, {
+            followers: newFollowers,
+        });
+
+        //unfollow Noti for Guest
+        const newFollowersNoti = [
+            ...guest.notification.followers,
+            {
+                photoURL: userLogin.photoURL,
+                nickName: userLogin.nickName,
+                status: 'unfollow',
+                createdAt: Timestamp.fromDate(new Date()),
+            },
+        ];
+        updateDocument('userList', guest.id, {
+            'notification.followers': newFollowersNoti,
+            'notification.status': true,
+        });
+    } else {
+        //add uid into followings of userLogin
+        updateDocument('userList', userLogin.id, {
+            followings: [...userLogin.followings, guest.uid],
+        });
+
+        //add uid into followers of Guest
+        updateDocument('userList', guest.id, {
+            followers: [...guest.followers, userLogin.uid],
+        });
+
+        //add Noti for Guest
+        const newFollowersNoti = [
+            ...guest.notification.followers,
+            {
+                photoURL: userLogin.photoURL,
+                nickName: userLogin.nickName,
+                status: 'follow',
+                createdAt: Timestamp.fromDate(new Date()),
+            },
+        ];
+        updateDocument('userList', guest.id, {
+            'notification.followers': newFollowersNoti,
+            'notification.status': true,
+        });
+    }
 };

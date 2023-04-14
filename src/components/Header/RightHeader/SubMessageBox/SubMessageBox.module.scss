@@ -1,0 +1,101 @@
+.sub-messagesBox {
+    padding: 24px 16px 10px;
+    width: 376px;
+    height: 613px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px -4px 32px;
+    overflow-y: auto;
+    overscroll-behavior: none;
+    cursor: default;
+    transition: all 200ms linear 0s;
+
+    position: absolute;
+    top: 50px;
+    right: 0px;
+
+    .header {
+        h2 {
+            color: rgb(22, 24, 35);
+            font-weight: 700;
+            font-size: 23px;
+        }
+        .nav-wrap {
+            margin-top: 16px;
+            span {
+                display: inline-block;
+                color: rgb(22, 24, 35);
+                font-size: 14px;
+                font-weight: 500;
+                background: rgba(22, 24, 35, 0.06);
+                border: none;
+                padding: 2px 8px;
+                margin-bottom: 12px;
+                margin-right: 8px;
+                text-align: center;
+                cursor: pointer;
+                border-radius: 12px;
+                transition: all 300ms ease 0s;
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.12);
+                }
+                &.active {
+                    background-color: black;
+                    color: white;
+                }
+            }
+        }
+    }
+    .body {
+        .time {
+            color: rgba(22, 24, 35, 0.5);
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            margin-top: 8px;
+        }
+        .noti-wrap {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 10px 16px;
+            margin: 0px -16px;
+            &:hover {
+                background-color: rgba(22, 24, 35, 0.03);
+            }
+            .avatar {
+                img {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    margin-right: 10px;
+                }
+            }
+            .infor {
+                margin-right: 10px;
+                .nickName {
+                    color: rgb(22, 24, 35);
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+                .content {
+                    font-size: 13px;
+                    color: rgb(22, 24, 35);
+                }
+                .createdAt {
+                    font-size: 12px;
+                    color: rgba(22, 24, 35, 0.5);
+                }
+            }
+            .thumbnail {
+                img {
+                    width: 42px;
+                    height: 56px;
+                    border-radius: 3px;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}

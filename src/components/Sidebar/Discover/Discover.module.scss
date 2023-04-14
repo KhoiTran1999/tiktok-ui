@@ -1,6 +1,9 @@
 .discover {
     padding: 16px 0px 10px 0px;
     width: 100%;
+    @media screen and (max-width: 1070px) {
+        display: none;
+    }
     .title {
         font-size: 14px;
         color: #161823bf;

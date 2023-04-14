@@ -1,6 +1,9 @@
 .footer {
     padding: 16px 0px;
     height: 320px;
+    @media screen and (max-width: 1070px) {
+        display: none;
+    }
     ul {
         display: flex;
         flex-wrap: wrap;

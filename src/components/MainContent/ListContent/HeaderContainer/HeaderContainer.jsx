@@ -1,14 +1,12 @@
-import React from 'react';
 import classNames from 'classnames/bind';
-import style from './HeaderContainer.module.scss';
-import { Button } from '../../../ReusedComponent';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
-import { UserListSelector, UserSelector } from '../../../../redux/selector';
 import { Link } from 'react-router-dom';
-import { updateDocument } from '../../../../firebase/services';
-import { useState } from 'react';
-import { useRef } from 'react';
+import { handleFollowService, updateDocument } from '../../../../firebase/services';
+import { UserSelector } from '../../../../redux/selector';
+import { Button } from '../../../ReusedComponent';
+import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
+import style from './HeaderContainer.module.scss';
 
 const cx = classNames.bind(style);
 const HeaderContainer = ({ userVideo, video }) => {
@@ -17,36 +15,6 @@ const HeaderContainer = ({ userVideo, video }) => {
 
     const dispatch = useDispatch();
     const user = useSelector(UserSelector);
-
-    const handleFollow = () => {
-        if (user.followings.includes(video.uid)) {
-            //remove uid into followings of userLogin
-            const newFollowings = user.followings.filter((val) => val !== userVideo.uid);
-            updateDocument('userList', user.id, {
-                ...user,
-                followings: newFollowings,
-            });
-
-            //remove uid into followers of Guest
-            const newFollowers = userVideo.followers.filter((val) => val !== user.uid);
-            updateDocument('userList', userVideo.id, {
-                ...userVideo,
-                followers: newFollowers,
-            });
-        } else {
-            //add uid into followings of userLogin
-            updateDocument('userList', user.id, {
-                ...user,
-                followings: [...user.followings, userVideo.uid],
-            });
-
-            //add uid into followers of Guest
-            updateDocument('userList', userVideo.id, {
-                ...userVideo,
-                followers: [...userVideo.followers, user.uid],
-            });
-        }
-    };
 
     const handleMore = () => {
         captionRef.current.style.WebkitLineClamp = '7';
@@ -105,11 +73,16 @@ const HeaderContainer = ({ userVideo, video }) => {
                     Follow
                 </Button>
             ) : user.followings.includes(video.uid) ? (
-                <Button style={{ padding: '4px 16px' }} basic small onClick={handleFollow}>
+                <Button
+                    style={{ padding: '4px 16px' }}
+                    basic
+                    small
+                    onClick={() => handleFollowService(user, userVideo)}
+                >
                     Following
                 </Button>
             ) : user.uid !== video.uid ? (
-                <Button outline small onClick={handleFollow}>
+                <Button outline small onClick={() => handleFollowService(user, userVideo)}>
                     Follow
                 </Button>
             ) : (

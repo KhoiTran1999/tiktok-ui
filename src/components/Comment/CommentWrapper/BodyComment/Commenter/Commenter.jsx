@@ -1,21 +1,20 @@
 import Tippy from '@tippyjs/react/headless';
 import 'animate.css';
 import classNames from 'classnames/bind';
-import { createPortal } from 'react-dom';
 import { formatDistance } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDocument, updateDocument } from '../../../../../firebase/services';
+import { Link } from 'react-router-dom';
+import { handleFollowService, updateDocument } from '../../../../../firebase/services';
 import { UserListSelector, UserSelector, VideoListSelector } from '../../../../../redux/selector';
+import { Button, ModalSign, SubnavWrapper } from '../../../../ReusedComponent';
 import ModalSignSlice from '../../../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './Commenter.module.scss';
-import { ModalSign, SubnavWrapper } from '../../../../ReusedComponent';
-import { Link } from 'react-router-dom';
-import { Button } from '../../../../ReusedComponent';
-import { useRef } from 'react';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(style);
-const Commenter = ({ comment, video }) => {
+const Commenter = ({ comment, video, inputValue, setInputValue, listMention, setListMention, textAreaRef }) => {
     const dispatch = useDispatch();
     const [heart, setHeart] = useState(false);
     const [userComment, setUserComment] = useState({ followers: [] });
@@ -88,35 +87,23 @@ const Commenter = ({ comment, video }) => {
     });
 
     const handleReply = () => {
-        if (userLogin.login === false) dispatch(ModalSignSlice.actions.setModalSign(true));
-    };
-
-    const handleFollow = () => {
-        if (userLogin.followings.includes(userComment.uid)) {
-            //remove uid into followings of userLogin
-            const newFollowings = userLogin.followings.filter((val) => val !== userComment.uid);
-            updateDocument('userList', userLogin.id, {
-                ...userLogin,
-                followings: newFollowings,
-            });
-
-            //remove uid into followers of Guest
-            const newFollowers = userComment.followers.filter((val) => val !== userLogin.uid);
-            updateDocument('userList', userComment.id, {
-                ...userComment,
-                followers: newFollowers,
+        if (userLogin.login === false) {
+            dispatch(ModalSignSlice.actions.setModalSign(true));
+            return;
+        }
+        if (!inputValue.includes(`"${userComment.nickName}"`) && userComment.uid !== userLogin.uid) {
+            setListMention([...listMention, userComment]);
+            setInputValue(inputValue + ` "${userComment.nickName}" `);
+            textAreaRef.current.focus();
+        } else if (!inputValue.includes(`"${userComment.nickName}"`) && userComment.uid === userLogin.uid) {
+            toast.warning('Can not reply yourself', {
+                toastId: comment.id,
+                containerId: 'PuredToast',
             });
         } else {
-            //add uid into followings of userLogin
-            updateDocument('userList', userLogin.id, {
-                ...userLogin,
-                followings: [...userLogin.followings, userComment.uid],
-            });
-
-            //add uid into followers of Guest
-            updateDocument('userList', userComment.id, {
-                ...userComment,
-                followers: [...userComment.followers, userLogin.uid],
+            toast.warning('You can only mention one user at the same time', {
+                toastId: comment.id,
+                containerId: 'PuredToast',
             });
         }
     };
@@ -150,11 +137,21 @@ const Commenter = ({ comment, video }) => {
                                             Follow
                                         </Button>
                                     ) : userLogin.followings.includes(userComment.uid) ? (
-                                        <Button style={{ padding: '7px 16px' }} basic small onClick={handleFollow}>
+                                        <Button
+                                            style={{ padding: '7px 16px' }}
+                                            basic
+                                            small
+                                            onClick={() => handleFollowService(userLogin, userComment)}
+                                        >
                                             Following
                                         </Button>
                                     ) : userLogin.uid !== userComment.uid ? (
-                                        <Button style={{ padding: '7px 16px' }} outline small onClick={handleFollow}>
+                                        <Button
+                                            style={{ padding: '7px 16px' }}
+                                            outline
+                                            small
+                                            onClick={() => handleFollowService(userLogin, userComment)}
+                                        >
                                             Follow
                                         </Button>
                                     ) : (

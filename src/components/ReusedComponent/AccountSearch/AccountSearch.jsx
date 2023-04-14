@@ -5,13 +5,14 @@ import ImageCustom from '../ImageCustom';
 import style from './AccountSearch.module.scss';
 
 const cx = classNames.bind(style);
-const AccountSearch = ({ accountList }) => {
+const AccountSearch = ({ accountList, classname }) => {
     return (
-        <div className={cx('Account-list')}>
+        <div className={cx('Account-list', classname)}>
             <ul>
                 {accountList ? (
                     <>
-                        {accountList.map((val, idx) => {
+                        {accountList.map((val) => {
+                            if (val.user === '') return <></>;
                             return (
                                 <li key={val.id}>
                                     <Link to={`/profile/${val.nickName}`}>

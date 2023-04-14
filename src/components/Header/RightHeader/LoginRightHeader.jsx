@@ -10,19 +10,18 @@ import styled from 'styled-components';
 import LogoMessage from '../../../assets/icon/LogoMessage';
 import LogoMessageActive from '../../../assets/icon/LogoMessageActive';
 import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
+import LogoMessageBoxActive from '../../../assets/icon/LogoMessageBoxActive';
 import routes from '../../../config/routes';
 import { auth } from '../../../firebase/config';
-import { AmountOfNotiSelector, CurrentRoomsSelector, UserSelector } from '../../../redux/selector';
+import { AmountOfNotiSelector, UserSelector } from '../../../redux/selector';
 import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosedUserSlice';
 import SelectedRoomSlice from '../../Messages/ChatAccountList/AccountItem/selectedRoomSlice';
 import { Button, ImageCustom, Menu, Wrapper } from '../../ReusedComponent';
 import UserLoginSlice from '../../ReusedComponent/ModalSign/UserLoginSlice';
-import AmountOfNotiSlice from './AmountOfNotiSlice';
 import style from './RightHeader.module.scss';
-import { useMemo } from 'react';
-import useFireStore from '../../../hooks/useFireStore';
+import SubMessageBox from './SubMessageBox/SubMessageBox';
 import { useEffect } from 'react';
-import { useRef } from 'react';
+import { updateDocument } from '../../../firebase/services';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
@@ -32,6 +31,8 @@ const LoginRightHeader = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const [activeNoti, setActiveNoti] = useState(false);
+
     const user = useSelector(UserSelector);
     const anoumtOfNoti = useSelector(AmountOfNotiSelector);
 
@@ -40,10 +41,6 @@ const LoginRightHeader = () => {
             icon: <i className="fa-regular fa-user"></i>,
             title: t('header.Menu.viewProfile'),
             to: `/profile/${user.nickName}`,
-        },
-        {
-            icon: <i className="fa-brands fa-tiktok"></i>,
-            title: t('header.Menu.getCoin'),
         },
         {
             icon: <i className="fa-solid fa-gear"></i>,
@@ -65,15 +62,6 @@ const LoginRightHeader = () => {
                     },
                 ],
             },
-        },
-        {
-            icon: <i className="fa-regular fa-circle-question"></i>,
-            title: t('header.Menu.feedBackAndHelp'),
-            to: '/feedback',
-        },
-        {
-            icon: <i className="fa-regular fa-keyboard"></i>,
-            title: t('header.Menu.keyboard'),
         },
         {
             icon: <i className="fa-regular fa-moon"></i>,
@@ -157,6 +145,16 @@ const LoginRightHeader = () => {
     }
     //--------------------------------------------------------
 
+    const handleClickNoti = () => {
+        setActiveNoti(!activeNoti);
+        updateDocument('userList', user.id, {
+            notification: {
+                ...user.notification,
+                status: false,
+            },
+        });
+    };
+
     return (
         <div className={cx('group')}>
             <ul>
@@ -203,9 +201,18 @@ const LoginRightHeader = () => {
                 </li>
 
                 <li>
-                    <Tippy placement="bottom" render={(attrs) => <Wrapper>{t('header.logoInbox')}</Wrapper>}>
-                        <LogoMessageBox className={cx('messageBox')} />
+                    <Tippy
+                        trigger="mouseenter"
+                        placement="bottom"
+                        render={(attrs) => <Wrapper>{t('header.logoInbox')}</Wrapper>}
+                    >
+                        <div className={cx('messageBox-wrap')} onClick={handleClickNoti}>
+                            {!activeNoti && <LogoMessageBox className={cx('messageBox')} />}
+                            {activeNoti && <LogoMessageBoxActive className={cx('messageBox')} />}
+                            {user.notification.status && <div className={cx('dot-noti')}></div>}
+                        </div>
                     </Tippy>
+                    {activeNoti && <SubMessageBox />}
                 </li>
 
                 <li>

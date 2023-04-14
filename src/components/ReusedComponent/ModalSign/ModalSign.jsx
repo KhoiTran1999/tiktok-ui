@@ -42,6 +42,12 @@ const ModalSign = () => {
                 followings: [],
                 followers: [],
                 likes: [],
+                notification: {
+                    comments: [],
+                    mentions: [],
+                    followers: [],
+                    status: false,
+                },
                 websiteURL: user.email,
             });
             dispatch(ModalWelcomeSlice.actions.setModalWelcome(true));

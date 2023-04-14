@@ -10,7 +10,7 @@ import Button from '../../ReusedComponent/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserSelector, VideoListSelector } from '../../../redux/selector';
 import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
-import { updateDocument } from '../../../firebase/services';
+import { handleFollowService, updateDocument } from '../../../firebase/services';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
@@ -32,35 +32,6 @@ const AccountItem = ({ accountUser }) => {
         countLikeRef.current = count;
     });
 
-    const handleFollow = () => {
-        if (user.followings.includes(accountUser.uid)) {
-            //remove uid into followings of userLogin
-            const newFollowings = user.followings.filter((val) => val !== accountUser.uid);
-            updateDocument('userList', user.id, {
-                ...user,
-                followings: newFollowings,
-            });
-
-            //remove uid into followers of Guest
-            const newFollowers = accountUser.followers.filter((val) => val !== user.uid);
-            updateDocument('userList', accountUser.id, {
-                ...accountUser,
-                followers: newFollowers,
-            });
-        } else {
-            //add uid into followings of userLogin
-            updateDocument('userList', user.id, {
-                ...user,
-                followings: [...user.followings, accountUser.uid],
-            });
-
-            //add uid into followers of Guest
-            updateDocument('userList', accountUser.id, {
-                ...accountUser,
-                followers: [...accountUser.followers, user.uid],
-            });
-        }
-    };
     return (
         <li>
             <Tippy
@@ -82,11 +53,16 @@ const AccountItem = ({ accountUser }) => {
                                         Follow
                                     </Button>
                                 ) : user.followings.includes(accountUser.uid) ? (
-                                    <Button style={{ padding: '7px 16px' }} basic small onClick={handleFollow}>
+                                    <Button
+                                        style={{ padding: '7px 16px' }}
+                                        basic
+                                        small
+                                        onClick={() => handleFollowService(user, accountUser)}
+                                    >
                                         Following
                                     </Button>
                                 ) : user.uid !== accountUser.uid ? (
-                                    <Button outline small onClick={handleFollow}>
+                                    <Button outline small onClick={() => handleFollowService(user, accountUser)}>
                                         Follow
                                     </Button>
                                 ) : (

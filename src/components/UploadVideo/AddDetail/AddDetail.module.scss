@@ -1,6 +1,10 @@
 .add-detail {
+    display: none;
     flex: 0 0 734px;
     margin-left: 24px;
+    &.add-detail-ui {
+        display: block;
+    }
     .form-group {
         position: relative;
         .caption-wrap {
@@ -27,19 +31,14 @@
             margin-top: 5px;
             overflow-y: hidden;
         }
+        .select {
+            top: 13px;
+        }
         .name-tagging {
             position: absolute;
             top: 37px;
-            right: 45px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .hash-tag {
-            position: absolute;
-            top: 37px;
             right: 20px;
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
         }
@@ -89,11 +88,11 @@
                     top: 0;
                     left: 0;
                     transition: 0.3s all;
-                    z-index: 12;
+                    z-index: 9;
                 }
                 &.active {
                     transform: scale(1.2);
-                    z-index: 11;
+                    z-index: 8;
                     border: 2px solid var(--primary);
                     &::after {
                         display: none;

@@ -34,15 +34,6 @@ const UnloginRightHeader = () => {
             },
         },
         {
-            icon: <i className="fa-regular fa-circle-question"></i>,
-            title: t('header.Menu.feedBackAndHelp'),
-            to: '/feedback',
-        },
-        {
-            icon: <i className="fa-regular fa-keyboard"></i>,
-            title: t('header.Menu.keyboard'),
-        },
-        {
             icon: <i className="fa-regular fa-moon"></i>,
             title: t('header.Menu.darkMode'),
         },

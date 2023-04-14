@@ -40,13 +40,18 @@ const Sidebar = ({ className = 'side-bar' }) => {
 
                     {user.login ? (
                         <>
-                            <div className={cx('wrapper')}>
-                                <AccountList
-                                    title={'Suggested accounts'}
-                                    tippyVisible={true}
-                                    accountList={suggestedAccountList}
-                                />
-                            </div>
+                            {suggestedAccountList.length > 0 ? (
+                                <div className={cx('wrapper')}>
+                                    <AccountList
+                                        title={'Suggested accounts'}
+                                        tippyVisible={true}
+                                        accountList={suggestedAccountList}
+                                    />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+
                             {followingAccountList.length > 0 ? (
                                 <div className={cx('wrapper')}>
                                     <AccountList title={'Following accounts'} accountList={followingAccountList} />
@@ -76,13 +81,17 @@ const Sidebar = ({ className = 'side-bar' }) => {
                                     Log in
                                 </Button>
                             </div>
-                            <div className={cx('wrapper')}>
-                                <AccountList
-                                    accountList={suggestedAccountList}
-                                    title={'Suggested accounts'}
-                                    tippyVisible={true}
-                                />
-                            </div>
+                            {suggestedAccountList.length > 0 ? (
+                                <div className={cx('wrapper')}>
+                                    <AccountList
+                                        title={'Suggested accounts'}
+                                        tippyVisible={true}
+                                        accountList={suggestedAccountList}
+                                    />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </>
                     )}
 

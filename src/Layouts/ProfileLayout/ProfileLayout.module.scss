@@ -19,6 +19,9 @@
             button {
                 max-width: 218px;
             }
+            @media screen and (max-width: 1070px) {
+                width: 70px;
+            }
         }
     }
 }

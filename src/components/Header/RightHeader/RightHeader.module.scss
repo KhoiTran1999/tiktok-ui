@@ -7,6 +7,7 @@
         margin-right: 10px;
         > li {
             margin-left: 15px;
+            position: relative;
             cursor: pointer;
             .upload {
                 span {
@@ -45,10 +46,22 @@
                 }
             }
 
-            .messageBox {
-                margin: 6px 10px 0px;
-                margin-left: 5px;
-                outline: none;
+            .messageBox-wrap {
+                position: relative;
+                .messageBox {
+                    margin: 6px 10px 0px;
+                    margin-left: 5px;
+                    outline: none;
+                }
+                .dot-noti {
+                    width: 10px;
+                    height: 10px;
+                    background-color: var(--primary);
+                    border-radius: 50%;
+                    position: absolute;
+                    right: 10px;
+                    top: 8px;
+                }
             }
 
             .menu {

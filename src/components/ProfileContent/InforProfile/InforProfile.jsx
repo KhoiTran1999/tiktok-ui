@@ -8,7 +8,7 @@ import style from './InforProfile.module.scss';
 import { CurrentRoomsSelector, UserSelector, VideoListSelector } from '../../../redux/selector';
 import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
 import ModalEditProfileSlice from '../ModalEditProfile/ModalEditProfileSlice';
-import { addDocument, updateDocument } from '../../../firebase/services';
+import { addDocument, handleFollowService, updateDocument } from '../../../firebase/services';
 import routes from '../../../config/routes';
 
 const cx = classNames.bind(style);
@@ -59,36 +59,6 @@ const InforProfile = ({ allUserList }) => {
         countLikeRef.current = count;
     });
 
-    const handleFollow = () => {
-        if (userLogin.followings.includes(user.uid)) {
-            //remove uid into followings of userLogin
-            const newFollowings = userLogin.followings.filter((val) => val !== user.uid);
-            updateDocument('userList', userLogin.id, {
-                ...userLogin,
-                followings: newFollowings,
-            });
-
-            //remove uid into followers of Guest
-            const newFollowers = user.followers.filter((val) => val !== userLogin.uid);
-            updateDocument('userList', user.id, {
-                ...user,
-                followers: newFollowers,
-            });
-        } else {
-            //add uid into followings of userLogin
-            updateDocument('userList', userLogin.id, {
-                ...userLogin,
-                followings: [...userLogin.followings, user.uid],
-            });
-
-            //add uid into followers of Guest
-            updateDocument('userList', user.id, {
-                ...user,
-                followers: [...user.followers, userLogin.uid],
-            });
-        }
-    };
-
     const sendMessage = () => {
         const existingRoom = curRoomList.filter((valRoom) => {
             return valRoom.members.includes(userLogin.uid) && valRoom.members.includes(user.uid);
@@ -132,7 +102,7 @@ const InforProfile = ({ allUserList }) => {
                             >
                                 Messages
                             </Button>
-                            <div onClick={handleFollow} className={cx('unfollow')}>
+                            <div onClick={() => handleFollowService(userLogin, user)} className={cx('unfollow')}>
                                 <i className="fa-solid fa-user-check"></i>
                             </div>
                         </div>
@@ -147,7 +117,7 @@ const InforProfile = ({ allUserList }) => {
                             Edit profile
                         </Button>
                     ) : (
-                        <Button onClick={handleFollow} primary large>
+                        <Button onClick={() => handleFollowService(userLogin, user)} primary large>
                             Follow
                         </Button>
                     )}
@@ -161,9 +131,7 @@ const InforProfile = ({ allUserList }) => {
                 <p className={cx('bio')}>{user.bio}</p>
                 <div className={cx('websiteURL')}>
                     <i className="fa-solid fa-link"></i>
-                    <a href={user.websiteURL} target="_blank">
-                        {user.websiteURL}
-                    </a>
+                    <a target="_blank">{user.websiteURL}</a>
                 </div>
             </div>
         </div>

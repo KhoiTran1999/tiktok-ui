@@ -2,6 +2,8 @@
     width: 700px;
     background-color: white;
     border-radius: 8px;
+    overflow-y: auto;
+    overscroll-behavior: none;
     .header {
         border-bottom: 0.5px solid rgba(22, 24, 35, 0.2);
         padding: 24px 24px 12px;

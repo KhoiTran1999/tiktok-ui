@@ -75,6 +75,9 @@
                     .nickname,
                     .check,
                     .name {
+                        @media screen and (max-width: 1070px) {
+                            display: none;
+                        }
                         position: relative;
                         overflow: hidden;
                         &.skeletonLoading {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -11,20 +11,21 @@ import style from './FooterComment.module.scss';
 import firebase from '../../../../firebase/config';
 import { updateDocument } from '../../../../firebase/services';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserSelector } from '../../../../redux/selector';
+import { AllUserListSelector, UserListSelector, UserSelector } from '../../../../redux/selector';
 import { ModalSign } from '../../../ReusedComponent';
 import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
+import { Timestamp } from 'firebase/firestore';
+import Mentions from '../../../ReusedComponent/Metions/Mentions';
 
 const cx = classNames.bind(style);
-const FooterComment = ({ video }) => {
+const FooterComment = ({ video, inputValue, setInputValue, listMention, setListMention, textAreaRef }) => {
     const dispatch = useDispatch();
-    const [inputValue, setInputValue] = useState('');
     const [isCount, setIsCount] = useState(false);
 
     const userLogin = useSelector(UserSelector);
+    const userList = useSelector(UserListSelector);
 
     const formRef = useRef();
-    const textAreaRef = useRef();
 
     const handleOnChange = (e) => {
         if (inputValue.length === 0 && e.target.value === ' ') return;
@@ -45,41 +46,64 @@ const FooterComment = ({ video }) => {
 
     const handleSubmit = () => {
         if (inputValue.trim().length === 0) return;
-        if (video.uid === userLogin.uid) {
-            updateDocument('videoList', video.id, {
-                comments: [
-                    ...video.comments,
-                    {
-                        photoURL: userLogin.photoURL,
-                        nickName: userLogin.displayName,
-                        uid: userLogin.uid,
-                        id: uuidv4(),
-                        text: inputValue,
-                        likes: [],
-                        replyComment: [],
-                        notification: false,
-                        createdAt: firebase.firestore.Timestamp.now(),
+        updateDocument('videoList', video.id, {
+            comments: [
+                ...video.comments,
+                {
+                    photoURL: userLogin.photoURL,
+                    nickName: userLogin.displayName,
+                    uid: userLogin.uid,
+                    id: uuidv4(),
+                    text: inputValue,
+                    likes: [],
+                    replyComment: [],
+                    notification: video.uid === userLogin.uid ? false : true,
+                    createdAt: Timestamp.fromDate(new Date()),
+                },
+            ],
+        });
+
+        //add notification box for user who uploaded video
+        userList.map((user) => {
+            if (user.uid === video.uid && userLogin.uid !== video.uid) {
+                const newCommentNoti = {
+                    nickName: userLogin.nickName,
+                    photoURL: userLogin.photoURL,
+                    thumbnail: video.thumbnail,
+                    text: inputValue,
+                    createdAt: Timestamp.fromDate(new Date()),
+                };
+                updateDocument('userList', user.id, {
+                    notification: {
+                        ...user.notification,
+                        status: true,
+                        comments: [newCommentNoti, ...user.notification.comments],
                     },
-                ],
+                });
+            }
+        });
+
+        //add user mention to notification box
+        listMention.map((user) => {
+            const newMention = [
+                ...user.notification.mentions,
+                {
+                    nickName: userLogin.nickName,
+                    photoURL: userLogin.photoURL,
+                    text: inputValue,
+                    thumbnail: video.thumbnail,
+                    createdAt: Timestamp.fromDate(new Date()),
+                    taggedPlace: 'comment',
+                },
+            ];
+            updateDocument('userList', user.id, {
+                notification: {
+                    ...user.notification,
+                    status: true,
+                    mentions: newMention,
+                },
             });
-        } else {
-            updateDocument('videoList', video.id, {
-                comments: [
-                    ...video.comments,
-                    {
-                        photoURL: userLogin.photoURL,
-                        nickName: userLogin.displayName,
-                        uid: userLogin.uid,
-                        id: uuidv4(),
-                        text: inputValue,
-                        likes: [],
-                        replyComment: [],
-                        notification: true,
-                        createdAt: firebase.firestore.Timestamp.now(),
-                    },
-                ],
-            });
-        }
+        });
 
         //Reset
         setInputValue('');
@@ -87,7 +111,6 @@ const FooterComment = ({ video }) => {
         setIsCount(false);
         formRef.current.style.padding = '10px 90px 8px 9px';
     };
-
     const pressed = (e) => {
         if (e.which == 13 && !e.shiftKey) {
             e.preventDefault(e);
@@ -98,6 +121,18 @@ const FooterComment = ({ video }) => {
     const handleEmojiSelect = (emoji) => {
         setInputValue(inputValue + emoji.native);
     };
+
+    //get user who is mentioned from Mention Component
+    const getSelectedUser = (selectedUser) => {
+        textAreaRef.current.focus();
+        setListMention([...listMention, selectedUser]);
+    };
+
+    useEffect(() => {
+        const newListMention = listMention.filter((val) => inputValue.includes(`"${val.nickName}"`));
+        setListMention(newListMention);
+    }, [inputValue]);
+    //-----------------------------------------------------
 
     return (
         <div className={cx('footerComment')}>
@@ -117,6 +152,15 @@ const FooterComment = ({ video }) => {
                                 maxLength={150}
                                 rows={1}
                             ></textarea>
+                            <Mentions
+                                data={userList}
+                                inputValue={inputValue}
+                                setInputValue={setInputValue}
+                                getSelectedUser={getSelectedUser}
+                                positionBottom={'0px'}
+                                positionLeft={'-1px'}
+                                limit={150}
+                            />
                             <span
                                 className={cx('counting', {
                                     active: isCount,
@@ -124,6 +168,17 @@ const FooterComment = ({ video }) => {
                                 })}
                             >
                                 {inputValue.length}/150
+                            </span>
+
+                            <span
+                                className={cx('name-tagging')}
+                                onClick={() => {
+                                    if (inputValue.length < 150) {
+                                        setInputValue(inputValue + '@');
+                                    }
+                                }}
+                            >
+                                @
                             </span>
 
                             <Tippy

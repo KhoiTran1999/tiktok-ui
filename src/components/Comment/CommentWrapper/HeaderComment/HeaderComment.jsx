@@ -1,21 +1,18 @@
 import Tippy from '@tippyjs/react/headless';
-import classNames from 'classnames/bind';
-import React from 'react';
-import { toast } from 'react-toastify';
-import { createPortal } from 'react-dom';
 import 'animate.css';
+import classNames from 'classnames/bind';
 import { formatRelative } from 'date-fns';
-import Button from '../../../../components/ReusedComponent/Button';
-import { ModalSign, SubnavWrapper, Wrapper } from '../../../ReusedComponent';
-import style from './HeaderComment.module.scss';
-import { deleteDocument, deleteFileStorage, updateDocument } from '../../../../firebase/services';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
-import { UserListSelector, UserSelector, VideoListSelector } from '../../../../redux/selector';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { toast } from 'react-toastify';
+import Button from '../../../../components/ReusedComponent/Button';
+import { deleteDocument, deleteFileStorage, handleFollowService, updateDocument } from '../../../../firebase/services';
+import { UserListSelector, UserSelector, VideoListSelector } from '../../../../redux/selector';
+import { ModalSign, SubnavWrapper, Wrapper } from '../../../ReusedComponent';
+import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
+import style from './HeaderComment.module.scss';
 
 const cx = classNames.bind(style);
 const HeaderComment = ({ video, userVideo }) => {
@@ -111,36 +108,6 @@ const HeaderComment = ({ video, userVideo }) => {
         });
     };
 
-    const handleFollow = () => {
-        if (userLogin.followings.includes(userVideo.uid)) {
-            //remove uid into followings of userLogin
-            const newFollowings = userLogin.followings.filter((val) => val !== userVideo.uid);
-            updateDocument('userList', userLogin.id, {
-                ...userLogin,
-                followings: newFollowings,
-            });
-
-            //remove uid into followers of Guest
-            const newFollowers = userVideo.followers.filter((val) => val !== userLogin.uid);
-            updateDocument('userList', userVideo.id, {
-                ...userVideo,
-                followers: newFollowers,
-            });
-        } else {
-            //add uid into followings of userLogin
-            updateDocument('userList', userLogin.id, {
-                ...userLogin,
-                followings: [...userLogin.followings, userVideo.uid],
-            });
-
-            //add uid into followers of Guest
-            updateDocument('userList', userVideo.id, {
-                ...userVideo,
-                followers: [...userVideo.followers, userLogin.uid],
-            });
-        }
-    };
-
     const handleDeleteVideo = () => {
         deleteFileStorage(video.videoURL);
         deleteFileStorage(video.thumbnail);
@@ -177,13 +144,13 @@ const HeaderComment = ({ video, userVideo }) => {
                                         Follow
                                     </Button>
                                 ) : userLogin.followings.includes(userVideo.uid) ? (
-                                    <Button basic medium onClick={handleFollow}>
+                                    <Button basic medium onClick={() => handleFollowService(userLogin, userVideo)}>
                                         Following
                                     </Button>
                                 ) : userLogin.uid === userVideo.uid ? (
                                     <></>
                                 ) : (
-                                    <Button outline medium onClick={handleFollow}>
+                                    <Button outline medium onClick={() => handleFollowService(userLogin, userVideo)}>
                                         Follow
                                     </Button>
                                 )}
@@ -234,7 +201,7 @@ const HeaderComment = ({ video, userVideo }) => {
                         Follow
                     </Button>
                 ) : userLogin.followings.includes(userVideo.uid) ? (
-                    <Button basic medium onClick={handleFollow}>
+                    <Button basic medium onClick={() => handleFollowService(userLogin, userVideo)}>
                         Following
                     </Button>
                 ) : userLogin.uid === userVideo.uid ? (
@@ -254,7 +221,7 @@ const HeaderComment = ({ video, userVideo }) => {
                         <i style={{ fontSize: '20px', cursor: 'pointer' }} className="fa-solid fa-ellipsis"></i>
                     </Tippy>
                 ) : (
-                    <Button outline medium onClick={handleFollow}>
+                    <Button outline medium onClick={() => handleFollowService(userLogin, userVideo)}>
                         Follow
                     </Button>
                 )}

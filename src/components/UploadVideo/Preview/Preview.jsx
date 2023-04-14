@@ -1,15 +1,14 @@
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
-import { toast } from 'react-toastify';
-import { createPortal } from 'react-dom';
-import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { createPortal } from 'react-dom';
+import { toast } from 'react-toastify';
 
 import images from '../../../assets/images';
 import { Button } from '../../ReusedComponent';
 import GenerateThumbnail from '../generateThumbnail/GenerateThumbnail';
 import style from './Preview.module.scss';
-import { cancelUploadFile } from '../../../firebase/services';
 
 const cx = classNames.bind(style);
 const Preview = ({

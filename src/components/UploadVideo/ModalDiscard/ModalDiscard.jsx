@@ -9,10 +9,18 @@ import { ModalDiscardSelector, UserSelector } from '../../../redux/selector';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
-const ModalDiscard = ({ setVideoLink, isSuccessedUpload, setIsSuccessedUpload }) => {
+const ModalDiscard = ({ setVideoLink, setThumbnailURL, setImgIdx, isSuccessedUpload, setIsSuccessedUpload }) => {
     const userLogin = useSelector(UserSelector);
     const dispatch = useDispatch();
     const isModalDiscardPopup = useSelector(ModalDiscardSelector);
+
+    const handleOnClick = () => {
+        dispatch(ModalDiscardSlice.actions.setMadalDiscard(false));
+        setVideoLink(null);
+        setIsSuccessedUpload(false);
+        setThumbnailURL('');
+        setImgIdx(null);
+    };
     return (
         <Modal>
             {isSuccessedUpload ? (
@@ -24,27 +32,11 @@ const ModalDiscard = ({ setVideoLink, isSuccessedUpload, setIsSuccessedUpload })
                     <h2>
                         Your videos are being <br /> uploaded to TikTok!
                     </h2>
-                    <Button
-                        onClick={() => {
-                            dispatch(ModalDiscardSlice.actions.setMadalDiscard(false));
-                            setIsSuccessedUpload(false);
-                        }}
-                        primary
-                        large
-                        className={cx('discard')}
-                    >
+                    <Button onClick={handleOnClick} primary large className={cx('discard')}>
                         Upload another video
                     </Button>
                     <Link to={`/profile/${userLogin.nickName}`}>
-                        <Button
-                            onClick={() => {
-                                dispatch(ModalDiscardSlice.actions.setMadalDiscard(false));
-                                setIsSuccessedUpload(false);
-                            }}
-                            basic
-                            large
-                            className={cx('editing')}
-                        >
+                        <Button onClick={handleOnClick} basic large className={cx('editing')}>
                             View profile
                         </Button>
                     </Link>
@@ -57,15 +49,7 @@ const ModalDiscard = ({ setVideoLink, isSuccessedUpload, setIsSuccessedUpload })
                 >
                     <h2>Discard this post?</h2>
                     <p>The video and all edits will be discarded.</p>
-                    <Button
-                        onClick={() => {
-                            dispatch(ModalDiscardSlice.actions.setMadalDiscard(false));
-                            setVideoLink(null);
-                        }}
-                        primary
-                        large
-                        className={cx('discard')}
-                    >
+                    <Button onClick={handleOnClick} primary large className={cx('discard')}>
                         Discard
                     </Button>
                     <Button

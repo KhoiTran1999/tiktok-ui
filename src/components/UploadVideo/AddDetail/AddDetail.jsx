@@ -1,13 +1,15 @@
 import classNames from 'classnames/bind';
+import { Timestamp } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
-import { addDocument, uploadFile, uploadPoster } from '../../../firebase/services';
-import { UserSelector } from '../../../redux/selector';
+import { addDocument, updateDocument, uploadFile, uploadPoster } from '../../../firebase/services';
+import { UserListSelector, UserSelector } from '../../../redux/selector';
 import Button from '../../ReusedComponent/Button';
+import Mentions from '../../ReusedComponent/Metions/Mentions';
 import ModalDiscard from '../ModalDiscard/ModalDiscard';
 import ModalDiscardSlice from '../ModalDiscard/ModalDiscardSlice';
 import style from './AddDetail.module.scss';
@@ -26,6 +28,7 @@ const AddDetail = ({
 }) => {
     const dispatch = useDispatch();
     const userLogin = useSelector(UserSelector);
+    const userList = useSelector(UserListSelector);
 
     const [inputValue, setInputValue] = useState('');
     const [selectedOption, setSelectedOption] = useState(null);
@@ -36,8 +39,10 @@ const AddDetail = ({
     const [thumbnailURL, setThumbnailURL] = useState('');
     const [poster, setPoster] = useState('');
     const [imgIdx, setImgIdx] = useState();
+    const [listMention, setListMention] = useState([]);
 
     const uploadTaskRef = useRef();
+    const textAreaRef = useRef();
 
     //is used for caption element
     const autoSizeTextArea = (e) => {
@@ -48,7 +53,6 @@ const AddDetail = ({
         textArea.style.height = 'auto';
         const height = textArea.scrollHeight;
         if (height > 174) {
-            console.log('over');
             textArea.style.height = `174px`;
             textArea.style.overflow = 'auto';
             return;
@@ -103,7 +107,7 @@ const AddDetail = ({
         try {
             uploadPoster(`thumnail/${uuidv4()}`, thumbnailURL).then((url) => setPoster(url));
             uploadFile(
-                `video/${uuid}`,
+                `video/${userLogin.uid}/${inputValue.trim()}/${uuid}`,
                 videoFile,
                 setDownloadURL,
                 uploadTaskRef,
@@ -113,7 +117,7 @@ const AddDetail = ({
                 setIsSuccessedUpload,
             );
         } catch (error) {
-            toast.warn(`Please choose one Cover`, {
+            toast.warn(`Something Wrong`, {
                 position: 'top-center',
                 autoClose: 2000,
                 theme: 'light',
@@ -134,6 +138,26 @@ const AddDetail = ({
                 views: 0,
                 shares: 0,
                 notification: true,
+            });
+
+            //add data to notification box
+
+            listMention.map((user) => {
+                const newMention = [
+                    ...user.notification.mentions,
+                    {
+                        nickName: userLogin.nickName,
+                        photoURL: userLogin.photoURL,
+                        text: inputValue.trim(),
+                        thumbnail: poster,
+                        createdAt: Timestamp.fromDate(new Date()),
+                        taggedPlace: 'caption',
+                    },
+                ];
+                updateDocument('userList', user.id, {
+                    'notification.mentions': newMention,
+                    'notification.status': true,
+                });
             });
         }
     }, [isSuccessedUpload]);
@@ -162,14 +186,31 @@ const AddDetail = ({
         setImgIdx(idx);
     };
 
+    //get user who is mentioned from Mention Component
+    const getSelectedUser = (selectedUser) => {
+        textAreaRef.current.focus();
+        setListMention([...listMention, selectedUser]);
+    };
+
+    useEffect(() => {
+        const newListMention = listMention.filter((val) => inputValue.includes(`"${val.nickName}"`));
+        setListMention(newListMention);
+    }, [inputValue]);
+    //-----------------------------------------------------
+
     return (
-        <div className={cx('add-detail')}>
+        <div
+            className={cx('add-detail', {
+                'add-detail-ui': videoLink,
+            })}
+        >
             <div className={cx('form-group')}>
                 <div className={cx('caption-wrap')}>
                     <p className={cx('title')}>Caption</p>
                     <span>{inputValue.length} / 2200</span>
                 </div>
                 <textarea
+                    ref={textAreaRef}
                     className={cx('caption-textArea')}
                     name="caption"
                     maxLength={2200}
@@ -178,8 +219,29 @@ const AddDetail = ({
                     value={inputValue}
                     onInput={autoSizeTextArea}
                 ></textarea>
-                <span className={cx('name-tagging')}>@</span>
-                <span className={cx('hash-tag')}>#</span>
+                <Mentions
+                    data={userList}
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    getSelectedUser={getSelectedUser}
+                    positionTop={'28px'}
+                    limit={2200}
+                />
+                <span
+                    className={cx('name-tagging')}
+                    onClick={() => {
+                        if (inputValue.length < 2200) {
+                            setInputValue(inputValue + '@');
+                        } else {
+                            toast.warn(`Over letter litmit`, {
+                                toastId: 122,
+                                containerId: 'PuredToast',
+                            });
+                        }
+                    }}
+                >
+                    @
+                </span>
             </div>
             <div className={cx('thumnail')}>
                 <p className={cx('title')}>Cover</p>
@@ -312,12 +374,17 @@ const AddDetail = ({
                     </Button>
                 ) : (
                     <>
-                        {videoLink ? (
+                        {videoLink && thumbnailURL ? (
                             <Button onClick={handlePostVideo} primary medium className={cx('post')}>
                                 Post
                             </Button>
                         ) : (
-                            <Button primary medium className={cx('restricted-post')}>
+                            <Button
+                                title={'Must choose a cover to post'}
+                                primary
+                                medium
+                                className={cx('restricted-post')}
+                            >
                                 Post
                             </Button>
                         )}
@@ -327,6 +394,8 @@ const AddDetail = ({
             {createPortal(
                 <ModalDiscard
                     setVideoLink={setVideoLink}
+                    setThumbnailURL={setThumbnailURL}
+                    setImgIdx={setImgIdx}
                     isSuccessedUpload={isSuccessedUpload}
                     setIsSuccessedUpload={setIsSuccessedUpload}
                 />,

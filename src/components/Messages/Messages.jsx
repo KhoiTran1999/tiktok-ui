@@ -37,7 +37,17 @@ const Messages = () => {
                 </div>
             </div>
             <div className={cx('chatBoxContainer')}>
-                <div className={cx('chatBoxWrapper')}>{choosedUser ? <ChatBox /> : <></>}</div>
+                <div className={cx('chatBoxWrapper')}>
+                    {choosedUser ? (
+                        <ChatBox />
+                    ) : (
+                        <div
+                            style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                        >
+                            <i style={{ fontSize: '90px', color: '#c5c5c5' }} className="fa-solid fa-comment-dots"></i>
+                        </div>
+                    )}
+                </div>
             </div>
             <Link to={routes.home}>
                 <div className={cx('backButton')}>

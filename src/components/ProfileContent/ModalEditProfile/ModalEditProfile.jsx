@@ -150,12 +150,11 @@ const ModalEditProfile = () => {
             reader.readAsDataURL(fileRef.current);
             reader.onload = () => {
                 const dataUrl = reader.result;
-
                 //Upload avatar then escape
                 uploadPoster(`avatar/${uuidv4()}`, dataUrl).then((url) => {
-                    deleteFileStorage(userLogin.photoURL);
+                    if (userLogin.photoURL) deleteFileStorage(userLogin.photoURL);
+
                     updateDocument('userList', userLogin.id, {
-                        ...userLogin,
                         photoURL: url,
                         nickName: inputUserName,
                         displayName: inputName,
@@ -195,7 +194,7 @@ const ModalEditProfile = () => {
     return (
         <>
             {isModalEditProfile ? (
-                <Modal>
+                <Modal overflow="auto">
                     <div className={cx('wrapper-edit')}>
                         <div className={cx('header')}>
                             <h3>Edit profile</h3>

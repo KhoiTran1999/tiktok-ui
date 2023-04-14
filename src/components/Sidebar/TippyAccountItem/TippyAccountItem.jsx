@@ -1,17 +1,10 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Tippy from '@tippyjs/react/headless';
 
-import ImageCustom from '../../ReusedComponent/ImageCustom';
-import style from './TippyAccountItem.module.scss';
-import SubnavWrapper from '../../ReusedComponent/SubnavWrapper';
-import Button from '../../ReusedComponent/Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { UserSelector } from '../../../redux/selector';
-import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
-import { updateDocument } from '../../../firebase/services';
 import AccountItem from './AccountItem';
+import style from './TippyAccountItem.module.scss';
 
 const cx = classNames.bind(style);
 const TippyAccountItem = ({ accountList }) => {
@@ -23,7 +16,7 @@ const TippyAccountItem = ({ accountList }) => {
                 {accountList ? (
                     <>
                         {accountList.map((val) => {
-                            if (val.uid === user.uid) return <></>;
+                            if (val.uid === user.uid || val.nickName === '') return <></>;
 
                             return <AccountItem key={val.id} accountUser={val} />;
                         })}
