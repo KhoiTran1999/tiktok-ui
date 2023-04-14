@@ -10,7 +10,7 @@ import ChoosedUserSlice from '../../../ChatAccountList/AccountItem/choosedUserSl
 import SelectedRoomSlice from '../../../ChatAccountList/AccountItem/selectedRoomSlice';
 
 const cx = classNames.bind(style);
-const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL, activeHeart }) => {
+const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL, activeHeart, createdAt }) => {
     const dispatch = useDispatch();
 
     const [isGuestHeartState, setIsGuestHeartState] = useState(() => {
@@ -54,7 +54,7 @@ const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL,
     }, [isUserHeartState]);
 
     return (
-        <li className={cx('userChatItem')}>
+        <li className={cx('userChatItem')} title={createdAt}>
             <div className={cx('wrapper')}>
                 <Tippy
                     delay={[0, 500]}

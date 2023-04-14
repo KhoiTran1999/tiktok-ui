@@ -10,7 +10,7 @@ import SelectedRoomSlice from '../../../ChatAccountList/AccountItem/selectedRoom
 import style from './GuestChatItem.module.scss';
 
 const cx = classNames.bind(style);
-const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhotoURL, activeHeart }) => {
+const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhotoURL, activeHeart, createdAt }) => {
     const dispatch = useDispatch();
 
     const [isGuestHeartState, setIsGuestHeartState] = useState(() => {
@@ -59,7 +59,7 @@ const GuestChatItem = ({ photoURL, guestUid, userUid, text, docId, userLoginPhot
     }, [isUserHeartState]);
 
     return (
-        <li className={cx('guestChatItem')}>
+        <li className={cx('guestChatItem')} title={createdAt}>
             <div className={cx('wrapper')}>
                 <div className={cx('avatar')}>
                     <img src={photoURL} alt="avatar" />

@@ -44,7 +44,7 @@ const BodyChatBox = () => {
     return (
         <div className={cx('bodyChatBox')}>
             <ul>
-                <p className={cx('createdAtRoom')}>Created at </p>
+                <p className={cx('createdAtRoom')}>Created at {formatDate(messages[0].createdAt.seconds)}</p>
                 <>
                     {messages.map((val) => {
                         const { photoURL, text, id, activeHeart } = val;
@@ -60,6 +60,7 @@ const BodyChatBox = () => {
                                         text={text}
                                         docId={id}
                                         activeHeart={activeHeart}
+                                        createdAt={formatDate(val.createdAt.seconds)}
                                     />
                                 ) : (
                                     <GuestChatItem
@@ -71,6 +72,7 @@ const BodyChatBox = () => {
                                         text={text}
                                         docId={id}
                                         activeHeart={activeHeart}
+                                        createdAt={formatDate(val.createdAt.seconds)}
                                     />
                                 )}
                             </>

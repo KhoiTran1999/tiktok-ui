@@ -10,6 +10,7 @@
         }
         .content {
             display: flex;
+            flex-wrap: wrap;
             ul {
                 li {
                     width: 226px;

@@ -1,6 +1,6 @@
 .add-detail {
     display: none;
-    flex: 0 0 734px;
+    flex: 1 1 734px;
     margin-left: 24px;
     &.add-detail-ui {
         display: block;
@@ -57,6 +57,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
             .img-wrapper {
                 width: 86px;
                 height: 150px;
@@ -107,6 +108,7 @@
         }
     }
     .restricting-selector {
+        display: none;
         margin-top: 20px;
         .title {
             color: var(--text);

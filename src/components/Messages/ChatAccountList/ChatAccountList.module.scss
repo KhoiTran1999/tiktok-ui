@@ -8,6 +8,9 @@
             background-color: rgba(22, 24, 35, 0.03);
             line-height: 72px;
             margin: 0px -15px 0px -24px;
+            @media screen and (max-width: 1070px) {
+                display: none;
+            }
         }
     }
 }

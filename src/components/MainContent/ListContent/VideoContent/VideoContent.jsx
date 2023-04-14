@@ -131,7 +131,14 @@ const VideoContent = ({ video, userVideo }) => {
     return (
         <div className={cx('video-wrapper')}>
             <div className={cx('wrapper')}>
-                <video onClick={moveToComment} loop muted={mutedRedux} ref={videoRef} onTimeUpdate={handleTimeupdate}>
+                <video
+                    onClick={moveToComment}
+                    poster={video.thumbnail}
+                    loop
+                    muted={mutedRedux}
+                    ref={videoRef}
+                    onTimeUpdate={handleTimeupdate}
+                >
                     <source src={video.videoURL} type={'video/mp4'} />
                     Your browser does not support the video tag.
                 </video>
