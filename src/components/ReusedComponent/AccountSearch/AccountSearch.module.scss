@@ -1,15 +1,21 @@
 .Account-list {
     ul {
         li {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0px -10px;
+            padding: 5px 8px;
+            padding-left: 10px;
+            cursor: pointer;
+            &:hover {
+                background-color: rgba(22, 24, 35, 0.03);
+            }
             a {
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                padding: 9px 16px;
-                cursor: pointer;
-                &:hover {
-                    background-color: rgba(22, 24, 35, 0.03);
-                }
+                margin-left: 10px;
                 img {
                     width: 40px;
                     height: 40px;
@@ -18,22 +24,26 @@
                 }
                 .information {
                     margin-left: 16px;
-                    .nickname {
-                        display: inline-block;
-                        font-size: 15px;
-                        font-weight: 600;
-                        letter-spacing: 0.5px;
-                        margin-top: 2px;
-                        margin-bottom: -3px;
-                        max-width: 140px;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                    }
-                    .check {
-                        font-size: 13px;
-                        color: rgb(32, 213, 236);
-                        margin-left: 10px;
+                    .wrap {
+                        display: flex;
+                        align-items: center;
+                        .nickname {
+                            display: inline-block;
+                            font-size: 15px;
+                            font-weight: 600;
+                            letter-spacing: 0.5px;
+                            margin-top: 2px;
+                            margin-bottom: -3px;
+                            max-width: 140px;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+                        .check {
+                            font-size: 13px;
+                            color: rgb(32, 213, 236);
+                            margin-left: 10px;
+                        }
                     }
                     .name {
                         color: rgb(136, 133, 133);
@@ -47,18 +57,27 @@
         }
     }
 }
-.Account-list-response {
+.Account-list-responsive {
     ul {
         li {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0px -10px;
+            padding: 5px 8px;
+            padding-left: 10px;
+            cursor: pointer;
+            @media screen and (max-width: 1070px) {
+                justify-content: center;
+            }
+            &:hover {
+                background-color: rgba(22, 24, 35, 0.03);
+            }
             a {
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                padding: 9px 16px;
-                cursor: pointer;
-                &:hover {
-                    background-color: rgba(22, 24, 35, 0.03);
-                }
+                margin-left: 10px;
                 img {
                     width: 40px;
                     height: 40px;
@@ -67,27 +86,31 @@
                 }
                 .information {
                     margin-left: 16px;
-                    .nickname {
-                        display: inline-block;
-                        font-size: 15px;
-                        font-weight: 600;
-                        letter-spacing: 0.5px;
-                        margin-top: 2px;
-                        margin-bottom: -3px;
-                        max-width: 140px;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        @media screen and (max-width: 1070px) {
-                            display: none;
+                    .wrap {
+                        display: flex;
+                        align-items: center;
+                        .nickname {
+                            display: inline-block;
+                            font-size: 15px;
+                            font-weight: 600;
+                            letter-spacing: 0.5px;
+                            margin-top: 2px;
+                            margin-bottom: -3px;
+                            max-width: 140px;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            @media screen and (max-width: 1070px) {
+                                display: none;
+                            }
                         }
-                    }
-                    .check {
-                        font-size: 13px;
-                        color: rgb(32, 213, 236);
-                        margin-left: 10px;
-                        @media screen and (max-width: 1070px) {
-                            display: none;
+                        .check {
+                            font-size: 13px;
+                            color: rgb(32, 213, 236);
+                            margin-left: 10px;
+                            @media screen and (max-width: 1070px) {
+                                display: none;
+                            }
                         }
                     }
                     .name {

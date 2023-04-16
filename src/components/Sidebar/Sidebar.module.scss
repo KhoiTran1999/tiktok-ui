@@ -1,9 +1,13 @@
+.fake-width {
+    margin-right: 70px;
+}
 .parents {
     position: fixed;
     z-index: 10;
     .side-bar {
-        width: 348px;
+        width: 224px;
         overflow-y: auto;
+        overflow-x: hidden;
         height: 100%;
         max-height: 100vh;
         overscroll-behavior: none;

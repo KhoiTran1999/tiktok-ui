@@ -6,6 +6,9 @@
             align-items: center;
             cursor: pointer;
             margin-right: -10px;
+            @media screen and (max-width: 1070px) {
+                justify-content: center;
+            }
             .icon {
                 margin-top: 7px;
                 margin-right: 10px;

@@ -1,6 +1,11 @@
 .mainContent {
-    // margin-left: 335px;
     width: 60.5%;
-    margin: 0px 16px;
+    margin: 0 16px;
     padding: 24px 0px;
+    @media screen and (max-width: 1070px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
 }

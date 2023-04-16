@@ -111,6 +111,7 @@ const Footer = () => {
                         options={restrictedOption}
                         isSearchable={false}
                         styles={colourStyles}
+                        menuPlacement="auto"
                     />
                 </div>
                 <div className={cx('copyright')}>

@@ -43,7 +43,7 @@ const AccountList = ({ title, tippyVisible, accountList }) => {
                 {tippyVisible ? (
                     <TippyAccountItem accountList={newAccountList} />
                 ) : (
-                    <AccountSearch accountList={newAccountList} classname={'Account-list-response'} />
+                    <AccountSearch accountList={newAccountList} classname={'Account-list-responsive'} />
                 )}
                 {accountList.length <= 5 ? (
                     <></>

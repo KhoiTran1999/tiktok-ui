@@ -6,6 +6,9 @@
                 justify-content: flex-start;
                 align-items: center;
                 cursor: pointer;
+                @media screen and (max-width: 1070px) {
+                    justify-content: center;
+                }
                 &:hover {
                     background-color: rgba(22, 24, 35, 0.03);
                 }

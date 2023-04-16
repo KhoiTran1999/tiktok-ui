@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { formatRelative } from 'date-fns';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useFireStore from '../../../../hooks/useFireStore';
 import { ChoosedUserSelector, SelectedRoomSelector, UserSelector } from '../../../../redux/selector';
@@ -16,6 +16,8 @@ const BodyChatBox = () => {
     const choosedUser = useSelector(ChoosedUserSelector);
     const selectedRoomId = useSelector(SelectedRoomSelector);
 
+    const [createdAtRoom, setCreatedAtRoom] = useState('');
+
     // Get messages
     const messagesCondition = useMemo(() => {
         return {
@@ -29,6 +31,9 @@ const BodyChatBox = () => {
     //-----------------------------------------------------
     useEffect(() => {
         scrollRef.current.scrollIntoView();
+        if (messages.length > 0) {
+            setCreatedAtRoom(formatDate(messages[0].createdAt.seconds));
+        }
     }, [messages]);
 
     const formatDate = (seconds) => {
@@ -40,11 +45,11 @@ const BodyChatBox = () => {
         }
         return formattedDate;
     };
-    // {formatDate(selectedRoom.createdAt.seconds)}
+
     return (
         <div className={cx('bodyChatBox')}>
             <ul>
-                <p className={cx('createdAtRoom')}>Created at {formatDate(messages[0].createdAt.seconds)}</p>
+                <p className={cx('createdAtRoom')}>Created at {createdAtRoom}</p>
                 <>
                     {messages.map((val) => {
                         const { photoURL, text, id, activeHeart } = val;

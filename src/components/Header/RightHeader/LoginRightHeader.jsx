@@ -13,6 +13,7 @@ import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
 import LogoMessageBoxActive from '../../../assets/icon/LogoMessageBoxActive';
 import routes from '../../../config/routes';
 import { auth } from '../../../firebase/config';
+import { updateDocument } from '../../../firebase/services';
 import { AmountOfNotiSelector, UserSelector } from '../../../redux/selector';
 import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosedUserSlice';
 import SelectedRoomSlice from '../../Messages/ChatAccountList/AccountItem/selectedRoomSlice';
@@ -20,8 +21,6 @@ import { Button, ImageCustom, Menu, Wrapper } from '../../ReusedComponent';
 import UserLoginSlice from '../../ReusedComponent/ModalSign/UserLoginSlice';
 import style from './RightHeader.module.scss';
 import SubMessageBox from './SubMessageBox/SubMessageBox';
-import { useEffect } from 'react';
-import { updateDocument } from '../../../firebase/services';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);

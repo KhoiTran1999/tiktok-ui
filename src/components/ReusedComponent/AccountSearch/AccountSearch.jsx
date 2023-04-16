@@ -18,8 +18,12 @@ const AccountSearch = ({ accountList, classname }) => {
                                     <Link to={`/profile/${val.nickName}`}>
                                         <ImageCustom src={val.photoURL} alt="avatar" />
                                         <div className={cx('information')}>
-                                            <h4 className={cx('nickname')}>{val.nickName}</h4>
-                                            {val.tick && <i className={cx('fa-solid fa-circle-check', 'check')}></i>}
+                                            <div className={cx('wrap')}>
+                                                <h4 className={cx('nickname')}>{val.nickName}</h4>
+                                                {val.tick && (
+                                                    <i className={cx('fa-solid fa-circle-check', 'check')}></i>
+                                                )}
+                                            </div>
                                             <p className={cx('name')}>{val.displayName}</p>
                                         </div>
                                     </Link>
