@@ -1,0 +1,96 @@
+.modal-sign {
+    background-color: white;
+    padding-top: 48px;
+    border-radius: 7px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 9999;
+    position: absolute;
+    transition: 0.3s all;
+    transform: scale(0);
+    &.active {
+        transform: scale(1);
+    }
+
+    .escape {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(22, 24, 35, 0.03);
+        border-radius: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+        i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25px;
+        }
+    }
+
+    .wrap-content {
+        width: 482px;
+        padding: 0px 50px 0px;
+        max-height: 443px;
+        overflow-y: auto;
+
+        h2 {
+            color: rgb(22, 24, 35);
+            font-size: 32px;
+            padding: 0px 10px;
+            margin: 16px auto;
+            font-weight: bold;
+            text-align: center;
+        }
+        ul {
+            li {
+                position: relative;
+                margin-bottom: 20px;
+                button {
+                    font-size: 15px;
+                    color: rgb(22, 24, 35);
+                    span {
+                        font-weight: 500;
+                        .google {
+                            position: absolute;
+                            font-size: 20px;
+                            left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .sign-up {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 0px -50px;
+        height: 64px;
+        border-top: 1px solid rgba(22, 24, 35, 0.12);
+
+        span {
+            color: rgb(83, 84, 91);
+            font-size: 14px;
+            line-height: 18px;
+        }
+        a {
+            margin-left: 5px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 18px;
+            color: rgb(254, 44, 85);
+            cursor: pointer;
+        }
+    }
+}

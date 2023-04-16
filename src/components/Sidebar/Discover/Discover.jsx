@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import style from './Discover.module.scss';
-import { Button } from '../../DetailComponent';
+import { Button } from '../../ReusedComponent';
 
 const cx = classNames.bind(style);
 const Discover = () => {

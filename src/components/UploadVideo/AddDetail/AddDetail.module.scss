@@ -1,0 +1,296 @@
+.add-detail {
+    display: none;
+    flex: 1 1 734px;
+    margin-left: 24px;
+    &.add-detail-ui {
+        display: block;
+    }
+    .form-group {
+        position: relative;
+        .caption-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .title {
+                color: var(--text);
+                font-weight: 600;
+                font-size: 15px;
+            }
+            span {
+                font-size: 12px;
+                color: rgb(165, 164, 164);
+            }
+        }
+        .caption-textArea {
+            outline: none;
+            resize: none;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            padding: 15px 80px 15px 16px;
+            margin-top: 5px;
+            overflow-y: hidden;
+        }
+        .select {
+            top: 13px;
+        }
+        .name-tagging {
+            position: absolute;
+            top: 37px;
+            right: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    }
+    .thumnail {
+        margin-top: 18px;
+        .title {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .thumnail-wrapper {
+            padding: 6px;
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            .img-wrapper {
+                width: 86px;
+                height: 150px;
+                border-radius: 3px;
+                overflow: hidden;
+                position: relative;
+                cursor: pointer;
+                transform: scale(1);
+                transition: 0.3s all;
+                z-index: 1;
+                &:hover {
+                    transform: scale(1.2);
+                    z-index: 10;
+                    &::after {
+                        display: none;
+                    }
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+                &::after {
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(197, 195, 195, 0.766);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    transition: 0.3s all;
+                    z-index: 9;
+                }
+                &.active {
+                    transform: scale(1.2);
+                    z-index: 8;
+                    border: 2px solid var(--primary);
+                    &::after {
+                        display: none;
+                    }
+                }
+            }
+            .skeleton {
+                width: 86px;
+                height: 150px;
+                background-color: rgba(22, 24, 35, 0.03);
+            }
+        }
+    }
+    .restricting-selector {
+        display: none;
+        margin-top: 20px;
+        .title {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .select {
+            margin-top: 10px;
+        }
+    }
+    .allow-user {
+        margin-top: 20px;
+        .title {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .form-group {
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            label {
+                margin-top: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                input[type='checkbox']:checked + .checkBox {
+                    background-color: var(--primary);
+                    border-color: var(--primary);
+                }
+
+                .checkBox {
+                    width: 16px;
+                    height: 16px;
+
+                    border: 1px solid #ccc;
+                    border-radius: 2px;
+
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    &:hover {
+                        border-color: var(--primary);
+                    }
+                    i {
+                        font-size: 12px;
+                        color: white;
+                    }
+                }
+                .text {
+                    color: rgba(22, 24, 35, 1);
+                    font-size: 15px;
+                    line-height: 22px;
+                    margin-left: 12px;
+                }
+            }
+        }
+    }
+    .copyright-check {
+        margin-top: 20px;
+        .switch-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .title {
+                color: var(--text);
+                font-weight: 600;
+                font-size: 15px;
+            }
+            .switch {
+                margin-left: 15px;
+                width: 44px;
+                height: 24px;
+                border-radius: 30px;
+                background-color: rgba(22, 24, 35, 0.12);
+                position: relative;
+                cursor: pointer;
+                transition: 0.3s all;
+                &.active {
+                    background-color: rgb(11, 224, 155);
+                }
+                .switch-inner {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: white;
+                    position: absolute;
+                    top: 50%;
+                    left: 12px;
+                    transform: translate(-50%, -50%);
+                    transition: 0.3s all;
+                    &.active {
+                        left: 31px;
+                    }
+                }
+            }
+        }
+        .explain {
+            font-size: 12px;
+            line-height: 1.5;
+            color: rgba(22, 24, 35, 0.75);
+        }
+        .required-video {
+            padding: 8px 12px;
+            background-color: rgba(22, 24, 35, 0.06);
+            border-radius: 4px;
+            i {
+                font-size: 14px;
+                color: var(--primary);
+                margin-right: 5px;
+            }
+            span {
+                font-size: 13px;
+                line-height: 1.5;
+                color: rgba(22, 24, 35, 0.75);
+            }
+        }
+        .no-issues {
+            padding: 8px 12px;
+            background-color: rgba(22, 24, 35, 0.06);
+            border-radius: 4px;
+            i {
+                font-size: 14px;
+                color: rgb(19, 198, 19);
+                margin-right: 5px;
+            }
+            span {
+                font-size: 13px;
+                line-height: 1.5;
+                color: rgba(22, 24, 35, 0.75);
+            }
+        }
+    }
+    .footer-add-detail {
+        margin-top: 24px;
+        .discard {
+            width: 164px;
+            height: 48px;
+            span {
+                font-size: 15px;
+            }
+        }
+        .post {
+            margin-left: 15px;
+            width: 164px;
+            height: 48px;
+            span {
+                font-size: 15px;
+            }
+        }
+        .restricted-post {
+            margin-left: 15px;
+            width: 164px;
+            height: 48px;
+            background-color: rgba(235, 235, 235, 1);
+            cursor: not-allowed;
+            &:hover {
+                background-color: rgba(235, 235, 235, 1);
+            }
+            span {
+                font-size: 15px;
+                color: rgba(22, 24, 35, 0.34);
+            }
+        }
+        .loading {
+            margin-left: 15px;
+            width: 164px;
+            height: 48px;
+            i {
+                animation: loading 1s linear infinite;
+            }
+        }
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -4,4 +4,32 @@
 
     margin-top: 60px;
     padding: 0px 0px 26px 8px;
+
+    position: relative;
+}
+
+main {
+    position: relative;
+    .scroll-to-top {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        cursor: pointer;
+
+        position: fixed;
+        bottom: -40px;
+        right: 20px;
+        transition: 0.3s all;
+
+        transform: rotate(-90deg);
+        i {
+            font-size: 18px;
+            color: white;
+        }
+        &.scroll-to-top-ui {
+            bottom: 20px;
+            right: 20px;
+        }
+    }
 }

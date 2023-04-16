@@ -1,0 +1,21 @@
+.body-wrapper {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    overflow: hidden;
+    .background {
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
+        filter: blur(20px) brightness(40%);
+        z-index: 1;
+    }
+    .body-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+}

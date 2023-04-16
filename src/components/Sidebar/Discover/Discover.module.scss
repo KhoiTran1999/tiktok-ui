@@ -1,5 +1,9 @@
 .discover {
     padding: 16px 0px 10px 0px;
+    width: 100%;
+    @media screen and (max-width: 1070px) {
+        display: none;
+    }
     .title {
         font-size: 14px;
         color: #161823bf;
@@ -8,9 +12,9 @@
     .hash-tags {
         margin-top: 16px;
         button {
+            max-width: 208px;
+            overflow: hidden;
             transition: background 200ms ease-in-out 0s;
-            max-width: 315px;
-            width: fit-content;
             span {
                 i {
                     margin-right: 10px;

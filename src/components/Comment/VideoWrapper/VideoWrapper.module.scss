@@ -1,0 +1,110 @@
+.videoWrapper {
+    width: 100%;
+    max-width: 2100px;
+    height: 100%;
+    margin: 0 65px;
+
+    position: relative;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    cursor: pointer;
+    .escape-button {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        opacity: 0.7;
+        background-color: rgba(84, 84, 84, 0.5);
+        border-radius: 50%;
+
+        position: absolute;
+        top: 20px;
+        left: -45px;
+        z-index: 10;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s all;
+        &:hover {
+            background-color: rgba(37, 37, 37, 0.6);
+        }
+        i {
+            font-size: 18px;
+            color: white;
+        }
+    }
+    .logoTiktok {
+        position: absolute;
+        top: 20px;
+        left: 19px;
+        z-index: 2;
+        cursor: default;
+        svg {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }
+    .report {
+        padding: 10px 16px;
+        font-size: 13px;
+        font-weight: 700;
+
+        color: white;
+        background-color: rgba(84, 84, 84, 0.5);
+        border-radius: 100px;
+
+        position: absolute;
+        top: 20px;
+        right: -45px;
+        z-index: 2;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(37, 37, 37, 0.6);
+        }
+        i {
+            margin-right: 7px;
+        }
+    }
+    .up-button,
+    .down-button {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        opacity: 0.7;
+        background-color: rgba(84, 84, 84, 0.5);
+        border-radius: 50%;
+
+        position: absolute;
+        right: -45px;
+        top: 44%;
+        z-index: 2;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s all;
+        &:hover {
+            background-color: rgba(37, 37, 37, 0.6);
+        }
+        i {
+            font-size: 18px;
+            color: white;
+        }
+    }
+    .up-button {
+        transform: translate(0, -70%);
+    }
+    .down-button {
+        transform: translate(0, 70%);
+    }
+    &:hover .timeLine {
+        opacity: 1;
+        visibility: visible;
+    }
+}

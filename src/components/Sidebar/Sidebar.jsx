@@ -1,62 +1,107 @@
 import classNames from 'classnames/bind';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { Button } from '../DetailComponent';
+import { AllUserListSelector, UserListSelector, UserSelector } from '../../redux/selector';
+import { Button } from '../ReusedComponent';
+import ModalSignSlice from '../ReusedComponent/ModalSign/ModalSignSlice';
 import AccountList from './AccountList/AccountList';
 import Discover from './Discover/Discover';
 import Footer from './Footer/Footer';
 import NavMenu from './NavMenu/NavMenu';
 import style from './Sidebar.module.scss';
-import ModalSignSlice from '../DetailComponent/ModalSign/ModalSignSlice';
-import { getUserSelector } from '../../redux/selector';
 
 const cx = classNames.bind(style);
-const Sidebar = () => {
-    const [isLogin, setIsLogin] = useState(false);
+const Sidebar = ({ className = 'side-bar' }) => {
     const dispatch = useDispatch();
-    const user = useSelector(getUserSelector);
+    const user = useSelector(UserSelector);
+    const allUserList = useSelector(AllUserListSelector);
+    const [suggestedAccountList, setSuggestedAccountList] = useState([]);
+    const [followingAccountList, setFollowingAccountList] = useState([]);
 
     useEffect(() => {
-        if (user) setIsLogin(true);
-        else setIsLogin(false);
-    }, [user]);
+        if (user.followings !== undefined && allUserList) {
+            setSuggestedAccountList(allUserList.filter((val) => !user.followings.includes(val.uid)));
+            setFollowingAccountList(allUserList.filter((val) => user.followings.includes(val.uid)));
+        }
+    }, [allUserList, user]);
 
     const handleLogin = () => {
-        dispatch(ModalSignSlice.actions.changeModalSign(true));
+        dispatch(ModalSignSlice.actions.setModalSign(true));
     };
 
     return (
         <>
             <div className={cx('fake-width')}></div>
-            <aside className={cx('side-bar')}>
-                <div className={cx('wrapper')}>
-                    <NavMenu />
-                </div>
-
-                {isLogin ? (
+            <div className={cx('parents')}>
+                <aside className={cx('side-bar', `${className}`)}>
                     <div className={cx('wrapper')}>
-                        <AccountList title={'Following accounts'} />
+                        <NavMenu />
                     </div>
-                ) : (
+
+                    {user.login ? (
+                        <>
+                            {suggestedAccountList.length > 0 ? (
+                                <div className={cx('wrapper')}>
+                                    <AccountList
+                                        title={'Suggested accounts'}
+                                        tippyVisible={true}
+                                        accountList={suggestedAccountList}
+                                    />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+
+                            {followingAccountList.length > 0 ? (
+                                <div className={cx('wrapper')}>
+                                    <AccountList title={'Following accounts'} accountList={followingAccountList} />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <div className={cx('wrapper')}>
+                                <p
+                                    className={cx('signText', {
+                                        skeletonLoading: user.login === null,
+                                    })}
+                                >
+                                    Log in to follow creators, like videos, and view comments.
+                                </p>
+                                <Button
+                                    className={cx('sign', {
+                                        skeletonLoading: user.login === null,
+                                    })}
+                                    outline
+                                    large
+                                    onClick={handleLogin}
+                                >
+                                    Log in
+                                </Button>
+                            </div>
+                            {suggestedAccountList.length > 0 ? (
+                                <div className={cx('wrapper')}>
+                                    <AccountList
+                                        title={'Suggested accounts'}
+                                        tippyVisible={true}
+                                        accountList={suggestedAccountList}
+                                    />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                        </>
+                    )}
+
                     <div className={cx('wrapper')}>
-                        <p className={cx('signText')}>Log in to follow creators, like videos, and view comments.</p>
-                        <Button className={cx('sign')} outline large onClick={handleLogin}>
-                            Log in
-                        </Button>
+                        <Discover />
                     </div>
-                )}
 
-                <div className={cx('wrapper')}>
-                    <AccountList title={'Suggested accounts'} tippyVisible={true} />
-                </div>
-
-                <div className={cx('wrapper')}>
-                    <Discover />
-                </div>
-
-                <Footer />
-            </aside>
+                    <Footer />
+                </aside>
+            </div>
         </>
     );
 };

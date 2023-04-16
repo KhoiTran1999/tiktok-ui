@@ -1,35 +1,73 @@
 .group {
+    flex: 0 0 315px;
     > ul {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
+        margin-right: 10px;
         > li {
-            margin-left: 25px;
+            margin-left: 15px;
+            position: relative;
             cursor: pointer;
             .upload {
                 span {
+                    font-size: 15px;
                     padding-right: 5px;
                 }
                 i {
-                    padding: 0px 10px;
+                    padding: 0px 7px;
                 }
             }
-            .effectLogo {
-                margin-top: 7px;
+
+            .login-button {
             }
-            .message {
+
+            .messages-wrap {
                 margin-top: 5px;
-                width: 25px;
-                margin-right: -5px;
+                margin-left: 5px;
+                position: relative;
+                .message {
+                    width: 25px;
+                    outline: none;
+                }
+                .notiMessage {
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    font-size: 13px;
+                    background-color: var(--primary);
+                    color: white;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    top: -7px;
+                    right: -10px;
+                }
             }
-            .messageBox {
-                margin-top: 6px;
-                margin-right: -5px;
+
+            .messageBox-wrap {
+                position: relative;
+                .messageBox {
+                    margin: 6px 10px 0px;
+                    margin-left: 5px;
+                    outline: none;
+                }
+                .dot-noti {
+                    width: 10px;
+                    height: 10px;
+                    background-color: var(--primary);
+                    border-radius: 50%;
+                    position: absolute;
+                    right: 10px;
+                    top: 8px;
+                }
             }
+
             .menu {
                 margin-right: 10px;
-                width: 30px;
-                height: 30px;
+                width: 32px;
+                height: 32px;
                 > i {
                     padding: 10px;
                 }
@@ -52,6 +90,41 @@
                     }
                 }
             }
+            .upload,
+            .login-button {
+                position: relative;
+                overflow: hidden;
+                &.skeletonLoading {
+                    &::before {
+                        content: '';
+                        width: 100%;
+                        height: 100%;
+                        background: #dddddd;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                    &::after {
+                        content: '';
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(to right, #dddddd, white 50%, #dddddd);
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        animation: skeletonLoading 1s infinite alternate;
+                    }
+                }
+            }
         }
+    }
+}
+
+@keyframes skeletonLoading {
+    from {
+        left: -50%;
+    }
+    to {
+        left: 50%;
     }
 }

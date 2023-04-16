@@ -1,30 +1,29 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LogoTiktok from '../../assets/icon/LogoTiktok';
 import routes from '../../config/routes.js';
-import { getUserSelector } from '../../redux/selector';
+import { UserSelector } from '../../redux/selector';
 import '../../translation/i18n.js';
-import FormSearch from './FormSearch';
+import { ModalSign } from '../ReusedComponent';
+import FormSearch from './FormSearch/FormSearch';
 import style from './Header.module.scss';
 import LoginRightHeader from './RightHeader/LoginRightHeader.jsx';
 import UnloginRightHeader from './RightHeader/UnloginRightHeader.jsx';
+import ModalEditProfile from '../ProfileContent/ModalEditProfile/ModalEditProfile';
+import ModalWelcome from './ModalWelcome/ModalWelcome';
 
 const cx = classNames.bind(style);
 
-const Header = () => {
-    const [isLogin, setIsLogin] = useState(false);
-    const user = useSelector(getUserSelector);
-    useEffect(() => {
-        if (user) setIsLogin(true);
-        else setIsLogin(false);
-    }, [user]);
+const Header = ({ className }) => {
+    const user = useSelector(UserSelector);
 
     return (
         <header>
-            <div className="container">
+            <div className={cx('container', className)}>
                 <div className={cx('row')}>
                     <h1 className={cx('logo')}>
                         <Link to={routes.home}>
@@ -32,9 +31,16 @@ const Header = () => {
                         </Link>
                     </h1>
                     <FormSearch />
-                    {isLogin ? <LoginRightHeader /> : <UnloginRightHeader />}
+                    {user.login === null ? (
+                        <UnloginRightHeader />
+                    ) : user.login === true ? (
+                        <LoginRightHeader />
+                    ) : (
+                        <UnloginRightHeader />
+                    )}
                 </div>
             </div>
+            {createPortal(<ModalSign />, document.body)}
         </header>
     );
 };

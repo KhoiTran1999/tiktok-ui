@@ -1,0 +1,11 @@
+.bodyChatBox {
+    flex-grow: 10;
+    overflow-y: auto;
+    .createdAtRoom {
+        color: rgba(22, 24, 35, 0.5);
+        font-size: 12px;
+        text-align: center;
+        padding-top: 20px;
+        margin-bottom: 8px;
+    }
+}

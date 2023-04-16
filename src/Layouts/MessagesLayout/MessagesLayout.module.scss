@@ -1,0 +1,30 @@
+header {
+    .row {
+        display: none;
+    }
+}
+
+main {
+    .wrapper {
+        height: calc(100vh - 60px);
+        background-color: rgb(248, 248, 248);
+        .container {
+            max-width: 1150px;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            margin-top: 60px;
+            padding: 0px 5px;
+            padding-left: 33px;
+            @media screen and (min-width: 1700px) {
+                max-width: 1300px;
+            }
+            .row {
+                height: 100%;
+            }
+            @media screen and (max-width: 1100px) {
+                max-width: 700px;
+            }
+        }
+    }
+}

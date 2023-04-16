@@ -1,5 +1,8 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyAkQBtccicYPF7xrjL4lEv-tv2EohENbgg',
@@ -11,8 +14,17 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+const app = firebase.initializeApp(firebaseConfig);
 
-export { auth };
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = getStorage(app);
+
+// auth.useEmulator('http://localhost:9099');
+// if (window.location.hostname === 'localhost') {
+//     db.useEmulator('localhost', '8080');
+//     connectStorageEmulator(storage, 'localhost', 9199);
+// }
+
+export { auth, db, doc, deleteDoc, storage };
 export default firebase;

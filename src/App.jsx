@@ -1,6 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import './GlobalStyle.scss';
 import { publicRoutes } from './routes';
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import AuthUser from './firebase/AuthUser';
+import { createPortal } from 'react-dom';
+import ModalWelcome from './components/Header/ModalWelcome/ModalWelcome';
+import Notification from './components/ReusedComponent/Notification/Notification';
 
 function App() {
     return (
@@ -22,6 +29,25 @@ function App() {
                     );
                 })}
             </Routes>
+            <AuthUser />
+            <Notification />
+            <ToastContainer
+                limit={6}
+                transition={Slide}
+                style={{ padding: '0', width: 'auto', height: 'auto' }}
+                toastStyle={{ padding: '0', backgroundColor: ' white' }}
+                bodyStyle={{ padding: '0', margin: '0px' }}
+                enableMultiContainer
+                containerId={'ConfiguredToast'}
+            />
+            <ToastContainer
+                enableMultiContainer
+                containerId={'PuredToast'}
+                transition={Slide}
+                autoClose={2000}
+                position={'top-center'}
+            />
+            {createPortal(<ModalWelcome />, document.body)}
         </div>
     );
 }

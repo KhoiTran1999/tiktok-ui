@@ -1,0 +1,81 @@
+.moreAction {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+    > i {
+        font-size: 20px;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    li {
+        button {
+            width: 100%;
+            span {
+                h2 {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    .report-block {
+        position: relative;
+        ul {
+            padding: 3px 0px;
+            li {
+                height: 48px;
+                width: 200px;
+                padding: 0px 16px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                position: relative;
+                cursor: pointer;
+                i {
+                    font-size: 13px;
+                    color: rgb(46, 46, 46);
+                    margin-right: 8px;
+                }
+                span {
+                    color: rgb(46, 46, 46);
+                    font-size: 15px;
+                    font-weight: 600;
+                }
+                &:last-child {
+                    border-bottom: none;
+                }
+                &:hover {
+                    background-color: rgba(22, 24, 35, 0.03);
+                }
+                &::before {
+                    content: '';
+                    width: 168px;
+                    height: 0.5px;
+                    background-color: rgba(22, 24, 35, 0.2);
+                    position: absolute;
+                    bottom: 0;
+                }
+                &:last-child {
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
+        &::after {
+            content: '';
+            border: 10px solid white;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-left-color: transparent;
+            position: absolute;
+            top: -25px;
+            right: 20px;
+        }
+    }
+}

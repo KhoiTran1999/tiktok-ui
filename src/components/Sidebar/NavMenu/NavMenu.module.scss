@@ -1,36 +1,30 @@
 .menu-nav {
-    margin: 20px -10px 10px -10px;
-    div {
-        width: 100%;
-        padding: 0;
-        > div {
-            border-radius: 0;
-            box-shadow: none;
-            ul {
-                overflow-y: hidden;
-                li {
-                    padding: 7px 0px 2px 5px;
-                    // margin: 0px -10px;
-                    border-radius: 5px;
-                    transition: 0.5s all;
-                    &:hover {
-                        background: rgba(22, 24, 35, 0.03);
-                    }
-                    a {
-                        > span {
-                            span {
-                                font-size: 18px;
-                                margin-right: 10px;
-                                color: var(--text);
-                            }
-                            h4 {
-                                font-size: 17px;
-                                font-weight: 800;
-                                color: var(--text);
-                            }
-                        }
-                    }
+    margin: 20px 0px;
+    ul {
+        li {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-right: -10px;
+            @media screen and (max-width: 1070px) {
+                justify-content: center;
+            }
+            .icon {
+                margin-top: 7px;
+                margin-right: 10px;
+            }
+            .title {
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                &.active {
+                    color: var(--primary);
                 }
+                @media screen and (max-width: 1070px) {
+                    display: none;
+                }
+            }
+            &:hover {
+                background-color: rgba(22, 24, 35, 0.03);
             }
         }
     }

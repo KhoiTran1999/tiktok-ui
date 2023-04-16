@@ -1,0 +1,137 @@
+.wrapper-edit {
+    width: 700px;
+    background-color: white;
+    border-radius: 8px;
+
+    .header {
+        border-bottom: 0.5px solid rgba(22, 24, 35, 0.2);
+        padding: 24px 24px 12px;
+        h3 {
+            text-align: center;
+            font-size: 23px;
+            font-weight: 600;
+            color: rgb(22, 24, 35);
+        }
+    }
+    .body {
+        padding: 8px 24px 0px;
+        .title {
+            flex: 0 0 120px;
+            margin-right: 24px;
+            h4 {
+                font-size: 15px;
+                font-weight: 600;
+                color: rgb(34, 34, 34);
+            }
+        }
+        .profilePhoto {
+            padding: 16px 0;
+            display: flex;
+            justify-content: flex-start;
+            border-bottom: 0.5px solid rgba(22, 24, 35, 0.2);
+            .photo-wrapper {
+                position: relative;
+                margin-left: 150px;
+
+                img {
+                    width: 96px;
+                    height: 96px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+                .wrapper-edit-icon {
+                    label {
+                        padding: 7px;
+                        border-radius: 50%;
+                        border: 1px solid rgb(208, 208, 211);
+                        position: absolute;
+                        bottom: 16px;
+                        right: 8px;
+                        background-color: white;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        cursor: pointer;
+                        cursor: pointer;
+                        i {
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+        .userName,
+        .name,
+        .bio {
+            display: flex;
+            padding: 16px 0;
+            border-bottom: 0.5px solid rgba(22, 24, 35, 0.2);
+            .info-wrap {
+                input {
+                    width: 360px;
+                    height: 38px;
+                    border-radius: 4px;
+                    background: rgba(22, 24, 35, 0.06);
+                    caret-color: rgb(254, 44, 85);
+                    font-size: 14px;
+                    color: rgb(22, 24, 35);
+                    line-height: 24px;
+                    outline: none;
+                    border: 1px solid transparent;
+                    padding: 7px 12px;
+                }
+                .link {
+                    font-size: 11px;
+                    color: rgba(22, 24, 35, 0.75);
+                    line-height: 18px;
+                    margin-top: 16px;
+                    width: 360px;
+                }
+                .instruction {
+                    font-size: 11px;
+                    color: rgba(22, 24, 35, 0.75);
+                    line-height: 18px;
+                    overflow: hidden;
+                    margin-top: 8px;
+                    width: 360px;
+                }
+            }
+        }
+        .bio {
+            border-bottom: none;
+            .info-wrap {
+                textarea {
+                    width: 360px;
+                    border-radius: 4px;
+                    background: rgba(22, 24, 35, 0.06);
+                    caret-color: rgb(254, 44, 85);
+                    font-size: 15px;
+                    color: rgb(22, 24, 35);
+                    line-height: 24px;
+                    outline: none;
+                    border: none;
+                    padding: 7px 12px;
+                    resize: none;
+                }
+                .instruction {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    .footer {
+        padding: 0 24px;
+        height: 86px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        border-top: 0.5px solid rgba(22, 24, 35, 0.2);
+        .save-button {
+            width: 96px;
+            height: 36px;
+            font-size: 14px;
+            color: rgb(195, 193, 193);
+            cursor: default;
+        }
+    }
+}

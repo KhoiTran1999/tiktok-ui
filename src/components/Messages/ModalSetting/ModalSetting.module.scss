@@ -1,0 +1,109 @@
+.wrapper {
+    width: 700px;
+    padding: 0px 25px;
+    background-color: white;
+    border-radius: 7px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    transition: 0.3s all;
+    &.active {
+        width: 700px;
+        opacity: 1;
+        visibility: visible;
+    }
+    .header {
+        padding: 18px 0px;
+        color: rgba(22, 24, 35, 1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+            font-size: 23px;
+            line-height: 32px;
+            font-weight: 700;
+        }
+        .escape {
+            i {
+                font-size: 25px;
+                cursor: pointer;
+            }
+        }
+    }
+    .main {
+        margin: 0px -25px;
+        padding: 18px 25px 35px 25px;
+        border-top: 1px solid rgb(235, 234, 234);
+        border-bottom: 1px solid rgb(235, 234, 234);
+        h4 {
+            color: rgb(30, 32, 45);
+            font-size: 15px;
+            line-height: 22px;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 10px;
+            padding-top: 4px;
+            font-size: 11px;
+            line-height: 15px;
+            color: rgba(22, 24, 35, 0.5);
+        }
+        .option {
+            label {
+                cursor: pointer;
+                input[type='radio'] {
+                    display: none;
+                }
+                input[type='radio']:checked + .radio .circle {
+                    background-color: var(--primary);
+                }
+                input[type='radio']:checked + .radio {
+                    border-color: var(--primary);
+                }
+                .radio {
+                    padding: 3px;
+                    margin: 15px 8px 15px 0px;
+                    border: 1px solid #ccc;
+                    border-radius: 50%;
+
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    .circle {
+                        display: inline-block;
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 50%;
+                    }
+                }
+                .text {
+                    color: rgba(22, 24, 35, 1);
+                    font-size: 15px;
+                    line-height: 22px;
+                }
+            }
+        }
+    }
+    .footer {
+        padding: 25px 0px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .cancle {
+            width: 164px;
+            span {
+                font-size: 17px;
+                font-weight: 700;
+                color: rgba(22, 24, 35, 1);
+            }
+        }
+        .save {
+            width: 164px;
+            span {
+                font-size: 17px;
+                font-weight: 600;
+            }
+        }
+    }
+}

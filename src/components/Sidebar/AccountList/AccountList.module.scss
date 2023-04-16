@@ -1,11 +1,14 @@
 .account-list {
-    padding: 16px 0px;
+    padding: 14px 0px;
     .suggested-accounts {
         .title {
             font-size: 14px;
             color: #161823bf;
             font-weight: 500;
             margin-bottom: 8px;
+            @media screen and (max-width: 1070px) {
+                display: none;
+            }
         }
         ul {
             li {
@@ -16,10 +19,6 @@
                     img {
                         width: 32px;
                         height: 32px;
-                    }
-                    h4 {
-                        font-weight: 800;
-                        letter-spacing: 0.5px;
                     }
                     p {
                         font-size: 12px;
@@ -38,6 +37,12 @@
             font-weight: 500;
             color: var(--primary);
             cursor: pointer;
+            &.skeletonLoading {
+                display: none;
+            }
+            @media screen and (max-width: 1070px) {
+                display: none;
+            }
         }
     }
 }

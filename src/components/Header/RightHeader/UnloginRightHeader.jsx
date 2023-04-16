@@ -1,14 +1,17 @@
-import React, { useCallback, useState } from 'react';
-import classNames from 'classnames/bind';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
+import styled from 'styled-components';
+import { useSpring, motion } from 'framer-motion';
+import classNames from 'classnames/bind';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, ImageCustom, Menu, Wrapper } from '../../DetailComponent';
-import LogoEffect from '../../../assets/icon/LogoEffect';
+import { UserSelector } from '../../../redux/selector';
+import { Button, Menu } from '../../ReusedComponent';
+import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './RightHeader.module.scss';
-import ModalSignSlice from '../../DetailComponent/ModalSign/ModalSignSlice';
 
+const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
 const UnloginRightHeader = () => {
     const { t } = useTranslation();
@@ -31,15 +34,6 @@ const UnloginRightHeader = () => {
             },
         },
         {
-            icon: <i className="fa-regular fa-circle-question"></i>,
-            title: t('header.Menu.feedBackAndHelp'),
-            to: '/feedback',
-        },
-        {
-            icon: <i className="fa-regular fa-keyboard"></i>,
-            title: t('header.Menu.keyboard'),
-        },
-        {
             icon: <i className="fa-regular fa-moon"></i>,
             title: t('header.Menu.darkMode'),
         },
@@ -47,10 +41,35 @@ const UnloginRightHeader = () => {
     const [isResetMenu, setIsResetMenu] = useState(false);
 
     const dispatch = useDispatch();
+    const user = useSelector(UserSelector);
 
     const handleLogin = () => {
-        dispatch(ModalSignSlice.actions.changeModalSign(true));
+        dispatch(ModalSignSlice.actions.setModalSign(true));
     };
+
+    //-----------Tippy Framer Motion------------------------
+    const springConfig = { damping: 15, stiffness: 300 };
+    const initialScale = 0.5;
+    const opacity = useSpring(0, springConfig);
+    const scale = useSpring(initialScale, springConfig);
+
+    function onMount() {
+        scale.set(1);
+        opacity.set(1);
+    }
+
+    function onHide({ unmount }) {
+        const cleanup = scale.onChange((value) => {
+            if (value <= initialScale) {
+                cleanup();
+                unmount();
+            }
+        });
+        setIsResetMenu(false);
+        scale.set(initialScale);
+        opacity.set(0);
+    }
+    //------------------------------------------------------
     return (
         <div style={{ marginRight: '-20px' }} className={cx('group')}>
             <ul>
@@ -58,7 +77,9 @@ const UnloginRightHeader = () => {
                     <Button
                         basic
                         medium
-                        className={cx('upload')}
+                        className={cx('upload', {
+                            skeletonLoading: user.login === null,
+                        })}
                         onClick={() => {
                             handleLogin();
                         }}
@@ -74,18 +95,19 @@ const UnloginRightHeader = () => {
                         onClick={() => {
                             handleLogin();
                         }}
+                        className={cx('login-button', {
+                            skeletonLoading: user.login === null,
+                        })}
                     >
                         <span style={{ padding: '0px 15px' }}>{t('header.login')}</span>
                     </Button>
                 </li>
 
                 <li>
-                    <Tippy render={(attrs) => <Wrapper>{t('header.logoEffect')}</Wrapper>}>
-                        <LogoEffect className={cx('effectLogo')} width="2.3rem" />
-                    </Tippy>
-                </li>
-                <li>
-                    <div style={{ marginBottom: '7px' }} className={cx('menu')}>
+                    <div
+                        style={{ marginBottom: '7px' }}
+                        className={cx('menu', { skeletonLoading: user.login === null })}
+                    >
                         <Tippy
                             // visible
                             delay={[0, 700]}
@@ -93,19 +115,21 @@ const UnloginRightHeader = () => {
                             hideOnClick={false}
                             placement="bottom-end"
                             interactive
-                            render={(attrs) => (
-                                <Menu
-                                    data={dataMainMenuUnLogin}
-                                    className={cx('subnav-menu')}
-                                    isResetMenu={isResetMenu}
-                                />
-                            )}
-                            onHide={() => {
-                                setIsResetMenu(true);
-                            }}
+                            animation={true}
+                            onMount={onMount}
+                            onHide={onHide}
                             onShow={() => {
                                 setIsResetMenu(false);
                             }}
+                            render={(attrs) => (
+                                <Box style={{ scale, opacity }} {...attrs}>
+                                    <Menu
+                                        data={dataMainMenuUnLogin}
+                                        className={cx('subnav-menu')}
+                                        isResetMenu={isResetMenu}
+                                    />
+                                </Box>
+                            )}
                         >
                             <i className="fa-solid fa-ellipsis-vertical"></i>
                         </Tippy>

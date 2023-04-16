@@ -1,0 +1,71 @@
+.userChatItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 8px 24px 15px 0px;
+    .wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: start;
+        width: fit-content;
+        &:hover .iconMore {
+            display: block;
+        }
+        .avatar {
+            img {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+                cursor: pointer;
+            }
+        }
+        .message {
+            padding: 7px 12px;
+            margin-right: 8px;
+            max-width: 360px;
+            background-color: rgba(22, 24, 35, 0.06);
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            border-radius: 8px;
+            overflow: hidden;
+            word-wrap: break-word;
+            p {
+                color: #161823;
+            }
+        }
+        .iconMore {
+            margin: 9px 16px 0px 16px;
+            cursor: pointer;
+            display: none;
+            i {
+                font-size: 23px;
+            }
+        }
+    }
+    .interactive {
+        display: none;
+        height: 20px;
+        &.active {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 5px;
+            margin-right: 40px;
+        }
+        i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        img {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 5px;
+            display: none;
+            &.active {
+                display: block;
+            }
+        }
+    }
+}

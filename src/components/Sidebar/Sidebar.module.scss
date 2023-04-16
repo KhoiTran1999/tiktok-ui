@@ -1,39 +1,52 @@
-.side-bar {
-    width: 24.5%;
-    overflow-y: overlay;
-    overflow-x: hidden;
-    max-height: 650px;
+.fake-width {
+    margin-right: 70px;
+}
+.parents {
     position: fixed;
-    z-index: 9;
-    @media screen and (min-width: 1700px) {
-        max-height: 100%;
-    }
-    @media screen and (min-width: 2200px) {
-        width: 15.5%;
-    }
-    &::-webkit-scrollbar {
-        width: 6px;
-    }
-    &::-webkit-scrollbar-thumb {
-        opacity: 0;
-        visibility: hidden;
-        transition: 3s all;
-    }
-    &:hover::-webkit-scrollbar-thumb {
-        opacity: 1;
-        visibility: visible;
-    }
-    .wrapper {
-        margin: 0px 10px 0px 7px;
-        border-bottom: 1px solid rgb(235, 234, 234);
-        .signText {
-            padding-top: 20px;
-            color: rgba(22, 24, 35, 0.5);
-            font-size: 15px;
-            line-height: 22px;
+    z-index: 10;
+    .side-bar {
+        width: 224px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100%;
+        max-height: 100vh;
+        overscroll-behavior: none;
+        @media screen and (max-width: 1070px) {
+            width: 70px;
         }
-        .sign {
-            margin: 20px 0px;
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+        &::-webkit-scrollbar-thumb {
+            opacity: 0;
+            visibility: hidden;
+            transition: 3s all;
+        }
+        &:hover::-webkit-scrollbar-thumb {
+            opacity: 1;
+            visibility: visible;
+        }
+        .wrapper {
+            margin: 0px 10px 0px 7px;
+            border-bottom: 1px solid rgb(235, 234, 234);
+            .signText {
+                padding-top: 20px;
+                color: rgba(22, 24, 35, 0.5);
+                font-size: 15px;
+                line-height: 22px;
+            }
+            .sign {
+                margin: 20px 0px;
+            }
+            .signText,
+            .sign {
+                &.skeletonLoading {
+                    display: none;
+                }
+                @media screen and (max-width: 1070px) {
+                    display: none;
+                }
+            }
         }
     }
 }

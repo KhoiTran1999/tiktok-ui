@@ -1,0 +1,19 @@
+.profileContent {
+    padding: 34px 21px;
+    margin-left: 230px;
+    width: 100%;
+    @media screen and (max-width: 1070px) {
+        margin-left: 0;
+    }
+    .wrapper {
+        max-width: 1776px;
+        margin: 0 auto;
+        .header {
+            .row {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+        }
+    }
+}

@@ -1,21 +1,24 @@
 .search {
-    width: 33%;
+    flex: 0 1 361px;
     padding: 2px;
-    margin-left: 20px;
+    margin-left: 200px;
     background-color: #f1f1f2;
     border-radius: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
+    @media screen and (max-width: 1070px) {
+        margin-left: 15px;
+    }
     #search {
         border: none;
         outline: none;
         background-color: transparent;
-        font-size: 15px;
+        font-size: 14px;
         letter-spacing: 0.2px;
         color: rgb(108, 107, 107);
-        width: 90%;
+        width: 86%;
         padding: 5px 15px;
         border-right: 0.5px solid rgb(207, 205, 205);
         caret-color: #fe2c55;
@@ -79,6 +82,13 @@
         }
         h4 {
             font-weight: 500;
+        }
+        .viewAllResult {
+            text-align: left;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            background-color: white;
         }
         p {
             font-size: 13px;

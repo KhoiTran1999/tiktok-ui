@@ -1,0 +1,56 @@
+.header-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .info-container {
+        .wrap {
+            cursor: pointer;
+            .nickname {
+                font-weight: 700;
+                font-size: 17px;
+                line-height: 25px;
+                margin-right: 4px;
+            }
+            .name {
+                font-size: 13px;
+            }
+            &:hover .nickname {
+                text-decoration: underline;
+            }
+        }
+        .caption {
+            font-weight: 300;
+            font-size: 15px;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow-y: hidden;
+            text-overflow: ellipsis;
+            .hash-tag {
+                font-weight: 500;
+                cursor: pointer;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        .music {
+            display: inline-block;
+            margin: 4px 0px 12px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+            i {
+                margin-right: 5px;
+            }
+        }
+    }
+    button {
+        margin-top: 9px;
+        margin-right: -5px;
+    }
+}
