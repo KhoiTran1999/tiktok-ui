@@ -3,12 +3,14 @@ import React from 'react';
 function UserGroupLogo({ className, width = '3.2rem', height = '3.2rem' }, ref) {
     return (
         <svg
+            className={className}
             width={width}
             data-e2e=""
             height={height}
             viewBox="0 0 48 48"
             fill="rgba(22, 24, 35, 1)"
             xmlns="http://www.w3.org/2000/svg"
+            style={{ fill: 'var(--text)' }}
         >
             <path
                 fillRule="evenodd"

@@ -3,7 +3,7 @@
     .nav {
         display: flex;
         padding-bottom: 10px;
-        border-bottom: 1px solid rgb(235, 234, 234);
+        border-bottom: 1px solid var(--line);
         cursor: pointer;
         position: relative;
         transition: 0.3s all;
@@ -14,7 +14,7 @@
             line-height: 25px;
             width: 230px;
             text-align: center;
-            color: rgba(22, 24, 35, 0.5);
+            color: var(--text);
             i {
                 margin-right: 8px;
                 margin-top: 2px;

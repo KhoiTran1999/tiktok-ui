@@ -3,7 +3,6 @@ import React from 'react';
 function LogoMessage({ className, width = '3.2rem', height = '3.2rem' }, ref) {
     return (
         <svg
-            ref={ref}
             className={className}
             width={width}
             data-e2e=""

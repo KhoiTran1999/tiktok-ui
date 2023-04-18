@@ -10,6 +10,7 @@ import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
 import ModalEditProfileSlice from '../ModalEditProfile/ModalEditProfileSlice';
 import { addDocument, handleFollowService, updateDocument } from '../../../firebase/services';
 import routes from '../../../config/routes';
+import DarkModeSlice from '../../Header/RightHeader/DarkModeSlice';
 
 const cx = classNames.bind(style);
 const InforProfile = ({ allUserList }) => {
@@ -69,6 +70,8 @@ const InforProfile = ({ allUserList }) => {
                 members: [userLogin.uid, user.uid],
             });
         }
+
+        dispatch(DarkModeSlice.actions.setDarkMode(false));
         navigate(routes.messages);
     };
 

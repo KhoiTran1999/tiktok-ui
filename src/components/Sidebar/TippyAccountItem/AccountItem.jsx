@@ -90,7 +90,7 @@ const AccountItem = ({ accountUser }) => {
                             skeletonLoading: user.login === null,
                         })}
                     >
-                        <ImageCustom src={accountUser.photoURL} alt="avatar" />
+                        <ImageCustom src={accountUser.photoURL} alt="" />
                     </div>
                     <div className={cx('information')}>
                         <div className={cx('wrap')}>

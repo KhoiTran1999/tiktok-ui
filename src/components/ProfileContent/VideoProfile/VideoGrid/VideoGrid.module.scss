@@ -7,17 +7,17 @@
         margin-top: 90px;
         i {
             font-size: 70px;
-            color: rgb(184, 182, 182);
+            color: var(--text);
         }
         h3 {
             margin-top: 24px;
             font-size: 24px;
-            color: rgb(22, 24, 35);
+            color: var(--text);
         }
         p {
             font-size: 16px;
             font-weight: 400;
-            color: rgba(22, 24, 35, 0.75);
+            color: var(--text);
         }
     }
     ul {
@@ -38,6 +38,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                color: var(--text);
             }
             .playLogo {
                 width: 18px;

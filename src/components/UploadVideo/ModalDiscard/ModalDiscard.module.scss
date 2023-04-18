@@ -1,7 +1,7 @@
 .modalDiscard {
     padding: 32px;
     border-radius: 8px;
-    background-color: white;
+    background-color: var(--background-color-subnav);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,7 +23,7 @@
         font-weight: 400;
         font-size: 15px;
         line-height: 18px;
-        color: rgba(22, 24, 35, 0.75);
+        color: var(--text);
     }
     .discard {
         margin-top: 24px;

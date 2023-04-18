@@ -5,11 +5,12 @@ import Tippy from '@tippyjs/react/headless';
 import ShareLogo from '../../../assets/icon/ShareLogo';
 import { Menu } from '../../ReusedComponent';
 import { SubnavWrapper } from '../../ReusedComponent';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CurrentRoomsSelector, UserSelector } from '../../../redux/selector';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addDocument } from '../../../firebase/services';
 import routes from '../../../config/routes';
+import DarkModeSlice from '../../Header/RightHeader/DarkModeSlice';
 
 const cx = classNames.bind(style);
 const MoreActionProfile = ({ allUserList }) => {
@@ -91,6 +92,8 @@ const MoreActionProfile = ({ allUserList }) => {
         },
     ];
 
+    const dispatch = useDispatch();
+
     const userLogin = useSelector(UserSelector);
     const curRoomList = useSelector(CurrentRoomsSelector);
     const [isResetMenu, setIsResetMenu] = useState(false);
@@ -117,6 +120,8 @@ const MoreActionProfile = ({ allUserList }) => {
                 members: [userLogin.uid, user.uid],
             });
         }
+
+        dispatch(DarkModeSlice.actions.setDarkMode(false));
         navigate(routes.messages);
     };
 

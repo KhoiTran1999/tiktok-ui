@@ -20,16 +20,17 @@
 }
 
 .basic {
-    border-color: rgb(218, 216, 216);
-    background-color: white;
+    border-color: var(--line);
+    background-color: var(--background-color-subnav);
+    color: var(--text);
     &:hover {
-        background-color: #f1f1f2;
+        background-color: var(--line);
     }
 }
 
 .outline {
     color: var(--primary);
-    background-color: white;
+    background-color: var(--background-color-subnav);
     border-color: #fe2c55;
     &:hover {
         background-color: rgba(254, 44, 85, 0.06);

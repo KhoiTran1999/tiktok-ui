@@ -7,7 +7,7 @@
             scroll-snap-align: start;
             width: 100%;
             padding: 20px 0px;
-            border-bottom: 1px solid rgb(235, 234, 234);
+            border-bottom: 1px solid var(--line);
             display: flex;
             &:last-child {
                 border-bottom: none;

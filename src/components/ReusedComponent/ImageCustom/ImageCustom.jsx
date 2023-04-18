@@ -8,7 +8,7 @@ const ImageCustom = ({ src = '', alt, fallback: customFallback = images.noImage,
         setFallback(customFallback);
     };
 
-    return <img src={fallback || src} onError={handleError} alt={alt} ref={ref} {...props} />;
+    return <img src={fallback || src} onError={handleError} alt={''} ref={ref} {...props} />;
 };
 
 export default React.forwardRef(ImageCustom);

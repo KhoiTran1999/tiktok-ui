@@ -11,6 +11,7 @@
         li {
             a {
                 margin-right: 6px;
+                color: var(--text);
                 & + a {
                     margin-left: 0;
                 }
@@ -18,7 +19,7 @@
         }
     }
     .copy-right {
-        color: rgba(22, 24, 35, 0.5);
+        color: var(--text);
         font-weight: 500;
         font-size: 11px;
         line-height: 17px;

@@ -23,6 +23,7 @@
             }
 
             .messages-wrap {
+                color: var(--text);
                 margin-top: 5px;
                 margin-left: 5px;
                 position: relative;
@@ -47,6 +48,7 @@
             }
 
             .messageBox-wrap {
+                color: var(--text);
                 position: relative;
                 .messageBox {
                     margin: 6px 10px 0px;
@@ -62,6 +64,15 @@
                     right: 10px;
                     top: 8px;
                 }
+                &:hover .tipTool {
+                    display: block;
+                }
+                .tipTool {
+                    display: none;
+                    position: absolute;
+                    top: 54px;
+                    right: -5px;
+                }
             }
 
             .menu {
@@ -70,6 +81,7 @@
                 height: 32px;
                 > i {
                     padding: 10px;
+                    color: var(--text);
                 }
                 img {
                     width: 100%;
@@ -80,7 +92,7 @@
                 .subnav-menu {
                     &::before {
                         content: '';
-                        border: 10px white solid;
+                        border: 10px var(--background-color-subnav) solid;
                         border-top-color: transparent;
                         border-right-color: transparent;
                         border-left-color: transparent;

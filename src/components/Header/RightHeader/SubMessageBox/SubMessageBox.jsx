@@ -8,7 +8,6 @@ import style from './SubMessageBox.module.scss';
 const cx = classNames.bind(style);
 const SubMessageBox = () => {
     const userLogin = useSelector(UserSelector);
-
     const [select, setSelect] = useState('all');
     const [commentList, setCommentList] = useState([]);
     const [mentionList, setMentionList] = useState([]);
@@ -95,7 +94,7 @@ const SubMessageBox = () => {
     }, [userLogin.notification.comments, userLogin.notification.mentions, userLogin.notification.followers]);
 
     return (
-        <div className={cx('sub-messagesBox')}>
+        <div className={cx('sub-messagesBox')} onClick={(e) => e.stopPropagation()}>
             <div className={cx('header')}>
                 <h2>Notifications</h2>
                 <div className={cx('nav-wrap')}>

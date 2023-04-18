@@ -4,8 +4,8 @@
             padding: 0px 16px;
             height: 72px;
             font-size: 13px;
-            color: rgb(72, 71, 71);
-            background-color: rgba(22, 24, 35, 0.03);
+            color: var(--text);
+            background-color: var(--background-color-subnav);
             line-height: 72px;
             margin: 0px -15px 0px -24px;
             @media screen and (max-width: 1070px) {

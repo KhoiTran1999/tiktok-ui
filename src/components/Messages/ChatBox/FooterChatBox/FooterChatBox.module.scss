@@ -3,14 +3,14 @@
     display: flex;
     flex-grow: 0;
     padding: 13px 16px;
-    border-top: 0.5px solid rgba(22, 24, 35, 0.12);
+    border-top: 0.5px solid var(--line);
     position: relative;
     form {
         width: 100%;
         padding: 10px 45px 5px 16px;
         border: 1px solid transparent;
         border-radius: 8px;
-        background-color: rgba(22, 24, 35, 0.06);
+        background-color: var(--line);
         transition: 0.3s all;
         position: relative;
         textarea {
@@ -19,13 +19,17 @@
             outline: none;
             border: none;
             max-height: 75px;
+            color: var(--text);
+            &::placeholder {
+                color: var(--text);
+            }
             background-color: transparent;
             caret-color: #fe2c55;
             resize: none;
         }
         #overflow {
             font-size: 13px;
-            color: rgba(22, 24, 35, 0.5);
+            color: var(--text);
             position: absolute;
             left: 17px;
             bottom: 5px;
@@ -50,6 +54,7 @@
         i {
             font-size: 23px;
             border-radius: 50%;
+            color: var(--text);
             &:hover {
                 color: rgb(54, 53, 53);
             }

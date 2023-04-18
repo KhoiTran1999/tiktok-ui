@@ -24,13 +24,13 @@
             padding: 7px 12px;
             margin-right: 8px;
             max-width: 360px;
-            background-color: rgba(22, 24, 35, 0.06);
-            border: 1px solid rgba(22, 24, 35, 0.12);
+            background-color: var(--background-color-search);
+            border: 1px solid var(--line);
             border-radius: 8px;
             overflow: hidden;
             word-wrap: break-word;
             p {
-                color: #161823;
+                color: var(--text);
             }
         }
         .iconMore {
@@ -38,6 +38,7 @@
             cursor: pointer;
             display: none;
             i {
+                color: var(--text);
                 font-size: 23px;
             }
         }

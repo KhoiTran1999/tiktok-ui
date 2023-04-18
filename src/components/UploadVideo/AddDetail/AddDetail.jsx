@@ -73,7 +73,9 @@ const AddDetail = ({
     const colourStyles = {
         control: (styles, { isFocused, isDisabled }) => ({
             ...styles,
-            border: isFocused ? '1px solid rgba(22, 24, 35, 0.12)' : '1px solid rgba(22, 24, 35, 0.12)',
+            border: '1px solid var(--line)',
+            backgroundColor: 'var(--background-color-subnav)',
+            color: 'var(--text)',
             boxShadow: 'none',
             width: '300px',
             height: '36px',
@@ -82,6 +84,10 @@ const AddDetail = ({
                 boder: '1px solid rgba(22, 24, 35, 0.12)',
             },
         }),
+        singleValue: (styles) => ({
+            ...styles,
+            color: 'var(--text)',
+        }),
         indicatorSeparator: (styles) => ({
             color: 'transparent',
         }),
@@ -89,18 +95,23 @@ const AddDetail = ({
         option: (styles, { isDisabled, isSelected }) => {
             return {
                 ...styles,
-                backgroundColor: isDisabled ? 'white' : 'white',
-                backgroundColor: isSelected ? 'rgba(22, 24, 35, 0.06)' : 'white',
-                border: 'none',
-                color: 'rgba(22, 24, 35, 1)',
-                width: '300px',
+                backgroundColor: 'var(--background-color-subnav)',
+                color: 'var(--text)',
+                width: '298px',
                 cursor: isDisabled ? 'not-allowed' : 'pointer',
+                overflow: 'hidden',
                 '&:hover': {
-                    backgroundColor: 'rgba(22, 24, 35, 0.03)',
+                    backgroundColor: 'var(--line)',
                 },
             };
         },
-        menu: (style) => ({ ...style, width: '300px' }),
+        menu: (style) => ({
+            ...style,
+            width: '300px',
+            backgroundColor: 'var(--background-color-subnav)',
+            border: '1px solid var(--line)',
+            overflow: 'hidden',
+        }),
     };
 
     const handlePostVideo = () => {

@@ -6,6 +6,10 @@
             font-size: 16px;
             padding: 9.5px 10px;
             cursor: pointer;
+            position: relative;
+            &:hover {
+                background-color: var(--line);
+            }
             a {
                 display: inline-block;
                 width: 100%;
@@ -17,20 +21,49 @@
                 font-size: 20px;
                 width: 50px;
                 margin-left: -5px;
+                color: var(--text);
             }
             span {
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
 
-                span {
-                }
                 h4 {
                     font-weight: 500;
+                    color: var(--text);
                 }
             }
-            &:hover {
-                background-color: rgba(22, 24, 35, 0.06);
+            .dark-mode {
+                width: 44px;
+                height: 24px;
+                background: rgba(22, 24, 35, 0.12);
+                border-radius: 100px;
+                transition: 0.3s all;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                &:hover {
+                    background-color: rgba(22, 24, 35, 0.16);
+                }
+                .toggle-btn {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: rgb(255, 255, 255);
+                    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px;
+                    transition: 0.3s all;
+                    position: absolute;
+                    left: 3px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                &.active {
+                    background-color: rgb(11, 224, 155);
+                    .toggle-btn {
+                        left: 21px;
+                    }
+                }
             }
         }
     }
@@ -44,10 +77,12 @@
             left: 30px;
             font-size: 18px;
             cursor: pointer;
+            color: var(--text);
         }
         h4 {
             text-align: center;
             margin: 10px 0px;
+            color: var(--text);
         }
     }
 }

@@ -16,6 +16,7 @@ import VideoListSlice from '../components/ProfileContent/VideoProfile/VideoListS
 import ModalEditProfileSlice from '../components/ProfileContent/ModalEditProfile/ModalEditProfileSlice';
 import ModalWelcomeSlice from '../components/Header/ModalWelcome/ModalWelcome.Slice';
 import AmountOfNotiSlice from '../components/Header/RightHeader/AmountOfNotiSlice';
+import DarkModeSlice from '../components/Header/RightHeader/DarkModeSlice';
 
 const store = configureStore({
     reducer: {
@@ -36,6 +37,7 @@ const store = configureStore({
         volume: VolumeSlice.reducer,
         videoList: VideoListSlice.reducer,
         amountOfNoti: AmountOfNotiSlice.reducer,
+        darkMode: DarkModeSlice.reducer,
     },
 });
 

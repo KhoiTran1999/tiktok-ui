@@ -7,7 +7,7 @@
 
         form {
             width: 100%;
-            background-color: rgba(22, 24, 35, 0.06);
+            background-color: var(--background-color-search);
             border: 1px solid transparent;
             border-radius: 8px;
             padding: 10px 90px 8px 9px;
@@ -29,6 +29,7 @@
                 height: 20px;
                 resize: none;
                 caret-color: var(--primary);
+                color: var(--text);
                 background-color: transparent;
                 border: none;
                 outline: none;
@@ -39,7 +40,7 @@
             .counting {
                 font-size: 13px;
                 font-weight: 500;
-                color: rgba(22, 24, 35, 0.34);
+                color: var(--text);
                 position: absolute;
                 bottom: 10px;
                 left: 10px;
@@ -55,6 +56,7 @@
                 }
             }
             .name-tagging {
+                color: var(--text);
                 font-size: 20px;
                 font-weight: 700;
                 cursor: pointer;
@@ -63,6 +65,7 @@
                 bottom: 4px;
             }
             i {
+                color: var(--text);
                 font-size: 20px;
                 position: absolute;
                 right: 17px;
@@ -71,7 +74,7 @@
             }
         }
         > span {
-            color: rgba(22, 24, 35, 0.34);
+            color: var(--text);
             font-weight: 500;
             cursor: default;
             flex: 0 0 48px;

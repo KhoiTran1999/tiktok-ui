@@ -18,7 +18,7 @@
             }
             span {
                 font-size: 12px;
-                color: rgb(165, 164, 164);
+                color: var(--text);
             }
         }
         .caption-textArea {
@@ -26,7 +26,9 @@
             resize: none;
             width: 100%;
             border-radius: 4px;
-            border: 1px solid rgba(22, 24, 35, 0.12);
+            border: 1px solid var(--line);
+            background-color: var(--background-color-subnav);
+            color: var(--text);
             padding: 15px 80px 15px 16px;
             margin-top: 5px;
             overflow-y: hidden;
@@ -35,6 +37,7 @@
             top: 13px;
         }
         .name-tagging {
+            color: var(--text);
             position: absolute;
             top: 37px;
             right: 20px;
@@ -52,7 +55,7 @@
         }
         .thumnail-wrapper {
             padding: 6px;
-            border: 1px solid rgba(22, 24, 35, 0.12);
+            border: 1px solid var(--line);
             border-radius: 4px;
             display: flex;
             justify-content: space-between;
@@ -108,7 +111,6 @@
         }
     }
     .restricting-selector {
-        display: none;
         margin-top: 20px;
         .title {
             color: var(--text);
@@ -157,11 +159,11 @@
                     }
                     i {
                         font-size: 12px;
-                        color: white;
+                        color: var(--background-color-subnav);
                     }
                 }
                 .text {
-                    color: rgba(22, 24, 35, 1);
+                    color: var(--text);
                     font-size: 15px;
                     line-height: 22px;
                     margin-left: 12px;
@@ -185,7 +187,7 @@
                 width: 44px;
                 height: 24px;
                 border-radius: 30px;
-                background-color: rgba(22, 24, 35, 0.12);
+                background-color: var(--line);
                 position: relative;
                 cursor: pointer;
                 transition: 0.3s all;
@@ -211,7 +213,10 @@
         .explain {
             font-size: 12px;
             line-height: 1.5;
-            color: rgba(22, 24, 35, 0.75);
+            color: var(--text);
+            a {
+                color: var(--text);
+            }
         }
         .required-video {
             padding: 8px 12px;
@@ -230,7 +235,7 @@
         }
         .no-issues {
             padding: 8px 12px;
-            background-color: rgba(22, 24, 35, 0.06);
+            background-color: var(--line);
             border-radius: 4px;
             i {
                 font-size: 14px;
@@ -240,7 +245,7 @@
             span {
                 font-size: 13px;
                 line-height: 1.5;
-                color: rgba(22, 24, 35, 0.75);
+                color: var(--text);
             }
         }
     }

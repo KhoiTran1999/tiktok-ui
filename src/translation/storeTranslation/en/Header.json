@@ -1,6 +1,6 @@
 {
     "header": {
-        "placeHolder": "Search accounts and videos",
+        "placeHolder": "Search",
         "accountSearch": "Accounts",
         "no result": "No result",
         "upload": "Upload",
@@ -16,7 +16,7 @@
             "language": "English",
             "feedBackAndHelp": "Feedback and help",
             "keyboard": "Keyboard shortcuts",
-            "darkMode": "Darkmode",
+            "darkMode": "Dark mode",
             "logout": "Log out"
         }
     }

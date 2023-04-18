@@ -1,5 +1,5 @@
 .header {
-    border-bottom: 0.5px solid rgba(22, 24, 35, 0.12);
+    border-bottom: 0.5px solid var(--line);
     padding: 16px 0px 9px 16px;
     flex-grow: 0;
     a {
@@ -16,6 +16,7 @@
         .infor {
             margin-left: 10px;
             h4 {
+                color: var(--text);
                 font-size: 16px;
                 font-weight: 600;
                 line-height: 24px;
@@ -24,7 +25,7 @@
             span {
                 font-size: 14px;
                 line-height: 22px;
-                color: rgb(83, 83, 83);
+                color: var(--text);
             }
         }
     }

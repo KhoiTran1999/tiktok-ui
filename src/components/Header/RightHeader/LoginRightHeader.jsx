@@ -1,7 +1,7 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { motion, useSpring } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ import LogoMessageActive from '../../../assets/icon/LogoMessageActive';
 import LogoMessageBox from '../../../assets/icon/LogoMessageBox';
 import LogoMessageBoxActive from '../../../assets/icon/LogoMessageBoxActive';
 import routes from '../../../config/routes';
-import { auth } from '../../../firebase/config';
+import { auth, doc } from '../../../firebase/config';
 import { updateDocument } from '../../../firebase/services';
 import { AmountOfNotiSelector, UserSelector } from '../../../redux/selector';
 import ChoosedUserSlice from '../../Messages/ChatAccountList/AccountItem/choosedUserSlice';
@@ -21,6 +21,7 @@ import { Button, ImageCustom, Menu, Wrapper } from '../../ReusedComponent';
 import UserLoginSlice from '../../ReusedComponent/ModalSign/UserLoginSlice';
 import style from './RightHeader.module.scss';
 import SubMessageBox from './SubMessageBox/SubMessageBox';
+import { useEffect } from 'react';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
@@ -40,10 +41,6 @@ const LoginRightHeader = () => {
             icon: <i className="fa-regular fa-user"></i>,
             title: t('header.Menu.viewProfile'),
             to: `/profile/${user.nickName}`,
-        },
-        {
-            icon: <i className="fa-solid fa-gear"></i>,
-            title: t('header.Menu.setting'),
         },
         {
             icon: <i className="fa-solid fa-font"></i>,
@@ -145,6 +142,7 @@ const LoginRightHeader = () => {
     //--------------------------------------------------------
 
     const handleClickNoti = () => {
+        console.log('active');
         setActiveNoti(!activeNoti);
         updateDocument('userList', user.id, {
             notification: {
@@ -199,21 +197,24 @@ const LoginRightHeader = () => {
                     </Tippy>
                 </li>
 
-                <li>
+                <li onClick={handleClickNoti}>
                     <Tippy
-                        trigger="mouseenter"
-                        placement="bottom"
-                        render={(attrs) => <Wrapper>{t('header.logoInbox')}</Wrapper>}
+                        trigger="click"
+                        interactive
+                        offset={[30, -43]}
+                        placement="bottom-end"
+                        render={(attrs) => <SubMessageBox />}
                     >
-                        <div className={cx('messageBox-wrap')} onClick={handleClickNoti}>
+                        <div className={cx('messageBox-wrap')}>
                             {!activeNoti && <LogoMessageBox className={cx('messageBox')} />}
                             {activeNoti && <LogoMessageBoxActive className={cx('messageBox')} />}
                             {user.notification.status && <div className={cx('dot-noti')}></div>}
+                            <div className={cx('tipTool')}>
+                                <Wrapper>{t('header.logoInbox')}</Wrapper>
+                            </div>
                         </div>
                     </Tippy>
-                    {activeNoti && <SubMessageBox />}
                 </li>
-
                 <li>
                     <div className={cx('menu')}>
                         <Tippy

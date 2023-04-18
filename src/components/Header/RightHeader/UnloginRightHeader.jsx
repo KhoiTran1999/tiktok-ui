@@ -109,7 +109,7 @@ const UnloginRightHeader = () => {
                         className={cx('menu', { skeletonLoading: user.login === null })}
                     >
                         <Tippy
-                            // visible
+                            visible
                             delay={[0, 700]}
                             offset={[18, 10]}
                             hideOnClick={false}
