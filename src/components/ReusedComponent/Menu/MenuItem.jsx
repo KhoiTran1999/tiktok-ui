@@ -30,6 +30,16 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
         }
     };
 
+    const handleDarkMode = () => {
+        dispatch(DarkModeSlice.actions.setDarkMode(!darkMode));
+        localStorage.setItem('darkMode', !darkMode);
+    };
+
+    useEffect(() => {
+        const darkModeLocalStorage = JSON.parse(localStorage.getItem('darkMode'));
+        dispatch(DarkModeSlice.actions.setDarkMode(darkModeLocalStorage));
+    }, []);
+
     //Dark mode handle
     useEffect(() => {
         let root = document.documentElement;
@@ -62,7 +72,7 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
                         </Button>
                         {val.title === 'Dark mode' || val.title === 'Chế độ tối' ? (
                             <div
-                                onClick={() => dispatch(DarkModeSlice.actions.setDarkMode(!darkMode))}
+                                onClick={handleDarkMode}
                                 className={cx('dark-mode', {
                                     active: darkMode,
                                 })}

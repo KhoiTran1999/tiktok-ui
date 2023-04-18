@@ -23,7 +23,7 @@
         border-right: 0.5px solid var(--line);
         caret-color: #fe2c55;
         &:not(:placeholder-shown) ~ button i {
-            color: rgba(22, 24, 35, 0.75);
+            color: var(--text);
         }
         &::placeholder {
             color: rgb(133, 131, 131);
