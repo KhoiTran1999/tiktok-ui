@@ -142,8 +142,7 @@ const LoginRightHeader = () => {
     //--------------------------------------------------------
 
     const handleClickNoti = () => {
-        console.log('active');
-        setActiveNoti(!activeNoti);
+        setActiveNoti(true);
         updateDocument('userList', user.id, {
             notification: {
                 ...user.notification,
@@ -197,12 +196,14 @@ const LoginRightHeader = () => {
                     </Tippy>
                 </li>
 
-                <li onClick={handleClickNoti}>
+                <li>
                     <Tippy
                         trigger="click"
                         interactive
                         offset={[30, -43]}
                         placement="bottom-end"
+                        onShow={handleClickNoti}
+                        onHide={() => setActiveNoti(false)}
                         render={(attrs) => <SubMessageBox />}
                     >
                         <div className={cx('messageBox-wrap')}>

@@ -49,10 +49,10 @@
             }
         }
         .tippy-wrapper-privacy {
-            background-color: white;
+            background-color: var(--background-color-subnav);
             padding: 8px 16px;
             border-radius: 8px;
-            box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+            box-shadow: var(--line) 0px 4px 16px;
             position: relative;
             p {
                 position: relative;
@@ -71,11 +71,11 @@
                 position: absolute;
                 bottom: 0;
                 left: 0;
-                background-color: var(--background-color-search);
+                background-color: var(--line);
             }
             &::after {
                 content: '';
-                border: 10px solid var(--background-color-search);
+                border: 10px solid var(--background-color-subnav);
                 border-top-color: transparent;
                 border-left-color: transparent;
                 border-right-color: transparent;
@@ -158,6 +158,9 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            @media screen and (max-width: 948px) {
+                margin-bottom: 10px;
+            }
             .heart,
             .comment {
                 width: 32px;

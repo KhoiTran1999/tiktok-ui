@@ -218,7 +218,10 @@ const HeaderComment = ({ video, userVideo }) => {
                             </div>
                         )}
                     >
-                        <i style={{ fontSize: '20px', cursor: 'pointer' }} className="fa-solid fa-ellipsis"></i>
+                        <i
+                            style={{ fontSize: '20px', cursor: 'pointer', color: 'var(--text)' }}
+                            className="fa-solid fa-ellipsis"
+                        ></i>
                     </Tippy>
                 ) : (
                     <Button outline medium onClick={() => handleFollowService(userLogin, userVideo)}>

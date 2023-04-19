@@ -256,28 +256,30 @@ const AddDetail = ({
             </div>
             <div className={cx('thumnail')}>
                 <p className={cx('title')}>Cover</p>
-                <div className={cx('thumnail-wrapper')}>
-                    {thumbnailList.length === 8 ? (
-                        <>
-                            {thumbnailList.map((val, idx) => {
-                                return (
-                                    <div
-                                        key={idx}
-                                        onClick={() => handleOnClickThumbnail(val, idx)}
-                                        className={cx('img-wrapper', {
-                                            active: imgIdx === idx,
-                                        })}
-                                    >
-                                        <img src={val} alt="thumbnail" />
-                                    </div>
-                                );
-                            })}
-                        </>
-                    ) : (
-                        <>
-                            <div className={cx('skeleton')}></div>
-                        </>
-                    )}
+                <div className={cx('wrap')}>
+                    <div className={cx('thumnail-wrapper')}>
+                        {thumbnailList.length === 8 ? (
+                            <>
+                                {thumbnailList.map((val, idx) => {
+                                    return (
+                                        <div
+                                            key={idx}
+                                            onClick={() => handleOnClickThumbnail(val, idx)}
+                                            className={cx('img-wrapper', {
+                                                active: imgIdx === idx,
+                                            })}
+                                        >
+                                            <img src={val} alt="thumbnail" />
+                                        </div>
+                                    );
+                                })}
+                            </>
+                        ) : (
+                            <>
+                                <div className={cx('skeleton')}></div>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
 

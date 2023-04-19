@@ -96,12 +96,13 @@
             }
             .createdAt-wrap {
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
+                flex-wrap: wrap;
                 .createdAt {
                     color: var(--text);
                     font-size: 13px;
                     line-height: 20px;
-                    margin-right: 30px;
                 }
                 .reply {
                     color: var(--text);
