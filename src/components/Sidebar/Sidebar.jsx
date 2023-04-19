@@ -28,7 +28,6 @@ const Sidebar = ({ className = 'side-bar' }) => {
     const handleLogin = () => {
         dispatch(ModalSignSlice.actions.setModalSign(true));
     };
-
     return (
         <>
             <div className={cx('fake-width')}></div>
@@ -81,7 +80,14 @@ const Sidebar = ({ className = 'side-bar' }) => {
                                     Log in
                                 </Button>
                             </div>
-                            {suggestedAccountList.length > 0 ? (
+                            <div className={cx('wrapper')}>
+                                <AccountList
+                                    title={'Suggested accounts'}
+                                    tippyVisible={true}
+                                    accountList={allUserList}
+                                />
+                            </div>
+                            {/* {suggestedAccountList.length > 0 ? (
                                 <div className={cx('wrapper')}>
                                     <AccountList
                                         title={'Suggested accounts'}
@@ -90,8 +96,8 @@ const Sidebar = ({ className = 'side-bar' }) => {
                                     />
                                 </div>
                             ) : (
-                                <></>
-                            )}
+                                <h1>no one</h1>
+                            )} */}
                         </>
                     )}
 

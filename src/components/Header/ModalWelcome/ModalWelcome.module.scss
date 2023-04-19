@@ -1,16 +1,16 @@
 .wrapper-edit {
     width: 700px;
-    background-color: white;
+    background-color: var(--background-color-subnav);
     border-radius: 8px;
 
     .header {
-        border-bottom: 0.5px solid rgba(22, 24, 35, 0.2);
+        border-bottom: 0.5px solid var(--line);
         padding: 24px 24px 12px;
         h3 {
             text-align: center;
             font-size: 23px;
             font-weight: 600;
-            color: rgb(22, 24, 35);
+            color: var(--text);
         }
     }
     .body {
@@ -21,14 +21,14 @@
             h4 {
                 font-size: 15px;
                 font-weight: 600;
-                color: rgb(34, 34, 34);
+                color: var(--text);
             }
         }
         .profilePhoto {
             padding: 16px 0;
             display: flex;
             justify-content: flex-start;
-            border-bottom: 0.5px solid rgba(22, 24, 35, 0.2);
+            border-bottom: 0.5px solid var(--line);
             .photo-wrapper {
                 position: relative;
                 margin-left: 150px;
@@ -65,31 +65,34 @@
         .bio {
             display: flex;
             padding: 16px 0;
-            border-bottom: 0.5px solid rgba(22, 24, 35, 0.2);
+            border-bottom: 0.5px solid var(--line);
             .info-wrap {
                 input {
                     width: 360px;
                     height: 38px;
                     border-radius: 4px;
-                    background: rgba(22, 24, 35, 0.06);
+                    background: var(--line);
                     caret-color: rgb(254, 44, 85);
                     font-size: 14px;
-                    color: rgb(22, 24, 35);
+                    color: var(--text);
                     line-height: 24px;
                     outline: none;
                     border: 1px solid transparent;
                     padding: 7px 12px;
+                    &::placeholder {
+                        color: var(--text);
+                    }
                 }
                 .link {
                     font-size: 11px;
-                    color: rgba(22, 24, 35, 0.75);
+                    color: var(--text);
                     line-height: 18px;
                     margin-top: 16px;
                     width: 360px;
                 }
                 .instruction {
                     font-size: 11px;
-                    color: rgba(22, 24, 35, 0.75);
+                    color: var(--text);
                     line-height: 18px;
                     overflow: hidden;
                     margin-top: 8px;
@@ -103,15 +106,18 @@
                 textarea {
                     width: 360px;
                     border-radius: 4px;
-                    background: rgba(22, 24, 35, 0.06);
+                    background: var(--line);
                     caret-color: rgb(254, 44, 85);
                     font-size: 15px;
-                    color: rgb(22, 24, 35);
+                    color: var(--text);
                     line-height: 24px;
                     outline: none;
                     border: none;
                     padding: 7px 12px;
                     resize: none;
+                    &::placeholder {
+                        color: var(--text);
+                    }
                 }
                 .instruction {
                     margin-top: 0;
@@ -125,7 +131,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        border-top: 0.5px solid rgba(22, 24, 35, 0.2);
+        border-top: 0.5px solid var(--line);
         .save-button {
             width: 96px;
             height: 36px;
