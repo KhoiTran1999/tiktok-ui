@@ -41,14 +41,17 @@ const NavMenu = () => {
         <div className={cx('menu-nav')}>
             <ul>
                 {NavMenuData.map((val) => {
-                    if (window.location.pathname === '/' && val.title === 'For You') {
+                    if (window.location.pathname === '/' && (val.title === 'For You' || val.title === 'Dành cho bạn')) {
                         return (
                             <li key={val.title} onClick={() => navigate(`${val.to}`)}>
                                 <div className={cx('icons')}>{val.activeIcon}</div>
                                 <span className={cx('title', 'active')}>{val.title}</span>
                             </li>
                         );
-                    } else if (window.location.pathname === '/following' && val.title === 'Following') {
+                    } else if (
+                        window.location.pathname === '/following' &&
+                        (val.title === 'Following' || val.title === 'Đang Follow')
+                    ) {
                         return (
                             <li key={val.title} onClick={() => navigate(`${val.to}`)}>
                                 <div className={cx('icons')}>{val.activeIcon}</div>
