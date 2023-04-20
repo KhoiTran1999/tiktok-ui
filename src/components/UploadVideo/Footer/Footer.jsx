@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './Footer.module.scss';
 import Select from 'react-select';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const Footer = () => {
+    const { t } = useTranslation();
     const [selectedOption, setSelectedOption] = useState(null);
 
     const restrictedOption = [
@@ -72,16 +74,16 @@ const Footer = () => {
                 <div className={cx('content')}>
                     <ul>
                         <li>Company</li>
-                        <li>About</li>
-                        <li>Newsroom</li>
-                        <li>Contact</li>
-                        <li>Careers</li>
+                        <li>{t('sidebar.About')}</li>
+                        <li>{t('sidebar.Newsroom')}</li>
+                        <li>{t('sidebar.Contact')}</li>
+                        <li>{t('sidebar.Careers')}</li>
                         <li>ByteDance</li>
                     </ul>
                     <ul>
                         <li>Programs</li>
                         <li>TikTok for Good</li>
-                        <li>Advertise</li>
+                        <li>{t('sidebar.Advertise')}</li>
                         <li>Developers</li>
                         <li>TikTok Rewards</li>
                         <li>TikTok Browse</li>
@@ -89,17 +91,17 @@ const Footer = () => {
                     </ul>
                     <ul>
                         <li>Support</li>
-                        <li>Help Center</li>
-                        <li>Safety Center</li>
-                        <li>Creator Portal</li>
-                        <li>Community Guidelines</li>
-                        <li>Transparency</li>
+                        <li>{t('sidebar.Help')}</li>
+                        <li>{t('sidebar.Safety')}</li>
+                        <li>{t('sidebar.Creator Portal')}</li>
+                        <li>{t('sidebar.CommunityGuidelines')}</li>
+                        <li>{t('sidebar.Transparency')}</li>
                         <li>Accessibility</li>
                     </ul>
                     <ul>
                         <li>Legal</li>
-                        <li>Terms of Use</li>
-                        <li>Privacy Policy</li>
+                        <li>{t('sidebar.Terms')}</li>
+                        <li>{t('sidebar.Privacy')}</li>
                     </ul>
                 </div>
             </div>

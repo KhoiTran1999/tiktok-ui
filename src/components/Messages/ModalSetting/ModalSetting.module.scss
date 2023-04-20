@@ -1,7 +1,7 @@
 .wrapper {
     width: 700px;
     padding: 0px 25px;
-    background-color: white;
+    background-color: var(--background-color-subnav);
     border-radius: 7px;
     z-index: 9999;
     opacity: 0;
@@ -15,7 +15,7 @@
     }
     .header {
         padding: 18px 0px;
-        color: rgba(22, 24, 35, 1);
+        color: var(--text);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -34,10 +34,10 @@
     .main {
         margin: 0px -25px;
         padding: 18px 25px 35px 25px;
-        border-top: 1px solid rgb(235, 234, 234);
-        border-bottom: 1px solid rgb(235, 234, 234);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
         h4 {
-            color: rgb(30, 32, 45);
+            color: var(--text);
             font-size: 15px;
             line-height: 22px;
             font-weight: 600;
@@ -47,7 +47,7 @@
             padding-top: 4px;
             font-size: 11px;
             line-height: 15px;
-            color: rgba(22, 24, 35, 0.5);
+            color: var(--text);
         }
         .option {
             label {
@@ -78,7 +78,7 @@
                     }
                 }
                 .text {
-                    color: rgba(22, 24, 35, 1);
+                    color: var(--text);
                     font-size: 15px;
                     line-height: 22px;
                 }
@@ -92,10 +92,11 @@
         align-items: center;
         .cancle {
             width: 164px;
+            margin-right: 15px;
             span {
                 font-size: 17px;
                 font-weight: 700;
-                color: rgba(22, 24, 35, 1);
+                color: var(--text);
             }
         }
         .save {

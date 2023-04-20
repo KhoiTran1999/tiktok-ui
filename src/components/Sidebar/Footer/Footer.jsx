@@ -3,25 +3,27 @@ import { Button } from '../../ReusedComponent';
 import style from './Footer.module.scss';
 import classNames from 'classnames/bind';
 import DirectedLink from './DirectedLink';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const Footer = () => {
+    const { t } = useTranslation();
     const LinkList = [
         [
             {
-                title: 'About',
+                title: t('sidebar.About'),
                 to: '/',
             },
             {
-                title: 'Newsroom',
+                title: t('sidebar.Newsroom'),
                 to: '/',
             },
             {
-                title: 'Contact',
+                title: t('sidebar.Contact'),
                 to: '/',
             },
             {
-                title: 'Careers',
+                title: t('sidebar.Carrers'),
                 to: '/',
             },
             {
@@ -35,7 +37,7 @@ const Footer = () => {
                 to: '/',
             },
             {
-                title: 'Advertise',
+                title: t('sidebar.Advertise'),
                 to: '/',
             },
             {
@@ -43,7 +45,7 @@ const Footer = () => {
                 to: '/',
             },
             {
-                title: 'Transparency',
+                title: t('sidebar.Transparency'),
                 to: '/',
             },
             {
@@ -61,27 +63,27 @@ const Footer = () => {
         ],
         [
             {
-                title: 'Help',
+                title: t('sidebar.Help'),
                 to: '/',
             },
             {
-                title: 'Safety',
+                title: t('sidebar.Safety'),
                 to: '/',
             },
             {
-                title: 'Terms',
+                title: t('sidebar.Terms'),
                 to: '/',
             },
             {
-                title: 'Privacy',
+                title: t('sidebar.Privacy'),
                 to: '/',
             },
             {
-                title: 'Creator Portal',
+                title: t('sidebar.Creator Portal'),
                 to: '/',
             },
             {
-                title: 'Community Guidelines',
+                title: t('sidebar.CommunityGuidelines'),
                 to: '/',
             },
         ],

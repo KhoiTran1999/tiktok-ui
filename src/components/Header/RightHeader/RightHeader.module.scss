@@ -1,14 +1,16 @@
 .group {
-    flex: 0 0 315px;
+    flex: 0 0 352px;
     > ul {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        margin-right: 10px;
         > li {
             margin-left: 15px;
             position: relative;
             cursor: pointer;
+            &:first-child {
+                margin-left: 0;
+            }
             .upload {
                 span {
                     font-size: 15px;
@@ -23,6 +25,7 @@
             }
 
             .messages-wrap {
+                color: var(--text);
                 margin-top: 5px;
                 margin-left: 5px;
                 position: relative;
@@ -47,6 +50,7 @@
             }
 
             .messageBox-wrap {
+                color: var(--text);
                 position: relative;
                 .messageBox {
                     margin: 6px 10px 0px;
@@ -62,6 +66,16 @@
                     right: 10px;
                     top: 8px;
                 }
+                &:hover .tipTool {
+                    display: block;
+                }
+                .tipTool {
+                    display: none;
+                    position: absolute;
+                    width: 80px;
+                    top: 54px;
+                    right: -15px;
+                }
             }
 
             .menu {
@@ -70,6 +84,7 @@
                 height: 32px;
                 > i {
                     padding: 10px;
+                    color: var(--text);
                 }
                 img {
                     width: 100%;
@@ -80,7 +95,7 @@
                 .subnav-menu {
                     &::before {
                         content: '';
-                        border: 10px white solid;
+                        border: 10px var(--background-color-subnav) solid;
                         border-top-color: transparent;
                         border-right-color: transparent;
                         border-left-color: transparent;

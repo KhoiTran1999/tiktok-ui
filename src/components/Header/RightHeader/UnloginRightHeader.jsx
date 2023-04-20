@@ -10,34 +10,40 @@ import { UserSelector } from '../../../redux/selector';
 import { Button, Menu } from '../../ReusedComponent';
 import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './RightHeader.module.scss';
+import { useMemo } from 'react';
 
 const Box = styled(motion.div)``;
 const cx = classNames.bind(style);
 const UnloginRightHeader = () => {
     const { t } = useTranslation();
-    const dataMainMenuUnLogin = [
-        {
-            icon: <i className="fa-solid fa-font"></i>,
-            title: t('header.Menu.language'),
-            children: {
-                childrenTitle: t('header.Menu.children Title Language'),
-                list: [
-                    {
-                        title: 'Tiếng Việt (Việt Nam)',
-                        code: 'vi',
-                    },
-                    {
-                        title: 'English',
-                        code: 'en',
-                    },
-                ],
+    const { i18n } = useTranslation();
+
+    const dataMainMenuUnLogin = useMemo(() => {
+        return [
+            {
+                icon: <i className="fa-solid fa-font"></i>,
+                title: t('header.Menu.language'),
+                children: {
+                    childrenTitle: t('header.Menu.children Title Language'),
+                    list: [
+                        {
+                            title: 'Tiếng Việt (Việt Nam)',
+                            code: 'vi',
+                        },
+                        {
+                            title: 'English',
+                            code: 'en',
+                        },
+                    ],
+                },
             },
-        },
-        {
-            icon: <i className="fa-regular fa-moon"></i>,
-            title: t('header.Menu.darkMode'),
-        },
-    ];
+            {
+                icon: <i className="fa-regular fa-moon"></i>,
+                title: t('header.Menu.darkMode'),
+            },
+        ];
+    }, [i18n.language]);
+
     const [isResetMenu, setIsResetMenu] = useState(false);
 
     const dispatch = useDispatch();
@@ -109,11 +115,9 @@ const UnloginRightHeader = () => {
                         className={cx('menu', { skeletonLoading: user.login === null })}
                     >
                         <Tippy
-                            // visible
                             delay={[0, 700]}
-                            offset={[18, 10]}
+                            offset={[-90, 10]}
                             hideOnClick={false}
-                            placement="bottom-end"
                             interactive
                             animation={true}
                             onMount={onMount}

@@ -13,10 +13,14 @@ import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
 import { handleFollowService, updateDocument } from '../../../firebase/services';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const AccountItem = ({ accountUser }) => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
+
     const user = useSelector(UserSelector);
     const videoList = useSelector(VideoListSelector);
 
@@ -76,8 +80,8 @@ const AccountItem = ({ accountUser }) => {
                                 </div>
                                 <p className={cx('name')}>{accountUser.displayName}</p>
                                 <p className={cx('status')}>
-                                    <b>{accountUser.followings.length}</b> followings <b> {countLikeRef.current}</b>{' '}
-                                    Likes
+                                    <b>{accountUser.followings.length}</b> {t('account.Followings')}{' '}
+                                    <b> {countLikeRef.current}</b> {t('account.Likes')}
                                 </p>
                             </div>
                         </div>
@@ -90,7 +94,7 @@ const AccountItem = ({ accountUser }) => {
                             skeletonLoading: user.login === null,
                         })}
                     >
-                        <ImageCustom src={accountUser.photoURL} alt="avatar" />
+                        <ImageCustom src={accountUser.photoURL} alt="" />
                     </div>
                     <div className={cx('information')}>
                         <div className={cx('wrap')}>

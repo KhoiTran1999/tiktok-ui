@@ -12,11 +12,11 @@
             position: relative;
             i {
                 font-size: 13px;
-                color: rgb(46, 46, 46);
+                color: var(--text);
                 margin-right: 8px;
             }
             span {
-                color: rgb(46, 46, 46);
+                color: var(--text);
                 font-size: 15px;
                 font-weight: 600;
             }
@@ -24,13 +24,13 @@
                 border-bottom: none;
             }
             &:hover {
-                background-color: rgba(22, 24, 35, 0.03);
+                background-color: var(--line);
             }
             &::before {
                 content: '';
                 width: 168px;
                 height: 0.5px;
-                background-color: rgba(22, 24, 35, 0.2);
+                background-color: var(--line);
                 position: absolute;
                 bottom: 0;
             }
@@ -40,15 +40,5 @@
                 }
             }
         }
-    }
-    &::after {
-        content: '';
-        border: 10px solid white;
-        border-top-color: transparent;
-        border-right-color: transparent;
-        border-left-color: transparent;
-        position: absolute;
-        top: -25px;
-        right: 20px;
     }
 }

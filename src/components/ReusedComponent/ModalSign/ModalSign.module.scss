@@ -1,5 +1,5 @@
 .modal-sign {
-    background-color: white;
+    background-color: var(--background-color-subnav);
     padding-top: 48px;
     border-radius: 7px;
 
@@ -17,7 +17,7 @@
     .escape {
         width: 40px;
         height: 40px;
-        background-color: rgba(22, 24, 35, 0.03);
+        background-color: var(--line);
         border-radius: 50%;
 
         display: flex;
@@ -29,6 +29,7 @@
         right: 15px;
         cursor: pointer;
         i {
+            color: var(--text);
             position: absolute;
             top: 50%;
             left: 50%;
@@ -44,7 +45,7 @@
         overflow-y: auto;
 
         h2 {
-            color: rgb(22, 24, 35);
+            color: var(--text);
             font-size: 32px;
             padding: 0px 10px;
             margin: 16px auto;
@@ -57,7 +58,7 @@
                 margin-bottom: 20px;
                 button {
                     font-size: 15px;
-                    color: rgb(22, 24, 35);
+                    color: var(--text);
                     span {
                         font-weight: 500;
                         .google {
@@ -77,10 +78,10 @@
 
         margin: 0px -50px;
         height: 64px;
-        border-top: 1px solid rgba(22, 24, 35, 0.12);
+        border-top: 1px solid var(--line);
 
         span {
-            color: rgb(83, 84, 91);
+            color: var(--text);
             font-size: 14px;
             line-height: 18px;
         }

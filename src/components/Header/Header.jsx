@@ -5,21 +5,21 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LogoTiktok from '../../assets/icon/LogoTiktok';
+import LogoTiktokDark from '../../assets/icon/LogoTiktokDark';
 import routes from '../../config/routes.js';
-import { UserSelector } from '../../redux/selector';
+import { DarkModeSelector, UserSelector } from '../../redux/selector';
 import '../../translation/i18n.js';
 import { ModalSign } from '../ReusedComponent';
 import FormSearch from './FormSearch/FormSearch';
 import style from './Header.module.scss';
 import LoginRightHeader from './RightHeader/LoginRightHeader.jsx';
 import UnloginRightHeader from './RightHeader/UnloginRightHeader.jsx';
-import ModalEditProfile from '../ProfileContent/ModalEditProfile/ModalEditProfile';
-import ModalWelcome from './ModalWelcome/ModalWelcome';
 
 const cx = classNames.bind(style);
 
 const Header = ({ className }) => {
     const user = useSelector(UserSelector);
+    const darkMode = useSelector(DarkModeSelector);
 
     return (
         <header>
@@ -27,7 +27,20 @@ const Header = ({ className }) => {
                 <div className={cx('row')}>
                     <h1 className={cx('logo')}>
                         <Link to={routes.home}>
-                            <LogoTiktok />
+                            {darkMode ? (
+                                <img
+                                    style={{
+                                        width: '16.2rem',
+                                        height: '3.2rem',
+                                        objectFit: 'cover',
+                                        marginLeft: '-15px',
+                                    }}
+                                    src="https://download.logo.wine/logo/TikTok/TikTok-Logomark%26Wordmark-White-Logo.wine.png"
+                                    alt="logo Tiktok"
+                                />
+                            ) : (
+                                <LogoTiktok />
+                            )}
                         </Link>
                     </h1>
                     <FormSearch />

@@ -9,13 +9,18 @@
             @media screen and (max-width: 1070px) {
                 justify-content: center;
             }
-            .icon {
+            .icons {
                 margin-top: 7px;
                 margin-right: 10px;
+                color: white;
+                .icon {
+                    color: white;
+                }
             }
             .title {
                 font-weight: 700;
                 letter-spacing: 0.5px;
+                color: var(--text);
                 &.active {
                     color: var(--primary);
                 }

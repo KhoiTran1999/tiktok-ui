@@ -166,7 +166,7 @@
 .preview {
     margin-top: 24px;
     padding: 68px 35px;
-    border: 2px dashed rgba(22, 24, 35, 0.2);
+    border: 2px dashed var(--line);
     border-radius: 8px;
     flex: 0 0 264px;
     display: flex;
@@ -176,7 +176,7 @@
     cursor: pointer;
     position: relative;
     &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
+        background-color: var(--line);
     }
 
     i {
@@ -190,14 +190,14 @@
     }
     h5 {
         font-size: 13px;
-        color: rgba(22, 24, 35, 0.75);
+        color: var(--text);
         font-weight: 400;
         margin-top: 5px;
         margin-bottom: 24px;
     }
     p {
         font-size: 13px;
-        color: rgba(22, 24, 35, 0.5);
+        color: var(--text);
         margin-bottom: 12px;
         line-height: 1.5;
     }

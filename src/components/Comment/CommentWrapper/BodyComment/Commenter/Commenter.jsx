@@ -12,9 +12,11 @@ import { Button, ModalSign, SubnavWrapper } from '../../../../ReusedComponent';
 import ModalSignSlice from '../../../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './Commenter.module.scss';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const Commenter = ({ comment, video, inputValue, setInputValue, listMention, setListMention, textAreaRef }) => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const [heart, setHeart] = useState(false);
     const [userComment, setUserComment] = useState({ followers: [] });
@@ -134,7 +136,7 @@ const Commenter = ({ comment, video, inputValue, setInputValue, listMention, set
                                             small
                                             onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}
                                         >
-                                            Follow
+                                            {t('followStatus.Follow')}
                                         </Button>
                                     ) : userLogin.followings.includes(userComment.uid) ? (
                                         <Button
@@ -143,7 +145,7 @@ const Commenter = ({ comment, video, inputValue, setInputValue, listMention, set
                                             small
                                             onClick={() => handleFollowService(userLogin, userComment)}
                                         >
-                                            Following
+                                            {t('followStatus.Following')}
                                         </Button>
                                     ) : userLogin.uid !== userComment.uid ? (
                                         <Button
@@ -152,7 +154,7 @@ const Commenter = ({ comment, video, inputValue, setInputValue, listMention, set
                                             small
                                             onClick={() => handleFollowService(userLogin, userComment)}
                                         >
-                                            Follow
+                                            {t('followStatus.Follow')}
                                         </Button>
                                     ) : (
                                         <></>
@@ -164,8 +166,10 @@ const Commenter = ({ comment, video, inputValue, setInputValue, listMention, set
                                         <p className={cx('displayName')}>{userComment.displayName}</p>
                                     </Link>
                                     <p className={cx('follow')}>
-                                        <strong>{userComment.followers.length}</strong> Followers{' '}
-                                        <strong>{countLikeRef.current}</strong> Likes
+                                        <strong>{userComment.followers.length}</strong>
+                                        {t('account.Followers')}
+                                        <strong>{countLikeRef.current}</strong>
+                                        {t('account.Likes')}
                                     </p>
                                 </div>
                                 <div className={cx('bio')}>
@@ -186,7 +190,7 @@ const Commenter = ({ comment, video, inputValue, setInputValue, listMention, set
                     <div className={cx('createdAt-wrap')}>
                         <div className={cx('createdAt')}>{formatDate(comment.createdAt.seconds)}</div>
                         <div onClick={handleReply} className={cx('reply')}>
-                            Reply
+                            {t('comment.Reply')}
                         </div>
                     </div>
                 </div>
@@ -199,7 +203,7 @@ const Commenter = ({ comment, video, inputValue, setInputValue, listMention, set
                     render={(attrs) => (
                         <div className={cx('report-wrap')}>
                             <i className="fa-regular fa-flag"></i>
-                            <span>Report</span>
+                            <span>{t('message.Report')}</span>
                         </div>
                     )}
                 >

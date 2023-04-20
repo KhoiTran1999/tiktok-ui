@@ -28,10 +28,10 @@
         }
         .wrapper {
             margin: 0px 10px 0px 7px;
-            border-bottom: 1px solid rgb(235, 234, 234);
+            border-bottom: 1px solid var(--line);
             .signText {
                 padding-top: 20px;
-                color: rgba(22, 24, 35, 0.5);
+                color: var(--text);
                 font-size: 15px;
                 line-height: 22px;
             }

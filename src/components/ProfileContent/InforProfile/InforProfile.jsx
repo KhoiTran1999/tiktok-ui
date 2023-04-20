@@ -10,9 +10,12 @@ import ModalSignSlice from '../../ReusedComponent/ModalSign/ModalSignSlice';
 import ModalEditProfileSlice from '../ModalEditProfile/ModalEditProfileSlice';
 import { addDocument, handleFollowService, updateDocument } from '../../../firebase/services';
 import routes from '../../../config/routes';
+import DarkModeSlice from '../../Header/RightHeader/DarkModeSlice';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const InforProfile = ({ allUserList }) => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -69,6 +72,8 @@ const InforProfile = ({ allUserList }) => {
                 members: [userLogin.uid, user.uid],
             });
         }
+
+        dispatch(DarkModeSlice.actions.setDarkMode(false));
         navigate(routes.messages);
     };
 
@@ -90,7 +95,7 @@ const InforProfile = ({ allUserList }) => {
                     <h1 className={cx('displayName')}>{user.displayName}</h1>
                     {userLogin.login === false ? (
                         <Button primary large onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}>
-                            Follow
+                            {t('followStatus.Follow')}
                         </Button>
                     ) : userLogin.followings.includes(user.uid) ? (
                         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -100,7 +105,7 @@ const InforProfile = ({ allUserList }) => {
                                 small
                                 onClick={sendMessage}
                             >
-                                Messages
+                                {t('message.messageTitle')}
                             </Button>
                             <div onClick={() => handleFollowService(userLogin, user)} className={cx('unfollow')}>
                                 <i className="fa-solid fa-user-check"></i>
@@ -114,19 +119,23 @@ const InforProfile = ({ allUserList }) => {
                             medium
                         >
                             <i style={{ marginRight: '7px' }} className="fa-regular fa-pen-to-square"></i>
-                            Edit profile
+                            {t('followStatus.EditProfile')}
                         </Button>
                     ) : (
                         <Button onClick={() => handleFollowService(userLogin, user)} primary large>
-                            Follow
+                            {t('followStatus.Follow')}
                         </Button>
                     )}
                 </div>
             </div>
             <div className={cx('footer-infor')}>
                 <p className={cx('status')}>
-                    <b>{user.followings.length}</b> Followings <b>{user.followers.length}</b> Followers{' '}
-                    <b>{countLikeRef.current}</b> Likes
+                    <b>{user.followings.length}</b>
+                    {t('account.Followings')}
+                    <b>{user.followers.length}</b>
+                    {t('account.Followers')}
+                    <b>{countLikeRef.current}</b>
+                    {t('account.Likes')}
                 </p>
                 <p className={cx('bio')}>{user.bio}</p>
                 <div className={cx('websiteURL')}>

@@ -14,22 +14,22 @@ import style from './NavMenu.module.scss';
 
 const cx = classNames.bind(style);
 const NavMenu = () => {
-    const { t } = useTranslation(); //Remember translate here
+    const { t } = useTranslation();
     const NavMenuData = [
         {
-            icon: <HomeLogo />,
+            icon: <HomeLogo className={cx('icon')} />,
             activeIcon: <HomeLogoActive />,
-            title: 'For You',
+            title: t('sidebar.ForYou'),
             to: config.routes.home,
         },
         {
-            icon: <UserGroupLogo />,
+            icon: <UserGroupLogo className={cx('icon')} />,
             activeIcon: <UserGroupLogoActive />,
-            title: 'Following',
+            title: t('sidebar.Following'),
             to: config.routes.following,
         },
         {
-            icon: <LiveIcon />,
+            icon: <LiveIcon className={cx('icon')} />,
             activeIcon: <LiveIconActive />,
             title: 'LIVE',
             to: config.routes.live,
@@ -41,24 +41,27 @@ const NavMenu = () => {
         <div className={cx('menu-nav')}>
             <ul>
                 {NavMenuData.map((val) => {
-                    if (window.location.pathname === '/' && val.title === 'For You') {
+                    if (window.location.pathname === '/' && (val.title === 'For You' || val.title === 'Dành cho bạn')) {
                         return (
                             <li key={val.title} onClick={() => navigate(`${val.to}`)}>
-                                <div className={cx('icon')}>{val.activeIcon}</div>
+                                <div className={cx('icons')}>{val.activeIcon}</div>
                                 <span className={cx('title', 'active')}>{val.title}</span>
                             </li>
                         );
-                    } else if (window.location.pathname === '/following' && val.title === 'Following') {
+                    } else if (
+                        window.location.pathname === '/following' &&
+                        (val.title === 'Following' || val.title === 'Đang Follow')
+                    ) {
                         return (
                             <li key={val.title} onClick={() => navigate(`${val.to}`)}>
-                                <div className={cx('icon')}>{val.activeIcon}</div>
+                                <div className={cx('icons')}>{val.activeIcon}</div>
                                 <span className={cx('title', 'active')}>{val.title}</span>
                             </li>
                         );
                     }
                     return (
                         <li key={val.title} onClick={() => navigate(`${val.to}`)}>
-                            <div className={cx('icon')}>{val.icon}</div>
+                            <div className={cx('icons')}>{val.icon}</div>
                             <span className={cx('title')}>{val.title}</span>
                         </li>
                     );

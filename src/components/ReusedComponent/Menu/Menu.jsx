@@ -6,7 +6,7 @@ import MenuItem from './MenuItem';
 import HeaderChildren from './HeaderChildren';
 
 const cx = classNames.bind(style);
-const Menu = ({ className, data, isResetMenu, onLogout }) => {
+const Menu = ({ className, data, isResetMenu, onLogout, video, userVideo }) => {
     const [history, setHistory] = useState([]);
     const [directing, setDirecting] = useState(data);
     const [childTitle, setChildTitle] = useState('');
@@ -50,7 +50,13 @@ const Menu = ({ className, data, isResetMenu, onLogout }) => {
             <SubnavWrapper>
                 {childTitle && <HeaderChildren title={childTitle} onBack={handleOnBack} />}
                 <ul>
-                    <MenuItem data={directing} onAccess={handleOnAccess} onLogout={onLogout} />
+                    <MenuItem
+                        data={directing}
+                        onAccess={handleOnAccess}
+                        onLogout={onLogout}
+                        video={video}
+                        userVideo={userVideo}
+                    />
                 </ul>
             </SubnavWrapper>
         </div>

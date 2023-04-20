@@ -109,7 +109,7 @@ const FormSearch = () => {
                                             }}
                                             className={cx('viewAllResult')}
                                         >
-                                            View all results for "{Debounce}"
+                                            {t('header.viewAllResult')} "{Debounce}"
                                         </button>
                                     )}
                                 </>

@@ -5,8 +5,8 @@
         display: none;
     }
     .title {
+        color: var(--text);
         font-size: 14px;
-        color: #161823bf;
         font-weight: 500;
     }
     .hash-tags {
@@ -16,6 +16,7 @@
             overflow: hidden;
             transition: background 200ms ease-in-out 0s;
             span {
+                color: var(--text);
                 i {
                     margin-right: 10px;
                     font-size: 15px;

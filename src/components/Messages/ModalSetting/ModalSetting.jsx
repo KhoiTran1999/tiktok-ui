@@ -7,9 +7,11 @@ import Button from '../../ReusedComponent/Button';
 import Modal from '../../ReusedComponent/Modal/Modal';
 import style from './ModalSetting.module.scss';
 import ModalSettingSlice from './ModalSettingSlice';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const ModalSetting = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const isSettingPopup = useSelector(ModalSettingSelector);
 
@@ -24,24 +26,21 @@ const ModalSetting = () => {
                 })}
             >
                 <div className={cx('header')}>
-                    <h2>Message settings</h2>
+                    <h2>{t('message.MessageSetting')}</h2>
                     <div className={cx('escape')}>
                         <i className="fa-solid fa-xmark" onClick={handleEscape}></i>
                     </div>
                 </div>
                 <div className={cx('main')}>
-                    <h4>Who can send you direct messages</h4>
-                    <p>
-                        With any option, you can receive messages from users that you've sent messages to. Friends are
-                        your followers that you follow back.
-                    </p>
+                    <h4>{t('message.WhoCanSend')}</h4>
+                    <p>{t('message.Explain')}</p>
                     <div className={cx('option')}>
                         <label>
                             <input type="radio" name="sendingOption" value="friends" />
                             <span className={cx('radio')}>
                                 <span className={cx('circle')}></span>
                             </span>
-                            <span className={cx('text')}>Friends</span>
+                            <span className={cx('text')}>{t('message.Friends')}</span>
                         </label>
                         <br />
                         <label>
@@ -49,16 +48,16 @@ const ModalSetting = () => {
                             <span className={cx('radio')}>
                                 <span className={cx('circle')}></span>
                             </span>
-                            <span className={cx('text')}>No one</span>
+                            <span className={cx('text')}>{t('message.No one')}</span>
                         </label>
                     </div>
                 </div>
                 <div className={cx('footer')}>
                     <Button className={cx('cancle')} basic medium onClick={handleEscape}>
-                        Cancel
+                        {t('message.Cancel')}
                     </Button>
                     <Button className={cx('save')} primary medium>
-                        Save
+                        {t('message.Save')}
                     </Button>
                 </div>
             </div>

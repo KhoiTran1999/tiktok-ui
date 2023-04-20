@@ -4,11 +4,13 @@
     justify-content: center;
     align-items: center;
     svg {
+        fill: var(--text);
         width: 24px;
         height: 24px;
         cursor: pointer;
     }
     > i {
+        color: var(--text);
         font-size: 20px;
         margin-left: 20px;
         cursor: pointer;
@@ -18,6 +20,7 @@
             width: 100%;
             span {
                 h2 {
+                    color: var(--text);
                     width: 100%;
                 }
             }
@@ -38,11 +41,11 @@
                 cursor: pointer;
                 i {
                     font-size: 13px;
-                    color: rgb(46, 46, 46);
+                    color: var(--text);
                     margin-right: 8px;
                 }
                 span {
-                    color: rgb(46, 46, 46);
+                    color: var(--text);
                     font-size: 15px;
                     font-weight: 600;
                 }
@@ -50,7 +53,7 @@
                     border-bottom: none;
                 }
                 &:hover {
-                    background-color: rgba(22, 24, 35, 0.03);
+                    background-color: var(--line);
                 }
                 &::before {
                     content: '';

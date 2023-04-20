@@ -14,9 +14,12 @@ import {
 } from '../../../../redux/selector';
 import style from './FooterChatBox.module.scss';
 import LogoMessageActive from '../../../../assets/icon/LogoMessageActive';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const FooterChatBox = () => {
+    const { t } = useTranslation();
+
     const [inputValue, setInputValue] = useState('');
     const user = useSelector(UserSelector);
     const selectedRoom = useSelector(SelectedRoomSelector);
@@ -39,6 +42,14 @@ const FooterChatBox = () => {
             notification: true,
         });
 
+        //reset
+        const textarea = document.getElementById('myTextarea');
+        const form = document.querySelector('form');
+        const overflow = document.getElementById(`${cx('overflow')}`);
+
+        textarea.style.height = `16px`;
+        form.style.paddingBottom = '5px';
+        overflow.classList.remove(`${cx('active')}`);
         setInputValue('');
     };
 
@@ -53,7 +64,7 @@ const FooterChatBox = () => {
 
     const handleFocus = () => {
         const form = document.querySelector('form');
-        form.style.border = '1px solid rgba(22, 24, 35, 0.2)';
+        form.style.border = '1px solid var(--line)';
     };
     const handleUnfocus = () => {
         const form = document.querySelector('form');
@@ -106,7 +117,7 @@ const FooterChatBox = () => {
                     onBlur={handleUnfocus}
                     autoFocus
                     type="text"
-                    placeholder="Send a message..."
+                    placeholder={`${t('message.SendMessage')}...`}
                     cols="80"
                     maxLength={6000}
                 ></textarea>

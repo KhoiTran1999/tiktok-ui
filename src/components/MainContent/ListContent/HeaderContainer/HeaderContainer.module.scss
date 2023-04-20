@@ -6,6 +6,7 @@
         .wrap {
             cursor: pointer;
             .nickname {
+                color: var(--text);
                 font-weight: 700;
                 font-size: 17px;
                 line-height: 25px;
@@ -13,12 +14,14 @@
             }
             .name {
                 font-size: 13px;
+                color: var(--text);
             }
             &:hover .nickname {
                 text-decoration: underline;
             }
         }
         .caption {
+            color: var(--text);
             font-weight: 300;
             font-size: 15px;
             word-break: break-word;

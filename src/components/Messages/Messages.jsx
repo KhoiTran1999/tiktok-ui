@@ -11,9 +11,11 @@ import ChatBox from './ChatBox/ChatBox';
 import style from './Messages.module.scss';
 import ModalSetting from './ModalSetting/ModalSetting';
 import ModalSettingSlice from './ModalSetting/ModalSettingSlice';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const Messages = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const choosedUser = useSelector(ChoosedUserSelector);
 
@@ -26,7 +28,7 @@ const Messages = () => {
             <div className={cx('conversationContainer')}>
                 <div className={cx('conversationWrapper')}>
                     <div className={cx('headerCoversation')}>
-                        <h1>Messages</h1>
+                        <h1>{t('message.messageTitle')}</h1>
                         <div className={cx('LogoSetting')} onClick={handleSetting}>
                             <LogoSetting />
                         </div>

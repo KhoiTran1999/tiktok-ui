@@ -3,9 +3,12 @@ import React from 'react';
 import style from './BodyComment.module.scss';
 import Commenter from './Commenter/Commenter';
 import useFireStore from '../../../../hooks/useFireStore';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const BodyComment = ({ video, inputValue, setInputValue, listMention, setListMention, textAreaRef }) => {
+    const { t } = useTranslation();
+
     let newList = [...video.comments];
     if (newList.length > 0) {
         newList.sort((a, b) => {
@@ -32,7 +35,7 @@ const BodyComment = ({ video, inputValue, setInputValue, listMention, setListMen
                 </>
             ) : (
                 <div className={cx('emptyComment')}>
-                    <p>Be the first to comment!</p>
+                    <p>{t('comment.firstComment')}</p>
                 </div>
             )}
         </div>

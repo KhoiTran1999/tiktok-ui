@@ -9,10 +9,14 @@ import Discover from './Discover/Discover';
 import Footer from './Footer/Footer';
 import NavMenu from './NavMenu/NavMenu';
 import style from './Sidebar.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const Sidebar = ({ className = 'side-bar' }) => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
+
     const user = useSelector(UserSelector);
     const allUserList = useSelector(AllUserListSelector);
     const [suggestedAccountList, setSuggestedAccountList] = useState([]);
@@ -28,7 +32,6 @@ const Sidebar = ({ className = 'side-bar' }) => {
     const handleLogin = () => {
         dispatch(ModalSignSlice.actions.setModalSign(true));
     };
-
     return (
         <>
             <div className={cx('fake-width')}></div>
@@ -43,7 +46,7 @@ const Sidebar = ({ className = 'side-bar' }) => {
                             {suggestedAccountList.length > 0 ? (
                                 <div className={cx('wrapper')}>
                                     <AccountList
-                                        title={'Suggested accounts'}
+                                        title={t('sidebar.SuggestedAccount')}
                                         tippyVisible={true}
                                         accountList={suggestedAccountList}
                                     />
@@ -54,7 +57,10 @@ const Sidebar = ({ className = 'side-bar' }) => {
 
                             {followingAccountList.length > 0 ? (
                                 <div className={cx('wrapper')}>
-                                    <AccountList title={'Following accounts'} accountList={followingAccountList} />
+                                    <AccountList
+                                        title={t('sidebar.FollowingAccount')}
+                                        accountList={followingAccountList}
+                                    />
                                 </div>
                             ) : (
                                 <></>
@@ -68,7 +74,7 @@ const Sidebar = ({ className = 'side-bar' }) => {
                                         skeletonLoading: user.login === null,
                                     })}
                                 >
-                                    Log in to follow creators, like videos, and view comments.
+                                    {t('sidebar.loggin')}
                                 </p>
                                 <Button
                                     className={cx('sign', {
@@ -78,20 +84,16 @@ const Sidebar = ({ className = 'side-bar' }) => {
                                     large
                                     onClick={handleLogin}
                                 >
-                                    Log in
+                                    {t('header.login')}
                                 </Button>
                             </div>
-                            {suggestedAccountList.length > 0 ? (
-                                <div className={cx('wrapper')}>
-                                    <AccountList
-                                        title={'Suggested accounts'}
-                                        tippyVisible={true}
-                                        accountList={suggestedAccountList}
-                                    />
-                                </div>
-                            ) : (
-                                <></>
-                            )}
+                            <div className={cx('wrapper')}>
+                                <AccountList
+                                    title={t('sidebar.SuggestedAccount')}
+                                    tippyVisible={true}
+                                    accountList={allUserList}
+                                />
+                            </div>
                         </>
                     )}
 

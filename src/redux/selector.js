@@ -16,6 +16,7 @@ export const LoadingSelector = (state) => state.loading;
 export const SelectedRoomSelector = (state) => state.selectedRoom;
 export const VideoListSelector = (state) => state.videoList;
 export const AmountOfNotiSelector = (state) => state.amountOfNoti;
+export const DarkModeSelector = (state) => state.darkMode;
 
 export const AllUserListSelector = createSelector(UserListSelector, UserListMockSelector, (userList, userListMock) => {
     return [...userList, ...userListMock];

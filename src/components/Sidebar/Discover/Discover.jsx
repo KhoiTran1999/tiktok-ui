@@ -2,12 +2,14 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import style from './Discover.module.scss';
 import { Button } from '../../ReusedComponent';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const Discover = () => {
+    const { t } = useTranslation();
     return (
         <div className={cx('discover')}>
-            <span className={cx('title')}>Discover</span>
+            <span className={cx('title')}>{t('sidebar.Discover')}</span>
             <div className={cx('hash-tags')}>
                 <Button basic hashTag>
                     <i className="fa-solid fa-hashtag"></i>

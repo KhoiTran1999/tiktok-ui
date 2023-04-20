@@ -13,9 +13,13 @@ import { UserListSelector, UserSelector, VideoListSelector } from '../../../../r
 import { ModalSign, SubnavWrapper, Wrapper } from '../../../ReusedComponent';
 import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './HeaderComment.module.scss';
+import { useTranslation } from 'react-i18next';
+import { FacebookShareButton, TelegramShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
+import Share from '../../../ReusedComponent/Share/Share';
 
 const cx = classNames.bind(style);
 const HeaderComment = ({ video, userVideo }) => {
+    const { t } = useTranslation();
     const MenuShare = [
         {
             icon: <i className="fa-brands fa-linkedin-in"></i>,
@@ -141,17 +145,17 @@ const HeaderComment = ({ video, userVideo }) => {
                                         medium
                                         onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}
                                     >
-                                        Follow
+                                        {t('followStatus.Follow')}
                                     </Button>
                                 ) : userLogin.followings.includes(userVideo.uid) ? (
                                     <Button basic medium onClick={() => handleFollowService(userLogin, userVideo)}>
-                                        Following
+                                        {t('followStatus.Following')}
                                     </Button>
                                 ) : userLogin.uid === userVideo.uid ? (
                                     <></>
                                 ) : (
                                     <Button outline medium onClick={() => handleFollowService(userLogin, userVideo)}>
-                                        Follow
+                                        {t('followStatus.Follow')}
                                     </Button>
                                 )}
                             </div>
@@ -161,8 +165,8 @@ const HeaderComment = ({ video, userVideo }) => {
                                     <p className={cx('displayName')}>{userVideo.displayName}</p>
                                 </Link>
                                 <p className={cx('follow')}>
-                                    <strong>{userVideo.followers.length}</strong> Followers{' '}
-                                    <strong>{countLikeRef.current}</strong> Likes
+                                    <strong>{userVideo.followers.length}</strong> {t('account.Followers')}
+                                    <strong>{countLikeRef.current}</strong> {t('account.Likes')}
                                 </p>
                             </div>
                             <div className={cx('bio')}>
@@ -198,11 +202,11 @@ const HeaderComment = ({ video, userVideo }) => {
                 </Tippy>
                 {userLogin.login === false ? (
                     <Button outline medium onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}>
-                        Follow
+                        {t('followStatus.Follow')}
                     </Button>
                 ) : userLogin.followings.includes(userVideo.uid) ? (
                     <Button basic medium onClick={() => handleFollowService(userLogin, userVideo)}>
-                        Following
+                        {t('followStatus.Following')}
                     </Button>
                 ) : userLogin.uid === userVideo.uid ? (
                     <Tippy
@@ -211,18 +215,21 @@ const HeaderComment = ({ video, userVideo }) => {
                         interactive
                         render={(attrs) => (
                             <div className={cx('tippy-wrapper-privacy')}>
-                                <p className={cx('privacy')}>Privacy settings</p>
+                                <p className={cx('privacy')}>{t('comment.privacySetting')}</p>
                                 <p onClick={handleDeleteVideo} className={cx('delete')}>
-                                    Delete
+                                    {t('message.Delete')}
                                 </p>
                             </div>
                         )}
                     >
-                        <i style={{ fontSize: '20px', cursor: 'pointer' }} className="fa-solid fa-ellipsis"></i>
+                        <i
+                            style={{ fontSize: '20px', cursor: 'pointer', color: 'var(--text)' }}
+                            className="fa-solid fa-ellipsis"
+                        ></i>
                     </Tippy>
                 ) : (
                     <Button outline medium onClick={() => handleFollowService(userLogin, userVideo)}>
-                        Follow
+                        {t('followStatus.Follow')}
                     </Button>
                 )}
             </div>
@@ -248,11 +255,6 @@ const HeaderComment = ({ video, userVideo }) => {
                     <span>{video.comments.length}</span>
                 </div>
                 <ul className={cx('share-wrap')}>
-                    <Tippy placement="bottom" render={(attrs) => <Wrapper>Embed</Wrapper>}>
-                        <li className={cx('embed')}>
-                            <i className="fa-solid fa-code"></i>
-                        </li>
-                    </Tippy>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Send to friends</Wrapper>}>
                         <li className={cx('send')}>
                             <i className="fa-solid fa-paper-plane"></i>
@@ -260,17 +262,23 @@ const HeaderComment = ({ video, userVideo }) => {
                     </Tippy>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Share to Facebook</Wrapper>}>
                         <li className={cx('facebook')}>
-                            <i className="fa-brands fa-facebook"></i>
+                            <FacebookShareButton url={window.location.href}>
+                                <i className="fa-brands fa-facebook"></i>
+                            </FacebookShareButton>
                         </li>
                     </Tippy>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Share to Whatsapp</Wrapper>}>
                         <li className={cx('whatsapp')}>
-                            <i className="fa-brands fa-whatsapp"></i>
+                            <WhatsappShareButton url={window.location.href}>
+                                <i className="fa-brands fa-whatsapp"></i>
+                            </WhatsappShareButton>
                         </li>
                     </Tippy>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Share to Twitter</Wrapper>}>
                         <li className={cx('twitter')}>
-                            <i className="fa-brands fa-twitter"></i>
+                            <TwitterShareButton url={window.location.href}>
+                                <i className="fa-brands fa-twitter"></i>
+                            </TwitterShareButton>
                         </li>
                     </Tippy>
                     <Tippy
@@ -281,8 +289,15 @@ const HeaderComment = ({ video, userVideo }) => {
                             <div className={cx('menu-share')}>
                                 {MenuShare.map((val, idx) => (
                                     <div key={idx}>
-                                        {val.icon}
-                                        <h4>{val.title}</h4>
+                                        <Share
+                                            url={window.location.href}
+                                            title={val?.title}
+                                            mediaLink={video?.thumbnail}
+                                            style={{ display: 'flex' }}
+                                        >
+                                            {val.icon}
+                                            <h4>{val.title}</h4>
+                                        </Share>
                                     </div>
                                 ))}
                             </div>
@@ -297,7 +312,7 @@ const HeaderComment = ({ video, userVideo }) => {
             <div className={cx('copy-link')}>
                 <p className={cx('link')}>{window.location.href}</p>
                 <button onClick={handleCopyHref} className={cx('button-copy')}>
-                    Copy Link
+                    {t('comment.Copy Link')}
                 </button>
             </div>
             {createPortal(<ModalSign />, document.body)}

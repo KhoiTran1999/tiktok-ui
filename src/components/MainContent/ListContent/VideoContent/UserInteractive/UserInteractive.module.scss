@@ -1,13 +1,13 @@
 .user-interactive {
     i {
         font-size: 23px;
-        color: rgb(22, 24, 35);
+        color: var(--text);
     }
     .icon-wrapper {
         width: 48px;
         height: 48px;
         border-radius: 50%;
-        background-color: rgba(22, 24, 35, 0.06);
+        background-color: var(--background-color-search);
         margin: 8px 0px 6px;
         display: flex;
         justify-content: center;
@@ -19,7 +19,7 @@
         position: relative;
     }
     p {
-        color: rgba(22, 24, 35, 0.814);
+        color: var(--text);
         font-size: 12px;
         line-height: 17px;
         text-align: center;
