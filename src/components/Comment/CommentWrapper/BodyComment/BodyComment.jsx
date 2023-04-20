@@ -35,7 +35,7 @@ const BodyComment = ({ video, inputValue, setInputValue, listMention, setListMen
                 </>
             ) : (
                 <div className={cx('emptyComment')}>
-                    <p>{t('comment.firstComment')}Be the first to comment!</p>
+                    <p>{t('comment.firstComment')}</p>
                 </div>
             )}
         </div>

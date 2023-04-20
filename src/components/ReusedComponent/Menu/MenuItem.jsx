@@ -6,9 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { DarkModeSelector } from '../../../redux/selector';
 import DarkModeSlice from '../../Header/RightHeader/DarkModeSlice';
+import Share from '../Share/Share';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(style);
-const MenuItem = ({ data, onAccess, onLogout }) => {
+const MenuItem = ({ data, onAccess, onLogout, video, userVideo }) => {
     const { i18n } = useTranslation();
 
     const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
     const darkMode = useSelector(DarkModeSelector);
 
     //-----------------Languages---------------
-    const handleOnclick = (idx, action, code, to) => {
+    const handleOnclick = (idx, action, code, to, title) => {
         //handle entry and go back from menu
         onAccess(idx);
 
@@ -32,6 +34,24 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
             i18n.changeLanguage('en');
             localStorage.setItem('language', JSON.stringify('en'));
             window.location.reload();
+        }
+
+        //Handl Copy link
+        if (title === 'Copy link') {
+            if (window.location.href.includes('profile')) {
+                navigator.clipboard.writeText(encodeURI(window.location.href));
+            } else
+                navigator.clipboard.writeText(
+                    encodeURI(`${window.location.href}profile/${userVideo?.nickName}/${video?.id}`),
+                );
+
+            toast.success('Copied', {
+                position: 'top-center',
+                autoClose: 2000,
+                theme: 'light',
+                toastId: idx,
+                containerId: 'PuredToast',
+            });
         }
     };
 
@@ -59,31 +79,40 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
             root.style.setProperty('--text', 'rgba(22, 24, 35, 1)');
         }
     }, [darkMode]);
-
     return (
         <>
             {data.map((val, idx) => {
                 return (
-                    <li key={idx} onClick={() => handleOnclick(idx, val.action, val.code, val.to)}>
-                        <Button text to={val.to}>
-                            <>
-                                {val.dropDown && <h2>{val.dropDown}</h2>}
-                                <span>{val.icon}</span>
-                                <h4>{val.title}</h4>
-                            </>
-                        </Button>
-                        {val.title === 'Dark mode' || val.title === 'Chế độ tối' ? (
-                            <div
-                                onClick={handleDarkMode}
-                                className={cx('dark-mode', {
-                                    active: darkMode,
-                                })}
-                            >
-                                <div className={cx('toggle-btn')}></div>
-                            </div>
-                        ) : (
-                            <></>
-                        )}
+                    <li key={idx} onClick={() => handleOnclick(idx, val.action, val.code, val.to, val.title)}>
+                        <Share
+                            title={val.title}
+                            mediaLink={video?.thumbnail}
+                            url={
+                                window.location.href.includes('profile')
+                                    ? encodeURI(`${window.location.href}`)
+                                    : encodeURI(`${window.location.href}profile/${userVideo?.nickName}/${video?.id}`)
+                            }
+                        >
+                            <Button text to={val.to}>
+                                <>
+                                    {val.dropDown && <h2>{val.dropDown}</h2>}
+                                    <span>{val.icon}</span>
+                                    <h4>{val.title}</h4>
+                                </>
+                            </Button>
+                            {val.title === 'Dark mode' || val.title === 'Chế độ tối' ? (
+                                <div
+                                    onClick={handleDarkMode}
+                                    className={cx('dark-mode', {
+                                        active: darkMode,
+                                    })}
+                                >
+                                    <div className={cx('toggle-btn')}></div>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                        </Share>
                     </li>
                 );
             })}

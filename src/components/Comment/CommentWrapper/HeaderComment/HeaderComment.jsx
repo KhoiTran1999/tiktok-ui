@@ -14,6 +14,8 @@ import { ModalSign, SubnavWrapper, Wrapper } from '../../../ReusedComponent';
 import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
 import style from './HeaderComment.module.scss';
 import { useTranslation } from 'react-i18next';
+import { FacebookShareButton, TelegramShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
+import Share from '../../../ReusedComponent/Share/Share';
 
 const cx = classNames.bind(style);
 const HeaderComment = ({ video, userVideo }) => {
@@ -253,11 +255,6 @@ const HeaderComment = ({ video, userVideo }) => {
                     <span>{video.comments.length}</span>
                 </div>
                 <ul className={cx('share-wrap')}>
-                    <Tippy placement="bottom" render={(attrs) => <Wrapper>Embed</Wrapper>}>
-                        <li className={cx('embed')}>
-                            <i className="fa-solid fa-code"></i>
-                        </li>
-                    </Tippy>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Send to friends</Wrapper>}>
                         <li className={cx('send')}>
                             <i className="fa-solid fa-paper-plane"></i>
@@ -265,17 +262,23 @@ const HeaderComment = ({ video, userVideo }) => {
                     </Tippy>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Share to Facebook</Wrapper>}>
                         <li className={cx('facebook')}>
-                            <i className="fa-brands fa-facebook"></i>
+                            <FacebookShareButton url={window.location.href}>
+                                <i className="fa-brands fa-facebook"></i>
+                            </FacebookShareButton>
                         </li>
                     </Tippy>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Share to Whatsapp</Wrapper>}>
                         <li className={cx('whatsapp')}>
-                            <i className="fa-brands fa-whatsapp"></i>
+                            <WhatsappShareButton url={window.location.href}>
+                                <i className="fa-brands fa-whatsapp"></i>
+                            </WhatsappShareButton>
                         </li>
                     </Tippy>
                     <Tippy placement="bottom" render={(attrs) => <Wrapper>Share to Twitter</Wrapper>}>
                         <li className={cx('twitter')}>
-                            <i className="fa-brands fa-twitter"></i>
+                            <TwitterShareButton url={window.location.href}>
+                                <i className="fa-brands fa-twitter"></i>
+                            </TwitterShareButton>
                         </li>
                     </Tippy>
                     <Tippy
@@ -286,8 +289,15 @@ const HeaderComment = ({ video, userVideo }) => {
                             <div className={cx('menu-share')}>
                                 {MenuShare.map((val, idx) => (
                                     <div key={idx}>
-                                        {val.icon}
-                                        <h4>{val.title}</h4>
+                                        <Share
+                                            url={window.location.href}
+                                            title={val?.title}
+                                            mediaLink={video?.thumbnail}
+                                            style={{ display: 'flex' }}
+                                        >
+                                            {val.icon}
+                                            <h4>{val.title}</h4>
+                                        </Share>
                                     </div>
                                 ))}
                             </div>

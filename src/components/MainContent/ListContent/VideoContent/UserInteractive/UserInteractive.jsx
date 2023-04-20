@@ -12,20 +12,33 @@ import style from './UserInteractive.module.scss';
 import { updateDocument } from '../../../../../firebase/services';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    HatenaShareButton,
+    InstapaperShareButton,
+    LineShareButton,
+    LinkedinShareButton,
+    LivejournalShareButton,
+    MailruShareButton,
+    OKShareButton,
+    PinterestShareButton,
+    PocketShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    TumblrShareButton,
+    TwitterShareButton,
+    ViberShareButton,
+    VKShareButton,
+    WhatsappShareButton,
+    WorkplaceShareButton,
+} from 'react-share';
 
 const cx = classNames.bind(style);
 const Box = styled(motion.div)``;
 
 const UserInteractive = ({ video, userVideo }) => {
     const MenuShare = [
-        {
-            icon: <i className="fa-solid fa-code"></i>,
-            title: 'Embed',
-        },
-        {
-            icon: <i className="fa-solid fa-paper-plane"></i>,
-            title: 'Send to friends',
-        },
         {
             icon: <i className="fa-brands fa-facebook"></i>,
             title: 'Share to Facebook',
@@ -39,17 +52,17 @@ const UserInteractive = ({ video, userVideo }) => {
             title: 'Copy link',
         },
         {
+            icon: <i className="fa-brands fa-twitter"></i>,
+            title: 'Share to Twitter',
+        },
+        {
+            icon: <i className="fa-solid fa-envelope"></i>,
+            title: 'Share to Email',
+        },
+        {
             dropDown: <i className="fa-solid fa-angle-down"></i>,
             children: {
                 list: [
-                    {
-                        icon: <i className="fa-solid fa-code"></i>,
-                        title: 'Embed',
-                    },
-                    {
-                        icon: <i className="fa-solid fa-paper-plane"></i>,
-                        title: 'Send to friends',
-                    },
                     {
                         icon: <i className="fa-brands fa-facebook"></i>,
                         title: 'Share to Facebook',
@@ -67,8 +80,12 @@ const UserInteractive = ({ video, userVideo }) => {
                         title: 'Share to Twitter',
                     },
                     {
+                        icon: <i className="fa-solid fa-envelope"></i>,
+                        title: 'Share to Email',
+                    },
+                    {
                         icon: <i className="fa-brands fa-linkedin-in"></i>,
-                        title: 'Share to Linkedln',
+                        title: 'Share to LinkedIn',
                     },
                     {
                         icon: <i className="fa-brands fa-reddit-alien"></i>,
@@ -77,10 +94,6 @@ const UserInteractive = ({ video, userVideo }) => {
                     {
                         icon: <i className="fa-brands fa-telegram"></i>,
                         title: 'Share to Telegram',
-                    },
-                    {
-                        icon: <i className="fa-solid fa-envelope"></i>,
-                        title: 'Share to Email',
                     },
                     {
                         icon: <i className="fa-brands fa-line"></i>,
@@ -179,7 +192,7 @@ const UserInteractive = ({ video, userVideo }) => {
                 }}
                 render={(attrs) => (
                     <Box style={{ scale, opacity }} {...attrs}>
-                        <Menu data={MenuShare} isResetMenu={isResetMenu} />
+                        <Menu data={MenuShare} isResetMenu={isResetMenu} video={video} userVideo={userVideo} />
                     </Box>
                 )}
             >

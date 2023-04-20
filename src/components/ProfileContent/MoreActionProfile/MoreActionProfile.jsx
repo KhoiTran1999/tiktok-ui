@@ -18,10 +18,6 @@ const MoreActionProfile = ({ allUserList }) => {
     const { t } = useTranslation();
     const MenuShare = [
         {
-            icon: <i className="fa-solid fa-code"></i>,
-            title: 'Embed',
-        },
-        {
             icon: <i className="fa-solid fa-paper-plane"></i>,
             title: 'Send to friends',
         },
