@@ -6,10 +6,13 @@ import { MessagesOfRoomSelector, SelectedRoomSelector } from '../../../../../red
 import choosedUserSlice from '../choosedUserSlice';
 import SelectedRoomSlice from '../selectedRoomSlice';
 import style from './ToolList.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const ToolList = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
+
     const selectedRoomId = useSelector(SelectedRoomSelector);
     const messagesOfRoom = useSelector(MessagesOfRoomSelector);
 
@@ -30,23 +33,23 @@ const ToolList = () => {
             <ul>
                 <li>
                     <i className="fa-regular fa-bell-slash"></i>
-                    <span>Mute</span>
+                    <span>{t('message.Mute')}</span>
                 </li>
                 <li onClick={deleteRoom}>
                     <i className="fa-regular fa-trash-can"></i>
-                    <span>Delete</span>
+                    <span>{t('message.Delete')}</span>
                 </li>
                 <li>
                     <i className="fa-solid fa-thumbtack"></i>
-                    <span>Pin to top</span>
+                    <span>{t('message.PinToTop')}</span>
                 </li>
                 <li>
                     <i className="fa-regular fa-flag"></i>
-                    <span>Report</span>
+                    <span>{t('message.Report')}</span>
                 </li>
                 <li>
                     <i className="fa-solid fa-ban"></i>
-                    <span>Block</span>
+                    <span>{t('message.Block')}</span>
                 </li>
             </ul>
         </div>

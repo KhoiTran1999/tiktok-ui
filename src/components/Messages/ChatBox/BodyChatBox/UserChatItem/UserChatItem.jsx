@@ -8,10 +8,12 @@ import { updateDocument, deleteDocument } from '../../../../../firebase/services
 import { useDispatch } from 'react-redux';
 import ChoosedUserSlice from '../../../ChatAccountList/AccountItem/choosedUserSlice';
 import SelectedRoomSlice from '../../../ChatAccountList/AccountItem/selectedRoomSlice';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL, activeHeart, createdAt }) => {
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const [isGuestHeartState, setIsGuestHeartState] = useState(() => {
         return activeHeart.includes(guestUid);
@@ -61,13 +63,17 @@ const UserChatItem = ({ photoURL, userUid, guestUid, text, docId, guestPhotoURL,
                     content={
                         <ul style={{ display: 'flex', padding: '7px', fontSize: '12px' }} className={cx('more')}>
                             <li onClick={handleInteractive} style={{ cursor: 'pointer' }}>
-                                {isUserHeartState ? <span>Unlike</span> : <span>Like</span>}
+                                {isUserHeartState ? (
+                                    <span>{t('message.Unlike')}</span>
+                                ) : (
+                                    <span>{t('message.Like')}</span>
+                                )}
                             </li>
                             <li onClick={handleDeleteDoc} style={{ margin: '0px 10px', cursor: 'pointer' }}>
-                                <span>Delete</span>
+                                <span>{t('message.Delete')}</span>
                             </li>
                             <li style={{ cursor: 'pointer' }}>
-                                <span>Report</span>
+                                <span>{t('message.Report')}</span>
                             </li>
                         </ul>
                     }

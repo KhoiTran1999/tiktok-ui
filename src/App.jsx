@@ -8,8 +8,41 @@ import AuthUser from './firebase/AuthUser';
 import { createPortal } from 'react-dom';
 import ModalWelcome from './components/Header/ModalWelcome/ModalWelcome';
 import Notification from './components/ReusedComponent/Notification/Notification';
+import DarkModeSlice from './components/Header/RightHeader/DarkModeSlice';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 function App() {
+    const { i18n } = useTranslation();
+    const dispatch = useDispatch();
+
+    //Handle Language when reload in any page
+    useEffect(() => {
+        const language = JSON.parse(localStorage.getItem('language'));
+        i18n.changeLanguage(language);
+    }, []);
+
+    //Handle Dark mode when reload in any page
+    useEffect(() => {
+        const darkModeLocalStorage = JSON.parse(localStorage.getItem('darkMode'));
+        dispatch(DarkModeSlice.actions.setDarkMode(darkModeLocalStorage));
+        let root = document.documentElement;
+        if (darkModeLocalStorage) {
+            root.style.setProperty('--background-color', 'rgb(18, 18, 18)');
+            root.style.setProperty('--background-color-subnav', 'rgb(37, 37, 37)');
+            root.style.setProperty('--background-color-search', 'rgb(37, 37, 37)');
+            root.style.setProperty('--line', 'rgba(255, 255, 255, 0.2)');
+            root.style.setProperty('--text', 'rgba(255, 255, 255, 0.9)');
+        } else {
+            root.style.setProperty('--background-color', 'white');
+            root.style.setProperty('--background-color-subnav', 'white');
+            root.style.setProperty('--background-color-search', '#F1F1F2');
+            root.style.setProperty('--line', 'rgb(235, 234, 234)');
+            root.style.setProperty('--text', 'rgba(22, 24, 35, 1)');
+        }
+    }, []);
+
     return (
         <div className="App">
             <div className="app">

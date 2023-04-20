@@ -14,9 +14,12 @@ import {
 } from '../../../../redux/selector';
 import style from './FooterChatBox.module.scss';
 import LogoMessageActive from '../../../../assets/icon/LogoMessageActive';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const FooterChatBox = () => {
+    const { t } = useTranslation();
+
     const [inputValue, setInputValue] = useState('');
     const user = useSelector(UserSelector);
     const selectedRoom = useSelector(SelectedRoomSelector);
@@ -114,7 +117,7 @@ const FooterChatBox = () => {
                     onBlur={handleUnfocus}
                     autoFocus
                     type="text"
-                    placeholder="Send a message..."
+                    placeholder={`${t('message.SendMessage')}...`}
                     cols="80"
                     maxLength={6000}
                 ></textarea>

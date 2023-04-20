@@ -11,9 +11,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { addDocument } from '../../../firebase/services';
 import routes from '../../../config/routes';
 import DarkModeSlice from '../../Header/RightHeader/DarkModeSlice';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const MoreActionProfile = ({ allUserList }) => {
+    const { t } = useTranslation();
     const MenuShare = [
         {
             icon: <i className="fa-solid fa-code"></i>,
@@ -160,16 +162,16 @@ const MoreActionProfile = ({ allUserList }) => {
                                 ) : (
                                     <li onClick={sendMessage}>
                                         <i className="fa-regular fa-paper-plane"></i>
-                                        <span>Send Message</span>
+                                        <span>{t('message.SendMessage')}</span>
                                     </li>
                                 )}
                                 <li>
                                     <i className="fa-regular fa-flag"></i>
-                                    <span>Report</span>
+                                    <span>{t('message.Report')}</span>
                                 </li>
                                 <li>
                                     <i className="fa-solid fa-ban"></i>
-                                    <span>Block</span>
+                                    <span>{t('message.Block')}</span>
                                 </li>
                             </ul>
                         </div>

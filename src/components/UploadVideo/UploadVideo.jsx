@@ -5,9 +5,12 @@ import { SubnavWrapper } from '../ReusedComponent';
 import Preview from './Preview/Preview';
 import AddDetail from './AddDetail/AddDetail';
 import Footer from './Footer/Footer';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const UploadVideo = () => {
+    const { t } = useTranslation();
+
     const [videoLink, setVideoLink] = useState();
     const [videoFile, setVideoFile] = useState();
     const [thumbnailList, setThumbnailList] = useState([]);
@@ -31,8 +34,8 @@ const UploadVideo = () => {
                                     'upload-header-ui': videoLink,
                                 })}
                             >
-                                <h3>Upload video</h3>
-                                <h4>Post a video to your account</h4>
+                                <h3>{t('upload.Upload video')}</h3>
+                                <h4>{t('upload.PostVideo')}</h4>
                             </div>
 
                             <div

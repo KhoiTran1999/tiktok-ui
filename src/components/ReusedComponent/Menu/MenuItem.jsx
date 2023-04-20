@@ -15,6 +15,7 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
 
     const darkMode = useSelector(DarkModeSelector);
 
+    //-----------------Languages---------------
     const handleOnclick = (idx, action, code, to) => {
         //handle entry and go back from menu
         onAccess(idx);
@@ -23,22 +24,23 @@ const MenuItem = ({ data, onAccess, onLogout }) => {
         if (action === 'logout') onLogout();
 
         //Change language
-        if (code === 'vi') {
+        if (code === 'vi' && i18n.language !== 'vi') {
             i18n.changeLanguage('vi');
-        } else if (code === 'en') {
+            localStorage.setItem('language', JSON.stringify('vi'));
+            window.location.reload();
+        } else if (code === 'en' && i18n.language !== 'en') {
             i18n.changeLanguage('en');
+            localStorage.setItem('language', JSON.stringify('en'));
+            window.location.reload();
         }
     };
+
+    //---------------------------------------
 
     const handleDarkMode = () => {
         dispatch(DarkModeSlice.actions.setDarkMode(!darkMode));
         localStorage.setItem('darkMode', !darkMode);
     };
-
-    useEffect(() => {
-        const darkModeLocalStorage = JSON.parse(localStorage.getItem('darkMode'));
-        dispatch(DarkModeSlice.actions.setDarkMode(darkModeLocalStorage));
-    }, []);
 
     //Dark mode handle
     useEffect(() => {

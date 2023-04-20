@@ -9,6 +9,7 @@ import images from '../../../assets/images';
 import { Button } from '../../ReusedComponent';
 import GenerateThumbnail from '../generateThumbnail/GenerateThumbnail';
 import style from './Preview.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const Preview = ({
@@ -20,6 +21,8 @@ const Preview = ({
     isRunning,
     setIsCancel,
 }) => {
+    const { t } = useTranslation();
+
     const videoRef = useRef();
     const fillVolumeRef = useRef(() => '25px');
     const duration = useRef(0);
@@ -188,9 +191,9 @@ const Preview = ({
                             })}
                         />
                     </div>
-                    <p>Uploading Video</p>
+                    <p>{t('upload.Uploading')}</p>
                     <Button onClick={() => setIsCancel(true)} basic medium className={cx('cancel-button')}>
-                        Cancel
+                        {t('message.Cancel')}
                     </Button>
                 </div>
             ) : (
@@ -252,15 +255,15 @@ const Preview = ({
                     ) : (
                         <div className={cx('preview')}>
                             <i className="fa-solid fa-cloud-arrow-up"></i>
-                            <h4>Select video to upload</h4>
-                            <h5>Or drag and drop a file</h5>
+                            <h4>{t('upload.SelectToUpload')}</h4>
+                            <h5>{t('upload.DragDrop')}</h5>
                             <p>MP4 or WebM</p>
-                            <p>720x1280 resolution or higher</p>
-                            <p>Up to 10 minutes</p>
-                            <p>Less than 80 MB</p>
+                            <p>{t('upload.Resolution')}</p>
+                            <p>{t('upload.UpTo')}</p>
+                            <p>{t('upload.LessThan')}</p>
                             <Button primary medium>
                                 <label style={{ cursor: 'pointer' }} htmlFor="videoFile">
-                                    Select file
+                                    {t('upload.SelectFile')}
                                 </label>
                             </Button>
                             <input onChange={handleVideoUpload} type="file" id="videoFile" hidden accept="video/*" />

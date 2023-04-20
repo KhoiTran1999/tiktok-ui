@@ -6,10 +6,13 @@ import { CurrentRoomsSelector, UserChatListSelector } from '../../../redux/selec
 import AccountItem from './AccountItem/AccountItem';
 import style from './ChatAccountList.module.scss';
 import MessagesOfRoomSlice from '../ChatBox/BodyChatBox/MessagesOfRoomSlice';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const ChatAccountList = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
+
     const userChatList = useSelector(UserChatListSelector);
     const curRoom = useSelector(CurrentRoomsSelector);
     const messages = useFireStore('messages', '', 'createdAt', 'asc');
@@ -35,7 +38,7 @@ const ChatAccountList = () => {
                         ))}
                     </>
                 ) : (
-                    <p className={cx('empty')}>No messages yet</p>
+                    <p className={cx('empty')}>{t('message.noMessage')}</p>
                 )}
             </ul>
         </div>

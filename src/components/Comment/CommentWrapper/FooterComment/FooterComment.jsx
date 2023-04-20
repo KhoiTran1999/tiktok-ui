@@ -16,10 +16,12 @@ import { ModalSign } from '../../../ReusedComponent';
 import ModalSignSlice from '../../../ReusedComponent/ModalSign/ModalSignSlice';
 import { Timestamp } from 'firebase/firestore';
 import Mentions from '../../../ReusedComponent/Metions/Mentions';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const FooterComment = ({ video, inputValue, setInputValue, listMention, setListMention, textAreaRef }) => {
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const [isCount, setIsCount] = useState(false);
 
     const userLogin = useSelector(UserSelector);
@@ -148,7 +150,7 @@ const FooterComment = ({ video, inputValue, setInputValue, listMention, setListM
                                 value={inputValue}
                                 ref={textAreaRef}
                                 className={cx('textArea')}
-                                placeholder={'Add comment...'}
+                                placeholder={`${t('comment.Add comment')}...`}
                                 maxLength={150}
                                 rows={1}
                             ></textarea>
@@ -213,12 +215,12 @@ const FooterComment = ({ video, inputValue, setInputValue, listMention, setListM
                             className={cx('loginToComment')}
                             onClick={() => dispatch(ModalSignSlice.actions.setModalSign(true))}
                         >
-                            Log in to comment
+                            {t('comment.Log in to comment')}
                         </p>
                     )}
                 </form>
                 <span onClick={handleSubmit} className={cx({ active: inputValue.length > 0 })}>
-                    Post
+                    {t('upload.Post')}
                 </span>
             </div>
             {createPortal(<ModalSign />, document.body)}

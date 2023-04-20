@@ -13,6 +13,7 @@ import Mentions from '../../ReusedComponent/Metions/Mentions';
 import ModalDiscard from '../ModalDiscard/ModalDiscard';
 import ModalDiscardSlice from '../ModalDiscard/ModalDiscardSlice';
 import style from './AddDetail.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const AddDetail = ({
@@ -26,7 +27,10 @@ const AddDetail = ({
     isCancel,
     setIsCancel,
 }) => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
+
     const userLogin = useSelector(UserSelector);
     const userList = useSelector(UserListSelector);
 
@@ -64,9 +68,9 @@ const AddDetail = ({
 
     //is used for select element
     const restrictedOption = [
-        { value: 'Followers', label: 'Followers' },
-        { value: 'Friends', label: 'Friends' },
-        { value: 'Private', label: 'Private' },
+        { value: 'Followers', label: t('upload.Followers') },
+        { value: 'Friends', label: t('upload.Friends') },
+        { value: 'Private', label: t('upload.Private') },
     ];
 
     //is used for select element
@@ -217,7 +221,7 @@ const AddDetail = ({
         >
             <div className={cx('form-group')}>
                 <div className={cx('caption-wrap')}>
-                    <p className={cx('title')}>Caption</p>
+                    <p className={cx('title')}>{t('upload.Caption')}</p>
                     <span>{inputValue.length} / 2200</span>
                 </div>
                 <textarea
@@ -255,7 +259,7 @@ const AddDetail = ({
                 </span>
             </div>
             <div className={cx('thumnail')}>
-                <p className={cx('title')}>Cover</p>
+                <p className={cx('title')}>{t('upload.Cover')}</p>
                 <div className={cx('wrap')}>
                     <div className={cx('thumnail-wrapper')}>
                         {thumbnailList.length === 8 ? (
@@ -284,7 +288,7 @@ const AddDetail = ({
             </div>
 
             <div className={cx('restricting-selector')}>
-                <p className={cx('title')}>Who can watch this video</p>
+                <p className={cx('title')}>{t('upload.WhoCanWatch')}</p>
                 <div className={cx('select')}>
                     <Select
                         defaultValue={restrictedOption[0]}
@@ -297,14 +301,14 @@ const AddDetail = ({
             </div>
 
             <div className={cx('allow-user')}>
-                <p className={cx('title')}>Allow users to:</p>
+                <p className={cx('title')}>{t('upload.AllowUser')}</p>
                 <div className={cx('form-group')}>
                     <label htmlFor="comment">
                         <input id="comment" type="checkbox" value="comment" hidden />
                         <span className={cx('checkBox')}>
                             <i className="fa-solid fa-check"></i>
                         </span>
-                        <span className={cx('text')}>Comment</span>
+                        <span className={cx('text')}>{t('upload.Comment')}</span>
                     </label>
                     <label htmlFor="duet">
                         <input id="duet" type="checkbox" value="duet" hidden />
@@ -325,7 +329,7 @@ const AddDetail = ({
 
             <div className={cx('copyright-check')}>
                 <div className={cx('switch-check')}>
-                    <span className={cx('title')}>Run a copyright check</span>
+                    <span className={cx('title')}>{t('upload.RunCopright')}</span>
                     <div
                         onClick={() => setIsCopyrightActive(!isCopyrightActive)}
                         className={cx('switch', {
@@ -346,12 +350,11 @@ const AddDetail = ({
                             <>
                                 <p className={cx('no-issues')}>
                                     <i className="fa-solid fa-check"></i>
-                                    <span>No issues detected.</span>
+                                    <span>{t('upload.NoIssue')}</span>
                                 </p>
                                 <p className={cx('explain')}>
-                                    Note: Results of copyright checks aren't final. For instance, future changes of the
-                                    copyright holder's authorization to the sound may impact your video may impact your
-                                    video. <a href="">Learn more</a>
+                                    {t('upload.Explain2')}
+                                    <a href="">{t('upload.LearnMore')}</a>
                                 </p>
                             </>
                         ) : (
@@ -363,8 +366,8 @@ const AddDetail = ({
                     </>
                 ) : (
                     <p className={cx('explain')}>
-                        We'll check your video for potential copyright infringements on used sounds. If infringements
-                        are found, you can edit the video before posting. <a href="">Learn more</a>
+                        {t('upload.Explain1')}
+                        <a href="">{t('upload.LearnMore')}</a>
                     </p>
                 )}
             </div>
@@ -378,7 +381,7 @@ const AddDetail = ({
                     medium
                     className={cx('discard')}
                 >
-                    Discard
+                    {t('upload.Discard')}
                 </Button>
 
                 {isRunning ? (
@@ -389,7 +392,7 @@ const AddDetail = ({
                     <>
                         {videoLink && thumbnailURL ? (
                             <Button onClick={handlePostVideo} primary medium className={cx('post')}>
-                                Post
+                                {t('upload.Post')}
                             </Button>
                         ) : (
                             <Button
@@ -398,7 +401,7 @@ const AddDetail = ({
                                 medium
                                 className={cx('restricted-post')}
                             >
-                                Post
+                                {t('upload.Post')}
                             </Button>
                         )}
                     </>

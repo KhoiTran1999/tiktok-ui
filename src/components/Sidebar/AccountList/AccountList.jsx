@@ -5,9 +5,12 @@ import { UserSelector } from '../../../redux/selector';
 import { AccountSearch } from '../../ReusedComponent';
 import TippyAccountItem from '../TippyAccountItem';
 import style from './AccountList.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const AccountList = ({ title, tippyVisible, accountList }) => {
+    const { t } = useTranslation();
+
     const user = useSelector(UserSelector);
     const [newAccountList, setNewAccountList] = useState([]);
     const amountAccountRef = useRef(5);
@@ -54,7 +57,7 @@ const AccountList = ({ title, tippyVisible, accountList }) => {
                             skeletonLoading: user.login === null,
                         })}
                     >
-                        See less
+                        {t('sidebar.seeLess')}
                     </button>
                 ) : (
                     <button
@@ -63,7 +66,7 @@ const AccountList = ({ title, tippyVisible, accountList }) => {
                             skeletonLoading: user.login === null,
                         })}
                     >
-                        See all
+                        {t('sidebar.seeAll')}
                     </button>
                 )}
             </div>

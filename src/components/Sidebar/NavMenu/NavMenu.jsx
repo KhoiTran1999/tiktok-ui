@@ -14,18 +14,18 @@ import style from './NavMenu.module.scss';
 
 const cx = classNames.bind(style);
 const NavMenu = () => {
-    const { t } = useTranslation(); //Remember translate here
+    const { t } = useTranslation();
     const NavMenuData = [
         {
             icon: <HomeLogo className={cx('icon')} />,
             activeIcon: <HomeLogoActive />,
-            title: 'For You',
+            title: t('sidebar.ForYou'),
             to: config.routes.home,
         },
         {
             icon: <UserGroupLogo className={cx('icon')} />,
             activeIcon: <UserGroupLogoActive />,
-            title: 'Following',
+            title: t('sidebar.Following'),
             to: config.routes.following,
         },
         {

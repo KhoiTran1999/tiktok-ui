@@ -1,14 +1,16 @@
 .group {
-    flex: 0 0 315px;
+    flex: 0 0 352px;
     > ul {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        margin-right: 10px;
         > li {
             margin-left: 15px;
             position: relative;
             cursor: pointer;
+            &:first-child {
+                margin-left: 0;
+            }
             .upload {
                 span {
                     font-size: 15px;
@@ -70,8 +72,9 @@
                 .tipTool {
                     display: none;
                     position: absolute;
+                    width: 80px;
                     top: 54px;
-                    right: -5px;
+                    right: -15px;
                 }
             }
 

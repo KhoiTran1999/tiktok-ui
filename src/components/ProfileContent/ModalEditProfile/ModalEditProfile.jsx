@@ -6,20 +6,22 @@ import classNames from 'classnames/bind';
 import style from './ModalEditProfile.module.scss';
 import Modal from '../../ReusedComponent/Modal/Modal';
 import ModalEditProfileSlice from './ModalEditProfileSlice';
-import { ModalEditProfileSelector, UserListSelector, UserSelector } from '../../../redux/selector';
+import { AllUserListSelector, ModalEditProfileSelector, UserListSelector, UserSelector } from '../../../redux/selector';
 import { Button } from '../../ReusedComponent';
 import { deleteFileStorage, updateDocument, uploadPoster } from '../../../firebase/services';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import generateKey from '../../../services/generaterKey';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
 const ModalEditProfile = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const userLogin = useSelector(UserSelector);
-    const userList = useSelector(UserListSelector);
+    const allUserList = useSelector(AllUserListSelector);
     const isModalEditProfile = useSelector(ModalEditProfileSelector);
 
     const [preview, setPreview] = useState(userLogin.photoURL);
@@ -90,7 +92,7 @@ const ModalEditProfile = () => {
             setIsExceedUserName(false);
             setAtLeastError(false);
             e.target.style.border = '1px solid rgba(22, 24, 35, 0.2)';
-            const sameNickname = userList.filter((val) => {
+            const sameNickname = allUserList.filter((val) => {
                 return val.nickName !== userLogin.nickName && val.nickName === e.target.value;
             });
 
@@ -197,13 +199,13 @@ const ModalEditProfile = () => {
                 <Modal overflow="auto">
                     <div className={cx('wrapper-edit')}>
                         <div className={cx('header')}>
-                            <h3>Edit profile</h3>
+                            <h3>{t('followStatus.EditProfile')}</h3>
                             <i onClick={handleCancel} className="fa-solid fa-xmark"></i>
                         </div>
                         <div className={cx('body')}>
                             <div className={cx('profilePhoto')}>
                                 <div className={cx('title')}>
-                                    <h4>Profile photo</h4>
+                                    <h4>{t('editProfile.profilePhoto')}</h4>
                                 </div>
                                 <div className={cx('photo-wrapper')}>
                                     <img src={preview} alt="" />
@@ -223,13 +225,13 @@ const ModalEditProfile = () => {
                             </div>
                             <div className={cx('userName')}>
                                 <div className={cx('title')}>
-                                    <h4>UserName</h4>
+                                    <h4>{t('editProfile.UserName')}</h4>
                                 </div>
                                 <div className={cx('info-wrap')}>
                                     <input
                                         value={inputUserName}
                                         onChange={handleSetInputUserName}
-                                        placeholder="UserName"
+                                        placeholder={t('editProfile.UserName')}
                                         maxLength={24}
                                         type="text"
                                         onFocus={(e) => (e.target.style.border = '1px solid rgba(22, 24, 35, 0.2)')}
@@ -237,7 +239,7 @@ const ModalEditProfile = () => {
                                     />
                                     {atLeastError ? (
                                         <p style={{ fontSize: '11px', color: 'red', marginTop: '5px' }}>
-                                            Include at least 2 characters in your username
+                                            {t('editProfile.atleast')}
                                         </p>
                                     ) : (
                                         <></>
@@ -246,12 +248,12 @@ const ModalEditProfile = () => {
                                         <></>
                                     ) : (
                                         <p style={{ fontSize: '11px', color: 'red', marginTop: '5px' }}>
-                                            This username isn't available. Please enter a new one.
+                                            {t('editProfile.available')}
                                         </p>
                                     )}
                                     {isExceedUserName ? (
                                         <p style={{ fontSize: '11px', color: 'red', marginTop: '5px' }}>
-                                            Maximum 24 characters
+                                            {t('editProfile.maximum1')}
                                         </p>
                                     ) : (
                                         <></>
@@ -259,15 +261,12 @@ const ModalEditProfile = () => {
                                     <p className={cx('link')}>
                                         https://tiktok-clone-khoitran.web.app/profile/{encodeURI(inputUserName)}
                                     </p>
-                                    <p className={cx('instruction')}>
-                                        Usernames can only contain letters, numbers, underscores, and periods. Changing
-                                        your username will also change your profile link
-                                    </p>
+                                    <p className={cx('instruction')}>{t('editProfile.explain1')}</p>
                                 </div>
                             </div>
                             <div className={cx('name')}>
                                 <div className={cx('title')}>
-                                    <h4>Name</h4>
+                                    <h4>{t('editProfile.Name')}</h4>
                                 </div>
                                 <div className={cx('info-wrap')}>
                                     <input
@@ -275,30 +274,28 @@ const ModalEditProfile = () => {
                                         onChange={handleSetInputName}
                                         onFocus={(e) => (e.target.style.border = '1px solid rgba(22, 24, 35, 0.2)')}
                                         onBlur={(e) => (e.target.style.border = '1px solid transparent')}
-                                        placeholder="Name"
+                                        placeholder={t('editProfile.Name')}
                                         maxLength={30}
                                         type="text"
                                     />
                                     {isExceedName ? (
                                         <p style={{ fontSize: '11px', color: 'red', marginTop: '5px' }}>
-                                            Maximum 30 characters
+                                            {t('editProfile.maximum2')}
                                         </p>
                                     ) : (
-                                        <p className={cx('instruction')}>
-                                            Your nickname can only be changed once every 7 days
-                                        </p>
+                                        <p className={cx('instruction')}>{t('editProfile.explain2')}</p>
                                     )}
                                 </div>
                             </div>
                             <div className={cx('bio')}>
                                 <div className={cx('title')}>
-                                    <h4>Bio</h4>
+                                    <h4>{t('editProfile.Bio')}</h4>
                                 </div>
                                 <div className={cx('info-wrap')}>
                                     <textarea
                                         value={inputBio}
                                         onChange={handleSetBio}
-                                        placeholder="Bio"
+                                        placeholder={t('editProfile.Bio')}
                                         cols="48"
                                         rows="3"
                                         maxLength={80}
@@ -315,7 +312,7 @@ const ModalEditProfile = () => {
                         </div>
                         <div className={cx('footer')}>
                             <Button onClick={handleCancel} className={cx('cancel-button')} basic small>
-                                Cancel
+                                {t('message.Cancel')}
                             </Button>
                             {isSaveButton ? (
                                 <Button
@@ -324,11 +321,11 @@ const ModalEditProfile = () => {
                                     primary
                                     small
                                 >
-                                    Save
+                                    {t('message.Save')}
                                 </Button>
                             ) : (
                                 <Button className={cx('save-button')} small>
-                                    Save
+                                    {t('message.Save')}
                                 </Button>
                             )}
                         </div>
