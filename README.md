@@ -6,7 +6,7 @@ Link Product: https://tiktok-clone-khoitran.firebaseapp.com/
 
 ## Features
 
-- Scrolling and watching video
+- [Scrolling and watching video](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#scrolling-and-watching-video)
 - Uploading video
 - Share video and profile
 - User's interaction
