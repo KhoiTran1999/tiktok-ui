@@ -7,16 +7,16 @@ Link Product: https://tiktok-clone-khoitran.firebaseapp.com/
 ## Features
 
 - [Scrolling and watching video](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#scrolling-and-watching-video)
-- Uploading video
-- Share video and profile
-- User's interaction
+- [Uploading video](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#uploading-video)
+- [Share video and profile](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#share-video-and-profile)
+- [User's interaction](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#users-interaction)
   - Follow / Unfollow
   - like and comment video
   - mention friends
-- Popup notification
-- Realtime message
-- Darkmode
-- Language alternation (En, Vi)
+- [Popup notification](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#popup-notification)
+- [Realtime message](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#realtime-message)
+- [Darkmode](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#dark-mode)
+- [Language alternation (En, Vi)](https://github.com/KhoiTran1999/tiktok-ui/blob/Secondary/README.md#language-alternation)
 
 ---
 
