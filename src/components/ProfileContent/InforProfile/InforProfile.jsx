@@ -73,7 +73,6 @@ const InforProfile = ({ allUserList }) => {
             });
         }
 
-        dispatch(DarkModeSlice.actions.setDarkMode(false));
         navigate(routes.messages);
     };
 
