@@ -12,9 +12,11 @@
         }
         ul {
             li {
+                margin-right: -20px;
                 a {
+                    width: 100%;
                     padding: 5px 8px;
-                    margin: 0px -10px;
+                    margin-left: -10px;
                     transition: 0.5s all;
                     img {
                         width: 32px;
@@ -23,9 +25,6 @@
                     p {
                         font-size: 12px;
                         margin-top: -5px;
-                    }
-                    &:hover {
-                        border-radius: 4px;
                     }
                 }
             }
