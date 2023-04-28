@@ -1,0 +1,65 @@
+.notFound {
+    .profile-container-header {
+        max-width: 100%;
+        width: 100%;
+        margin-left: -5px;
+    }
+    .body {
+        padding-top: 116px;
+        padding-bottom: 130px;
+        background: url('https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/site/static/webapp-static-site/532e06c8382fb6011df0.png')
+            center center / cover no-repeat transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .code404 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            span {
+                font-size: 290px;
+                font-weight: 500;
+                color: rgb(22, 24, 35);
+            }
+            img {
+                width: 244px;
+                height: 244px;
+            }
+        }
+        .cannotFind {
+            p {
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 25px;
+                margin-top: -54px;
+                color: rgba(22, 24, 35, 0.5);
+            }
+        }
+        .checkout {
+            margin-top: -20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            p {
+                font-weight: 700;
+                font-size: 22px;
+                line-height: 28px;
+                color: rgb(22, 24, 35);
+                max-width: 622px;
+                word-break: break-word;
+                margin: 40px auto 0px;
+                text-align: center;
+            }
+        }
+    }
+    .footer {
+        background-color: black;
+        .container {
+            width: 100%;
+            max-width: 1115px;
+            margin: 0 auto;
+        }
+    }
+}

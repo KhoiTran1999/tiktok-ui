@@ -12,6 +12,7 @@ import DarkModeSlice from './components/Header/RightHeader/DarkModeSlice';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
     const { i18n } = useTranslation();
@@ -62,6 +63,7 @@ function App() {
                             />
                         );
                     })}
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
                 <AuthUser />
                 <Notification />

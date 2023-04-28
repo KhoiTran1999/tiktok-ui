@@ -4,7 +4,7 @@ import style from './UploadVideo.module.scss';
 import { SubnavWrapper } from '../ReusedComponent';
 import Preview from './Preview/Preview';
 import AddDetail from './AddDetail/AddDetail';
-import Footer from './Footer/Footer';
+import Footer from '../ReusedComponent/Footer/Footer';
 import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(style);
