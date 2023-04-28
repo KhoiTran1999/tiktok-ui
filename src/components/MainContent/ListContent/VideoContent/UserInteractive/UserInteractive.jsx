@@ -12,27 +12,6 @@ import style from './UserInteractive.module.scss';
 import { updateDocument } from '../../../../../firebase/services';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {
-    EmailShareButton,
-    FacebookShareButton,
-    HatenaShareButton,
-    InstapaperShareButton,
-    LineShareButton,
-    LinkedinShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    OKShareButton,
-    PinterestShareButton,
-    PocketShareButton,
-    RedditShareButton,
-    TelegramShareButton,
-    TumblrShareButton,
-    TwitterShareButton,
-    ViberShareButton,
-    VKShareButton,
-    WhatsappShareButton,
-    WorkplaceShareButton,
-} from 'react-share';
 
 const cx = classNames.bind(style);
 const Box = styled(motion.div)``;

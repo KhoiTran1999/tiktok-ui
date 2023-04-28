@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './ProfileContent.module.scss';
 import MoreActionProfile from './MoreActionProfile/MoreActionProfile';
@@ -15,18 +15,20 @@ const ProfileContent = () => {
     const allUserList = useSelector(AllUserListSelector);
 
     return (
-        <div className={cx('profileContent')}>
-            <div className={cx('wrapper')}>
-                <div className={cx('header')}>
-                    <div className={cx('row')}>
-                        <InforProfile allUserList={allUserList} />
-                        <MoreActionProfile allUserList={allUserList} />
+        <>
+            <div className={cx('profileContent')}>
+                <div className={cx('wrapper')}>
+                    <div className={cx('header')}>
+                        <div className={cx('row')}>
+                            <InforProfile allUserList={allUserList} />
+                            <MoreActionProfile allUserList={allUserList} />
+                        </div>
                     </div>
+                    <VideoProfile allUserList={allUserList} />
                 </div>
-                <VideoProfile allUserList={allUserList} />
+                {createPortal(<ModalEditProfile />, document.body)}
             </div>
-            {createPortal(<ModalEditProfile />, document.body)}
-        </div>
+        </>
     );
 };
 
