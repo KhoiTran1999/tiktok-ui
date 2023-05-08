@@ -156,7 +156,12 @@ const LoginRightHeader = () => {
             <ul>
                 <li>
                     <Link to={routes.upload}>
-                        <Button basic medium className={cx('upload')}>
+                        <Button
+                            basic
+                            medium
+                            className={cx('upload')}
+                            onClick={() => (document.title = 'Upload | TikTok')}
+                        >
                             <i className="fa-solid fa-plus"></i> {t('header.upload')}
                         </Button>
                     </Link>
@@ -186,7 +191,10 @@ const LoginRightHeader = () => {
                                             <LogoMessageActive className={cx('message')} />
                                         </div>
                                     ) : (
-                                        <div className={cx('messages-wrap')}>
+                                        <div
+                                            className={cx('messages-wrap')}
+                                            onClick={() => (document.title = 'Messages | TikTok')}
+                                        >
                                             <LogoMessage className={cx('message')} />
                                         </div>
                                     )}

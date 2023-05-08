@@ -27,7 +27,10 @@ const ItemContent = ({ video }) => {
     return (
         <li>
             <div className={cx('avatar')}>
-                <Link to={`/profile/${userVideo.nickName}`}>
+                <Link
+                    to={`/profile/${userVideo.nickName}`}
+                    onClick={() => (document.title = `${userVideo.displayName} | TikTok`)}
+                >
                     <img src={userVideo.photoURL} alt="avatar" />
                 </Link>
             </div>

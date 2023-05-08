@@ -175,7 +175,10 @@ const HeaderComment = ({ video, userVideo }) => {
                         </SubnavWrapper>
                     )}
                 >
-                    <Link to={`/profile/${userVideo.nickName}`}>
+                    <Link
+                        to={`/profile/${userVideo.nickName}`}
+                        onClick={() => (document.title = `${userVideo.displayName} | TikTok`)}
+                    >
                         <div className={cx('infor')}>
                             <div className={cx('avatar')}>
                                 <img src={userVideo.photoURL} alt="avatar" />

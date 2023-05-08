@@ -88,7 +88,10 @@ const AccountItem = ({ accountUser }) => {
                     </SubnavWrapper>
                 )}
             >
-                <Link to={`/profile/${accountUser.nickName}`}>
+                <Link
+                    to={`/profile/${accountUser.nickName}`}
+                    onClick={() => (document.title = `${accountUser.displayName} | TikTok`)}
+                >
                     <div
                         className={cx('avatar', {
                             skeletonLoading: user.login === null,

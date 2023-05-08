@@ -114,7 +114,10 @@ const Commenter = ({ comment, video, inputValue, setInputValue, listMention, set
         <div className={cx('commenter')}>
             <div className={cx('infor')}>
                 <div className={cx('avatar')}>
-                    <Link to={`/profile/${userComment.nickName}`}>
+                    <Link
+                        to={`/profile/${userComment.nickName}`}
+                        onClick={() => (document.title = `${userComment.displayName} | TikTok`)}
+                    >
                         <img src={comment.photoURL} alt="avatar" />
                     </Link>
                 </div>
@@ -178,7 +181,10 @@ const Commenter = ({ comment, video, inputValue, setInputValue, listMention, set
                             </SubnavWrapper>
                         )}
                     >
-                        <Link to={`/profile/${userComment.nickName}`}>
+                        <Link
+                            to={`/profile/${userComment.nickName}`}
+                            onClick={() => (document.title = `${userComment.displayName} | TikTok`)}
+                        >
                             <div className={cx('nickName-wrap')}>
                                 <div className={cx('nickName')}>{userComment.nickName}</div>
                                 <i className="fa-solid fa-circle-check"></i>
