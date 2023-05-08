@@ -52,7 +52,7 @@ const Messages = () => {
                 </div>
             </div>
             <Link to={routes.home}>
-                <div className={cx('backButton')}>
+                <div className={cx('backButton')} onClick={() => (document.title = 'TikTok - Make Your Day')}>
                     <i className="fa-solid fa-arrow-left"></i>
                 </div>
             </Link>

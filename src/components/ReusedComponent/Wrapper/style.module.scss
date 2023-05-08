@@ -6,6 +6,7 @@
     font-size: 16px;
     font-weight: 600;
     border-radius: 8px;
+    overscroll-behavior: none;
     &::before {
         content: '';
         border: 10px rgba(84, 84, 84, 0.92) solid;

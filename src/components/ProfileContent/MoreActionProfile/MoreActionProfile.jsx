@@ -119,7 +119,7 @@ const MoreActionProfile = ({ allUserList }) => {
             });
         }
 
-        dispatch(DarkModeSlice.actions.setDarkMode(false));
+        document.title = `Messages | TikTok`;
         navigate(routes.messages);
     };
 

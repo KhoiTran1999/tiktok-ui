@@ -15,7 +15,10 @@ const AccountSearch = ({ accountList, classname }) => {
                             if (val.user === '') return <></>;
                             return (
                                 <li key={val.id}>
-                                    <Link to={`/profile/${val.nickName}`}>
+                                    <Link
+                                        to={`/profile/${val.nickName}`}
+                                        onClick={() => (document.title = `${val.displayName} | TikTok`)}
+                                    >
                                         <ImageCustom src={val.photoURL} alt="avatar" />
                                         <div className={cx('information')}>
                                             <div className={cx('wrap')}>

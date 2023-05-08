@@ -25,7 +25,7 @@ const Header = ({ className }) => {
         <header>
             <div className={cx('container', className)}>
                 <div className={cx('row')}>
-                    <h1 className={cx('logo')}>
+                    <h1 className={cx('logo')} onClick={() => (document.title = 'TikTok - Make Your Day')}>
                         <Link to={routes.home}>
                             {darkMode ? (
                                 <img

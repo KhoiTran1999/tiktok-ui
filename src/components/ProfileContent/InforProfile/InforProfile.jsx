@@ -72,7 +72,7 @@ const InforProfile = ({ allUserList }) => {
                 members: [userLogin.uid, user.uid],
             });
         }
-
+        document.title = `Messages | TikTok`;
         navigate(routes.messages);
     };
 

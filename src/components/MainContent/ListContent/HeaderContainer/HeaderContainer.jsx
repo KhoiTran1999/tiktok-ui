@@ -31,7 +31,7 @@ const HeaderContainer = ({ userVideo, video }) => {
         <div className={cx('header-container')}>
             <div className={cx('info-container')}>
                 <Link to={`/profile/${userVideo.nickName}`}>
-                    <span className={cx('wrap')}>
+                    <span className={cx('wrap')} onClick={() => (document.title = `${userVideo.displayName} | TikTok`)}>
                         <span className={cx('nickname')}>{userVideo.nickName}</span>
                         {userVideo.tick ? (
                             <i
