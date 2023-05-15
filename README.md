@@ -22,7 +22,7 @@ Link Product: https://tiktok-clone-khoitran.firebaseapp.com/
 
 ### Scrolling and Watching video
 
-Using [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to automatically play video when content appear as you scroll
+Using [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to automatically play video when content appears as you scroll
 ![scrolling video](https://user-images.githubusercontent.com/96333581/233543966-634928f4-5efd-4397-9308-ad8ea536fac3.gif)
 
 ### Uploading Video
